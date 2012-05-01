@@ -1,4 +1,4 @@
-#ifndef CXPANELWINDOW_H
+﻿#ifndef CXPANELWINDOW_H
 #define CXPANELWINDOW_H
 
 #include "AXBaseWindow.h"

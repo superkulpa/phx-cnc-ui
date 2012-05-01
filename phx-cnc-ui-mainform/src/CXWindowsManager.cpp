@@ -1,4 +1,4 @@
-#include "CXWindowsManager.h"
+﻿#include "CXWindowsManager.h"
 
 #include <QList>
 #include <QDesktopWidget>
