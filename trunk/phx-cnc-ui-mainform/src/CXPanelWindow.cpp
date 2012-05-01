@@ -1,4 +1,4 @@
-#include "CXPanelWIndow.h"
+﻿#include "CXPanelWIndow.h"
 
 #include "CXWindowsManager.h"
 
