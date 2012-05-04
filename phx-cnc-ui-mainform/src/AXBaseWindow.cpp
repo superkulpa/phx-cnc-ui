@@ -2,6 +2,8 @@
 
 #include <QResizeEvent>
 #include <QPainter>
+#include <QApplication>
+
 #include "CXWindowsManager.h"
 
 CXWindowsManager* AXBaseWindow::mManager = NULL;
@@ -66,31 +68,32 @@ bool AXBaseWindow::isFreeze()
 	return mIsFreeze;
 }
 
-void AXBaseWindow::mousePressEvent(QMouseEvent* e)
+void AXBaseWindow::mousePress(QMouseEvent* e)
 {
-	QWidget::mousePressEvent(e);
+	if (mIsFreeze) return;
 
 	if (e->button() == Qt::LeftButton)
 	{
-		if (mIsFreeze) return;
-
 		mPos = pos();
 		mPressPos = e->globalPos();
 
 		mResizeType = getResizeType(geometry(), e->globalPos());
 
-		if (mResizeType == E_None) setCursor(Qt::SizeAllCursor);
-		else setCursor(mCursors.at(mResizeType));
+		if (mResizeType == E_None)
+		{
+			qApp->setOverrideCursor(Qt::SizeAllCursor);
+		}
+		else
+		{
+			setCursor(mCursors.at(mResizeType));
+			qApp->setOverrideCursor(mCursors.at(mResizeType));
+		}
 	}
 }
 
-void AXBaseWindow::mouseMoveEvent(QMouseEvent* e)
+bool AXBaseWindow::mouseMove(QMouseEvent* e)
 {
-	if (mIsFreeze)
-	{
-		QWidget::mouseMoveEvent(e);
-		return;
-	}
+	if (mIsFreeze) return false;
 
 	if (e->buttons() == Qt::LeftButton)
 	{
@@ -127,11 +130,11 @@ void AXBaseWindow::mouseMoveEvent(QMouseEvent* e)
 		else geom.moveTo(mPos + e->globalPos() - mPressPos);
 
 		emit geometryChanged(geom, mResizeType != E_None);
+
+		return true;
 	}
 	else
 	{
-		QWidget::mouseMoveEvent(e);
-
 		eSideType resizeType = getResizeType(geometry(), e->globalPos());
 		setCursor(mCursors.at(resizeType));
 		if (resizeType != mResizeType)
@@ -140,13 +143,36 @@ void AXBaseWindow::mouseMoveEvent(QMouseEvent* e)
 			update();
 		}
 	}
+
+	return false;
+}
+
+void AXBaseWindow::mouseRelease(QMouseEvent*)
+{
+	if (mIsFreeze) return;
+
+	setCursor(Qt::ArrowCursor);
+	qApp->restoreOverrideCursor();
+}
+
+void AXBaseWindow::mousePressEvent(QMouseEvent* e)
+{
+	QWidget::mousePressEvent(e);
+	mousePress(e);
+}
+
+void AXBaseWindow::mouseMoveEvent(QMouseEvent* e)
+{
+	QWidget::mouseMoveEvent(e);
+
+	mouseMove(e);
 }
 
 void AXBaseWindow::mouseReleaseEvent(QMouseEvent* e)
 {
 	QWidget::mouseReleaseEvent(e);
 
-	setCursor(Qt::ArrowCursor);
+	mouseRelease(e);
 }
 
 void AXBaseWindow::paintEvent(QPaintEvent* e)
