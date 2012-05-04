@@ -11,6 +11,7 @@ CXPanelWindow::CXPanelWindow() : AXBaseWindow()
 	connect(ui.btnGroup1,	SIGNAL(clicked()), this, SLOT(setGroup()));
 	connect(ui.btnGroup2,	SIGNAL(clicked()), this, SLOT(setGroup()));
 	connect(ui.btnExit,		SIGNAL(clicked()), this, SLOT(close()));
+	connect(ui.btnFreeze,	SIGNAL(clicked(bool)), mManager, SLOT(setFreeze(bool)));
 }
 
 CXPanelWindow::~CXPanelWindow()

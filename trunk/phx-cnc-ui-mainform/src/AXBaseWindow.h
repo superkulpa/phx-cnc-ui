@@ -66,6 +66,22 @@ public:
 	*/
 	bool isFreeze();
 
+	/*!
+		Функция обработки нажатия кнопки мышки.
+	*/
+	void mousePress(QMouseEvent* e);
+
+	/*!
+		Функция обработки движения мышки.
+		\return Обработано событие или проигнорировано.
+	*/
+	bool mouseMove(QMouseEvent* e);
+
+	/*!
+		Функция обработки отпускания кнопки мышки.
+	*/
+	void mouseRelease(QMouseEvent* e);
+
 signals:
 	/*!
 		Сигнал об изменении геометрии окна.

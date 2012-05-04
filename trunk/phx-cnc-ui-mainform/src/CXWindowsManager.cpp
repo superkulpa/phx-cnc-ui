@@ -7,11 +7,14 @@
 #include <QTextStream>
 #include <QTextCodec>
 #include <QDomDocument>
+#include <QMouseEvent>
 
 CXWindowsManager::CXWindowsManager()
 {
 	mList.append(QApplication::desktop());
 	mList.append(QApplication::desktop());
+
+	qApp->installEventFilter(this);
 }
 
 CXWindowsManager::~CXWindowsManager()
@@ -41,19 +44,6 @@ void CXWindowsManager::setCurrentGroup(int aGroupNumber)
 
 		if (curWindow->groupNumber() >= 0 && curWindow->groupNumber() != aGroupNumber) curWindow->hide();
 		else if (curWindow->isHidden()) curWindow->show();
-	}
-}
-
-void CXWindowsManager::setFreeze(bool aIsFreeze)
-{
-	AXBaseWindow* curWindow = NULL;
-
-	QList<QWidget*>::iterator iter;
-	for (iter = mList.begin(); iter != mList.end(); ++iter)
-	{
-		curWindow = qobject_cast<AXBaseWindow*>(*iter);
-
-		if (curWindow != NULL) curWindow->setFreeze(aIsFreeze);
 	}
 }
 
@@ -123,6 +113,74 @@ void CXWindowsManager::load(const QString& aFileName)
 			element = element.nextSiblingElement();
 		}
 	}
+}
+
+void CXWindowsManager::setFreeze(bool aIsFreeze)
+{
+	if (aIsFreeze) qApp->removeEventFilter(this);
+	else qApp->installEventFilter(this);
+
+	AXBaseWindow* curWindow = NULL;
+
+	QList<QWidget*>::iterator iter;
+	for (iter = mList.begin(); iter != mList.end(); ++iter)
+	{
+		curWindow = qobject_cast<AXBaseWindow*>(*iter);
+
+		if (curWindow != NULL) curWindow->setFreeze(aIsFreeze);
+	}
+}
+
+bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
+{
+	if (e->type() == QEvent::MouseButtonPress || e->type() == QEvent::MouseMove || e->type() == QEvent::MouseButtonRelease)
+	{
+		QWidget* widget = qobject_cast<QWidget*>(watched);
+		if (widget != NULL)
+		{
+			bool isBreak = false;
+
+			while (widget->parentWidget() != NULL)
+			{
+				widget = widget->parentWidget();
+
+				if (QString(widget->metaObject()->className()) == "AXBaseWindow")
+				{
+					isBreak = true;
+					break;
+				}
+			}
+
+			if (isBreak)
+			{
+				AXBaseWindow* baseWindow = qobject_cast<AXBaseWindow*>(widget);
+				if (baseWindow != NULL && !baseWindow->isFreeze())
+				{
+					switch (e->type())
+					{
+						case QEvent::MouseButtonPress:
+						{
+							baseWindow->mousePress(dynamic_cast<QMouseEvent*>(e));
+							break;
+						}
+						case QEvent::MouseMove:
+						{
+							return baseWindow->mouseMove(dynamic_cast<QMouseEvent*>(e));
+						}
+						case QEvent::MouseButtonRelease:
+						{
+							baseWindow->mouseRelease(dynamic_cast<QMouseEvent*>(e));
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	return false;
 }
 
 void CXWindowsManager::windowGeometryChange(const QRect& aNewGeometry, bool aIsResized)

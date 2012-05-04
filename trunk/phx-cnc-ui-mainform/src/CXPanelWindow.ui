@@ -42,6 +42,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QPushButton" name="btnFreeze">
+     <property name="text">
+      <string>Freeze</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QPushButton" name="btnExit">
      <property name="text">
       <string>Exit</string>

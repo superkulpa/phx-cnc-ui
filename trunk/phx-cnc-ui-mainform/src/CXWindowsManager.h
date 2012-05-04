@@ -29,12 +29,6 @@ public:
 	void setCurrentGroup(int aGroupNumber);
 
 	/*!
-		Функция установки заморозки всем окнам.
-		\param aIsFreeze - флаг заморозки.
-	*/
-	void setFreeze(bool aIsFreeze);
-
-	/*!
 		Функция сохранения геометрии окон.
 		\param aFileName - путь с именем файла.
 	*/
@@ -45,6 +39,16 @@ public:
 		\param aFileName - путь с именем файла.
 	*/
 	void load(const QString& aFileName);
+
+public slots:
+	/*!
+		Функция установки заморозки всем окнам.
+		\param aIsFreeze - флаг заморозки.
+	*/
+	void setFreeze(bool aIsFreeze);
+
+protected:
+	virtual bool eventFilter(QObject* watched, QEvent* e);
 
 private slots:
 	/*!
