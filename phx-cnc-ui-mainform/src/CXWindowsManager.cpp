@@ -9,6 +9,8 @@
 #include <QDomDocument>
 #include <QMouseEvent>
 
+#include "CXPanelWindow.h"
+
 CXWindowsManager::CXWindowsManager()
 {
 	mList.append(QApplication::desktop());
@@ -144,7 +146,7 @@ bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 			{
 				widget = widget->parentWidget();
 
-				if (QString(widget->metaObject()->className()) == "AXBaseWindow")
+				if (qobject_cast<AXBaseWindow*>(widget) != NULL)
 				{
 					isBreak = true;
 					break;
@@ -154,6 +156,8 @@ bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 			if (isBreak)
 			{
 				AXBaseWindow* baseWindow = qobject_cast<AXBaseWindow*>(widget);
+				bool isPanel = (qobject_cast<CXPanelWindow*>(widget) != NULL);
+
 				if (baseWindow != NULL && !baseWindow->isFreeze())
 				{
 					switch (e->type())
@@ -165,7 +169,10 @@ bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 						}
 						case QEvent::MouseMove:
 						{
-							return baseWindow->mouseMove(dynamic_cast<QMouseEvent*>(e));
+							bool res = baseWindow->mouseMove(dynamic_cast<QMouseEvent*>(e));
+							if (isPanel) return res;
+
+							break;
 						}
 						case QEvent::MouseButtonRelease:
 						{
@@ -174,6 +181,8 @@ bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 						}
 					}
 				}
+
+				if (!isPanel) return true;
 			}
 		}
 
