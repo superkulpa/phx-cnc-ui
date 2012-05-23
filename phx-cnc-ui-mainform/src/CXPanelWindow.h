@@ -2,7 +2,8 @@
 #define CXPANELWINDOW_H
 
 #include "AXBaseWindow.h"
-#include "ui_CXPanelWindow.h"
+
+#include <QPushButton>
 
 class CXPanelWindow : public AXBaseWindow
 {
@@ -16,7 +17,7 @@ private slots:
 	void setGroup();
 
 private:
-	Ui::CXPanelWindow ui;
+	QPushButton* btnGroup1;
 };
 
 #endif // CXPANELWINDOW_H
