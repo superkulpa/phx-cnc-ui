@@ -85,7 +85,6 @@ void AXBaseWindow::mousePress(QMouseEvent* e)
 		}
 		else
 		{
-			setCursor(mCursors.at(mResizeType));
 			qApp->setOverrideCursor(mCursors.at(mResizeType));
 		}
 	}
@@ -136,7 +135,7 @@ bool AXBaseWindow::mouseMove(QMouseEvent* e)
 	else
 	{
 		eSideType resizeType = getResizeType(geometry(), e->globalPos());
-		setCursor(mCursors.at(resizeType));
+		qApp->setOverrideCursor(mCursors.at(resizeType));
 		if (resizeType != mResizeType)
 		{
 			mResizeType = resizeType;
@@ -151,7 +150,6 @@ void AXBaseWindow::mouseRelease(QMouseEvent*)
 {
 	if (mIsFreeze) return;
 
-	setCursor(Qt::ArrowCursor);
 	qApp->restoreOverrideCursor();
 }
 

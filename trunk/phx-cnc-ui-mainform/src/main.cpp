@@ -1,4 +1,4 @@
-﻿#include <QApplication>
+#include <QApplication>
 
 #include <QVBoxLayout>
 #include <QLabel>
@@ -9,6 +9,7 @@
 
 #include "CXWindowsManager.h"
 #include "CXPanelWindow.h"
+#include "CXPathView.h"
 
 AXBaseWindow* getTestWindow(int aIndex, int aGroup)
 {
@@ -21,12 +22,23 @@ AXBaseWindow* getTestWindow(int aIndex, int aGroup)
 	{
 		case 0:
 		{
-			QLabel* label = new QLabel(window);
-			QPixmap pixmap("image.png");
-			pixmap = pixmap.scaled(pixmap.width() / 2, pixmap.height() / 2);
-			label->setPixmap(pixmap);
-			label->setAlignment(Qt::AlignCenter);
-			centralLayout->addWidget(label);
+			CXPathView* pathView = new CXPathView(window);
+			//pathView->load("C:/Users/OLEG@tor/Downloads/files/list.kerf.cpr.ccp", "C:/Users/OLEG@tor/Downloads/files/list.cpr.ccp");
+			pathView->load("tmp/list.kerf.cpr.ccp", "tmp/list.cpr.ccp");
+			centralLayout->addWidget(pathView);
+
+			QHBoxLayout* horLayout = new QHBoxLayout;
+
+			QPushButton* zoomInButton = new QPushButton(QObject::trUtf8("+ Увеличить"), window);
+			horLayout->addWidget(zoomInButton);
+
+			QPushButton* zoomOutButton = new QPushButton(QObject::trUtf8("- Уменьшить"), window);
+			horLayout->addWidget(zoomOutButton);
+
+			QObject::connect(zoomInButton, SIGNAL(clicked()), pathView, SLOT(zoomIn()));
+			QObject::connect(zoomOutButton, SIGNAL(clicked()), pathView, SLOT(zoomOut()));
+
+			centralLayout->addLayout(horLayout);
 
 			break;
 		}
@@ -104,7 +116,7 @@ AXBaseWindow* getTestWindow(int aIndex, int aGroup)
 		}
 	}
 
-	window->show();
+//	window->show();
 
 	return window;
 }
