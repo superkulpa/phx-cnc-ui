@@ -2,9 +2,11 @@
 #define CXPANELWINDOW_H
 
 #include "AXBaseWindow.h"
-
 #include <QPushButton>
 
+/*!
+	Класс панели с функциональными кнопками программы.
+*/
 class CXPanelWindow : public AXBaseWindow
 {
 	Q_OBJECT

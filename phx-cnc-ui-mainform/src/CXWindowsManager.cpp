@@ -16,6 +16,7 @@ CXWindowsManager::CXWindowsManager()
 	mList.append(QApplication::desktop());
 	mList.append(QApplication::desktop());
 
+	mEvents << QEvent::MouseButtonDblClick << QEvent::MouseButtonPress << QEvent::MouseMove << QEvent::MouseButtonRelease << QEvent::Wheel << QEvent::KeyPress << QEvent::FocusIn << QEvent::WindowActivate << QEvent::HoverMove;
 	qApp->installEventFilter(this);
 }
 
@@ -135,7 +136,7 @@ void CXWindowsManager::setFreeze(bool aIsFreeze)
 
 bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 {
-	if (e->type() == QEvent::MouseButtonPress || e->type() == QEvent::MouseMove || e->type() == QEvent::MouseButtonRelease)
+	if (mEvents.contains(e->type()))
 	{
 		QWidget* widget = qobject_cast<QWidget*>(watched);
 		if (widget != NULL)
@@ -178,6 +179,10 @@ bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 						{
 							baseWindow->mouseRelease(dynamic_cast<QMouseEvent*>(e));
 							break;
+						}
+						default:
+						{
+							return true;
 						}
 					}
 				}
@@ -232,7 +237,7 @@ void CXWindowsManager::windowGeometryChange(const QRect& aNewGeometry, bool aIsR
 				if (qAbs(curValue) <= qMin(CLING_SIZE, minBottom))
 				{
 					minBottom = qAbs(curValue);
-					if (aIsResized) newRect.setBottom(aNewGeometry.bottom() - curValue);
+					if (aIsResized) newRect.setBottom(aNewGeometry.bottom() - curValue - 1);
 					else newRect.moveTo(newRect.left(), aNewGeometry.bottom() - curValue - newRect.height());
 				}
 			}
@@ -253,7 +258,7 @@ void CXWindowsManager::windowGeometryChange(const QRect& aNewGeometry, bool aIsR
 				if (qAbs(curValue) <= qMin(CLING_SIZE, minRight))
 				{
 					minRight = qAbs(curValue);
-					if (aIsResized) newRect.setRight(aNewGeometry.right() - curValue);
+					if (aIsResized) newRect.setRight(aNewGeometry.right() - curValue - 1);
 					else newRect.moveTo(aNewGeometry.right() - curValue - newRect.width(), newRect.top());
 				}
 			}

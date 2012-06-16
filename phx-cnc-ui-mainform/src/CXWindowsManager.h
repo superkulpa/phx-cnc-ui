@@ -72,6 +72,7 @@ private:
 
 private:
 	QList <QWidget*> mList;
+	QVector <int> mEvents;
 };
 
 #endif // CXWINDOWSMANAGER_H
