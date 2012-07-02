@@ -10,9 +10,11 @@
 #include "CXWindowsManager.h"
 #include "CXPanelWindow.h"
 #include "CXPathView.h"
+#include "CXFilesList.h"
 
-AXBaseWindow* getTestWindow(int aIndex, int aGroup)
+QWidget* getTestWindow(int aIndex, int aGroup)
 {
+	QWidget* res = NULL;
 	AXBaseWindow* window = new AXBaseWindow();
 	window->setGroupNumber(aGroup);
 
@@ -24,7 +26,7 @@ AXBaseWindow* getTestWindow(int aIndex, int aGroup)
 		{
 			CXPathView* pathView = new CXPathView(window);
 			//pathView->load("C:/Users/OLEG@tor/Downloads/files/list.kerf.cpr.ccp", "C:/Users/OLEG@tor/Downloads/files/list.cpr.ccp");
-			pathView->load("tmp/list.kerf.cpr.ccp", "tmp/list.cpr.ccp");
+			//pathView->load(QApplication::applicationDirPath() + "/tmp/list.cpr.ccp", QApplication::applicationDirPath() + "/tmp/list.kerf.cpr.ccp");
 			centralLayout->addWidget(pathView);
 
 			QHBoxLayout* horLayout = new QHBoxLayout;
@@ -40,6 +42,8 @@ AXBaseWindow* getTestWindow(int aIndex, int aGroup)
 
 			centralLayout->addLayout(horLayout);
 
+			res = pathView;
+
 			break;
 		}
 		case 1:
@@ -52,37 +56,12 @@ AXBaseWindow* getTestWindow(int aIndex, int aGroup)
 		}
 		case 2:
 		{
-			QTreeWidget* tree = new QTreeWidget(window);
+			CXFilesList* filesList = new CXFilesList(window);
+			centralLayout->setMargin(6);
+			centralLayout->setSpacing(6);
+			centralLayout->addWidget(filesList);
 
-			QTreeWidgetItem* item1 = new QTreeWidgetItem(tree);
-			item1->setText(0, "Node 1");
-			tree->addTopLevelItem(item1);
-
-			QTreeWidgetItem* item2 = new QTreeWidgetItem(tree);
-			item2->setText(0, "Node 2");
-			tree->addTopLevelItem(item2);
-
-			QTreeWidgetItem* item3 = new QTreeWidgetItem(tree);
-			item3->setText(0, "Node 3");
-			tree->addTopLevelItem(item3);
-
-			QList <QTreeWidgetItem*> list;
-			list.append(item1);
-			list.append(item2);
-			list.append(item3);
-
-			QTreeWidgetItem* tempItem = NULL;
-			for (int item = 0; item < list.count(); ++item)
-			{
-				for (int i = 0; i < 3; ++i)
-				{
-					tempItem = new QTreeWidgetItem();
-					tempItem->setText(0, QString("Child %1").arg(i + 1));
-					list.at(item)->addChild(tempItem);
-				}
-			}
-
-			centralLayout->addWidget(tree);
+			res = filesList;
 
 			break;
 		}
@@ -118,7 +97,7 @@ AXBaseWindow* getTestWindow(int aIndex, int aGroup)
 
 //	window->show();
 
-	return window;
+	return res;
 }
 
 int main(int argc, char *argv[])
@@ -128,16 +107,31 @@ int main(int argc, char *argv[])
 	CXWindowsManager manager;
 	AXBaseWindow::mManager = &manager;
 
-	AXBaseWindow* window = NULL;
+	QWidget* window = NULL;
 
-	for (int i = 0; i < 3; ++i) window = getTestWindow(i, 1);
-	for (int i = 0; i < 2; ++i) window = getTestWindow(i + 3, 2);
+	QList <QWidget*> windows;
+
+	for (int i = 0; i < 3; ++i)
+	{
+		window = getTestWindow(i, 1);
+		windows.append(window);
+	}
+
+	for (int i = 0; i < 2; ++i)
+	{
+		window = getTestWindow(i + 3, 2);
+		windows.append(window);
+	}
+
+	QObject::connect(windows.at(2), SIGNAL(fileCreated(const QString&, const QString&)), windows.at(0), SLOT(load(const QString&, const QString&)));
 
 	CXPanelWindow* panel = new CXPanelWindow();
-	panel->show();
 
 	manager.load("windows.xml");
 	manager.setCurrentGroup(1);
+
+	panel->setFreezeState(manager.getFreeze());
+	panel->show();
 
 	QObject::connect(panel, SIGNAL(closed()), &app, SLOT(quit()));
 
