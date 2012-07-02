@@ -23,10 +23,16 @@ public:
 	void addWindow(AXBaseWindow* aWindow);
 
 	/*!
-		Установка текущей группы окон.
+		Функия установки текущей группы окон.
 		\param aGroupNumber - номер группы.
 	*/
 	void setCurrentGroup(int aGroupNumber);
+
+	/*!
+		Функция получения текущей группы окон.
+		\return Номер группы.
+	*/
+	int currentGroup();
 
 	/*!
 		Функция сохранения геометрии окон.
@@ -39,6 +45,17 @@ public:
 		\param aFileName - путь с именем файла.
 	*/
 	void load(const QString& aFileName);
+
+	/*!
+		Функция выноса всех окон на передний план.
+	*/
+	void bringToFront();
+
+	/*!
+		Функция получения состояния заморозки.
+		\return aIsFreeze - флаг заморозки.
+	*/
+	bool getFreeze();
 
 public slots:
 	/*!
@@ -71,6 +88,9 @@ private:
 	bool intersects(const QRect& aFirstRect, const QRect& aSecondRect, bool aIsVertical = true);
 
 private:
+	bool mIsFreeze;
+	int mGroupNumber;
+
 	QList <QWidget*> mList;
 	QVector <int> mEvents;
 };

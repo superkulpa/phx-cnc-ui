@@ -15,11 +15,14 @@ public:
 	CXPanelWindow();
 	~CXPanelWindow();
 
+	void setFreezeState(bool aIsFreeze);
+
 private slots:
 	void setGroup();
 
 private:
 	QPushButton* btnGroup1;
+	QPushButton* btnFreeze;
 };
 
 #endif // CXPANELWINDOW_H

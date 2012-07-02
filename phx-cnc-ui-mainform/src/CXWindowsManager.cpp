@@ -18,6 +18,9 @@ CXWindowsManager::CXWindowsManager()
 
 	mEvents << QEvent::MouseButtonDblClick << QEvent::MouseButtonPress << QEvent::MouseMove << QEvent::MouseButtonRelease << QEvent::Wheel << QEvent::KeyPress << QEvent::FocusIn << QEvent::WindowActivate << QEvent::HoverMove;
 	qApp->installEventFilter(this);
+
+	mIsFreeze = false;
+	mGroupNumber = 0;
 }
 
 CXWindowsManager::~CXWindowsManager()
@@ -36,6 +39,9 @@ void CXWindowsManager::addWindow(AXBaseWindow* aWindow)
 
 void CXWindowsManager::setCurrentGroup(int aGroupNumber)
 {
+	if (mGroupNumber == aGroupNumber) return;
+
+	mGroupNumber = aGroupNumber;
 	AXBaseWindow* curWindow = NULL;
 
 	QList<QWidget*>::iterator iter;
@@ -45,9 +51,14 @@ void CXWindowsManager::setCurrentGroup(int aGroupNumber)
 
 		if (curWindow == NULL) continue;
 
-		if (curWindow->groupNumber() >= 0 && curWindow->groupNumber() != aGroupNumber) curWindow->hide();
+		if (curWindow->groupNumber() >= 0 && curWindow->groupNumber() != mGroupNumber) curWindow->hide();
 		else if (curWindow->isHidden()) curWindow->show();
 	}
+}
+
+int CXWindowsManager::currentGroup()
+{
+	return mGroupNumber;
 }
 
 void CXWindowsManager::save(const QString& aFileName)
@@ -60,6 +71,7 @@ void CXWindowsManager::save(const QString& aFileName)
 	out.setCodec(QTextCodec::codecForName("UTF-8"));
 
 	out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Settings>\n";
+	out << QString("	<manager freeze=\"%1\"/>").arg(mIsFreeze);
 
 	AXBaseWindow* curWindow = NULL;
 	int count = 0;
@@ -91,6 +103,8 @@ void CXWindowsManager::load(const QString& aFileName)
 
 	QDomElement root = document.documentElement();
 
+	bool isFreeze = mIsFreeze;
+
 	if (!root.isNull())
 	{
 		QDomElement element = root.firstChildElement();
@@ -98,6 +112,11 @@ void CXWindowsManager::load(const QString& aFileName)
 
 		while (!element.isNull())
 		{
+			if (element.tagName() == "manager")
+			{
+				isFreeze = element.attribute("freeze").toInt();
+			}
+
 			if (element.tagName().left(7) == "window_")
 			{
 				int index = element.tagName().mid(7).toInt() + 1;
@@ -116,13 +135,39 @@ void CXWindowsManager::load(const QString& aFileName)
 			element = element.nextSiblingElement();
 		}
 	}
+
+	setFreeze(isFreeze);
+}
+
+void CXWindowsManager::bringToFront()
+{
+	AXBaseWindow* curWindow = NULL;
+
+	QList<QWidget*>::iterator iter;
+	for (iter = mList.begin(); iter != mList.end(); ++iter)
+	{
+		curWindow = qobject_cast<AXBaseWindow*>(*iter);
+
+		if (curWindow == NULL) continue;
+
+		if (curWindow->isVisible()) curWindow->raise();
+	}
+}
+
+bool CXWindowsManager::getFreeze()
+{
+	return mIsFreeze;
 }
 
 void CXWindowsManager::setFreeze(bool aIsFreeze)
 {
-	if (aIsFreeze) qApp->removeEventFilter(this);
-	else qApp->installEventFilter(this);
+	if (mIsFreeze == aIsFreeze) return;
 
+	mIsFreeze = aIsFreeze;
+/*
+	if (mIsFreeze) qApp->removeEventFilter(this);
+	else qApp->installEventFilter(this);
+*/
 	AXBaseWindow* curWindow = NULL;
 
 	QList<QWidget*>::iterator iter;
@@ -136,6 +181,15 @@ void CXWindowsManager::setFreeze(bool aIsFreeze)
 
 bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 {
+	if (e->type() == QEvent::WindowActivate && QString(watched->metaObject()->className()) == QString("CXPanelWindow"))
+	{
+		bringToFront();
+
+		return false;
+	}
+
+	if (mIsFreeze) return false;
+
 	if (mEvents.contains(e->type()))
 	{
 		QWidget* widget = qobject_cast<QWidget*>(watched);

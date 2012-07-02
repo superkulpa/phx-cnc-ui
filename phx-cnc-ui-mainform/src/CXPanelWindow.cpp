@@ -1,13 +1,17 @@
 ﻿#include "CXPanelWIndow.h"
 
+#include <QApplication>
+
 #include "CXWindowsManager.h"
 #include "flowlayout.h"
 
 CXPanelWindow::CXPanelWindow() : AXBaseWindow()
 {
+	setFocusPolicy(Qt::StrongFocus);
+
 	btnGroup1 = new QPushButton("Group 1", this);
 	QPushButton* btnGroup2 = new QPushButton("Group 2", this);
-	QPushButton* btnFreeze = new QPushButton("Freeze", this);
+	btnFreeze = new QPushButton("Freeze", this);
 	btnFreeze->setCheckable(true);
 	QPushButton* btnExit = new QPushButton("Exit", this);
 
@@ -25,12 +29,17 @@ CXPanelWindow::CXPanelWindow() : AXBaseWindow()
 	connect(btnGroup2,	SIGNAL(clicked()), this, SLOT(setGroup()));
 	connect(btnExit,	SIGNAL(clicked()), this, SLOT(close()));
 	connect(btnFreeze,	SIGNAL(clicked(bool)), mManager, SLOT(setFreeze(bool)));
-
 }
 
 CXPanelWindow::~CXPanelWindow()
 {
 
+}
+
+void CXPanelWindow::setFreezeState(bool aIsFreeze)
+{
+	btnFreeze->setChecked(aIsFreeze);
+	setFreeze(aIsFreeze);
 }
 
 void CXPanelWindow::setGroup()
