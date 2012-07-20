@@ -11,6 +11,10 @@
 #include "CXPanelWindow.h"
 #include "CXPathView.h"
 #include "CXFilesList.h"
+#include "CXEditPathFile.h"
+#include "CXIniFileEditor.h"
+
+#include "CXGroupPanel.h"
 
 QWidget* getTestWindow(int aIndex, int aGroup)
 {
@@ -48,20 +52,23 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 		}
 		case 1:
 		{
-			QTextEdit* edit = new QTextEdit(window);
-			edit->setPlainText("Text");
-			centralLayout->addWidget(edit);
+			CXFilesList* filesList = new CXFilesList(window);
+			centralLayout->setMargin(0);
+			centralLayout->setSpacing(0);
+			centralLayout->addWidget(filesList);
+
+			res = filesList;
 
 			break;
 		}
 		case 2:
 		{
-			CXFilesList* filesList = new CXFilesList(window);
-			centralLayout->setMargin(6);
-			centralLayout->setSpacing(6);
-			centralLayout->addWidget(filesList);
+			CXEditPathFile* editFile = new CXEditPathFile(window);
+			centralLayout->setMargin(0);
+			centralLayout->setSpacing(0);
+			centralLayout->addWidget(editFile);
 
-			res = filesList;
+			res = editFile;
 
 			break;
 		}
@@ -93,11 +100,27 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 
 			break;
 		}
+		case 5:
+		{
+			CXIniFileEditor* editIniFile = new CXIniFileEditor(window);
+
+			centralLayout->setMargin(0);
+			centralLayout->setSpacing(0);
+			centralLayout->addWidget(editIniFile);
+
+			break;
+		}
 	}
 
 //	window->show();
 
 	return res;
+}
+
+void addGroupPanel(int aGroup)
+{
+	CXGroupPanel* panel = new CXGroupPanel();
+	panel->setGroupNumber(aGroup);
 }
 
 int main(int argc, char *argv[])
@@ -109,27 +132,49 @@ int main(int argc, char *argv[])
 
 	QWidget* window = NULL;
 
+/**/
 	QList <QWidget*> windows;
 
+	//Создание первой группы окон.
 	for (int i = 0; i < 3; ++i)
 	{
 		window = getTestWindow(i, 1);
 		windows.append(window);
 	}
 
+	//Создание второй группы окон.
 	for (int i = 0; i < 2; ++i)
 	{
 		window = getTestWindow(i + 3, 2);
 		windows.append(window);
 	}
 
-	QObject::connect(windows.at(2), SIGNAL(fileCreated(const QString&, const QString&)), windows.at(0), SLOT(load(const QString&, const QString&)));
+	//Создание третьей группы окон.
+	for (int i = 0; i < 1; ++i)
+	{
+		window = getTestWindow(i + 5, 3);
+		windows.append(window);
+	}
 
+	QObject::connect(windows.at(1), SIGNAL(fileCreated(const QString&, const QString&)), windows.at(0), SLOT(load(const QString&, const QString&)));
+	QObject::connect(windows.at(1), SIGNAL(fileOpened(const QString&)), windows.at(2), SLOT(openFile(const QString&)));
+	
+	//Создание функциональных панелей управления для каждой группы окон.
+	for (int i = 1; i < 4; ++i)
+	{
+		addGroupPanel(i);
+	}
+
+/**/
+	//Общая панель управления.
 	CXPanelWindow* panel = new CXPanelWindow();
 
+	//Загрузка данных о геометрии окон (обязательно только после их создания!).
 	manager.load("windows.xml");
+	//Установка текущей группы.
 	manager.setCurrentGroup(1);
 
+	//Установка текущего состояния заморозки.
 	panel->setFreezeState(manager.getFreeze());
 	panel->show();
 
