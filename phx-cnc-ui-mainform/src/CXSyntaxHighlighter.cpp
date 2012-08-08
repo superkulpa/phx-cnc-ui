@@ -14,6 +14,9 @@ CXSyntaxHighlighter::CXSyntaxHighlighter(QTextDocument* parent) : QSyntaxHighlig
 	mCoordTextFormat.setFontWeight(QFont::Bold);
 	mCoordTextFormat.setForeground(Qt::blue);
 
+	mNumbersTextFormat.setFontWeight(QFont::Bold);
+	mNumbersTextFormat.setForeground(Qt::black);
+
 	mCommentTextFormat.setForeground(Qt::gray);
 }
 
@@ -47,7 +50,8 @@ void CXSyntaxHighlighter::highlightBlock(const QString& text)
 	highlight(text, "M\"[^\"]*\"", mMTextFormat);
 	highlight(text, "(G)(\\d+)", mGTextFormat);
 	highlight(text, "(L|H|F|D)(\\d+)", mLHFTextFormat);
-	highlight(text, "(X|Y|Z|I|J)(-?\\d+)", mCoordTextFormat);
+	highlight(text, "(X|Y|Z|I|J)(-?\\d+)", mNumbersTextFormat, 2);
+	highlight(text, "(X|Y|Z|I|J)(-?\\d+)", mCoordTextFormat, 1);
 	highlight(text, "//.*", mCommentTextFormat);
 	highlight(text, "^%.*", mCommentTextFormat);
 
@@ -66,7 +70,7 @@ void CXSyntaxHighlighter::highlightBlock(const QString& text)
 	}
 }
 
-void CXSyntaxHighlighter::highlight(const QString& aText, const QString& aPattern, const QTextCharFormat& aFormat)
+void CXSyntaxHighlighter::highlight(const QString& aText, const QString& aPattern, const QTextCharFormat& aFormat, int aCapNumber)
 {
 	QRegExp expression(aPattern);
 	expression.setCaseSensitivity(Qt::CaseInsensitive);
@@ -75,7 +79,7 @@ void CXSyntaxHighlighter::highlight(const QString& aText, const QString& aPatter
 	while (index >= 0)
 	{
 		int length = expression.matchedLength();
-		setFormat(index, length, aFormat);
+		setFormat(expression.pos(aCapNumber), expression.cap(aCapNumber).length(), aFormat);
 		index = aText.indexOf(expression, index + length);
 	}
 }
