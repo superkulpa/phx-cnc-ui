@@ -20,7 +20,13 @@ protected:
 	virtual void highlightBlock(const QString& text);
 
 private:
-	void highlight(const QString& aText, const QString& aPattern, const QTextCharFormat& aFormat);
+	/*! ѕодсветка блока текста
+		\param aText - текст дл€ подсветки.
+		\param aPattern - регул€рное выражение дл€ поиска блока подсветки.
+		\param aFormat - формат дл€ выделени€ найденного блока.
+		\param aCapNumber - индекс блока в регул€рном выражении, который надо подсветить.
+	*/
+	void highlight(const QString& aText, const QString& aPattern, const QTextCharFormat& aFormat, int aCapNumber = 0);
 
 private:
 	//! —тиль подсветки блока Mdddd, Tdddd, M"text".
@@ -34,6 +40,9 @@ private:
 
 	//! —тиль подсветки блока Xdddd, Ydddd, Zdddd, Idddd, Jdddd.
 	QTextCharFormat mCoordTextFormat;
+
+	//! —тиль подсветки цифр блоков Xdddd, Ydddd, Zdddd.
+	QTextCharFormat mNumbersTextFormat;
 
 	//! —тиль подсветки блока односточных комментариев // и многосточных (  ).
 	QTextCharFormat mCommentTextFormat;
