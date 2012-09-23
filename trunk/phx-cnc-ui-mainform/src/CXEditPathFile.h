@@ -28,6 +28,20 @@ public slots:
 	//! Слот сохранения изменений в тексте файла.
 	void onSave();
 
+	//! Слот сохранения изменений в тексте файла с заданием имя для сохранения.
+	void onSaveAs();
+
+signals:
+	//! Сигнал на создание нового файла.
+	void newFileCreated();
+
+	//! Сигнал на изменение текста.
+	void textChanged(bool aIsSaved = false);
+
+private slots:
+	//! Слот на изменение позиции курсора.
+	void onCursorPositionChange();
+
 private:
 	QString mFileName;
 };

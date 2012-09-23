@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT      += xml
+QT      += xml network
 
 
 # Input
@@ -12,7 +12,14 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXSyntaxHighlighter.h \
 			src/CXEditPathFile.h \
 			src/CXIniFileEditor.h \
-			src/CXGroupPanel.h
+			src/CXGroupPanel.h \
+			src/CXTitleWindow.h \
+			src/CXIniFileList.h \
+			src/CXParametersWindow.h \
+			src/CXParameterData.h \
+			src/CXParametersView.h \
+			src/CXFtp.h \
+			src/iniFile.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
@@ -24,10 +31,18 @@ SOURCES +=	src/main.cpp \
 			src/CXSyntaxHighlighter.cpp \
 			src/CXEditPathFile.cpp \
 			src/CXIniFileEditor.cpp \
-			src/CXGroupPanel.cpp
+			src/CXGroupPanel.cpp \
+			src/CXTitleWindow.cpp \
+			src/CXIniFileList.cpp \
+			src/CXParametersWindow.cpp \
+			src/CXParameterData.cpp \
+			src/CXParametersView.cpp \
+			src/CXFtp.cpp \
+			src/iniFile.cpp
 
 FORMS +=	src/CXFilesList.ui \
 			src/CXEditPathFile.ui \
-			src/CXIniFileEditor.ui
+			src/CXIniFileEditor.ui \
+			src/CXIniFileList.ui
 
 RESOURCES += resource.qrc

@@ -1,7 +1,7 @@
 #include "CXIniFileEditor.h"
 
-#include <QMessageBox>
 #include <QTextStream>
+#include <QMessageBox>
 
 #include "CXSyntaxHighlighter.h"
 
@@ -10,17 +10,6 @@ CXIniFileEditor::CXIniFileEditor(QWidget* parent) : QWidget(parent)
 	setupUi(this);
 
 	mHighlighter = new CXIniSyntaxHighlighter(mIniFileEdit->document());
-
-	mModel = new QFileSystemModel(this);
-	mModel->setNameFilterDisables(false);
-	mModel->setFilter(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
-
-	mIniFileView->setModel(mModel);
-	//mRootIndex = mModel->setRootPath(QApplication::applicationDirPath() + "/../cps");
-	mIniFileView->setRootIndex(mModel->setRootPath(QApplication::applicationDirPath() + "/jini"));
-
-	connect(mIniFileView, SIGNAL(activated(const QModelIndex&)), this, SLOT(onItemActivate(const QModelIndex&)));
-	connect(mSaveButton, SIGNAL(clicked()), this, SLOT(onSave()));
 }
 
 CXIniFileEditor::~CXIniFileEditor()
@@ -28,19 +17,21 @@ CXIniFileEditor::~CXIniFileEditor()
 
 }
 
-void CXIniFileEditor::onItemActivate(const QModelIndex& aIndex)
+void CXIniFileEditor::onOpenFile(const QString& aFileName)
 {
-	mFileName = mModel->filePath(aIndex);
+	mFileName = aFileName;
 
 	QFile file(mFileName);
 	file.open(QIODevice::ReadOnly);
 
-	mIniFileEdit->setPlainText(file.readAll());
+	QTextStream in(&file);
+	in.setCodec("UTF-8");
+
+	mIniFileEdit->setPlainText(in.readAll());
 
 	file.close();
 
-	QFileInfo fileInfo(mFileName);
-	if (fileInfo.suffix() == "xml" && mHighlighter->metaObject()->className() != "CXXmlSyntaxHighlighter")
+	if (mIniFileEdit->toPlainText().at(0) == '<' && mHighlighter->metaObject()->className() != "CXXmlSyntaxHighlighter")
 	{
 		delete mHighlighter;
 		mHighlighter = new CXXmlSyntaxHighlighter(mIniFileEdit->document());
@@ -62,6 +53,8 @@ void CXIniFileEditor::onSave()
 		file.open(QIODevice::WriteOnly);
 
 		QTextStream out(&file);
+		out.setCodec("UTF-8");
+
 		out << mIniFileEdit->toPlainText();
 
 		file.close();

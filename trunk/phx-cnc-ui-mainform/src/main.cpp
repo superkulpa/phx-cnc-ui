@@ -13,6 +13,9 @@
 #include "CXFilesList.h"
 #include "CXEditPathFile.h"
 #include "CXIniFileEditor.h"
+#include "CXIniFileList.h"
+#include "CXTitleWindow.h"
+#include "CXParametersWindow.h"
 
 #include "CXGroupPanel.h"
 
@@ -36,9 +39,13 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 			QHBoxLayout* horLayout = new QHBoxLayout;
 
 			QPushButton* zoomInButton = new QPushButton(QObject::trUtf8("+ Увеличить"), window);
+			zoomInButton->setMinimumSize(100, 60);
+			zoomInButton->setFont(QFont("", zoomInButton->height() / 5));
 			horLayout->addWidget(zoomInButton);
 
 			QPushButton* zoomOutButton = new QPushButton(QObject::trUtf8("- Уменьшить"), window);
+			zoomOutButton->setMinimumSize(100, 60);
+			zoomOutButton->setFont(QFont("", zoomOutButton->height() / 5));
 			horLayout->addWidget(zoomOutButton);
 
 			QObject::connect(zoomInButton, SIGNAL(clicked()), pathView, SLOT(zoomIn()));
@@ -74,39 +81,35 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 		}
 		case 3:
 		{
-			QListWidget* list = new QListWidget(window);
+			CXParametersWindow* parametersWindow = new CXParametersWindow(window, false);
 
-			for (int i = 0; i < 7; ++i) list->addItem(new QListWidgetItem(QString("Item %1").arg(i + 1)));
+			centralLayout->addWidget(parametersWindow);
 
-			centralLayout->addWidget(list);
+			res = parametersWindow;
 
 			break;
 		}
 		case 4:
-		{
-			QLabel* label = NULL;
-			QLineEdit* edit = NULL;
-
-			for (int i = 0; i < 3; ++i)
-			{
-				label = new QLabel(QString("Label %1").arg(i + 1), window);
-				edit = new QLineEdit(window);
-
-				centralLayout->addWidget(label);
-				centralLayout->addWidget(edit);
-			}
-
-			centralLayout->addStretch();
-
-			break;
-		}
-		case 5:
 		{
 			CXIniFileEditor* editIniFile = new CXIniFileEditor(window);
 
 			centralLayout->setMargin(0);
 			centralLayout->setSpacing(0);
 			centralLayout->addWidget(editIniFile);
+
+			res = editIniFile;
+
+			break;
+		}
+		case 5:
+		{
+			CXIniFileList* iniFileList = new CXIniFileList(window);
+
+			centralLayout->setMargin(0);
+			centralLayout->setSpacing(0);
+			centralLayout->addWidget(iniFileList);
+
+			res = iniFileList;
 
 			break;
 		}
@@ -117,15 +120,18 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 	return res;
 }
 
-void addGroupPanel(int aGroup)
+CXGroupPanel* addGroupPanel(int aGroup)
 {
 	CXGroupPanel* panel = new CXGroupPanel();
 	panel->setGroupNumber(aGroup);
+
+    return panel;
 }
 
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
+	app.setQuitOnLastWindowClosed(false);
 
 	CXWindowsManager manager;
 	AXBaseWindow::mManager = &manager;
@@ -133,39 +139,101 @@ int main(int argc, char *argv[])
 	QWidget* window = NULL;
 
 /**/
-	QList <QWidget*> windows;
+	QMap <QString, QWidget*> windows;
 
 	//Создание первой группы окон.
 	for (int i = 0; i < 3; ++i)
 	{
 		window = getTestWindow(i, 1);
-		windows.append(window);
+		windows.insert(window->metaObject()->className(), window);
 	}
 
 	//Создание второй группы окон.
-	for (int i = 0; i < 2; ++i)
+	for (int i = 0; i < 1; ++i)
 	{
 		window = getTestWindow(i + 3, 2);
-		windows.append(window);
+		windows.insert(window->metaObject()->className(), window);
 	}
 
 	//Создание третьей группы окон.
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < 2; ++i)
 	{
-		window = getTestWindow(i + 5, 3);
-		windows.append(window);
+		window = getTestWindow(i + 4, 3);
+		windows.insert(window->metaObject()->className(), window);
 	}
 
-	QObject::connect(windows.at(1), SIGNAL(fileCreated(const QString&, const QString&)), windows.at(0), SLOT(load(const QString&, const QString&)));
-	QObject::connect(windows.at(1), SIGNAL(fileOpened(const QString&)), windows.at(2), SLOT(openFile(const QString&)));
-	
+	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileCreated(const QString&, const QString&)),	windows.value("CXPathView"), SLOT(load(const QString&, const QString&)));
+	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)),					windows.value("CXEditPathFile"), SLOT(openFile(const QString&)));
+	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(textChanged(bool)),						windows.value("CXFilesList"), SLOT(onTextChanged(bool)));
+	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(newFileCreated()),							windows.value("CXFilesList"), SLOT(onCreateNewFile()));
+	QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileOpened(const QString&)),				windows.value("CXIniFileEditor"), SLOT(onOpenFile(const QString&)));
+	QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileSaved()),								windows.value("CXIniFileEditor"), SLOT(onSave()));
+
+    CXGroupPanel* curGroupPanel = NULL;
+
 	//Создание функциональных панелей управления для каждой группы окон.
 	for (int i = 1; i < 4; ++i)
 	{
-		addGroupPanel(i);
+        curGroupPanel = addGroupPanel(i);
+
+        switch (i)
+        {
+            case 1:
+            {
+                QStringList texts;
+                texts.append(QString());
+                texts.append(QString());
+                texts.append(QString());
+                texts.append(QString());
+                texts.append(QObject::trUtf8("Каталог"));
+                texts.append(QObject::trUtf8("Макро"));
+                texts.append(QObject::trUtf8("Загрузить"));
+                texts.append(QObject::trUtf8("Повернуть"));
+
+                curGroupPanel->setButtonsText(texts);
+
+                QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked()), curGroupPanel, SLOT(directoryCommand()));
+                QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), curGroupPanel, SLOT(macroCommand()));
+
+				qobject_cast<CXFilesList*>(windows.value("CXFilesList"))->setButton(curGroupPanel->getButton(6));
+
+                break;
+            }
+            case 2:
+            {
+                QStringList texts;
+                texts.append(QString());
+                texts.append(QString());
+                texts.append(QString());
+                texts.append(QString());
+                texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+                texts.append(QString());
+                texts.append(QObject::trUtf8("Загрузить"));
+                texts.append(QObject::trUtf8("Сохранить"));
+
+                curGroupPanel->setButtonsText(texts);
+
+				CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
+
+				QList <QPushButton*> buttons;
+				for (int i = 0; i < 8; ++i) buttons.append(curGroupPanel->getButton(i));
+
+				parametersWindow->setButtons(buttons);
+
+                QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), parametersWindow, SLOT(loadParametersFromFtp()));
+                QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), parametersWindow, SLOT(saveParameters()));
+
+                break;
+            }
+        }
 	}
 
 /**/
+	//Общий заголовок
+	CXTitleWindow* title = new CXTitleWindow();
+
 	//Общая панель управления.
 	CXPanelWindow* panel = new CXPanelWindow();
 

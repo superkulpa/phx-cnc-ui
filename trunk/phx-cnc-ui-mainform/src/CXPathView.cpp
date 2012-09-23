@@ -30,7 +30,7 @@ CXPathView::~CXPathView()
 
 QRectF CXPathView::boundingRect()
 {
-	return mMainPath.boundingRect();
+	return mMainPath.boundingRect().united(mMovePath.boundingRect()).united(mBurnPath.boundingRect());
 }
 
 void CXPathView::load(const QString& aMainFile, const QString& aMoveFile)
@@ -393,7 +393,7 @@ void CXPathView::setPosition(const QPointF& aPos)
 
 qreal CXPathView::getFitScale(qreal aMargin)
 {
-	QSizeF s = mMainPath.boundingRect().size();
+	QSizeF s = boundingRect().size();
 
 	if (s.width() <= 0 || s.height() <= 0) return 1;
 

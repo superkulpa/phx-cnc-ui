@@ -21,6 +21,13 @@ public:
 	//! Деструктор.
 	~CXFilesList();
 
+public slots:
+	//! Слот создания нового файла.
+	void onCreateNewFile();
+
+	//! Установка функциональный кнопки.
+	void setButton(QPushButton* aButton);
+
 signals:
 	/*!
 		Сигнал на открытие файла пути.
@@ -49,10 +56,25 @@ private slots:
 	void onOpen();
 
 	//! Слот завершения асинхронного загрузка дерева папки в модель.
-	void onDirectoryLoaded(const QString& path);
+	void onDirectoryLoaded();
 
-	//! Слот на изменение текущего выделенного элемента.
+	//! Слот на изменение текущего элемента.
 	void onCurrentChanged(const QModelIndex& current, const QModelIndex& previous);
+
+	/*! Слот установки текущего элемента на первый.
+
+		\return Текущий элемент.
+	*/
+	QModelIndex setCurrentItemToFirst();
+
+	//! Слот запуска компиляции файла.
+	void onCompileFile();
+
+	//! Слот проверки/загрузки файла.
+	void onLoadCheckFile();
+
+	//! Слот на изменение текста.
+	void onTextChanged(bool aIsSaved);
 
 	//! Слот завершения процесса компиляции файла пути.
 	void onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatus);
@@ -60,9 +82,16 @@ private slots:
 	//! Слот на ошибки процесса компиляции файла пути.
 	void onProcessError(QProcess::ProcessError aError);
 
+	//! Получение значения заданного параметра в файле настроек.
+	QString getConfigAttribute(const QString& aAttributeName);
+
 private:
+	QString mFileName;
 	QFileSystemModel* mModel;
 	QModelIndex mRootIndex;
+	QPushButton* mButton;
+	bool mIsModifier;
+	bool mIsCompileNeed;
 };
 
 #endif // CXFILESLIST_H

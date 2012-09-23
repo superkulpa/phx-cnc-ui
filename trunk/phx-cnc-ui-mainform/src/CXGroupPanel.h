@@ -3,6 +3,8 @@
 
 #include "AXBaseWindow.h"
 
+#include <QPushButton>
+
 /*!
 	Класс панели для группы с функциональными клавишами F1-F12.
 */
@@ -16,6 +18,25 @@ public:
 
 	//! Деструктор.
 	~CXGroupPanel();
+
+    //! Установка названий для кнопок.
+    void setButtonsText(const QStringList& aTexts);
+
+    //! Установка названия для кнопоки.
+    void setButtonText(int aButtonNumber, const QString& aText);
+
+    //! Получение кнопки по индексу.
+    QPushButton* getButton(quint8 aButtonNumber);
+
+public slots:
+    //! Слот запуска fm.sh по кнопке "Каталог".
+    void directoryCommand();
+
+    //! Слот запуска macro.sh по кнопке "Макро".
+    void macroCommand();
+
+private:
+    QList <QPushButton*> mButtonsList;
 };
 
 #endif // CXGROUPPANEL_H
