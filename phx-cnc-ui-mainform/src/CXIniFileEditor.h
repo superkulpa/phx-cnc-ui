@@ -2,7 +2,6 @@
 #define CXINIFILEEDITOR_H
 
 #include <QWidget>
-#include <QFileSystemModel>
 #include <QSyntaxHighlighter>
 
 #include "ui_CXIniFileEditor.h"
@@ -21,18 +20,17 @@ public:
 	//! Деструктор.
 	~CXIniFileEditor();
 
-private slots:
+public slots:
 	/*!
 		Слот выбора файла из списка на редактирование.
 	*/
-	void onItemActivate(const QModelIndex&);
+	void onOpenFile(const QString& aFileName);
 
 	//! Слот сохранения изменений в тексте файла.
 	void onSave();
 
 private:
 	QString mFileName;
-	QFileSystemModel* mModel;
 	QSyntaxHighlighter* mHighlighter;
 };
 

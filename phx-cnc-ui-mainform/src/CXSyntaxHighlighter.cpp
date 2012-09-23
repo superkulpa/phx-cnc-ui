@@ -50,8 +50,8 @@ void CXSyntaxHighlighter::highlightBlock(const QString& text)
 	highlight(text, "M\"[^\"]*\"", mMTextFormat);
 	highlight(text, "(G)(\\d+)", mGTextFormat);
 	highlight(text, "(L|H|F|D)(\\d+)", mLHFTextFormat);
-	highlight(text, "(X|Y|Z|I|J)(-?\\d+)", mNumbersTextFormat, 2);
-	highlight(text, "(X|Y|Z|I|J)(-?\\d+)", mCoordTextFormat, 1);
+	highlight(text, "(X|Y|Z|I|J)(-?\\d+\\.?\\d*)", mNumbersTextFormat, 2);
+	highlight(text, "(X|Y|Z|I|J)(-?\\d+\\.?\\d*)", mCoordTextFormat, 1);
 	highlight(text, "//.*", mCommentTextFormat);
 	highlight(text, "^%.*", mCommentTextFormat);
 

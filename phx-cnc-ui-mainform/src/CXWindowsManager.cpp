@@ -5,7 +5,6 @@
 #include <QApplication>
 #include <QFile>
 #include <QTextStream>
-#include <QTextCodec>
 #include <QDomDocument>
 #include <QMouseEvent>
 
@@ -68,7 +67,7 @@ void CXWindowsManager::save(const QString& aFileName)
 	if (!xmlFile.open(QIODevice::WriteOnly)) return;
 
 	QTextStream out(&xmlFile);
-	out.setCodec(QTextCodec::codecForName("UTF-8"));
+	out.setCodec("UTF-8");
 
 	out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Settings>\n";
 	out << QString("	<manager freeze=\"%1\"/>").arg(mIsFreeze);
