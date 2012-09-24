@@ -18,12 +18,12 @@ CXPanelWindow::CXPanelWindow() : AXBaseWindow()
 	btnGroup1->setFont(QFont("", buttonSize / 7));
 	btnGroup1->setProperty("groupName", 1);
 
-	QPushButton* btnGroup2 = new QPushButton(trUtf8("Операции"), this);
+	QPushButton* btnGroup2 = new QPushButton(trUtf8("Параметры"), this);
 	btnGroup2->setFixedSize(buttonSize, buttonSize);
 	btnGroup2->setFont(QFont("", buttonSize / 7));
 	btnGroup2->setProperty("groupName", 2);
 
-	QPushButton* btnGroup3 = new QPushButton(trUtf8("Параметры"), this);
+	QPushButton* btnGroup3 = new QPushButton(trUtf8("Наладка"), this);
 	btnGroup3->setFixedSize(buttonSize, buttonSize);
 	btnGroup3->setFont(QFont("", buttonSize / 7));
 	btnGroup3->setProperty("groupName", 3);
