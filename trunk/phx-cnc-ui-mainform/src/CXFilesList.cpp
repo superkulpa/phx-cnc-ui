@@ -8,8 +8,6 @@
 
 #include "CXParametersView.h"
 
-#define ROOT_PATH "./cps"
-
 CXFilesList::CXFilesList(QWidget* parent) : QWidget(parent)
 {
 	setupUi(this);
@@ -22,8 +20,8 @@ CXFilesList::CXFilesList(QWidget* parent) : QWidget(parent)
 	mModel->setFilter(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
 
 	mFileView->setModel(mModel);
-	//mRootIndex = mModel->setRootPath(QApplication::applicationDirPath() + "/../cps");
-	mRootIndex = mModel->setRootPath(ROOT_PATH);
+	mRootPath = QApplication::applicationDirPath() + "/../cps";
+	mRootIndex = mModel->setRootPath(mRootPath);
 	mFileView->setRootIndex(mRootIndex);
 
 	mUpButton->setEnabled(false);
@@ -45,7 +43,7 @@ CXFilesList::~CXFilesList()
 
 void CXFilesList::onCreateNewFile()
 {
-	QFile newFile(QString(ROOT_PATH).append("/noname.cp"));
+	QFile newFile(QString(mRootPath).append("/noname.cp"));
 	newFile.open(QIODevice::WriteOnly);
 
 	newFile.close();
