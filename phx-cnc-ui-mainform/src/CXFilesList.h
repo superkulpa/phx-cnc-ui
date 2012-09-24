@@ -86,6 +86,7 @@ private slots:
 	QString getConfigAttribute(const QString& aAttributeName);
 
 private:
+	QString mRootPath;
 	QString mFileName;
 	QFileSystemModel* mModel;
 	QModelIndex mRootIndex;
