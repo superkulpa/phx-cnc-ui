@@ -90,8 +90,11 @@ CXIniSyntaxHighlighter::CXIniSyntaxHighlighter(QTextDocument* parent) : QSyntaxH
 {
 	mSectionFormat.setFontWeight(QFont::Bold);
 	mSectionFormat.setForeground(Qt::darkMagenta);
+
 	mParameterFormat.setFontWeight(QFont::Bold);
 	mParameterFormat.setForeground(Qt::red);
+
+	mCommentFormat.setForeground(Qt::darkGreen);
 }
 
 CXIniSyntaxHighlighter::~CXIniSyntaxHighlighter()
@@ -102,6 +105,7 @@ void CXIniSyntaxHighlighter::highlightBlock(const QString& text)
 {
 	highlight(text, "^[^=]+", mParameterFormat);
 	highlight(text, "^\\[[^\\]]+\\]$", mSectionFormat);
+	highlight(text, ";.*", mCommentFormat);
 }
 
 void CXIniSyntaxHighlighter::highlight(const QString& aText, const QString& aPattern, const QTextCharFormat& aFormat)

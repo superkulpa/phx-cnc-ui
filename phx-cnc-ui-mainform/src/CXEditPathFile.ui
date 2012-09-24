@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>759</width>
+    <width>338</width>
     <height>356</height>
    </rect>
   </property>
@@ -71,12 +71,6 @@
    </item>
    <item row="1" column="1">
     <widget class="QPushButton" name="mSaveButton">
-     <property name="minimumSize">
-      <size>
-       <width>120</width>
-       <height>60</height>
-      </size>
-     </property>
      <property name="text">
       <string>Сохранить</string>
      </property>
@@ -97,12 +91,6 @@
    </item>
    <item row="1" column="2">
     <widget class="QPushButton" name="mSaveAsButton">
-     <property name="minimumSize">
-      <size>
-       <width>120</width>
-       <height>60</height>
-      </size>
-     </property>
      <property name="text">
       <string>Сохранить как</string>
      </property>
@@ -110,12 +98,6 @@
    </item>
    <item row="1" column="3">
     <widget class="QPushButton" name="mCreateButton">
-     <property name="minimumSize">
-      <size>
-       <width>120</width>
-       <height>60</height>
-      </size>
-     </property>
      <property name="text">
       <string>Создать</string>
      </property>

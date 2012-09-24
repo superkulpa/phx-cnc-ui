@@ -28,6 +28,9 @@ public slots:
 	//! Установка функциональный кнопки.
 	void setButton(QPushButton* aButton);
 
+	//! 
+	void onTurn();
+
 signals:
 	/*!
 		Сигнал на открытие файла пути.

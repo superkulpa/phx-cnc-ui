@@ -11,9 +11,13 @@ QMap<int, CXParameterData*> CXParametersView::mDataMap;
 
 /**/
 
-CXParameterItemDelegate::CXParameterItemDelegate(QWidget* parent) : QStyledItemDelegate(parent)
+CXParameterItemDelegate::CXParameterItemDelegate(QAbstractItemView* parent) : QStyledItemDelegate(parent)
 {
 	mParentWidget = parent;
+	mClickTimer = -1;
+	mTimerInterval = 0;
+
+	mModel = NULL;
 }
 
 QWidget* CXParameterItemDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -61,7 +65,11 @@ void CXParameterItemDelegate::paint(QPainter* painter, const QStyleOptionViewIte
 			if (index.column() == 3) buttonOption.text = "+";
 			else buttonOption.text = "-";
 			buttonOption.state = QStyle::State_Enabled | QStyle::State_Active;
-
+/*
+			QFont painterFont = painter->font();
+			painterFont.setPointSize(16);
+			painter->setFont(painterFont);
+*/
 			QApplication::style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter);
 
 			break;
@@ -76,24 +84,80 @@ void CXParameterItemDelegate::paint(QPainter* painter, const QStyleOptionViewIte
 
 bool CXParameterItemDelegate::editorEvent(QEvent* e, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index)
 {
-	if (e->type() == QEvent::MouseButtonRelease)
+	switch (e->type())
 	{
-		return true;
-	}
+		case QEvent::MouseMove:
+		{
+			if (mClickTimer != -1 && mClickIndex != index)
+			{
+				killTimer(mClickTimer);
+			}
 
-	if (e->type() == QEvent::MouseButtonPress)
-	{
-		if (index.column() == 3)
-		{
-			model->setData(index, index.data(Qt::EditRole).toInt() + 1, Qt::EditRole);
+			break;
 		}
-		if (index.column() == 4)
+		case QEvent::MouseButtonRelease:
 		{
-			model->setData(index, index.data(Qt::EditRole).toInt() - 1, Qt::EditRole);
+			if (mClickTimer != -1)
+			{
+				killTimer(mClickTimer);
+				mClickTimer = -1;
+			}
+
+			return true;
+		}
+		case QEvent::MouseButtonPress:
+		{
+			if (mClickTimer != -1) killTimer(mClickTimer);
+
+			mModel = model;
+			mClickIndex = index;
+
+			if (mClickIndex.column() == 3)
+			{
+				model->setData(index, index.data(Qt::EditRole).toInt() + 1, Qt::EditRole);
+			}
+			if (mClickIndex.column() == 4)
+			{
+				model->setData(index, index.data(Qt::EditRole).toInt() - 1, Qt::EditRole);
+			}
+
+			mTimerInterval = 1000;
+			mClickTimer = startTimer(mTimerInterval);
+
+			break;
 		}
 	}
 
 	return QStyledItemDelegate::editorEvent(e, model, option, index);
+}
+
+void CXParameterItemDelegate::timerEvent(QTimerEvent* e)
+{
+	if (e->timerId() == mClickTimer)
+	{
+		if (mParentWidget != NULL && mParentWidget->indexAt(mParentWidget->mapFromGlobal(QCursor::pos())) != mClickIndex)
+		{
+			killTimer(mClickTimer);
+			mClickTimer = -1;
+			return;
+		}
+
+		if (mClickIndex.column() == 3)
+		{
+			mModel->setData(mClickIndex, mClickIndex.data(Qt::EditRole).toInt() + 1, Qt::EditRole);
+		}
+		else
+		{
+			mModel->setData(mClickIndex, mClickIndex.data(Qt::EditRole).toInt() - 1, Qt::EditRole);
+		}
+
+		if (mTimerInterval == 1000)
+		{
+			killTimer(mClickTimer);
+			mTimerInterval = 50;
+			mClickTimer = startTimer(mTimerInterval);
+		}
+	}
 }
 
 void CXParameterItemDelegate::updateValue()
@@ -241,7 +305,7 @@ void CXParametersModel::sort(int column, Qt::SortOrder order)
 CXParametersView::CXParametersView(QWidget* parent, QList <CXParameterData*> aParameters) : QTableView(parent)
 {
 	QHeaderView* horHeader = horizontalHeader();
-	//horHeader->hide();
+	horHeader->hide();
 
 	QHeaderView* vertHeader = verticalHeader();
 	vertHeader->hide();
@@ -256,6 +320,7 @@ CXParametersView::CXParametersView(QWidget* parent, QList <CXParameterData*> aPa
 
 	sortByColumn(0, Qt::AscendingOrder);
 
+	setColumnWidth(1, 150);
 	setColumnWidth(3, 70);
 	setColumnWidth(4, 70);
 

@@ -7,6 +7,8 @@
 #include <QMessageBox>
 
 #include "CXParametersView.h"
+#include "CXProcessingParametersWindow.h"
+#include "CXTurnDialog.h"
 
 CXFilesList::CXFilesList(QWidget* parent) : QWidget(parent)
 {
@@ -56,6 +58,17 @@ void CXFilesList::setButton(QPushButton* aButton)
 	mButton = aButton;
 
 	connect(mButton, SIGNAL(clicked()), this, SLOT(onLoadCheckFile()));
+}
+
+void CXFilesList::onTurn()
+{
+	CXTurnDialog* turnDialog = new CXTurnDialog(NULL);
+	turnDialog->setAttribute(Qt::WA_DeleteOnClose);
+	turnDialog->setWindowFlags(Qt::Dialog);
+	turnDialog->setWindowModality(Qt::ApplicationModal);
+	turnDialog->resize(800, 600);
+
+	turnDialog->show();
 }
 
 void CXFilesList::onItemActivate(const QModelIndex& aIndex)
@@ -139,6 +152,8 @@ void CXFilesList::onDirectoryLoaded()
 
 void CXFilesList::onCurrentChanged(const QModelIndex& current, const QModelIndex& previous)
 {
+	Q_UNUSED(previous)
+
 	mOpenButton->setEnabled(mFileView->currentIndex().isValid());
 	mUpButton->setEnabled(mModel->index(current.row() - 1, current.column(), mFileView->rootIndex()).isValid());
 	mDownButton->setEnabled(!current.isValid() || mModel->index(current.row() + 1, current.column(), mFileView->rootIndex()).isValid());
@@ -215,13 +230,13 @@ void CXFilesList::onLoadCheckFile()
 
 /**/
 
-	CXParametersView* parametersView = new CXParametersView(NULL, CXParametersView::mDataMap.values(-1));
-	parametersView->setAttribute(Qt::WA_DeleteOnClose);
-	parametersView->setWindowFlags(Qt::Dialog);
-	parametersView->setWindowModality(Qt::ApplicationModal);
-	parametersView->resize(800, 600);
+	CXProcessingParametersWindow* parametersWindow = new CXProcessingParametersWindow(this);
+	parametersWindow->setAttribute(Qt::WA_DeleteOnClose);
+	parametersWindow->setWindowFlags(Qt::Dialog);
+	parametersWindow->setWindowModality(Qt::ApplicationModal);
+	parametersWindow->resize(800, 600);
 
-	parametersView->show();
+	parametersWindow->show();
 }
 
 void CXFilesList::onTextChanged(bool aIsSaved)
@@ -243,6 +258,8 @@ void CXFilesList::onTextChanged(bool aIsSaved)
 
 void CXFilesList::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatus)
 {
+	Q_UNUSED(aExitCode)
+
 	if (aExitStatus == QProcess::NormalExit)
 	{
 		//emit fileCreated(QApplication::applicationDirPath() + "/tmp/list.cpr.ccp", QApplication::applicationDirPath() + "/tmp/list.kerf.cpr.ccp");
@@ -262,6 +279,8 @@ void CXFilesList::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatu
 
 void CXFilesList::onProcessError(QProcess::ProcessError aError)
 {
+	Q_UNUSED(aError)
+
 	QMessageBox::critical(this, trUtf8("Ошибка"), qobject_cast<QProcess*>(sender())->errorString());
 }
 

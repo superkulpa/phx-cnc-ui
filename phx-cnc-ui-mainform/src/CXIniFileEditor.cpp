@@ -2,12 +2,18 @@
 
 #include <QTextStream>
 #include <QMessageBox>
+#include <QApplication>
+#include <QDesktopWidget>
 
 #include "CXSyntaxHighlighter.h"
+#include "iniFile.h"
+#include "CXFtp.h"
 
 CXIniFileEditor::CXIniFileEditor(QWidget* parent) : QWidget(parent)
 {
 	setupUi(this);
+
+	mProgressBar = NULL;
 
 	mHighlighter = new CXIniSyntaxHighlighter(mIniFileEdit->document());
 }
@@ -59,6 +65,56 @@ void CXIniFileEditor::onSave()
 
 		file.close();
 
+		loadFiles(true);
+
 		QMessageBox::information(this, trUtf8(""), trUtf8("Файл \"%1\" успешно записан.").arg(mFileName));
 	}
+}
+
+void CXIniFileEditor::loadFiles(bool aIsUpload)
+{
+	mProgressBar = new QProgressBar;
+	mProgressBar->setWindowFlags(Qt::FramelessWindowHint);
+	mProgressBar->setAlignment(Qt::AlignCenter);
+	mProgressBar->setWindowModality(Qt::ApplicationModal);
+
+	QSize size = QApplication::desktop()->availableGeometry().size();
+	mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
+
+	CIniFile iniFile(QApplication::applicationDirPath().toStdString() + "/jini/config.ini");
+	iniFile.ReadIniFile();
+	QString host = QString::fromStdString(iniFile.GetValue("Connect", "core_ip"));
+
+	mFtp = new CXFtp(this);
+	mFtp->setConnectData(host, 21, "ftp", "ftp");
+	mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", "pub/updates/jini");
+
+	connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
+	connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
+	connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
+	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
+
+	if (aIsUpload) mFtp->onFtpUpload();
+	else mFtp->onFtpDownload();
+
+	mProgressBar->show();
+}
+
+void CXIniFileEditor::setProgressText(const QString& aText)
+{
+	mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
+}
+
+void CXIniFileEditor::onAllFilesIsLoaded(bool aIsUpload)
+{
+	Q_UNUSED(aIsUpload);
+
+	if (mProgressBar == NULL) return;
+
+	mProgressBar->close();
+	delete mProgressBar;
+	mProgressBar = NULL;
+
+	mFtp->deleteLater();
+	mFtp = NULL;
 }
