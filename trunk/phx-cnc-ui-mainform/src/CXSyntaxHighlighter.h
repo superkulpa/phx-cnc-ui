@@ -73,6 +73,9 @@ private:
 
 	//! Стиль подсветки названия параметра.
 	QTextCharFormat mParameterFormat;
+
+	//! Стиль подсветки комментария.
+	QTextCharFormat mCommentFormat;
 };
 
 /*!

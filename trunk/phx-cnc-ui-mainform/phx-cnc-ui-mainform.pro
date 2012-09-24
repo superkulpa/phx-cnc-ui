@@ -19,7 +19,9 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXParameterData.h \
 			src/CXParametersView.h \
 			src/CXFtp.h \
-			src/iniFile.h
+			src/iniFile.h \
+			src/CXProcessingParametersWindow.h \
+			src/CXTurnDialog.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
@@ -38,11 +40,15 @@ SOURCES +=	src/main.cpp \
 			src/CXParameterData.cpp \
 			src/CXParametersView.cpp \
 			src/CXFtp.cpp \
-			src/iniFile.cpp
+			src/iniFile.cpp \
+			src/CXProcessingParametersWindow.cpp \
+			src/CXTurnDialog.cpp
 
 FORMS +=	src/CXFilesList.ui \
 			src/CXEditPathFile.ui \
 			src/CXIniFileEditor.ui \
-			src/CXIniFileList.ui
+			src/CXIniFileList.ui \
+			src/CXProcessingParametersWindow.ui \
+			src/CXTurnDialog.ui
 
 RESOURCES += resource.qrc

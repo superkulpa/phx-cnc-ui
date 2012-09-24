@@ -31,21 +31,20 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 	{
 		case 0:
 		{
+			window->setObjectName("CXPathView");
 			CXPathView* pathView = new CXPathView(window);
 			//pathView->load("C:/Users/OLEG@tor/Downloads/files/list.kerf.cpr.ccp", "C:/Users/OLEG@tor/Downloads/files/list.cpr.ccp");
 			//pathView->load(QApplication::applicationDirPath() + "/tmp/list.cpr.ccp", QApplication::applicationDirPath() + "/tmp/list.kerf.cpr.ccp");
 			centralLayout->addWidget(pathView);
 
 			QHBoxLayout* horLayout = new QHBoxLayout;
+			centralLayout->setMargin(5);
+			centralLayout->setSpacing(5);
 
 			QPushButton* zoomInButton = new QPushButton(QObject::trUtf8("+ Увеличить"), window);
-			zoomInButton->setMinimumSize(100, 60);
-			zoomInButton->setFont(QFont("", zoomInButton->height() / 5));
 			horLayout->addWidget(zoomInButton);
 
 			QPushButton* zoomOutButton = new QPushButton(QObject::trUtf8("- Уменьшить"), window);
-			zoomOutButton->setMinimumSize(100, 60);
-			zoomOutButton->setFont(QFont("", zoomOutButton->height() / 5));
 			horLayout->addWidget(zoomOutButton);
 
 			QObject::connect(zoomInButton, SIGNAL(clicked()), pathView, SLOT(zoomIn()));
@@ -132,6 +131,18 @@ int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 	app.setQuitOnLastWindowClosed(false);
+	app.setStyleSheet(
+						"QWidget { font-size: 13pt; }\n\
+						QTabBar::tab { padding: 15px; }\n\
+						#CXProcessingParametersWindow QAbstractButton, #CXEditPathFile QAbstractButton, #CXPathView QAbstractButton { min-height: 30px; padding: 15px; }\n\
+						#CXFilesList QAbstractButton { padding: 20px 35px; }\n\
+						#CXPanelWindow QAbstractButton { min-width: 110px; min-height: 90px; }\n\
+						#CXGroupPanel QAbstractButton { min-width: 108px; min-height: 88px; }\n\
+						#CXIniFileList QAbstractButton { padding: 15px; }\n\
+						#CXTurnDialog * { font-size: 16pt; }\n\
+						#CXTurnDialog QAbstractButton { min-width: 100px; min-height: 100px; }\n\
+						#CXTurnDialog #mTurnSettings QAbstractButton { min-width: 200px; }"
+					  );
 
 	CXWindowsManager manager;
 	AXBaseWindow::mManager = &manager;
@@ -194,6 +205,7 @@ int main(int argc, char *argv[])
 
                 QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked()), curGroupPanel, SLOT(directoryCommand()));
                 QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), curGroupPanel, SLOT(macroCommand()));
+                QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXFilesList"), SLOT(onTurn()));
 
 				qobject_cast<CXFilesList*>(windows.value("CXFilesList"))->setButton(curGroupPanel->getButton(6));
 

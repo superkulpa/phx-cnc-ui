@@ -16,7 +16,7 @@ class CXParameterItemDelegate : public QStyledItemDelegate
 	Q_OBJECT
 
 public:
-	CXParameterItemDelegate(QWidget* parent = 0);
+	CXParameterItemDelegate(QAbstractItemView* parent = 0);
 
 	//! Переопределенная функция создания редактора для ячейки
 	virtual QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const;
@@ -28,12 +28,19 @@ protected:
 	//! Переопределенная функция событий редактора.
 	virtual bool editorEvent(QEvent* e, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index);
 
+	//! 
+	virtual void timerEvent(QTimerEvent* e);
+
 private slots:
 	//! Слот обновления значения.
 	void updateValue();
 
 private:
-	QWidget* mParentWidget;
+	QAbstractItemView* mParentWidget;
+	int mClickTimer;
+	int mTimerInterval;
+	QAbstractItemModel* mModel;
+	QModelIndex mClickIndex;
 };
 
 /*!

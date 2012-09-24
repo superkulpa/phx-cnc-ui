@@ -1,7 +1,7 @@
 #include "CXPanelWindow.h"
 
-#include <QApplication>
-#include <QDesktopWidget>
+//#include <QApplication>
+//#include <QDesktopWidget>
 #include <QVariant>
 
 #include "CXWindowsManager.h"
@@ -9,33 +9,35 @@
 
 CXPanelWindow::CXPanelWindow() : AXBaseWindow()
 {
+	setObjectName("CXPanelWindow");
 	setFocusPolicy(Qt::StrongFocus);
 
-	int buttonSize = QApplication::desktop()->availableGeometry().width() / 20;
+//	int buttonSize = QApplication::desktop()->availableGeometry().width() / 20;
+//	QSize size(buttonSize + 20, buttonSize);
 
 	QPushButton* btnGroup1 = new QPushButton(trUtf8("УП"), this);
-	btnGroup1->setFixedSize(buttonSize, buttonSize);
-	btnGroup1->setFont(QFont("", buttonSize / 7));
+//	btnGroup1->setFixedSize(size);
+//	btnGroup1->setFont(QFont("", buttonSize / 7));
 	btnGroup1->setProperty("groupName", 1);
 
 	QPushButton* btnGroup2 = new QPushButton(trUtf8("Параметры"), this);
-	btnGroup2->setFixedSize(buttonSize, buttonSize);
-	btnGroup2->setFont(QFont("", buttonSize / 7));
+//	btnGroup2->setFixedSize(size);
+//	btnGroup2->setFont(QFont("", buttonSize / 7));
 	btnGroup2->setProperty("groupName", 2);
 
 	QPushButton* btnGroup3 = new QPushButton(trUtf8("Наладка"), this);
-	btnGroup3->setFixedSize(buttonSize, buttonSize);
-	btnGroup3->setFont(QFont("", buttonSize / 7));
+//	btnGroup3->setFixedSize(size);
+//	btnGroup3->setFont(QFont("", buttonSize / 7));
 	btnGroup3->setProperty("groupName", 3);
 
 	btnFreeze = new QPushButton("Freeze", this);
-	btnFreeze->setFixedSize(buttonSize, buttonSize);
-	btnFreeze->setFont(QFont("", buttonSize / 7));
+//	btnFreeze->setFixedSize(size);
+//	btnFreeze->setFont(QFont("", buttonSize / 7));
 	btnFreeze->setCheckable(true);
 
 	QPushButton* btnExit = new QPushButton("Exit", this);
-	btnExit->setFixedSize(buttonSize, buttonSize);
-	btnExit->setFont(QFont("", buttonSize / 7));
+//	btnExit->setFixedSize(size);
+//	btnExit->setFont(QFont("", buttonSize / 7));
 
 /**/
 	FlowLayout* centralLayout = new FlowLayout(this);
