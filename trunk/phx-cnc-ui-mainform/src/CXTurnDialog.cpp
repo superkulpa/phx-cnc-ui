@@ -123,12 +123,14 @@ void CXTurnDialog::onCalculateRotation()
 
 void CXTurnDialog::onWriteFlipX()
 {
-	;
+	saveAttribute("RSI.Inverse", "1");
+	emit compileNeeded();
 }
 
 void CXTurnDialog::onWriteFlipY()
 {
-	;
+	saveAttribute("RSI.Inverse", "2");
+	emit compileNeeded();
 }
 
 void CXTurnDialog::onWriteScale()
