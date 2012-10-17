@@ -320,7 +320,7 @@ CXParametersView::CXParametersView(QWidget* parent, QList <CXParameterData*> aPa
 
 	sortByColumn(0, Qt::AscendingOrder);
 
-	setColumnWidth(1, 150);
+	setColumnWidth(1, 200);
 	setColumnWidth(3, 70);
 	setColumnWidth(4, 70);
 

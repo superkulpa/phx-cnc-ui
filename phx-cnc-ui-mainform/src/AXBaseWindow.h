@@ -1,4 +1,4 @@
-﻿#ifndef AXBASEWINDOW_H
+#ifndef AXBASEWINDOW_H
 #define AXBASEWINDOW_H
 
 #define RESIZE_BORDER 5
@@ -33,7 +33,10 @@ class AXBaseWindow : public QWidget
 	Q_OBJECT
 
 public:
+	//! Конструктор.
 	AXBaseWindow();
+
+	//! Деструктор.
 	~AXBaseWindow();
 
 	/*!

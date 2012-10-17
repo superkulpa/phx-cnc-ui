@@ -1,44 +1,47 @@
 #ifndef CXINIFILEEDITOR_H
 #define CXINIFILEEDITOR_H
 
-#include <QWidget>
 #include <QSyntaxHighlighter>
 #include <QProgressBar>
+
+#include "AXBaseWindow.h"
 
 #include "ui_CXIniFileEditor.h"
 
 class CXFtp;
 
 /*!
-	Класс окна редактора ini-файлов, со списком файлов, с подсветкой синтаксиса и сохранением изменений.
+	РљР»Р°СЃСЃ РѕРєРЅР° СЂРµРґР°РєС‚РѕСЂР° ini-С„Р°Р№Р»РѕРІ, СЃРѕ СЃРїРёСЃРєРѕРј С„Р°Р№Р»РѕРІ, СЃ РїРѕРґСЃРІРµС‚РєРѕР№ СЃРёРЅС‚Р°РєСЃРёСЃР° Рё СЃРѕС…СЂР°РЅРµРЅРёРµРј РёР·РјРµРЅРµРЅРёР№.
 */
-class CXIniFileEditor : public QWidget, public Ui::CXIniFileEditor
+class CXIniFileEditor : public AXBaseWindow, public Ui::CXIniFileEditor
 {
 	Q_OBJECT
 
 public:
-	//! Конструктор.
-	CXIniFileEditor(QWidget* parent = 0);
+	//! РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ.
+	CXIniFileEditor();
 
-	//! Деструктор.
+	//! Р”РµСЃС‚СЂСѓРєС‚РѕСЂ.
 	~CXIniFileEditor();
 
 public slots:
 	/*!
-		Слот выбора файла из списка на редактирование.
+		РЎР»РѕС‚ РІС‹Р±РѕСЂР° С„Р°Р№Р»Р° РёР· СЃРїРёСЃРєР° РЅР° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ.
+
+		\param aFileName - РёРјСЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ С„Р°Р№Р»Р°.
 	*/
 	void onOpenFile(const QString& aFileName);
 
-	//! Слот сохранения изменений в тексте файла.
+	//! РЎР»РѕС‚ СЃРѕС…СЂР°РЅРµРЅРёСЏ РёР·РјРµРЅРµРЅРёР№ РІ С‚РµРєСЃС‚Рµ С„Р°Р№Р»Р°.
 	void onSave();
 	
-	//! Функция загрузки данных на/с FTP-сервера.
+	//! Р¤СѓРЅРєС†РёСЏ Р·Р°РіСЂСѓР·РєРё РґР°РЅРЅС‹С… РЅР°/СЃ FTP-СЃРµСЂРІРµСЂР°.
 	void loadFiles(bool aIsUpload);
 
-	//! Слот установки текста в прогресс загрузки.
+	//! РЎР»РѕС‚ СѓСЃС‚Р°РЅРѕРІРєРё С‚РµРєСЃС‚Р° РІ РїСЂРѕРіСЂРµСЃСЃ Р·Р°РіСЂСѓР·РєРё.
 	void setProgressText(const QString& aText);
 
-	//! Слот, вызываемый по окончанию загрузки.
+	//! РЎР»РѕС‚, РІС‹Р·С‹РІР°РµРјС‹Р№ РїРѕ РѕРєРѕРЅС‡Р°РЅРёСЋ Р·Р°РіСЂСѓР·РєРё.
 	void onAllFilesIsLoaded(bool aIsUpload);
 
 private:

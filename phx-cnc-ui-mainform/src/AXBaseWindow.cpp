@@ -1,4 +1,4 @@
-﻿#include "AXBaseWindow.h"
+#include "AXBaseWindow.h"
 
 #include <QResizeEvent>
 #include <QPainter>

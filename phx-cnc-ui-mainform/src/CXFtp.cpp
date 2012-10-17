@@ -1,7 +1,8 @@
 #include "CXFtp.h"
 
 #include <QMessageBox>
-#include <QApplication>
+//#include <QApplication>
+#include <QTimerEvent>
 #include <QDir>
 
 #define PROGRESS_MAXIMUM 10000
@@ -197,6 +198,8 @@ void CXFtp::onListInfo(const QUrlInfo& aInfo)
 
 void CXFtp::onDataTransferProgress(qint64 done, qint64 total)
 {
+	Q_UNUSED(total)
+
 	mCurrentProgressValue += done;
 	emit progressValueChanged(mCurrentProgressValue * (qreal(PROGRESS_MAXIMUM) / mProgressMaximum));
 }
@@ -298,5 +301,5 @@ void CXFtp::onFtpError(const QString& aErrorText)
 	clearCurrentFileData();
 	close();
 
-	QMessageBox::information(NULL /*QApplication::activeWindow()*/, trUtf8("Ошибка"), aErrorText);
+	QMessageBox::information(NULL, trUtf8("Ошибка"), aErrorText);
 }

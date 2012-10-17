@@ -9,7 +9,7 @@
 #include "CXParameterData.h"
 
 /*!
-	Класс QStyledItemDelegate для отрисовки данных.
+	РљР»Р°СЃСЃ QStyledItemDelegate РґР»СЏ РѕС‚СЂРёСЃРѕРІРєРё РґР°РЅРЅС‹С….
 */
 class CXParameterItemDelegate : public QStyledItemDelegate
 {
@@ -18,21 +18,21 @@ class CXParameterItemDelegate : public QStyledItemDelegate
 public:
 	CXParameterItemDelegate(QAbstractItemView* parent = 0);
 
-	//! Переопределенная функция создания редактора для ячейки
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ СЃРѕР·РґР°РЅРёСЏ СЂРµРґР°РєС‚РѕСЂР° РґР»СЏ СЏС‡РµР№РєРё
 	virtual QWidget* createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 
-	//! Переопределенная функция отрисовки делегата.
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РѕС‚СЂРёСЃРѕРІРєРё РґРµР»РµРіР°С‚Р°.
 	virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 
 protected:
-	//! Переопределенная функция событий редактора.
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ СЃРѕР±С‹С‚РёР№ СЂРµРґР°РєС‚РѕСЂР°.
 	virtual bool editorEvent(QEvent* e, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index);
 
-	//! 
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ СЃРѕР±С‹С‚РёР№ С‚Р°Р№РјРµСЂР°.
 	virtual void timerEvent(QTimerEvent* e);
 
 private slots:
-	//! Слот обновления значения.
+	//! РЎР»РѕС‚ РѕР±РЅРѕРІР»РµРЅРёСЏ Р·РЅР°С‡РµРЅРёСЏ.
 	void updateValue();
 
 private:
@@ -44,32 +44,32 @@ private:
 };
 
 /*!
-	Класс модели параметров.
+	РљР»Р°СЃСЃ РјРѕРґРµР»Рё РїР°СЂР°РјРµС‚СЂРѕРІ.
 */
 class CXParametersModel : public QAbstractItemModel
 {
 public:
 	CXParametersModel(QList <CXParameterData*> aParameters, QObject* parent = 0);
 
-	//! Переопределенная функция получения количества колонок в модели.
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° РєРѕР»РѕРЅРѕРє РІ РјРѕРґРµР»Рё.
 	virtual int	columnCount(const QModelIndex& parent = QModelIndex()) const;
 
-	//! Переопределенная функция получения данных модели по индексу.
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С… РјРѕРґРµР»Рё РїРѕ РёРЅРґРµРєСЃСѓ.
 	virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
-	//! Переопределенная функция установки данных модели по индексу.
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ СѓСЃС‚Р°РЅРѕРІРєРё РґР°РЅРЅС‹С… РјРѕРґРµР»Рё РїРѕ РёРЅРґРµРєСЃСѓ.
 	virtual bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
 
-	//! Переопределенная функция получения индекса модели.
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅРґРµРєСЃР° РјРѕРґРµР»Рё.
 	virtual QModelIndex	index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
 
-	//! Переопределенная функция получения родителя по индексу.
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ СЂРѕРґРёС‚РµР»СЏ РїРѕ РёРЅРґРµРєСЃСѓ.
 	virtual QModelIndex	parent(const QModelIndex& index) const;
 
-	//! Переопределенная функция получения количества строк в модели.
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ РєРѕР»РёС‡РµСЃС‚РІР° СЃС‚СЂРѕРє РІ РјРѕРґРµР»Рё.
 	virtual int	rowCount(const QModelIndex& parent = QModelIndex()) const;
 
-	//! Переопределенная функция получения флагов по индексу.
+	//! РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ С„Р»Р°РіРѕРІ РїРѕ РёРЅРґРµРєСЃСѓ.
 	virtual Qt::ItemFlags flags(const QModelIndex& index) const;
 
 	//!
@@ -80,7 +80,7 @@ private:
 };
 
 /*!
-	Класс для отображения параметров.
+	РљР»Р°СЃСЃ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ.
 */
 class CXParametersView : public QTableView
 {
@@ -94,13 +94,13 @@ protected slots:
 	virtual void closeEditor(QWidget* editor, QAbstractItemDelegate::EndEditHint hint);
 
 public:
-	//! Номер группы параметров, которые будут отображены.
+	//! РќРѕРјРµСЂ РіСЂСѓРїРїС‹ РїР°СЂР°РјРµС‚СЂРѕРІ, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ РѕС‚РѕР±СЂР°Р¶РµРЅС‹.
 //	int mGroupNumber;
 
-	//! Статический список групп.
+	//! РЎС‚Р°С‚РёС‡РµСЃРєРёР№ СЃРїРёСЃРѕРє РіСЂСѓРїРї.
 	static QMap <int, CXGroupData*> mGropusMap;
 
-	//! Статический список параметров с привязкой к номеру группы.
+	//! РЎС‚Р°С‚РёС‡РµСЃРєРёР№ СЃРїРёСЃРѕРє РїР°СЂР°РјРµС‚СЂРѕРІ СЃ РїСЂРёРІСЏР·РєРѕР№ Рє РЅРѕРјРµСЂСѓ РіСЂСѓРїРїС‹.
 	static QMap<int, CXParameterData*> mDataMap;
 };
 

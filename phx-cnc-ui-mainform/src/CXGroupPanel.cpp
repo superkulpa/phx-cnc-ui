@@ -1,4 +1,4 @@
-﻿#include "CXGroupPanel.h"
+#include "CXGroupPanel.h"
 
 //#include <QApplication>
 //#include <QDesktopWidget>
@@ -21,6 +21,7 @@ CXGroupPanel::CXGroupPanel() : AXBaseWindow()
 	for (int i = 1; i < 11; ++i)
 	{
         button = new QPushButton(QString("F%1\n").arg(i), this);
+		button->setFocusPolicy(Qt::NoFocus);
 //		button->setFont(QFont("", buttonSize / 7));
 //		button->setFixedSize(buttonSize + 20, buttonSize);
 

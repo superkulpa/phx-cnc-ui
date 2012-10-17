@@ -1,4 +1,4 @@
-﻿#ifndef CXWINDOWSMANAGER_H
+#ifndef CXWINDOWSMANAGER_H
 #define CXWINDOWSMANAGER_H
 
 #include <QList>

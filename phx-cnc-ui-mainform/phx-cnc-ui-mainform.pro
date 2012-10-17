@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT      += xml network
+QT      += xml network script
 
 
 # Input
@@ -7,6 +7,7 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXWindowsManager.h \
 			src/CXPanelWindow.h \
 			src/CXPathView.h \
+			src/CXPathWindow.h \
 			src/flowlayout.h \
 			src/CXFilesList.h \
 			src/CXSyntaxHighlighter.h \
@@ -21,13 +22,20 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXFtp.h \
 			src/iniFile.h \
 			src/CXProcessingParametersWindow.h \
-			src/CXTurnDialog.h
+			src/CXTurnDialog.h \
+			src/CXLazerDirectionWindow.h \
+			src/CXLazerDirectionView.h \
+			src/CXLazerVelocityView.h \
+			src/CXLazerSettings.h \
+			src/CXLazerVelocity.h \
+			src/CXTextParameters.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
 			src/CXWindowsManager.cpp \
 			src/CXPanelWindow.cpp \
 			src/CXPathView.cpp \
+			src/CXPathWindow.cpp \
 			src/flowlayout.cpp \
 			src/CXFilesList.cpp \
 			src/CXSyntaxHighlighter.cpp \
@@ -42,13 +50,20 @@ SOURCES +=	src/main.cpp \
 			src/CXFtp.cpp \
 			src/iniFile.cpp \
 			src/CXProcessingParametersWindow.cpp \
-			src/CXTurnDialog.cpp
+			src/CXTurnDialog.cpp \
+			src/CXLazerDirectionWindow.cpp \
+			src/CXLazerDirectionView.cpp \
+			src/CXLazerVelocityView.cpp \
+			src/CXLazerSettings.cpp \
+			src/CXLazerVelocity.cpp \
+			src/CXTextParameters.cpp
 
 FORMS +=	src/CXFilesList.ui \
 			src/CXEditPathFile.ui \
 			src/CXIniFileEditor.ui \
 			src/CXIniFileList.ui \
 			src/CXProcessingParametersWindow.ui \
+			src/CXLazerVelocity.ui \
 			src/CXTurnDialog.ui
 
 RESOURCES += resource.qrc

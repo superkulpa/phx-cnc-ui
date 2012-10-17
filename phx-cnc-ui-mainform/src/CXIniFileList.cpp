@@ -1,6 +1,6 @@
 #include "CXIniFileList.h"
 
-CXIniFileList::CXIniFileList(QWidget* parent) : QWidget(parent)
+CXIniFileList::CXIniFileList() : AXBaseWindow()
 {
 	setupUi(this);
 

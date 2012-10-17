@@ -8,7 +8,7 @@
 class CXParametersView;
 
 /*!
-	����� ��� .
+	Класс для настройки системных параметров.
 */
 class CXProcessingParametersWindow : public QWidget, public Ui::CXProcessingParametersWindow
 {
