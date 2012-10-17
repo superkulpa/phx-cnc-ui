@@ -4,7 +4,7 @@
 #include "AXBaseWindow.h"
 
 /*!
-	Класс заголовка окна.
+	РљР»Р°СЃСЃ Р·Р°РіРѕР»РѕРІРєР° РѕРєРЅР°.
 */
 class CXTitleWindow : public AXBaseWindow
 {

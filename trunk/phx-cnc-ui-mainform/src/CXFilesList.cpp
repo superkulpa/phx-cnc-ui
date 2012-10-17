@@ -10,7 +10,7 @@
 #include "CXProcessingParametersWindow.h"
 #include "CXTurnDialog.h"
 
-CXFilesList::CXFilesList(QWidget* parent) : QWidget(parent)
+CXFilesList::CXFilesList() : AXBaseWindow()
 {
 	setupUi(this);
 
@@ -66,7 +66,7 @@ void CXFilesList::onTurn()
 	turnDialog->setAttribute(Qt::WA_DeleteOnClose);
 	turnDialog->setWindowFlags(Qt::Dialog);
 	turnDialog->setWindowModality(Qt::ApplicationModal);
-	turnDialog->resize(800, 600);
+	turnDialog->resize(700, 500);
 
 	turnDialog->show();
 }
@@ -189,6 +189,8 @@ void CXFilesList::onCompileFile()
 	doc.setContent(&configFile);
 
 	QDomElement domElement = doc.documentElement();
+	domElement = domElement.firstChildElement("parameters");
+
 	if (!domElement.isNull())
 	{
 		domElement = domElement.firstChildElement("parameter");
@@ -208,7 +210,16 @@ void CXFilesList::onCompileFile()
 
 	configFile.close();
 
-	process->start("bash ./cpc.sh");
+	configFile.open(QIODevice::WriteOnly);
+	QTextStream out(&configFile);
+	out.setCodec("UTF-8");
+
+	doc.save(out, 2);
+
+	configFile.close();
+
+//	process->start("bash ./cpc.sh");
+	process->start(QApplication::applicationDirPath() + "/compile.bat");
 }
 
 void CXFilesList::onLoadCheckFile()
@@ -221,6 +232,7 @@ void CXFilesList::onLoadCheckFile()
 
 	if (mIsCompileNeed)
 	{
+		mIsCompileNeed = false;
 		onCompileFile();
 
 		if (mButton != NULL) mButton->setText( mButton->text().replace(QRegExp("\n.*"), trUtf8("\nЗагрузить")));
@@ -263,7 +275,7 @@ void CXFilesList::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatu
 	if (aExitStatus == QProcess::NormalExit)
 	{
 		//emit fileCreated(QApplication::applicationDirPath() + "/tmp/list.cpr.ccp", QApplication::applicationDirPath() + "/tmp/list.kerf.cpr.ccp");
-		emit fileCreated(QApplication::applicationDirPath() + getConfigAttribute("Common.OutputCpName"), QApplication::applicationDirPath() + getConfigAttribute("Common.OutputCpNameKerf"));
+		emit fileCreated(QApplication::applicationDirPath() + "/" + getConfigAttribute("Common.OutputCpName"), QApplication::applicationDirPath() + "/" + getConfigAttribute("Common.OutputCpNameKerf"));
 
 		QFile compileFile(QApplication::applicationDirPath() + getConfigAttribute("Common.OutputInfo"));
 		compileFile.open(QIODevice::ReadOnly);
@@ -281,12 +293,12 @@ void CXFilesList::onProcessError(QProcess::ProcessError aError)
 {
 	Q_UNUSED(aError)
 
-	QMessageBox::critical(this, trUtf8("Ошибка"), qobject_cast<QProcess*>(sender())->errorString());
+	QMessageBox::critical(NULL, trUtf8("Ошибка"), qobject_cast<QProcess*>(sender())->errorString());
 }
 
 QString CXFilesList::getConfigAttribute(const QString& aAttributeName)
 {
-	QFile configFile("./jini/compiler0.cfg");
+	QFile configFile(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
 	configFile.open(QIODevice::ReadOnly);
 
 	QDomDocument doc;

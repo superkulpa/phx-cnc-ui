@@ -11,6 +11,11 @@
 //               platform.
 //////////////////////////////////////////////////////////////////////
 
+#pragma warning(push) //Отключение предупреждений только для данного заголовочного файла
+#pragma warning(disable:4244)
+#pragma warning(disable:4800)
+#pragma warning(disable:4996)
+
 // C++ Includes
 #include <iostream>
 #include <fstream>
@@ -772,3 +777,4 @@ const CString& CIniFile::CheckCase( const CString& s) const
   return s;
 }
 
+#pragma warning(pop) //Восстанавливаем исходный уровень вывода предупреждений

@@ -6,24 +6,30 @@
 #include "AXBaseWindow.h"
 #include "ui_CXIniFileList.h"
 
-class CXIniFileList : public QWidget, public Ui::CXIniFileList
+/*!
+	РљР»Р°СЃСЃ СЃРїРёСЃРєР° ini-С„Р°Р№Р»РѕРІ.
+*/
+class CXIniFileList : public AXBaseWindow, public Ui::CXIniFileList
 {
 	Q_OBJECT
 
 public:
-	CXIniFileList(QWidget* parent = 0);
+	//! РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ.
+	CXIniFileList();
+
+	//! Р”РµСЃС‚СЂСѓРєС‚РѕСЂ.
 	~CXIniFileList();
 
 signals:
-	//! Сигнал на открытие файла.
+	//! РЎРёРіРЅР°Р» РЅР° РѕС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р°.
 	void fileOpened(const QString& aFileName);
 
-	//! Сигнал на сохранение изменений в файле.
+	//! РЎРёРіРЅР°Р» РЅР° СЃРѕС…СЂР°РЅРµРЅРёРµ РёР·РјРµРЅРµРЅРёР№ РІ С„Р°Р№Р»Рµ.
 	void fileSaved();
 
 private slots:
 	/*!
-		Слот выбора файла из списка на редактирование.
+		РЎР»РѕС‚ РІС‹Р±РѕСЂР° С„Р°Р№Р»Р° РёР· СЃРїРёСЃРєР° РЅР° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ.
 	*/
 	void onItemActivate(const QModelIndex& aIndex);
 

@@ -2,14 +2,15 @@
 
 #include <QFile>
 #include <QTextStream>
-#include <QMessageBox>
+//#include <QMessageBox>
 #include <QFileDialog>
 
 #include "CXSyntaxHighlighter.h"
 
-CXEditPathFile::CXEditPathFile(QWidget* parent) : QWidget(parent)
+CXEditPathFile::CXEditPathFile() : AXBaseWindow()
 {
 	setupUi(this);
+
 	mTextEdit->setReadOnly(true);
 
 	mSaveButton->setFont(QFont("", mSaveButton->height() / 5));
@@ -54,7 +55,7 @@ void CXEditPathFile::onSave()
 {
 	if (!mFileName.isEmpty() && QFile::exists(mFileName))
 	{
-		if (QMessageBox::question(this, trUtf8(""), trUtf8("Вы действительно хотите перезаписать файл?"), QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes) return;
+//		if (QMessageBox::question(this, trUtf8(""), trUtf8("Вы действительно хотите перезаписать файл?"), QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes) return;
 
 		QFile file(mFileName);
 		file.open(QIODevice::WriteOnly);
@@ -68,7 +69,7 @@ void CXEditPathFile::onSave()
 
 		emit textChanged(true);
 
-		QMessageBox::information(this, trUtf8(""), trUtf8("Файл \"%1\" успешно записан.").arg(mFileName));
+//		QMessageBox::information(this, trUtf8(""), trUtf8("Файл \"%1\" успешно записан.").arg(mFileName));
 	}
 }
 
@@ -91,7 +92,7 @@ void CXEditPathFile::onSaveAs()
 
 			file.close();
 
-			QMessageBox::information(this, trUtf8(""), trUtf8("Файл \"%1\" успешно записан.").arg(mFileName));
+//			QMessageBox::information(this, trUtf8(""), trUtf8("Файл \"%1\" успешно записан.").arg(mFileName));
 		}
 	}
 }

@@ -30,7 +30,7 @@ void CXSyntaxHighlighter::highlightBlock(const QString& text)
 {
 	setCurrentBlockState(previousBlockState());
 
-	//многострочный комментарий
+	//РјРЅРѕРіРѕСЃС‚СЂРѕС‡РЅС‹Р№ РєРѕРјРјРµРЅС‚Р°СЂРёР№
 	if (currentBlockState() == 1)
 	{
 		if (text.indexOf(")") >= 0)
@@ -126,10 +126,10 @@ void CXIniSyntaxHighlighter::highlight(const QString& aText, const QString& aPat
 
 enum eHighlightFlags
 {
-	E_NoneHighlight = 0,	//нету никакой подсветки.
-	E_TagBody,				//идет подсветка внутренности xml-элемента.
-	E_AttributeBody1,		//идет подсветка значения атрибута с двойной кавычкой.
-	E_AttributeBody2		//идет подсветка значения атрибута с одинарной кавычкой.
+	E_NoneHighlight = 0,	//РЅРµС‚Сѓ РЅРёРєР°РєРѕР№ РїРѕРґСЃРІРµС‚РєРё.
+	E_TagBody,				//РёРґРµС‚ РїРѕРґСЃРІРµС‚РєР° РІРЅСѓС‚СЂРµРЅРЅРѕСЃС‚Рё xml-СЌР»РµРјРµРЅС‚Р°.
+	E_AttributeBody1,		//РёРґРµС‚ РїРѕРґСЃРІРµС‚РєР° Р·РЅР°С‡РµРЅРёСЏ Р°С‚СЂРёР±СѓС‚Р° СЃ РґРІРѕР№РЅРѕР№ РєР°РІС‹С‡РєРѕР№.
+	E_AttributeBody2		//РёРґРµС‚ РїРѕРґСЃРІРµС‚РєР° Р·РЅР°С‡РµРЅРёСЏ Р°С‚СЂРёР±СѓС‚Р° СЃ РѕРґРёРЅР°СЂРЅРѕР№ РєР°РІС‹С‡РєРѕР№.
 };
 
 CXXmlSyntaxHighlighter::CXXmlSyntaxHighlighter(QTextDocument* parent) : QSyntaxHighlighter(parent)
@@ -165,7 +165,7 @@ void CXXmlSyntaxHighlighter::highlightBlock(const QString& aText)
 
 	if (prevBlockState <= E_NoneHighlight) startIndex = tagBodyStart.indexIn(aText);
 
-	//если идет подсветка атрибута 
+	//РµСЃР»Рё РёРґРµС‚ РїРѕРґСЃРІРµС‚РєР° Р°С‚СЂРёР±СѓС‚Р° 
 	if (prevBlockState == E_AttributeBody1 || prevBlockState == E_AttributeBody2)
 	{
 		QChar c;
@@ -189,7 +189,7 @@ void CXXmlSyntaxHighlighter::highlightBlock(const QString& aText)
 
 	while (startIndex >= 0)
 	{
-		//Поиск завершающего тега xml.
+		//РџРѕРёСЃРє Р·Р°РІРµСЂС€Р°СЋС‰РµРіРѕ С‚РµРіР° xml.
 		endIndex = tagBodyEnd.indexIn(aText, startIndex);
 		if (endIndex < 0)
 		{
@@ -200,7 +200,7 @@ void CXXmlSyntaxHighlighter::highlightBlock(const QString& aText)
 
 		setFormat(startIndex, endIndex - startIndex, tagBodyFormat);
 
-		//поиск имени тега.
+		//РїРѕРёСЃРє РёРјРµРЅРё С‚РµРіР°.
 		if (prevBlockState <= E_NoneHighlight)
 		{
 			startIndex += tagBodyStart.matchedLength();
@@ -213,11 +213,11 @@ void CXXmlSyntaxHighlighter::highlightBlock(const QString& aText)
 			startIndex = endIndex;
 		}
 
-		//Поиск атрибутов
+		//РџРѕРёСЃРє Р°С‚СЂРёР±СѓС‚РѕРІ
 		tempIndex = 0;
 		while (tempIndex >= 0)
 		{
-			//Поиск имени атрибута
+			//РџРѕРёСЃРє РёРјРµРЅРё Р°С‚СЂРёР±СѓС‚Р°
 			tempIndex = attrName.indexIn(aText, startIndex);
 			if (tempIndex >= 0)
 			{
@@ -226,7 +226,7 @@ void CXXmlSyntaxHighlighter::highlightBlock(const QString& aText)
 
 				tempIndex = attrBodyStart.indexIn(aText, startIndex);
 
-				//Поиск значения атрибута
+				//РџРѕРёСЃРє Р·РЅР°С‡РµРЅРёСЏ Р°С‚СЂРёР±СѓС‚Р°
 				if (tempIndex >= 0 && (attrName.indexIn(aText, startIndex) < 0 || tempIndex <= attrName.indexIn(aText, startIndex)))
 				{
 					startIndex = tempIndex + attrBodyStart.matchedLength();

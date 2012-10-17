@@ -1,7 +1,7 @@
 #include "CXIniFileEditor.h"
 
 #include <QTextStream>
-#include <QMessageBox>
+//#include <QMessageBox>
 #include <QApplication>
 #include <QDesktopWidget>
 
@@ -9,7 +9,7 @@
 #include "iniFile.h"
 #include "CXFtp.h"
 
-CXIniFileEditor::CXIniFileEditor(QWidget* parent) : QWidget(parent)
+CXIniFileEditor::CXIniFileEditor() : AXBaseWindow()
 {
 	setupUi(this);
 
@@ -53,7 +53,7 @@ void CXIniFileEditor::onSave()
 {
 	if (!mFileName.isEmpty() && QFile::exists(mFileName))
 	{
-		if (QMessageBox::question(this, trUtf8(""), trUtf8("Вы действительно хотите перезаписать файл?"), QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes) return;
+//		if (QMessageBox::question(this, trUtf8(""), trUtf8("Вы действительно хотите перезаписать файл?"), QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes) return;
 
 		QFile file(mFileName);
 		file.open(QIODevice::WriteOnly);
@@ -67,7 +67,7 @@ void CXIniFileEditor::onSave()
 
 		loadFiles(true);
 
-		QMessageBox::information(this, trUtf8(""), trUtf8("Файл \"%1\" успешно записан.").arg(mFileName));
+//		QMessageBox::information(this, trUtf8(""), trUtf8("Файл \"%1\" успешно записан.").arg(mFileName));
 	}
 }
 

@@ -9,59 +9,38 @@
 
 #include "CXWindowsManager.h"
 #include "CXPanelWindow.h"
-#include "CXPathView.h"
+#include "CXPathWindow.h"
 #include "CXFilesList.h"
 #include "CXEditPathFile.h"
 #include "CXIniFileEditor.h"
 #include "CXIniFileList.h"
 #include "CXTitleWindow.h"
 #include "CXParametersWindow.h"
+#include "CXLazerDirectionWindow.h"
+#include "CXLazerSettings.h"
+#include "CXTextParameters.h"
 
 #include "CXGroupPanel.h"
 
 QWidget* getTestWindow(int aIndex, int aGroup)
 {
 	QWidget* res = NULL;
-	AXBaseWindow* window = new AXBaseWindow();
-	window->setGroupNumber(aGroup);
-
-	QVBoxLayout* centralLayout = new QVBoxLayout(window);
 
 	switch (aIndex)
 	{
 		case 0:
 		{
-			window->setObjectName("CXPathView");
-			CXPathView* pathView = new CXPathView(window);
-			//pathView->load("C:/Users/OLEG@tor/Downloads/files/list.kerf.cpr.ccp", "C:/Users/OLEG@tor/Downloads/files/list.cpr.ccp");
-			//pathView->load(QApplication::applicationDirPath() + "/tmp/list.cpr.ccp", QApplication::applicationDirPath() + "/tmp/list.kerf.cpr.ccp");
-			centralLayout->addWidget(pathView);
+			CXPathWindow* pathWindow = new CXPathWindow();
+			pathWindow->setGroupNumber(aGroup);
 
-			QHBoxLayout* horLayout = new QHBoxLayout;
-			centralLayout->setMargin(5);
-			centralLayout->setSpacing(5);
-
-			QPushButton* zoomInButton = new QPushButton(QObject::trUtf8("+ Увеличить"), window);
-			horLayout->addWidget(zoomInButton);
-
-			QPushButton* zoomOutButton = new QPushButton(QObject::trUtf8("- Уменьшить"), window);
-			horLayout->addWidget(zoomOutButton);
-
-			QObject::connect(zoomInButton, SIGNAL(clicked()), pathView, SLOT(zoomIn()));
-			QObject::connect(zoomOutButton, SIGNAL(clicked()), pathView, SLOT(zoomOut()));
-
-			centralLayout->addLayout(horLayout);
-
-			res = pathView;
+			res = pathWindow;
 
 			break;
 		}
 		case 1:
 		{
-			CXFilesList* filesList = new CXFilesList(window);
-			centralLayout->setMargin(0);
-			centralLayout->setSpacing(0);
-			centralLayout->addWidget(filesList);
+			CXFilesList* filesList = new CXFilesList();
+			filesList->setGroupNumber(aGroup);
 
 			res = filesList;
 
@@ -69,10 +48,8 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 		}
 		case 2:
 		{
-			CXEditPathFile* editFile = new CXEditPathFile(window);
-			centralLayout->setMargin(0);
-			centralLayout->setSpacing(0);
-			centralLayout->addWidget(editFile);
+			CXEditPathFile* editFile = new CXEditPathFile();
+			editFile->setGroupNumber(aGroup);
 
 			res = editFile;
 
@@ -80,6 +57,11 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 		}
 		case 3:
 		{
+			AXBaseWindow* window = new AXBaseWindow();
+			window->setGroupNumber(aGroup);
+
+			QVBoxLayout* centralLayout = new QVBoxLayout(window);
+/**/
 			CXParametersWindow* parametersWindow = new CXParametersWindow(window, false);
 
 			centralLayout->addWidget(parametersWindow);
@@ -90,11 +72,8 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 		}
 		case 4:
 		{
-			CXIniFileEditor* editIniFile = new CXIniFileEditor(window);
-
-			centralLayout->setMargin(0);
-			centralLayout->setSpacing(0);
-			centralLayout->addWidget(editIniFile);
+			CXIniFileEditor* editIniFile = new CXIniFileEditor();
+			editIniFile->setGroupNumber(aGroup);
 
 			res = editIniFile;
 
@@ -102,13 +81,46 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 		}
 		case 5:
 		{
-			CXIniFileList* iniFileList = new CXIniFileList(window);
-
-			centralLayout->setMargin(0);
-			centralLayout->setSpacing(0);
-			centralLayout->addWidget(iniFileList);
+			CXIniFileList* iniFileList = new CXIniFileList();
+			iniFileList->setGroupNumber(aGroup);
 
 			res = iniFileList;
+
+			break;
+		}
+		case 6:
+		{
+			CXLazerDirectionWindow* lazerPosition = new CXLazerDirectionWindow();
+			lazerPosition->setGroupNumber(aGroup);
+
+			res = lazerPosition;
+
+			break;
+		}
+		case 7:
+		{
+			CXLazerSettings* lazerSettings = new CXLazerSettings();
+			lazerSettings->setGroupNumber(aGroup);
+
+			res = lazerSettings;
+
+			break;
+		}
+		case 8:
+		{
+			CXPathWindow* pathWindow = new CXPathWindow();
+			pathWindow->setGroupNumber(aGroup);
+
+			res = pathWindow;
+
+			break;
+		}
+		case 9:
+		{
+			CXTextParameters* textParameters = new CXTextParameters();
+			textParameters->setGroupNumber(aGroup);
+
+			res = textParameters;
 
 			break;
 		}
@@ -133,15 +145,19 @@ int main(int argc, char *argv[])
 	app.setQuitOnLastWindowClosed(false);
 	app.setStyleSheet(
 						"QWidget { font-size: 13pt; }\n\
+						CXPathView { font-size: 10pt; }\n\
 						QTabBar::tab { padding: 15px; }\n\
-						#CXProcessingParametersWindow QAbstractButton, #CXEditPathFile QAbstractButton, #CXPathView QAbstractButton { min-height: 30px; padding: 15px; }\n\
+						#CXProcessingParametersWindow QAbstractButton, #CXEditPathFile QAbstractButton, #CXPathWindow QAbstractButton { min-height: 30px; padding: 15px; }\n\
 						#CXFilesList QAbstractButton { padding: 20px 35px; }\n\
-						#CXPanelWindow QAbstractButton { min-width: 110px; min-height: 90px; }\n\
-						#CXGroupPanel QAbstractButton { min-width: 108px; min-height: 88px; }\n\
+						#CXPanelWindow QAbstractButton { min-width: 110px; min-height: 75px; }\n\
+						#CXGroupPanel QAbstractButton { min-width: 105px; min-height: 75px; }\n\
 						#CXIniFileList QAbstractButton { padding: 15px; }\n\
-						#CXTurnDialog * { font-size: 16pt; }\n\
-						#CXTurnDialog QAbstractButton { min-width: 100px; min-height: 100px; }\n\
-						#CXTurnDialog #mTurnSettings QAbstractButton { min-width: 200px; }"
+						#CXTurnDialog * { font-size: 14pt; }\n\
+						#CXTurnDialog QAbstractButton { min-width: 100px; min-height: 75px; }\n\
+						#CXTurnDialog #mTurnSettings QAbstractButton { min-width: 200px; }\n\
+						#CXLazerDirectionWindow QAbstractButton { min-height: 75px; }\n\
+						#CXLazerVelocity QAbstractButton { font-size: 24pt; min-height: 140px; min-width: 100px; }\n\
+						#CXLazerVelocity QLabel { font-size: 80pt; min-width: 100px; }"
 					  );
 
 	CXWindowsManager manager;
@@ -156,34 +172,43 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < 3; ++i)
 	{
 		window = getTestWindow(i, 1);
-		windows.insert(window->metaObject()->className(), window);
+		windows.insertMulti(window->metaObject()->className(), window);
 	}
 
 	//Создание второй группы окон.
 	for (int i = 0; i < 1; ++i)
 	{
 		window = getTestWindow(i + 3, 2);
-		windows.insert(window->metaObject()->className(), window);
+		windows.insertMulti(window->metaObject()->className(), window);
 	}
 
 	//Создание третьей группы окон.
 	for (int i = 0; i < 2; ++i)
 	{
 		window = getTestWindow(i + 4, 3);
-		windows.insert(window->metaObject()->className(), window);
+		windows.insertMulti(window->metaObject()->className(), window);
 	}
 
-	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileCreated(const QString&, const QString&)),	windows.value("CXPathView"), SLOT(load(const QString&, const QString&)));
+	//Создание четвертой группы окон.
+	for (int i = 0; i < 4; ++i)
+	{
+		window = getTestWindow(i + 6, 4);
+		windows.insertMulti(window->metaObject()->className(), window);
+	}
+
+	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileCreated(const QString&, const QString&)),	windows.values("CXPathWindow").first(), SLOT(load(const QString&, const QString&)));
+	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileCreated(const QString&, const QString&)),	windows.values("CXPathWindow").at(1), SLOT(load(const QString&, const QString&)));
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)),					windows.value("CXEditPathFile"), SLOT(openFile(const QString&)));
 	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(textChanged(bool)),						windows.value("CXFilesList"), SLOT(onTextChanged(bool)));
 	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(newFileCreated()),							windows.value("CXFilesList"), SLOT(onCreateNewFile()));
 	QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileOpened(const QString&)),				windows.value("CXIniFileEditor"), SLOT(onOpenFile(const QString&)));
 	QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileSaved()),								windows.value("CXIniFileEditor"), SLOT(onSave()));
+	QObject::connect(windows.value("CXLazerSettings"), SIGNAL(positionChanged(const QPointF&, bool)),	windows.values("CXPathWindow").at(0), SLOT(setPosition(const QPointF&, bool)));
 
     CXGroupPanel* curGroupPanel = NULL;
 
 	//Создание функциональных панелей управления для каждой группы окон.
-	for (int i = 1; i < 4; ++i)
+	for (int i = 1; i < 5; ++i)
 	{
         curGroupPanel = addGroupPanel(i);
 
@@ -236,6 +261,12 @@ int main(int argc, char *argv[])
 
                 QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), parametersWindow, SLOT(loadParametersFromFtp()));
                 QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), parametersWindow, SLOT(saveParameters()));
+
+                break;
+            }
+            case 4:
+            {
+				qobject_cast<CXLazerSettings*>(windows.value("CXLazerSettings"))->setButtons(QList<QPushButton*>() << curGroupPanel->getButton(8) << curGroupPanel->getButton(9));
 
                 break;
             }

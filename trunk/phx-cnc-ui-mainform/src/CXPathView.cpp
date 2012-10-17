@@ -8,6 +8,8 @@
 
 CXPathView::CXPathView(QWidget* parent) : QWidget(parent)
 {
+	setObjectName("CXPathView");
+/**/
 	setMouseTracking(true);
 	setFocusPolicy(Qt::StrongFocus);
 
@@ -21,6 +23,7 @@ CXPathView::CXPathView(QWidget* parent) : QWidget(parent)
 
 	mCellSize = 40;
 	mIsFirstStart = false;
+	mIsPositionVisible = false;
 }
 
 CXPathView::~CXPathView()
@@ -68,7 +71,6 @@ void CXPathView::load(const QString& aMainFile, const QString& aMoveFile)
 	textFile.close();
 
 	fitInView();
-	repaint();
 }
 
 void CXPathView::fitInView()
@@ -80,6 +82,8 @@ void CXPathView::fitInView()
 	formSize = (boundingRect().size() - formSize) / 2.0;
 
 	mCurPosition = boundingRect().topLeft() + QPointF(formSize.width(), formSize.height());
+
+	update();
 }
 
 void CXPathView::zoomIn()
@@ -102,6 +106,26 @@ void CXPathView::zoomOut()
 	mCurPosition += pos / 2.0;
 /**/
 	repaint();
+}
+
+void CXPathView::setPositionVisible(bool aIsVisible)
+{
+	if (mIsPositionVisible != aIsVisible)
+	{
+		mIsPositionVisible = aIsVisible;
+
+		update();
+	}
+}
+
+void CXPathView::setPosition(const QPointF& aPos, bool aIsAbsolute)
+{
+	if (aIsAbsolute) mPos = aPos;
+	else mPos += aPos;
+
+	setPositionVisible(true);
+
+	update();
 }
 
 void CXPathView::paintEvent(QPaintEvent* e)
@@ -168,6 +192,14 @@ void CXPathView::paintEvent(QPaintEvent* e)
 
 	painter.setPen(Qt::blue);
 	painter.drawPath(mMovePath);
+
+	if (mIsPositionVisible)
+	{
+		painter.scale(1.0 / mScale, 1.0 / mScale);
+		painter.setBrush(Qt::black);
+		painter.setPen(Qt::black);
+		painter.drawEllipse(mPos * mScale, 2, 2);
+	}
 }
 
 void CXPathView::mousePressEvent(QMouseEvent* e)
@@ -187,7 +219,7 @@ void CXPathView::wheelEvent(QWheelEvent* e)
 	qreal dx = mCurPosition.x() - (e->pos().x() / mScale - e->pos().x() / oldScale);
 	qreal dy = mCurPosition.y() - (e->pos().y() / mScale - e->pos().y() / oldScale);
 
-	setPosition(QPointF(dx, dy));
+	setOffset(QPointF(dx, dy));
 
 	mDragPosition.setX(mCurPosition.x());
 	mDragPosition.setY(mCurPosition.y());
@@ -201,7 +233,7 @@ void CXPathView::mouseMoveEvent(QMouseEvent* e)
 	{
 		QPoint pos = e->pos();
 
-		setPosition((mOldPosition - pos)/mScale + mDragPosition);
+		setOffset((mOldPosition - pos)/mScale + mDragPosition);
 
 		repaint();
 	}
@@ -297,14 +329,14 @@ void CXPathView::fillPath(QFile& aTextFile, QPainterPath* aMainPath, QPainterPat
 						{
 							int res = oneFigures.cap(1).toInt();
 
-							//начало реза
+							//РЅР°С‡Р°Р»Рѕ СЂРµР·Р°
 							if (res >= 3 && res <= 5)
 							{
 								aBurnPath->moveTo(curPoint);
 								curPath = aBurnPath;
 							}
 
-							//конец реза
+							//РєРѕРЅРµС† СЂРµР·Р°
 							if (res >= 6 && res <= 8)
 							{
 								aMainPath->moveTo(curPoint);
@@ -330,19 +362,19 @@ void CXPathView::fillPath(QFile& aTextFile, QPainterPath* aMainPath, QPainterPat
 							qreal alphaEnd = qAcos((endPoint.x() - centerPoint.x()) / radius) * 180.0 / M_PI;
 							qreal alphaTemp = qAsin((endPoint.y() - centerPoint.y()) / radius) * 180.0 / M_PI;
 
-							//если синус дает отрицательный угол - значит угол идет в другую сторону
+							//РµСЃР»Рё СЃРёРЅСѓСЃ РґР°РµС‚ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№ СѓРіРѕР» - Р·РЅР°С‡РёС‚ СѓРіРѕР» РёРґРµС‚ РІ РґСЂСѓРіСѓСЋ СЃС‚РѕСЂРѕРЅСѓ
 							if (alphaTemp < 0) alphaEnd = 360.0 - alphaEnd;
 
 							qreal alphaStart = qAcos(-centerPoint.x() / radius) * 180.0 / M_PI;
 							alphaTemp = qAsin(-centerPoint.y() / radius) * 180.0 / M_PI;
 
-							//если синус дает отрицательный угол - значит угол идет в другую сторону
+							//РµСЃР»Рё СЃРёРЅСѓСЃ РґР°РµС‚ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№ СѓРіРѕР» - Р·РЅР°С‡РёС‚ СѓРіРѕР» РёРґРµС‚ РІ РґСЂСѓРіСѓСЋ СЃС‚РѕСЂРѕРЅСѓ
 							if (alphaTemp < 0) alphaStart = 360.0 - alphaStart;
 
 							qreal rotateAngle = alphaEnd - alphaStart;
 							if (rotateAngle < 0) rotateAngle += 360;
 
-							//по часовой
+							//РїРѕ С‡Р°СЃРѕРІРѕР№
 							if (direction == 1)
 							{
 								rotateAngle = rotateAngle - 360.0;
@@ -367,8 +399,8 @@ void CXPathView::fillPath(QFile& aTextFile, QPainterPath* aMainPath, QPainterPat
 void CXPathView::setScale(qreal aScale)
 {
 	qreal scale = getFitScale();
-	qreal minScale = scale / 2.0;
-	qreal maxScale = scale * 10.0;
+	qreal minScale = scale / 3.0;
+	qreal maxScale = 20.0;
 
 	mScale = aScale;
 
@@ -376,7 +408,7 @@ void CXPathView::setScale(qreal aScale)
 	if (mScale > maxScale) mScale = maxScale;
 }
 
-void CXPathView::setPosition(const QPointF& aPos)
+void CXPathView::setOffset(const QPointF& aPos)
 {
 	mCurPosition = aPos;
 
