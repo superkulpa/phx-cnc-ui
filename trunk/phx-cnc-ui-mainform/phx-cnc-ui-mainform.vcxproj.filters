@@ -225,7 +225,13 @@
     <ClCompile Include="src\CXTextParameters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CXLazerVelocity.cpp">
+    <ClCompile Include="Debug\moc_CXLazerDirectionWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_CXLazerDirectionWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXLazerDirectionWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_CXLazerVelocity.cpp">
@@ -234,13 +240,7 @@
     <ClCompile Include="Release\moc_CXLazerVelocity.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_CXLazerDirectionWindow.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_CXLazerDirectionWindow.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CXLazerDirectionWindow.cpp">
+    <ClCompile Include="src\CXLazerVelocity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -317,13 +317,13 @@
     <CustomBuild Include="src\CXPathWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="CXLazerVelocity.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="CXLazerVelocity.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXLazerDirectionWindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXLazerVelocity.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
