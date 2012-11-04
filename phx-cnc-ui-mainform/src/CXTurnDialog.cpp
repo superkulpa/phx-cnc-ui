@@ -11,6 +11,8 @@ CXTurnDialog::CXTurnDialog() : AXBaseWindow()
 {
 	setupUi(this);
 
+	setGroupNumber(100);
+
 	connect(mCloseButton, SIGNAL(clicked()), this, SLOT(close()));
 	connect(mButton0, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
 	connect(mButton1, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
