@@ -8,8 +8,6 @@
 
 CXPathView::CXPathView(QWidget* parent) : QWidget(parent)
 {
-	setObjectName("CXPathView");
-/**/
 	setMouseTracking(true);
 	setFocusPolicy(Qt::StrongFocus);
 
@@ -399,7 +397,7 @@ void CXPathView::fillPath(QFile& aTextFile, QPainterPath* aMainPath, QPainterPat
 void CXPathView::setScale(qreal aScale)
 {
 	qreal scale = getFitScale();
-	qreal minScale = scale / 3.0;
+	qreal minScale = qMin(1.0, scale / 3.0);
 	qreal maxScale = 20.0;
 
 	mScale = aScale;

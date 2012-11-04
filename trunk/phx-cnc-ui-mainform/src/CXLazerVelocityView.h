@@ -4,6 +4,13 @@
 #include <QWidget>
 #include <QPainterPath>
 
+//! Перечень режимов.
+enum eVelocityMode
+{
+	E_Accumulate,
+	E_SingleMode
+};
+
 //! Перечисление возможных значения скорости реза.
 enum eVelocity
 {
@@ -24,12 +31,21 @@ public:
 	//! Деструктор.
 	~CXLazerVelocityView();
 
+	//! Функция установки режима отображения.
+	void setMode(eVelocityMode aMode);
+
+	//! Функция установки текста описания делений.
+	void setTexts(const QList <QString>& aTexts);
+
 protected:
 	//! Переопределенная фукнция рисования.
 	virtual void paintEvent(QPaintEvent* e);
 
 	//! Переопределенная фукнция обработки нажатия кнопки мышки.
 	virtual void mousePressEvent(QMouseEvent* e);
+
+	//! Переопределенная фукнция обработки отпускания кнопки мышки.
+	virtual void mouseReleaseEvent(QMouseEvent* e);
 
 	//! Переопределенная фукнция обработки движения мышки.
 	virtual void mouseMoveEvent(QMouseEvent* e);
@@ -42,9 +58,14 @@ private:
 	*/
 	void updateVelocity(const QPointF& aPos);
 
+	//! Функция установки текущего значения скорости.
+	void setVelocity(eVelocity aVelocity);
+
 private:
-	QList <QPainterPath> mPathList;
+	QList <QRectF> mPathList;
+	QList <QString> mTexts;
 	QPainterPath mDrawPath;
+	eVelocityMode mMode;
 	eVelocity mVelocity;
 };
 

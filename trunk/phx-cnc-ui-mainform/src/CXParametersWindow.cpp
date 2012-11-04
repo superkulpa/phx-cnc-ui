@@ -9,6 +9,8 @@
 #include "CXParametersView.h"
 #include "CXParametersView.h"
 #include "iniFile.h"
+#include "AXBaseWindow.h"
+#include "CXWindowsManager.h"
 
 CXParametersWindow::CXParametersWindow(QWidget* parent, bool aIsSystem) : QTabWidget(parent)
 {
@@ -222,6 +224,11 @@ void CXParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 	mFtp = NULL;
 
 	if (!aIsUpload) loadParameters();
+}
+
+void CXParametersWindow::showSettings()
+{
+	AXBaseWindow::mManager->setCurrentGroup(3);
 }
 
 void CXParametersWindow::buttonClicked()

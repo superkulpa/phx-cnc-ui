@@ -4,11 +4,10 @@
 #include <QPushButton>
 
 #include "CXPathView.h"
+#include "CXTouchButton.h"
 
 CXPathWindow::CXPathWindow() : AXBaseWindow()
 {
-	setObjectName("CXPathWindow");
-/**/
 	QVBoxLayout* centralLayout = new QVBoxLayout(this);
 
 	mPathView = new CXPathView(this);
@@ -20,18 +19,22 @@ CXPathWindow::CXPathWindow() : AXBaseWindow()
 	centralLayout->setMargin(5);
 	centralLayout->setSpacing(5);
 
-	QPushButton* zoomInButton = new QPushButton(QObject::trUtf8("+ Увеличить"), this);
+	CXTouchButton* zoomInButton = new CXTouchButton(QObject::trUtf8("+ Увеличить"), this);
 	horLayout->addWidget(zoomInButton);
 
-	QPushButton* showAllButton = new QPushButton(QObject::trUtf8("x"), this);
+	CXTouchButton* showAllButton = new CXTouchButton(QObject::trUtf8("x"), this);
 	horLayout->addWidget(showAllButton);
 
-	QPushButton* zoomOutButton = new QPushButton(QObject::trUtf8("- Уменьшить"), this);
+	CXTouchButton* zoomOutButton = new CXTouchButton(QObject::trUtf8("- Уменьшить"), this);
 	horLayout->addWidget(zoomOutButton);
+
+	CXTouchButton* maximizeButton = new CXTouchButton(QObject::trUtf8("□"), this);
+	horLayout->addWidget(maximizeButton);
 
 	connect(zoomInButton, SIGNAL(clicked()), mPathView, SLOT(zoomIn()));
 	connect(zoomOutButton, SIGNAL(clicked()), mPathView, SLOT(zoomOut()));
 	connect(showAllButton, SIGNAL(clicked()), mPathView, SLOT(fitInView()));
+	connect(maximizeButton, SIGNAL(clicked()), this, SLOT(onMaximize()));
 
 	centralLayout->addLayout(horLayout);
 }
@@ -49,4 +52,10 @@ void CXPathWindow::load(const QString& aMainFile, const QString& aMoveFile)
 void CXPathWindow::setPosition(const QPointF& aPos, bool aIsAbsolute)
 {
 	mPathView->setPosition(aPos, aIsAbsolute);
+}
+
+void CXPathWindow::onMaximize()
+{
+	if (isFullScreen()) showNormal();
+	else showFullScreen();
 }

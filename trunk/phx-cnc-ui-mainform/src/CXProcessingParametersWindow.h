@@ -12,10 +12,15 @@ class CXParametersView;
 */
 class CXProcessingParametersWindow : public QWidget, public Ui::CXProcessingParametersWindow
 {
+	Q_OBJECT
 
 public:
 	CXProcessingParametersWindow(QWidget* parent);
 	~CXProcessingParametersWindow();
+
+private slots:
+	//! Слот на загрузку.
+	void onFileLoad();
 
 private:
 	CXParametersView* mParametersView;

@@ -10,6 +10,8 @@ CXWindowsManager* AXBaseWindow::mManager = NULL;
 
 AXBaseWindow::AXBaseWindow() : QWidget()
 {
+	resize(300, 300);
+
 	mGroupNumber = -1;
 	mResizeType = E_None;
 
@@ -29,7 +31,6 @@ AXBaseWindow::AXBaseWindow() : QWidget()
 
 	setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
 
-	resize(300, 300);
 	setMouseTracking(true);
 }
 

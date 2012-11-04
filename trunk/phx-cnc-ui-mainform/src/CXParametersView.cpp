@@ -5,6 +5,7 @@
 #include <QStylePainter>
 #include <QSpinBox>
 #include <QApplication>
+#include <QMouseEvent>
 
 QMap <int, CXGroupData*> CXParametersView::mGropusMap;
 QMap<int, CXParameterData*> CXParametersView::mDataMap;
@@ -24,7 +25,7 @@ QWidget* CXParameterItemDelegate::createEditor(QWidget* parent, const QStyleOpti
 {
 	switch (index.column())
 	{
-		case 2:
+		case 1:
 		{
 			QSpinBox* spinBox = new QSpinBox(parent);
 
@@ -45,31 +46,30 @@ void CXParameterItemDelegate::paint(QPainter* painter, const QStyleOptionViewIte
 {
 	switch (index.column())
 	{
-		case 1:
+		case 0:
 		{
 			QStyleOptionProgressBar progressBarOption;
 			progressBarOption.rect = option.rect;
 			progressBarOption.minimum = index.data(Qt::UserRole + 100).toInt();
 			progressBarOption.maximum = index.data(Qt::UserRole + 101).toInt();
 			progressBarOption.progress = index.data(Qt::EditRole).toInt();
+			progressBarOption.textVisible = true;
+			progressBarOption.textAlignment = Qt::AlignCenter;
+			progressBarOption.text = index.data(Qt::DisplayRole).toString();
 
 			QApplication::style()->drawControl(QStyle::CE_ProgressBar, &progressBarOption, painter);
 
 			break;
 		}
+		case 2:
 		case 3:
-		case 4:
 		{
 			QStyleOptionButton buttonOption;
 			buttonOption.rect = option.rect;
-			if (index.column() == 3) buttonOption.text = "+";
+			if (index.column() == 2) buttonOption.text = "+";
 			else buttonOption.text = "-";
 			buttonOption.state = QStyle::State_Enabled | QStyle::State_Active;
-/*
-			QFont painterFont = painter->font();
-			painterFont.setPointSize(16);
-			painter->setFont(painterFont);
-*/
+
 			QApplication::style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter);
 
 			break;
@@ -88,6 +88,21 @@ bool CXParameterItemDelegate::editorEvent(QEvent* e, QAbstractItemModel* model, 
 	{
 		case QEvent::MouseMove:
 		{
+			if (mClickIndex.row() == index.row() && mClickIndex.column() == 0)
+			{
+				if (mClickTimer != -1) return true;
+
+				QMouseEvent* mouse = dynamic_cast<QMouseEvent*>(e);
+				qreal value = mouse->posF().x() / option.rect.width();
+
+				int min = index.data(Qt::UserRole + 100).toInt();
+				int max = index.data(Qt::UserRole + 101).toInt();
+
+				model->setData(index, value * (max - min) + min, Qt::EditRole);
+
+				return true;
+			}
+
 			if (mClickTimer != -1 && mClickIndex != index)
 			{
 				killTimer(mClickTimer);
@@ -112,17 +127,26 @@ bool CXParameterItemDelegate::editorEvent(QEvent* e, QAbstractItemModel* model, 
 			mModel = model;
 			mClickIndex = index;
 
-			if (mClickIndex.column() == 3)
+			if (mClickIndex.column() == 0)
 			{
-				model->setData(index, index.data(Qt::EditRole).toInt() + 1, Qt::EditRole);
-			}
-			if (mClickIndex.column() == 4)
-			{
-				model->setData(index, index.data(Qt::EditRole).toInt() - 1, Qt::EditRole);
+				mClickTimer = startTimer(200);
 			}
 
-			mTimerInterval = 1000;
-			mClickTimer = startTimer(mTimerInterval);
+			if (mClickIndex.column() == 2 || mClickIndex.column() == 3)
+			{
+				if (mClickIndex.column() == 2)
+				{
+					model->setData(index, index.data(Qt::EditRole).toInt() + 1, Qt::EditRole);
+				}
+
+				if (mClickIndex.column() == 3)
+				{
+					model->setData(index, index.data(Qt::EditRole).toInt() - 1, Qt::EditRole);
+				}
+
+				mTimerInterval = 1000;
+				mClickTimer = startTimer(mTimerInterval);
+			}
 
 			break;
 		}
@@ -135,27 +159,29 @@ void CXParameterItemDelegate::timerEvent(QTimerEvent* e)
 {
 	if (e->timerId() == mClickTimer)
 	{
-		if (mParentWidget != NULL && mParentWidget->indexAt(mParentWidget->mapFromGlobal(QCursor::pos())) != mClickIndex)
+		if (mClickIndex.column() == 2 || mClickIndex.column() == 3)
 		{
-			killTimer(mClickTimer);
-			mClickTimer = -1;
-			return;
-		}
+			if (mParentWidget != NULL && mParentWidget->indexAt(mParentWidget->mapFromGlobal(QCursor::pos())) != mClickIndex)
+			{
+				killTimer(mClickTimer);
+				mClickTimer = -1;
+				return;
+			}
 
-		if (mClickIndex.column() == 3)
-		{
-			mModel->setData(mClickIndex, mClickIndex.data(Qt::EditRole).toInt() + 1, Qt::EditRole);
+			if (mClickIndex.column() == 2) mModel->setData(mClickIndex, mClickIndex.data(Qt::EditRole).toInt() + 1, Qt::EditRole);
+			else mModel->setData(mClickIndex, mClickIndex.data(Qt::EditRole).toInt() - 1, Qt::EditRole);
+
+			if (mTimerInterval == 1000)
+			{
+				killTimer(mClickTimer);
+				mTimerInterval = 50;
+				mClickTimer = startTimer(mTimerInterval);
+			}
 		}
 		else
 		{
-			mModel->setData(mClickIndex, mClickIndex.data(Qt::EditRole).toInt() - 1, Qt::EditRole);
-		}
-
-		if (mTimerInterval == 1000)
-		{
 			killTimer(mClickTimer);
-			mTimerInterval = 50;
-			mClickTimer = startTimer(mTimerInterval);
+			mClickTimer = -1;
 		}
 	}
 }
@@ -176,7 +202,7 @@ int	CXParametersModel::columnCount(const QModelIndex& parent) const
 {
 	Q_UNUSED(parent)
 
-	return 5;
+	return 4;
 }
 
 QVariant CXParametersModel::data(const QModelIndex& index, int role) const
@@ -199,12 +225,12 @@ QVariant CXParametersModel::data(const QModelIndex& index, int role) const
 			{
 				case 0:
 				{
-					return mParameters.at(index.row())->mName;
+					if (role == Qt::DisplayRole) return mParameters.at(index.row())->mName;
+					mParameters.at(index.row())->getValue();
 				}
 				case 1:
 				case 2:
 				case 3:
-				case 4:
 				{
 					return mParameters.at(index.row())->getValue();
 				}
@@ -259,7 +285,7 @@ Qt::ItemFlags CXParametersModel::flags(const QModelIndex& index) const
 {
 	switch (index.column())
 	{
-		case 2:
+		case 1:
 		{
 			return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 		}
@@ -320,9 +346,9 @@ CXParametersView::CXParametersView(QWidget* parent, QList <CXParameterData*> aPa
 
 	sortByColumn(0, Qt::AscendingOrder);
 
-	setColumnWidth(1, 200);
+//	setColumnWidth(1, 100);
+	setColumnWidth(2, 70);
 	setColumnWidth(3, 70);
-	setColumnWidth(4, 70);
 
 	horHeader->setResizeMode(0, QHeaderView::Stretch);
 }

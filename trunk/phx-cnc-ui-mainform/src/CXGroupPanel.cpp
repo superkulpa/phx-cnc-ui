@@ -4,23 +4,22 @@
 //#include <QDesktopWidget>
 #include <QProcess>
 
+#include "CXTouchButton.h"
 #include "flowlayout.h"
 
 CXGroupPanel::CXGroupPanel() : AXBaseWindow()
 {
-	setObjectName("CXGroupPanel");
-/**/
 	FlowLayout* centralLayout = new FlowLayout(this);
 	centralLayout->setMargin(8);
 	centralLayout->setSpacing(8);
 /**/
 
-	QPushButton* button = NULL;
+	CXTouchButton* button = NULL;
 //	int buttonSize = QApplication::desktop()->availableGeometry().width() / 20;
 
 	for (int i = 1; i < 11; ++i)
 	{
-        button = new QPushButton(QString("F%1\n").arg(i), this);
+        button = new CXTouchButton(QString("F%1\n").arg(i), this);
 		button->setFocusPolicy(Qt::NoFocus);
 //		button->setFont(QFont("", buttonSize / 7));
 //		button->setFixedSize(buttonSize + 20, buttonSize);

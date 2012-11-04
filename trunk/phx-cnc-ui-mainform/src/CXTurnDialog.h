@@ -1,20 +1,21 @@
 #ifndef CXTURNDIALOG_H
 #define CXTURNDIALOG_H
 
-#include <QWidget>
+//#include <QWidget>
+#include "AXBaseWindow.h"
 
 #include "ui_CXTurnDialog.h"
 
 /*!
 	Класс настройки поворота и мастабирования УП.
 */
-class CXTurnDialog : public QWidget, public Ui::CXTurnDialog
+class CXTurnDialog : public AXBaseWindow, public Ui::CXTurnDialog
 {
 	Q_OBJECT
 
 public:
 	//! Конструктор.
-	CXTurnDialog(QWidget* parent = 0);
+	CXTurnDialog();
 
 	//! Деструктор.
 	~CXTurnDialog();

@@ -40,6 +40,9 @@ public slots:
 	//! Слот, вызываемый по окончанию загрузки.
 	void onAllFilesIsLoaded(bool aIsUpload);
 
+	//! Слот показа настроек.
+	void showSettings();
+
 private slots:
 	//! Слот на нажатие кнопки.
 	void buttonClicked();

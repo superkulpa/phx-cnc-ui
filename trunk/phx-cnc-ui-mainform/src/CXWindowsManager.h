@@ -45,6 +45,12 @@ public:
 		\param aFileName - путь с именем файла.
 	*/
 	void load(const QString& aFileName);
+	
+	/*!
+		Функция загрузка геометрии окона по индексу.
+		\param aIndex - индекс окна.
+	*/
+	void load(int aIndex);
 
 	/*!
 		Функция выноса всех окон на передний план.
@@ -88,6 +94,8 @@ private:
 	bool intersects(const QRect& aFirstRect, const QRect& aSecondRect, bool aIsVertical = true);
 
 private:
+	QString mFileName;
+
 	bool mIsFreeze;
 	int mGroupNumber;
 

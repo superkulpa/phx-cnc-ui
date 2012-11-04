@@ -30,21 +30,21 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="CXTouchButton" name="mLoadBaseButton">
        <property name="text">
         <string>Взять из базы</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="CXTouchButton" name="mLoadButton">
        <property name="text">
         <string>Загрузить</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="mCancelButton">
+      <widget class="CXTouchButton" name="mCancelButton">
        <property name="text">
         <string>Отмена</string>
        </property>
@@ -54,6 +54,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CXTouchButton</class>
+   <extends>QPushButton</extends>
+   <header>cxtouchbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

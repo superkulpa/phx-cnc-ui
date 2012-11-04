@@ -4,10 +4,12 @@
 #include "AXBaseWindow.h"
 
 #include <QPushButton>
+#include <QLineEdit>
 
 class CXLazerDirectionView;
 class CXLazerVelocityView;
 class CXLazerVelocity;
+class CXTouchButton;
 
 /*!
 	Класс настройки направления и скорости реза с функциональными кнопками.
@@ -30,11 +32,18 @@ private slots:
 	//! Остановка процесса.
 	void onStop();
 
+	//! Слот обработки клика по X и Y.
+	void onXYClick();
+
 private:
-	QPushButton* mForwardButton;
-	QPushButton* mBackwardButton;
-	QPushButton* mSearchButton;
-	QPushButton* mStopButton;
+	CXTouchButton* mForwardButton;
+	CXTouchButton* mBackwardButton;
+	CXTouchButton* mSearchButton;
+	CXTouchButton* mStopButton;
+
+	QLineEdit* mXEdit;
+	QLineEdit* mYEdit;
+	QLineEdit* mFEdit;
 
 	CXLazerDirectionView* mLazerDirectionView;
 	CXLazerVelocityView* mLazerVelocityView;

@@ -7,6 +7,8 @@
 #include "ui_CXFilesList.h"
 #include "AXBaseWindow.h"
 
+class CXTurnDialog;
+
 /*!
 	Класс списка файлов для редактора пути.
 */
@@ -30,6 +32,9 @@ public slots:
 
 	//! Слот показа диалога поворота и мастабирования пути.
 	void onTurn();
+
+	//! Слот сохранения статистики.
+	void onStatSave();
 
 signals:
 	/*!
@@ -94,6 +99,8 @@ private:
 	QFileSystemModel* mModel;
 	QModelIndex mRootIndex;
 	QPushButton* mButton;
+	CXTurnDialog* mTurnDialog;
+
 	bool mIsModifier;
 	bool mIsCompileNeed;
 };

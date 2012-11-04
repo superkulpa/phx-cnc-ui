@@ -10,8 +10,8 @@ namespace LazerDirectionView
 	//! Перечисление возможных значений направления реза.
 	enum eMoveDirection
 	{
-		E_None = -1,
-		E_Top = 0,
+		E_Stop = 0,
+		E_Top,
 		E_TopLeft,
 		E_Left,
 		E_BottomLeft,
