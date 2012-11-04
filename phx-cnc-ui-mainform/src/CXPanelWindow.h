@@ -23,7 +23,11 @@ public:
 	void setFreezeState(bool aIsFreeze);
 
 private slots:
+	//! Слот на показ нужной группы.
 	void setGroup();
+
+	//! Слот на выход.
+	void onExit();
 
 private:
 	QPushButton* btnFreeze;

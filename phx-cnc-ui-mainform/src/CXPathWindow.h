@@ -33,6 +33,9 @@ public slots:
 	*/
 	void setPosition(const QPointF& aPos, bool aIsAbsolute);
 
+	//! Слот разворачивания на весь экран.
+	void onMaximize();
+
 private:
 	CXPathView* mPathView;
 };

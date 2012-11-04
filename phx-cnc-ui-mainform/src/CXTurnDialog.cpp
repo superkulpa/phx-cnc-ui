@@ -5,10 +5,9 @@
 #include <QFile>
 #include <QDomDocument>
 #include <QTextStream>
-#include <QScriptEngine>
 #include <QMessageBox>
 
-CXTurnDialog::CXTurnDialog(QWidget* parent) : QWidget(parent)
+CXTurnDialog::CXTurnDialog() : AXBaseWindow()
 {
 	setupUi(this);
 
@@ -35,8 +34,8 @@ CXTurnDialog::CXTurnDialog(QWidget* parent) : QWidget(parent)
 	connect(mFlipYButton, SIGNAL(clicked()), this, SLOT(onWriteFlipY()));
 	connect(mWriteScaleButton, SIGNAL(clicked()), this, SLOT(onWriteScale()));
 
-	mRotateEdit->setValidator(new QRegExpValidator(QRegExp("^(\\+?-?\\d+\\+?-?)+$"), mRotateEdit));
-	mScaleEdit->setValidator(new QRegExpValidator(QRegExp("^(\\+?-?\\d+\\+?-?)+$"), mScaleEdit));
+	mRotateEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d+"), mRotateEdit));
+	mScaleEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d+"), mScaleEdit));
 }
 
 CXTurnDialog::~CXTurnDialog()
@@ -70,9 +69,17 @@ void CXTurnDialog::onButtonClicked()
 			QString text;
 			text = keyValues.value(clickedButton->shortcut());
 
+			if (text == "+" || text == "-")
+			{
+				QString s = lineEdit->text().replace(QRegExp("(\\+|-)"), "");
+				lineEdit->setText(text + s);
+			}
+			else
+			{
 			QClipboard* clipboard = QApplication::clipboard();
 			clipboard->setText(text);
 			lineEdit->paste();
+			}
 
 			return;
 		}
@@ -108,17 +115,6 @@ void CXTurnDialog::onWriteRotation()
 
 void CXTurnDialog::onCalculateRotation()
 {
-	QScriptEngine engine;
-	QScriptSyntaxCheckResult checkResult = engine.checkSyntax(mRotateEdit->text());
-
-	if (checkResult.state() == QScriptSyntaxCheckResult::Error)
-	{
-		QMessageBox::critical(NULL, trUtf8("Ошибка"), trUtf8("Не удалось вычислить выражение:\n").arg(checkResult.errorMessage()));
-		return;
-	}
-
-	QScriptValue value = engine.evaluate(mRotateEdit->text());
-	if (value.isValid() && !value.isUndefined() && !value.isNull()) mRotateEdit->setText(value.toString());
 }
 
 void CXTurnDialog::onWriteFlipX()

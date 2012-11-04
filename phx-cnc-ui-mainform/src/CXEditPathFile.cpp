@@ -22,6 +22,8 @@ CXEditPathFile::CXEditPathFile() : AXBaseWindow()
 	connect(mSaveButton, SIGNAL(clicked()), this, SLOT(onSave()));
 	connect(mSaveAsButton, SIGNAL(clicked()), this, SLOT(onSaveAs()));
 	connect(mCreateButton, SIGNAL(clicked()), this, SIGNAL(newFileCreated()));
+	connect(mStatButton, SIGNAL(clicked()), this, SIGNAL(statSaved()));
+
 	connect(mTextEdit, SIGNAL(cursorPositionChanged()), this, SLOT(onCursorPositionChange()));
 	connect(mTextEdit, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
 }
@@ -35,7 +37,7 @@ void CXEditPathFile::openFile(const QString& aFileName)
 {
 	mFileName = aFileName;
 
-	mTitleLabel->setText(QString(mFileName).replace(QApplication::applicationDirPath() + "/cps/", ""));
+	mTitleGroup->setTitle(QString(mFileName).replace(QApplication::applicationDirPath() + "/cps/", ""));
 
 	QFile file(aFileName);
 	file.open(QIODevice::ReadOnly);

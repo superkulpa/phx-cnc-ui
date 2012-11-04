@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>CXTurnDialog</class>
  <widget class="QWidget" name="CXTurnDialog">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>913</width>
-    <height>513</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Повернуть/Перевернуть/Масштабировать</string>
   </property>
@@ -37,7 +29,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QPushButton" name="mWriteRotationButton">
+          <widget class="CXTouchButton" name="mWriteRotationButton">
            <property name="focusPolicy">
             <enum>Qt::NoFocus</enum>
            </property>
@@ -47,7 +39,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QPushButton" name="mCalculateRotationButton">
+          <widget class="CXTouchButton" name="mCalculateRotationButton">
            <property name="focusPolicy">
             <enum>Qt::NoFocus</enum>
            </property>
@@ -73,7 +65,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
          <item row="1" column="1">
-          <widget class="QPushButton" name="mFlipYButton">
+          <widget class="CXTouchButton" name="mFlipYButton">
            <property name="focusPolicy">
             <enum>Qt::NoFocus</enum>
            </property>
@@ -83,7 +75,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QPushButton" name="mFlipXButton">
+          <widget class="CXTouchButton" name="mFlipXButton">
            <property name="focusPolicy">
             <enum>Qt::NoFocus</enum>
            </property>
@@ -125,7 +117,7 @@
           </widget>
          </item>
          <item row="0" column="1" rowspan="2">
-          <widget class="QPushButton" name="mWriteScaleButton">
+          <widget class="CXTouchButton" name="mWriteScaleButton">
            <property name="focusPolicy">
             <enum>Qt::NoFocus</enum>
            </property>
@@ -156,7 +148,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <widget class="QPushButton" name="mButton7">
+       <widget class="CXTouchButton" name="mButton7">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -169,7 +161,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QPushButton" name="mButton8">
+       <widget class="CXTouchButton" name="mButton8">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -182,7 +174,7 @@
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QPushButton" name="mButton9">
+       <widget class="CXTouchButton" name="mButton9">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -195,7 +187,7 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QPushButton" name="mButton4">
+       <widget class="CXTouchButton" name="mButton4">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -208,7 +200,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QPushButton" name="mButton5">
+       <widget class="CXTouchButton" name="mButton5">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -221,7 +213,7 @@
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QPushButton" name="mButton6">
+       <widget class="CXTouchButton" name="mButton6">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -234,7 +226,7 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QPushButton" name="mButton1">
+       <widget class="CXTouchButton" name="mButton1">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -247,7 +239,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QPushButton" name="mButton2">
+       <widget class="CXTouchButton" name="mButton2">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -260,7 +252,7 @@
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QPushButton" name="mButton3">
+       <widget class="CXTouchButton" name="mButton3">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -273,7 +265,7 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QPushButton" name="mButtonPlus">
+       <widget class="CXTouchButton" name="mButtonPlus">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -286,7 +278,7 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QPushButton" name="mButton0">
+       <widget class="CXTouchButton" name="mButton0">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -299,7 +291,7 @@
        </widget>
       </item>
       <item row="3" column="2">
-       <widget class="QPushButton" name="mButtonMinus">
+       <widget class="CXTouchButton" name="mButtonMinus">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -312,7 +304,7 @@
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QPushButton" name="mButtonBackspace">
+       <widget class="CXTouchButton" name="mButtonBackspace">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -325,7 +317,7 @@
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QPushButton" name="mButtonEnter">
+       <widget class="CXTouchButton" name="mButtonEnter">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -338,7 +330,7 @@
        </widget>
       </item>
       <item row="4" column="2">
-       <widget class="QPushButton" name="mButtonDel">
+       <widget class="CXTouchButton" name="mButtonDel">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -364,7 +356,7 @@
        </spacer>
       </item>
       <item row="6" column="1" colspan="2">
-       <widget class="QPushButton" name="mCloseButton">
+       <widget class="CXTouchButton" name="mCloseButton">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -378,6 +370,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CXTouchButton</class>
+   <extends>QPushButton</extends>
+   <header>cxtouchbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

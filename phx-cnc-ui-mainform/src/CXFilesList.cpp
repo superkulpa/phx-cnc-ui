@@ -14,6 +14,8 @@ CXFilesList::CXFilesList() : AXBaseWindow()
 {
 	setupUi(this);
 
+	mTurnDialog = NULL;
+
 	mIsModifier = false;
 	mIsCompileNeed = false;
 
@@ -62,13 +64,22 @@ void CXFilesList::setButton(QPushButton* aButton)
 
 void CXFilesList::onTurn()
 {
-	CXTurnDialog* turnDialog = new CXTurnDialog(NULL);
-	turnDialog->setAttribute(Qt::WA_DeleteOnClose);
-	turnDialog->setWindowFlags(Qt::Dialog);
-	turnDialog->setWindowModality(Qt::ApplicationModal);
-	turnDialog->resize(700, 500);
+	if (mTurnDialog == NULL)
+	{
+		mTurnDialog = new CXTurnDialog();
+//		mTurnDialog->setAttribute(Qt::WA_DeleteOnClose);
+//		mTurnDialog->setWindowFlags(Qt::Dialog);
+		mTurnDialog->setWindowModality(Qt::ApplicationModal);
 
-	turnDialog->show();
+		connect(mTurnDialog, SIGNAL(compileNeeded()), this, SLOT(onCompileFile()));
+	}
+
+	mTurnDialog->show();
+}
+
+void CXFilesList::onStatSave()
+{
+	;
 }
 
 void CXFilesList::onItemActivate(const QModelIndex& aIndex)
@@ -226,7 +237,6 @@ void CXFilesList::onLoadCheckFile()
 {
 	if (mIsModifier)
 	{
-		QMessageBox::information(this, trUtf8("Информация"), trUtf8("Сохраните изменения перед выполнением операции проверки!"));
 		return;
 	}
 

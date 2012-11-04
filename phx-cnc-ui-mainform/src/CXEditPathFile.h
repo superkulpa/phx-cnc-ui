@@ -39,6 +39,9 @@ signals:
 	//! Сигнал на изменение текста.
 	void textChanged(bool aIsSaved = false);
 
+	//! Сигнал на сохранение статистики.
+	void statSaved();
+
 private slots:
 	//! Слот на изменение позиции курсора.
 	void onCursorPositionChange();

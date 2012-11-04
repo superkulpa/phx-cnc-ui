@@ -61,7 +61,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="mDownButton">
+         <widget class="CXTouchButton" name="mDownButton">
           <property name="focusPolicy">
            <enum>Qt::NoFocus</enum>
           </property>
@@ -87,7 +87,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="mOpenButton">
+         <widget class="CXTouchButton" name="mOpenButton">
           <property name="focusPolicy">
            <enum>Qt::NoFocus</enum>
           </property>
@@ -107,7 +107,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="mUpButton">
+         <widget class="CXTouchButton" name="mUpButton">
           <property name="focusPolicy">
            <enum>Qt::NoFocus</enum>
           </property>
@@ -166,6 +166,13 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>CXTouchButton</class>
+   <extends>QPushButton</extends>
+   <header>cxtouchbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../resource.qrc"/>
  </resources>

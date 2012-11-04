@@ -7,36 +7,52 @@
 
 CXLazerDirectionView::CXLazerDirectionView(QWidget* parent) : QWidget(parent)
 {
-	setObjectName("CXLazerDirectionView");
-/**/
-	mDirection = LazerDirectionView::E_None;
+	mDirection = LazerDirectionView::E_Stop;
 
-	for (int i = 0; i < 8; ++i)
-	{
-		QPainterPath path;
-		path.moveTo(50, 50);
-		path.arcTo(0, 0, 100, 100, 67.5 + 45 * i, 45);
-		path.lineTo(50, 50);
-
-		mPathList.append(path);
-	}
+	const qreal radius = 18.0;
 
 	qreal x = 0;
 	qreal y = 0;
 
-	for (int i = 0; i < 4; ++i)
+	QPainterPath path;
+	path.addEllipse(QPointF(50, 50), radius, radius);
+	mPathList.append(path);
+
+	for (int i = 0; i < 8; ++i)
+	{
+		x = radius * qCos(-(67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
+		y = radius * qSin(-(67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
+
+		QPainterPath path;
+		path.moveTo(x, y);
+		path.arcTo(0, 0, 100, 100, 67.5 + 45.0 * i, 45.0);
+
+		x = radius * qCos(-(67.5 + 45.0 * (i + 1)) * M_PI / 180.0) + 50.0;
+		y = radius * qSin(-(67.5 + 45.0 * (i + 1)) * M_PI / 180.0) + 50.0;
+
+		path.lineTo(x, y);
+		path.arcTo(50.0 - radius, 50.0 - radius, 2 * radius, 2 * radius, 67.5 + 45.0 * (i + 1), -45.0);
+
+		mPathList.append(path);
+	}
+
+	for (int i = 0; i < 8; ++i)
 	{
 		x = 50.0 * qCos((67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
 		y = 50.0 * qSin((67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
 
 		mDrawPath.moveTo(x, y);
 
+		x = radius * qCos((67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
+		y = radius * qSin((67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
+/*
 		x = 50.0 * qCos((67.5 + 45.0 * i + 180.0) * M_PI / 180.0) + 50.0;
 		y = 50.0 * qSin((67.5 + 45.0 * i + 180.0) * M_PI / 180.0) + 50.0;
-
+*/
 		mDrawPath.lineTo(x, y);
 	}
 
+	mDrawPath.addEllipse(QPointF(50, 50), radius, radius);
 	mDrawPath.addEllipse(0, 0, 100, 100);
 }
 
@@ -63,12 +79,12 @@ void CXLazerDirectionView::paintEvent(QPaintEvent*)
 
 	painter.setPen(Qt::DotLine);
 
-	for (int i = 0; i < 4; ++i)
+	for (int i = 1; i < 5; ++i)
 	{
 		painter.fillPath(mPathList.at(i * 2), QColor(0, 255, 0, 15));
 	}
 
-	if (mDirection != LazerDirectionView::E_None)
+//	if (mDirection != LazerDirectionView::E_Stop)
 	{
 		QRadialGradient radialGradient(50, 50, 50);
 		radialGradient.setColorAt(0, Qt::green);

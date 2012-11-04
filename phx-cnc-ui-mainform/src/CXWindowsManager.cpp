@@ -9,6 +9,7 @@
 #include <QMouseEvent>
 
 #include "CXPanelWindow.h"
+#include "CXGroupPanel.h"
 
 CXWindowsManager::CXWindowsManager()
 {
@@ -29,11 +30,14 @@ CXWindowsManager::~CXWindowsManager()
 
 void CXWindowsManager::addWindow(AXBaseWindow* aWindow)
 {
-	if (mList.contains(aWindow)) return;
+	if (aWindow == NULL || mList.contains(aWindow)) return;
 
 	mList.append(aWindow);
 
 	connect(aWindow, SIGNAL(geometryChanged(const QRect&, bool)), SLOT(windowGeometryChange(const QRect&, bool)));
+
+	load(mList.count() - 1);
+	aWindow->setFreeze(mIsFreeze);
 }
 
 void CXWindowsManager::setCurrentGroup(int aGroupNumber)
@@ -70,7 +74,7 @@ void CXWindowsManager::save(const QString& aFileName)
 	out.setCodec("UTF-8");
 
 	out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Settings>\n";
-	out << QString("	<manager freeze=\"%1\"/>").arg(mIsFreeze);
+	out << QString("	<manager freeze=\"%1\"/>\n").arg(mIsFreeze);
 
 	AXBaseWindow* curWindow = NULL;
 	int count = 0;
@@ -93,6 +97,8 @@ void CXWindowsManager::save(const QString& aFileName)
 
 void CXWindowsManager::load(const QString& aFileName)
 {
+	mFileName = aFileName;
+
 	QFile xmlFile(aFileName);
 
 	if (!xmlFile.open(QIODevice::ReadOnly)) return;
@@ -136,6 +142,51 @@ void CXWindowsManager::load(const QString& aFileName)
 	}
 
 	setFreeze(isFreeze);
+}
+
+void CXWindowsManager::load(int aIndex)
+{
+	QFile xmlFile(mFileName);
+
+	if (!xmlFile.open(QIODevice::ReadOnly)) return;
+
+	QDomDocument document("");
+	if (!document.setContent(&xmlFile)) return;
+
+	QDomElement root = document.documentElement();
+
+	bool isFreeze = mIsFreeze;
+
+	if (!root.isNull())
+	{
+		QDomElement element = root.firstChildElement();
+		AXBaseWindow* curWindow = NULL;
+
+		while (!element.isNull())
+		{
+			if (element.tagName() == "manager")
+			{
+				isFreeze = element.attribute("freeze").toInt();
+			}
+
+			if (element.tagName().left(7) == "window_")
+			{
+				int index = element.tagName().mid(7).toInt() + 1;
+				if (index > 1 && index < mList.count() && index == aIndex)
+				{
+					curWindow = qobject_cast<AXBaseWindow*>(mList.at(index));
+
+					if (curWindow != NULL)
+					{
+						curWindow->restoreGeometry(QByteArray::fromBase64(QByteArray().append(element.text())));
+						curWindow->setFreeze(element.attribute("freeze").toInt());
+					}
+				}
+			}
+
+			element = element.nextSiblingElement();
+		}
+	}
 }
 
 void CXWindowsManager::bringToFront()
@@ -210,7 +261,7 @@ bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 			if (isBreak)
 			{
 				AXBaseWindow* baseWindow = qobject_cast<AXBaseWindow*>(widget);
-				bool isPanel = (qobject_cast<CXPanelWindow*>(widget) != NULL);
+				bool isPanel = (qobject_cast<CXPanelWindow*>(widget) != NULL || qobject_cast<CXGroupPanel*>(widget) != NULL || watched->objectName() == "mCloseButton");
 
 				if (baseWindow != NULL && !baseWindow->isFreeze())
 				{

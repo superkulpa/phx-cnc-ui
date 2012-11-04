@@ -5,22 +5,16 @@
 
 CXLazerVelocityView::CXLazerVelocityView(QWidget* parent) : QWidget(parent)
 {
-	setObjectName("CXLazerVelocityView");
-/**/
+	mMode = E_Accumulate;
 	mVelocity = E_Normal;
 
 	qreal width = 25;
 
 	for (int i = 0; i < 3; ++i)
 	{
-		QPainterPath path;
-		path.moveTo(0, 50 * i);
-		path.lineTo(0, 50 * i + 50);
-		path.lineTo(width, 50 * i + 50);
-		path.lineTo(width, 50 * i);
-		path.closeSubpath();
+		QRectF rect(0, 50 * i, width, 50);
 
-		mPathList.append(path);
+		mPathList.append(rect);
 	}
 
 	mDrawPath.moveTo(0, 0);
@@ -42,6 +36,18 @@ CXLazerVelocityView::~CXLazerVelocityView()
 
 }
 
+void CXLazerVelocityView::setMode(eVelocityMode aMode)
+{
+	mMode = aMode;
+	update();
+}
+
+void CXLazerVelocityView::setTexts(const QList <QString>& aTexts)
+{
+	mTexts = aTexts;
+	update();
+}
+
 void CXLazerVelocityView::paintEvent(QPaintEvent*)
 {
 	qreal scaleX = width() / mDrawPath.boundingRect().width();
@@ -54,12 +60,42 @@ void CXLazerVelocityView::paintEvent(QPaintEvent*)
 
 	painter.setPen(Qt::DotLine);
 
+	switch (mMode)
+	{
+		case E_Accumulate:
+		{
 	for (int i = 0; i < mVelocity + 1; ++i)
 	{
-		painter.fillPath(mPathList.at(mPathList.count() - i - 1), QColor(0, 255, 0, 200 - (mPathList.count() - mVelocity) * 40));
+		painter.fillRect(mPathList.at(mPathList.count() - i - 1), QColor(0, 255, 0, 200 - (mPathList.count() - mVelocity) * 40));
 	}
 
+			break;
+		}
+		case E_SingleMode:
+		{
+			painter.fillRect(mPathList.at(mPathList.count() - mVelocity - 1), QColor(0, 255, 0, 200));
+
+			break;
+		}
+	}
+
+	painter.setFont(QFont("", 15));
+	QTextOption textOption(Qt::AlignCenter);
+
 	painter.drawPath(mDrawPath);
+
+	painter.scale(1.0 / scaleX, 1.0 / scaleY);
+
+	QRectF curRect;
+	for (int i = 0; i < 3; ++i)
+	{
+		curRect = mPathList.at(i);
+		curRect.moveTo(curRect.x() * scaleX, curRect.y() * scaleY);
+		curRect.setSize(QSizeF(curRect.width() * scaleX, curRect.height() * scaleY));
+
+		painter.drawText(curRect, mTexts.at(i), textOption);
+	}
+
 
 	painter.end();
 }
@@ -74,6 +110,14 @@ void CXLazerVelocityView::mousePressEvent(QMouseEvent* e)
 		qreal scaleY = height() /  mDrawPath.boundingRect().height();
 
 		updateVelocity(QPointF(pos.x() / scaleX, pos.y() / scaleY));
+	}
+}
+
+void CXLazerVelocityView::mouseReleaseEvent(QMouseEvent* e)
+{
+	if (e->button() == Qt::LeftButton && mMode == E_SingleMode)
+	{
+		setVelocity(E_Normal);
 	}
 }
 
@@ -93,10 +137,17 @@ void CXLazerVelocityView::updateVelocity(const QPointF& aPos)
 	{
 		if (mPathList.at(i).contains(aPos))
 		{
-			mVelocity = eVelocity(mPathList.count() - i - 1);
+			setVelocity(eVelocity(mPathList.count() - i - 1));
 			break;
 		}
 	}
+}
 
+void CXLazerVelocityView::setVelocity(eVelocity aVelocity)
+{
+	if (mVelocity != aVelocity)
+	{
+		mVelocity = aVelocity;
 	update();
+}
 }

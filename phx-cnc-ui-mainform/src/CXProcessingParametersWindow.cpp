@@ -4,6 +4,7 @@
 #include <QPushButton>
 
 #include "CXParametersView.h"
+#include "CXWindowsManager.h"
 
 CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) : QWidget(parent)
 {
@@ -14,31 +15,15 @@ CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) : QW
 	mCentralLayout->insertWidget(0, mParametersView);
 
 	connect(mCancelButton, SIGNAL(clicked()), this, SLOT(close()));
-/*
-	QVBoxLayout* centralLayout = new QVBoxLayout(this);
-
-
-	centralLayout->addWidget(mParametersView);
-
-	QHBoxLayout* buttonsLayout = new QHBoxLayout;
-	buttonsLayout->addStretch();
-
-	QPushButton* loadFromBaseButton = new QPushButton(this);
-	loadFromBaseButton->setText(trUtf8("Загрузить из базы"));
-	buttonsLayout->addWidget(loadFromBaseButton);
-	
-	QPushButton* loadButton = new QPushButton(this);
-	loadButton->setText(trUtf8("Загрузить"));
-	buttonsLayout->addWidget(loadButton);
-	
-	QPushButton* cancelButton = new QPushButton(this);
-	cancelButton->setText(trUtf8("Отмена"));
-	buttonsLayout->addWidget(cancelButton);
-
-	centralLayout->addLayout(buttonsLayout);
-*/
+	connect(mLoadButton, SIGNAL(clicked()), this, SLOT(onFileLoad()));
 }
 
 CXProcessingParametersWindow::~CXProcessingParametersWindow()
 {
+}
+
+void CXProcessingParametersWindow::onFileLoad()
+{
+	AXBaseWindow::mManager->setCurrentGroup(4);
+	close();
 }

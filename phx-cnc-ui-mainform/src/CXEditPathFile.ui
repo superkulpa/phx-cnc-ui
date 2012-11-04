@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>338</width>
+    <width>344</width>
     <height>356</height>
    </rect>
   </property>
@@ -20,8 +20,8 @@
    <property name="spacing">
     <number>5</number>
    </property>
-   <item row="0" column="0" colspan="5">
-    <widget class="QGroupBox" name="groupBox_2">
+   <item row="0" column="0" colspan="6">
+    <widget class="QGroupBox" name="mTitleGroup">
      <property name="title">
       <string/>
      </property>
@@ -32,13 +32,6 @@
       <property name="margin">
        <number>7</number>
       </property>
-      <item>
-       <widget class="QLabel" name="mTitleLabel">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QTextEdit" name="mTextEdit">
         <property name="textInteractionFlags">
@@ -70,13 +63,13 @@
     </spacer>
    </item>
    <item row="1" column="1">
-    <widget class="QPushButton" name="mSaveButton">
+    <widget class="CXTouchButton" name="mSaveButton">
      <property name="text">
       <string>Сохранить</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="4">
+   <item row="1" column="5">
     <spacer name="horizontalSpacer_2">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -90,21 +83,35 @@
     </spacer>
    </item>
    <item row="1" column="2">
-    <widget class="QPushButton" name="mSaveAsButton">
+    <widget class="CXTouchButton" name="mSaveAsButton">
      <property name="text">
       <string>Сохранить как</string>
      </property>
     </widget>
    </item>
    <item row="1" column="3">
-    <widget class="QPushButton" name="mCreateButton">
+    <widget class="CXTouchButton" name="mCreateButton">
      <property name="text">
       <string>Создать</string>
      </property>
     </widget>
    </item>
+   <item row="1" column="4">
+    <widget class="CXTouchButton" name="mStatButton">
+     <property name="text">
+      <string>Стат</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CXTouchButton</class>
+   <extends>QPushButton</extends>
+   <header>cxtouchbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

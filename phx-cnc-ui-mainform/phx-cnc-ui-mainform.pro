@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT      += xml network script
+QT      += xml network
 
 
 # Input
@@ -28,7 +28,10 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXLazerVelocityView.h \
 			src/CXLazerSettings.h \
 			src/CXLazerVelocity.h \
-			src/CXTextParameters.h
+			src/CXTextParameters.h \
+			src/CXTouchButton.h \
+			src/CXLazerDirectionDialog.h \
+			src/CXExitDialog.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
@@ -56,7 +59,10 @@ SOURCES +=	src/main.cpp \
 			src/CXLazerVelocityView.cpp \
 			src/CXLazerSettings.cpp \
 			src/CXLazerVelocity.cpp \
-			src/CXTextParameters.cpp
+			src/CXTextParameters.cpp \
+			src/CXTouchButton.cpp \
+			src/CXLazerDirectionDialog.cpp \
+			src/CXExitDialog.cpp
 
 FORMS +=	src/CXFilesList.ui \
 			src/CXEditPathFile.ui \
@@ -64,6 +70,9 @@ FORMS +=	src/CXFilesList.ui \
 			src/CXIniFileList.ui \
 			src/CXProcessingParametersWindow.ui \
 			src/CXLazerVelocity.ui \
-			src/CXTurnDialog.ui
+			src/CXLazerSettings.ui \
+			src/CXTurnDialog.ui \
+			src/CXLazerDirectionDialog.ui \
+			src/CXExitDialog.ui
 
 RESOURCES += resource.qrc
