@@ -46,12 +46,12 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{1869a483-b8fa-485f-99f7-cb8ca14eead0}</UniqueIdentifier>
+      <UniqueIdentifier>{139ecbf7-a309-427e-86b1-9cd691054b3c}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{9ecdcf33-55d5-48e0-9114-9840ca03985f}</UniqueIdentifier>
+      <UniqueIdentifier>{b8edae23-13ed-48ed-b53f-f7769d53bd87}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
@@ -61,6 +61,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CXEditPathFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXExitDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CXFilesList.cpp">
@@ -78,7 +81,19 @@
     <ClCompile Include="src\CXIniFileList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CXLazerDirectionDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\CXLazerDirectionView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXLazerDirectionWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXLazerSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXLazerVelocity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CXLazerVelocityView.cpp">
@@ -99,13 +114,22 @@
     <ClCompile Include="src\CXPathView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CXPathWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\CXProcessingParametersWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CXSyntaxHighlighter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CXTextParameters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\CXTitleWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXTouchButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CXTurnDialog.cpp">
@@ -133,6 +157,12 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_CXEditPathFile.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_CXExitDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_CXExitDialog.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_CXFilesList.cpp">
@@ -165,6 +195,30 @@
     <ClCompile Include="Release\moc_CXIniFileList.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Debug\moc_CXLazerDirectionDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_CXLazerDirectionDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_CXLazerDirectionWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_CXLazerDirectionWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_CXLazerSettings.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_CXLazerSettings.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_CXLazerVelocity.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_CXLazerVelocity.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_CXPanelWindow.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -189,6 +243,24 @@
     <ClCompile Include="Release\moc_CXPathView.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Debug\moc_CXPathWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_CXPathWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_CXProcessingParametersWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_CXProcessingParametersWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_CXTitleWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_CXTitleWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_CXTurnDialog.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -204,51 +276,15 @@
     <ClCompile Include="GeneratedFiles\qrc_resource.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CXLazerSettings.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_CXLazerSettings.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_CXLazerSettings.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CXPathWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_CXPathWindow.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_CXPathWindow.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CXTextParameters.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_CXLazerDirectionWindow.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_CXLazerDirectionWindow.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CXLazerDirectionWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_CXLazerVelocity.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_CXLazerVelocity.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CXLazerVelocity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\AXBaseWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXEditPathFile.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXExitDialog.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXFilesList.h">
@@ -266,9 +302,21 @@
     <CustomBuild Include="src\CXIniFileList.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="src\CXLazerDirectionDialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="src\CXLazerDirectionView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="src\CXLazerDirectionWindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXLazerSettings.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXLazerVelocity.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="src\CXLazerVelocityView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -287,13 +335,22 @@
     <CustomBuild Include="src\CXPathView.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="src\CXProcessingParametersWindow.h">
+    <CustomBuild Include="src\CXPathWindow.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
+    <CustomBuild Include="src\CXProcessingParametersWindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="src\CXSyntaxHighlighter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\CXTitleWindow.h">
+    <ClInclude Include="src\CXTextParameters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <CustomBuild Include="src\CXTitleWindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <ClInclude Include="src\CXTouchButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <CustomBuild Include="src\CXTurnDialog.h">
@@ -308,27 +365,12 @@
     <ClInclude Include="src\iniFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="src\CXLazerSettings.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\CXLazerSettings.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\CXPathWindow.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="CXLazerVelocity.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\CXLazerDirectionWindow.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\CXLazerVelocity.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\CXEditPathFile.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXExitDialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXFilesList.ui">
@@ -338,6 +380,15 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXIniFileList.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXLazerDirectionDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXLazerSettings.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXLazerVelocity.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXProcessingParametersWindow.ui">
@@ -365,6 +416,9 @@
     <ClInclude Include="GeneratedFiles\ui_CXEditPathFile.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CXExitDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CXFilesList.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -374,19 +428,19 @@
     <ClInclude Include="GeneratedFiles\ui_CXIniFileList.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_CXProcessingParametersWindow.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_CXTurnDialog.h">
+    <ClInclude Include="GeneratedFiles\ui_CXLazerDirectionDialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CXLazerSettings.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\CXTextParameters.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CXLazerVelocity.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CXProcessingParametersWindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CXTurnDialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

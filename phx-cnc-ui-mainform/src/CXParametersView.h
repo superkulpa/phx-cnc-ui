@@ -36,6 +36,12 @@ private slots:
 	void updateValue();
 
 private:
+	//! Функция получения задержки.
+	static int getDelay();
+
+private:
+	static int mDelay;
+
 	QAbstractItemView* mParentWidget;
 	int mClickTimer;
 	int mTimerInterval;
@@ -72,7 +78,7 @@ public:
 	//! Переопределенная функция получения флагов по индексу.
 	virtual Qt::ItemFlags flags(const QModelIndex& index) const;
 
-	//!
+	//! Переопределенная фукнция сортировки.
 	virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
 
 private:

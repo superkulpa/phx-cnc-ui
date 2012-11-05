@@ -64,10 +64,10 @@ void CXLazerVelocityView::paintEvent(QPaintEvent*)
 	{
 		case E_Accumulate:
 		{
-	for (int i = 0; i < mVelocity + 1; ++i)
-	{
-		painter.fillRect(mPathList.at(mPathList.count() - i - 1), QColor(0, 255, 0, 200 - (mPathList.count() - mVelocity) * 40));
-	}
+			for (int i = 0; i < mVelocity + 1; ++i)
+			{
+				painter.fillRect(mPathList.at(mPathList.count() - i - 1), QColor(0, 255, 0, 200 - (mPathList.count() - mVelocity) * 40));
+			}
 
 			break;
 		}
@@ -79,7 +79,7 @@ void CXLazerVelocityView::paintEvent(QPaintEvent*)
 		}
 	}
 
-	painter.setFont(QFont("", 15));
+	painter.setFont(QFont("", 6 * scaleY));
 	QTextOption textOption(Qt::AlignCenter);
 
 	painter.drawPath(mDrawPath);
@@ -95,7 +95,6 @@ void CXLazerVelocityView::paintEvent(QPaintEvent*)
 
 		painter.drawText(curRect, mTexts.at(i), textOption);
 	}
-
 
 	painter.end();
 }

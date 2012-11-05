@@ -1,7 +1,6 @@
 #include "CXLazerDirectionWindow.h"
 
 #include <QHBoxLayout>
-#include <QToolButton>
 
 #include "CXLazerVelocityView.h"
 #include "CXLazerDirectionView.h"
@@ -35,39 +34,29 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 /**/
 	QHBoxLayout* positionLayout = new QHBoxLayout;
 
-	CXTouchButton* xLabel = new CXTouchButton("X", this);
-	xLabel->setObjectName("xButton");
-//	xLabel->setAutoRaise(true);
-	xLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	positionLayout->addWidget(xLabel);
+	mXYButton = new CXTouchButton("X/Y", this);
+	mXYButton->setObjectName("xyButton");
+	mXYButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	positionLayout->addWidget(mXYButton);
 
-	mXEdit = new QLineEdit(this);
-	mXEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
-	positionLayout->addWidget(mXEdit);
-
-	CXTouchButton* yLabel = new CXTouchButton("Y", this);
-	yLabel->setObjectName("yButton");
-//	yLabel->setAutoRaise(true);
-	yLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	positionLayout->addWidget(yLabel);
-
-	mYEdit = new QLineEdit(this);
-	mYEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
-	positionLayout->addWidget(mYEdit);
-
-	centralLayout->addLayout(positionLayout);
-
-	QHBoxLayout* velocityLayout = new QHBoxLayout;
-	QToolButton* fLabel = new QToolButton(this);
-	fLabel->setText("F");
-	fLabel->setAutoRaise(true);
-	fLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	velocityLayout->addWidget(fLabel);
+	mFLabel = new QLabel("F", this);
+	mFLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	positionLayout->addWidget(mFLabel);
 
 	mFEdit = new QLineEdit(this);
 	mFEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
-	velocityLayout->addWidget(mFEdit);
-	centralLayout->addLayout(velocityLayout);
+	positionLayout->addWidget(mFEdit);
+
+	CXTouchButton* plusButton = new CXTouchButton("+", this);
+	plusButton->setObjectName("plusButton");
+	plusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	positionLayout->addWidget(plusButton);
+
+	CXTouchButton* minusButton = new CXTouchButton("-", this);
+	minusButton->setObjectName("minusButton");
+	positionLayout->addWidget(minusButton);
+
+	centralLayout->addLayout(positionLayout);
 /**/
 	QHBoxLayout* lazerLayout = new QHBoxLayout;
 	lazerLayout->setSpacing(10);
@@ -89,8 +78,7 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	connect(mBackwardButton, SIGNAL(clicked()), this, SLOT(onStart()));
 	connect(mSearchButton, SIGNAL(clicked()), this, SLOT(onStart()));
 	connect(mStopButton, SIGNAL(clicked()), this, SLOT(onStop()));
-	connect(xLabel, SIGNAL(clicked()), this, SLOT(onXYClick()));
-	connect(yLabel, SIGNAL(clicked()), this, SLOT(onXYClick()));
+	connect(mXYButton, SIGNAL(clicked()), this, SLOT(onXYClick()));
 }
 
 CXLazerDirectionWindow::~CXLazerDirectionWindow()
@@ -114,30 +102,33 @@ void CXLazerDirectionWindow::onStart()
 	{
 		;
 	}
-/*
+
 	mForwardButton->hide();
 	mBackwardButton->hide();
 	mSearchButton->hide();
-	mStopButton->show();
-
+	mXYButton->hide();
+	mFLabel->hide();
+	mFEdit->hide();
 	mLazerDirectionView->hide();
 	mLazerVelocityView->hide();
+
+	mStopButton->show();
 	mLazerVelocity->show();
-*/
 }
 
 void CXLazerDirectionWindow::onStop()
 {
-	mStopButton->hide();
 	mForwardButton->show();
 	mBackwardButton->show();
 	mSearchButton->show();
-
+	mXYButton->show();
+	mFLabel->show();
+	mFEdit->show();
 	mLazerDirectionView->show();
 	mLazerVelocityView->show();
-	mLazerVelocity->hide();
 
-//	mLazerDirectionView->setDirection(LazerDirectionView::E_None);
+	mStopButton->hide();
+	mLazerVelocity->hide();
 }
 
 void CXLazerDirectionWindow::onXYClick()
@@ -145,16 +136,20 @@ void CXLazerDirectionWindow::onXYClick()
 	CXLazerDirectionDialog dialog(qobject_cast<QWidget*>(sender()));
 	int res = dialog.exec();
 
+	QPointF pos = dialog.getPosition();
+
 	switch (res)
 	{
 		//абсолютное.
 		case 1:
 		{
+			emit positionChanged(pos, true);
 			break;
 		}
 		//относительное.
 		case 2:
 		{
+			emit positionChanged(pos, false);
 			break;
 		}
 	}

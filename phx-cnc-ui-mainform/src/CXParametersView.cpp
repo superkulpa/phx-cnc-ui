@@ -1,5 +1,6 @@
 #include "CXParametersView.h"
 
+#include <QXmlQuery>
 #include <QStandardItemModel>
 #include <QHeaderView>
 #include <QStylePainter>
@@ -7,6 +8,7 @@
 #include <QApplication>
 #include <QMouseEvent>
 
+int CXParameterItemDelegate::mDelay = 0;
 QMap <int, CXGroupData*> CXParametersView::mGropusMap;
 QMap<int, CXParameterData*> CXParametersView::mDataMap;
 
@@ -19,6 +21,8 @@ CXParameterItemDelegate::CXParameterItemDelegate(QAbstractItemView* parent) : QS
 	mTimerInterval = 0;
 
 	mModel = NULL;
+
+	if (mDelay == 0) mDelay = getDelay();
 }
 
 QWidget* CXParameterItemDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -129,7 +133,7 @@ bool CXParameterItemDelegate::editorEvent(QEvent* e, QAbstractItemModel* model, 
 
 			if (mClickIndex.column() == 0)
 			{
-				mClickTimer = startTimer(200);
+				mClickTimer = startTimer(mDelay);
 			}
 
 			if (mClickIndex.column() == 2 || mClickIndex.column() == 3)
@@ -189,6 +193,27 @@ void CXParameterItemDelegate::timerEvent(QTimerEvent* e)
 void CXParameterItemDelegate::updateValue()
 {
 	emit commitData(qobject_cast<QWidget*>(sender()));
+}
+
+int CXParameterItemDelegate::getDelay()
+{
+	QFile xmlFile("settings.xml");
+
+	if (xmlFile.open(QIODevice::ReadOnly))
+	{
+		QXmlQuery query;
+		query.setFocus(&xmlFile);
+		query.setQuery("/Settings/delay/text()");
+
+		QString res;
+		query.evaluateTo(&res);
+
+		xmlFile.close();
+
+		return qMax(200, res.toInt());
+	}
+
+	return 200;
 }
 
 /**/

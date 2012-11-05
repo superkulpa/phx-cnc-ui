@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT      += xml network
+QT      += xml xmlpatterns network
 
 
 # Input

@@ -7,6 +7,7 @@
 #include <QTextStream>
 #include <QDomDocument>
 #include <QMouseEvent>
+#include <QXmlQuery>
 
 #include "CXPanelWindow.h"
 #include "CXGroupPanel.h"
@@ -25,7 +26,7 @@ CXWindowsManager::CXWindowsManager()
 
 CXWindowsManager::~CXWindowsManager()
 {
-	save("windows.xml");
+	save("settings.xml");
 }
 
 void CXWindowsManager::addWindow(AXBaseWindow* aWindow)
@@ -66,33 +67,80 @@ int CXWindowsManager::currentGroup()
 
 void CXWindowsManager::save(const QString& aFileName)
 {
+	if (!QFile::exists(aFileName))
+	{
+		QFile xmlFile(aFileName);
+
+		if (!xmlFile.open(QIODevice::WriteOnly)) return;
+
+		QTextStream out(&xmlFile);
+		out.setCodec("UTF-8");
+
+		out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Settings>\n</Settings>";
+
+		xmlFile.close();
+	}
+
 	QFile xmlFile(aFileName);
 
-	if (!xmlFile.open(QIODevice::WriteOnly)) return;
+	if (!xmlFile.open(QIODevice::ReadOnly)) return;
 
-	QTextStream out(&xmlFile);
-	out.setCodec("UTF-8");
+	QDomDocument document("");
+	if (!document.setContent(&xmlFile)) return;
 
-	out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Settings>\n";
-	out << QString("	<manager freeze=\"%1\"/>\n").arg(mIsFreeze);
+	QDomElement root = document.documentElement();
 
-	AXBaseWindow* curWindow = NULL;
-	int count = 0;
-
-	QList<QWidget*>::iterator iter;
-	for (iter = mList.begin(); iter != mList.end(); ++iter)
+	if (!root.isNull())
 	{
-		curWindow = qobject_cast<AXBaseWindow*>(*iter);
+		AXBaseWindow* curWindow = NULL;
 
-		if (curWindow != NULL)
+		QDomElement manager = root.firstChildElement("manager");
+		if (manager.isNull())
 		{
-			count++;
+			manager = document.createElement("manager");
+			manager.setAttribute("freeze", mIsFreeze);
+			root.appendChild(manager);
+		}
+		else
+		{
+			manager.setAttribute("freeze", mIsFreeze);
+		}
 
-			out << QString("	<window_%1 freeze=\"%2\">%3</window_%1>\n").arg(count).arg(curWindow->isFreeze()).arg(curWindow->saveGeometry().toBase64().data());
+		int count = 0;
+
+		QList<QWidget*>::iterator iter;
+		for (iter = mList.begin(); iter != mList.end(); ++iter)
+		{
+			curWindow = qobject_cast<AXBaseWindow*>(*iter);
+
+			if (curWindow != NULL)
+			{
+				count++;
+
+				QDomElement saveElement = root.firstChildElement(QString("window_%1").arg(count));
+				QDomElement newElement = document.createElement(QString("window_%1").arg(count));
+				newElement.appendChild(document.createTextNode(curWindow->saveGeometry().toBase64().data()));
+				if (saveElement.isNull())
+				{
+					root.appendChild(newElement);
+				}
+				else
+				{
+					root.replaceChild(newElement, saveElement);
+				}
+			}
 		}
 	}
 
-	out << "</Settings>";
+	xmlFile.close();
+
+	xmlFile.open(QIODevice::WriteOnly);
+	QTextStream out(&xmlFile);
+	out.setCodec("UTF-8");
+
+	document.save(out, 2);
+
+	xmlFile.close();
 }
 
 void CXWindowsManager::load(const QString& aFileName)
@@ -132,7 +180,7 @@ void CXWindowsManager::load(const QString& aFileName)
 					if (curWindow != NULL)
 					{
 						curWindow->restoreGeometry(QByteArray::fromBase64(QByteArray().append(element.text())));
-						curWindow->setFreeze(element.attribute("freeze").toInt());
+//						curWindow->setFreeze(element.attribute("freeze").toInt());
 					}
 				}
 			}
@@ -146,6 +194,25 @@ void CXWindowsManager::load(const QString& aFileName)
 
 void CXWindowsManager::load(int aIndex)
 {
+/*
+	QFile xmlFile(mFileName);
+
+	if (xmlFile.open(QIODevice::ReadOnly))
+	{
+		QXmlQuery query;
+		query.setFocus(&xmlFile);
+		query.setQuery(QString("/Settings/window_%1/text()").arg(aIndex - 1));
+
+		QString res;
+		if (query.evaluateTo(&res))
+		{
+			AXBaseWindow* curWindow = qobject_cast<AXBaseWindow*>(mList.at(aIndex));
+			curWindow->restoreGeometry(QByteArray::fromBase64(QByteArray().append(res)));
+		}
+
+		xmlFile.close();
+	}
+/**/
 	QFile xmlFile(mFileName);
 
 	if (!xmlFile.open(QIODevice::ReadOnly)) return;
@@ -179,7 +246,7 @@ void CXWindowsManager::load(int aIndex)
 					if (curWindow != NULL)
 					{
 						curWindow->restoreGeometry(QByteArray::fromBase64(QByteArray().append(element.text())));
-						curWindow->setFreeze(element.attribute("freeze").toInt());
+//						curWindow->setFreeze(element.attribute("freeze").toInt());
 					}
 				}
 			}
@@ -187,6 +254,7 @@ void CXWindowsManager::load(int aIndex)
 			element = element.nextSiblingElement();
 		}
 	}
+/**/
 }
 
 void CXWindowsManager::bringToFront()
@@ -231,7 +299,7 @@ void CXWindowsManager::setFreeze(bool aIsFreeze)
 
 bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 {
-	if (e->type() == QEvent::WindowActivate && QString(watched->metaObject()->className()) == QString("CXPanelWindow"))
+	if (e->type() == QEvent::WindowActivate && QString(watched->metaObject()->className()) == QString("CXGroupPanel"))
 	{
 		bringToFront();
 
@@ -261,7 +329,7 @@ bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 			if (isBreak)
 			{
 				AXBaseWindow* baseWindow = qobject_cast<AXBaseWindow*>(widget);
-				bool isPanel = (qobject_cast<CXPanelWindow*>(widget) != NULL || qobject_cast<CXGroupPanel*>(widget) != NULL || watched->objectName() == "mCloseButton");
+				bool isPanel = (/*qobject_cast<CXPanelWindow*>(widget) != NULL || */qobject_cast<CXGroupPanel*>(widget) != NULL || watched->objectName() == "mCloseButton");
 
 				if (baseWindow != NULL && !baseWindow->isFreeze())
 				{

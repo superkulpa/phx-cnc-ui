@@ -20,8 +20,14 @@ protected:
 	virtual void timerEvent(QTimerEvent* e);
 
 private:
+	//! Функция получения задержки.
+	static int getDelay();
+
+private:
 	QTime mTime;
 	int mTimer;
+
+	static int mDelay;
 };
 
 #endif // CXTOUCHBUTTON_H

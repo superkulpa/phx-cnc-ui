@@ -29,11 +29,17 @@ public:
     QPushButton* getButton(quint8 aButtonNumber);
 
 public slots:
+	//! Слот на показ нужной группы.
+	void setGroup();
+
     //! Слот запуска fm.sh по кнопке "Каталог".
     void directoryCommand();
 
     //! Слот запуска macro.sh по кнопке "Макро".
-    void macroCommand();
+	void macroCommand();
+
+	//! Слот на выход.
+	void onExit();
 
 private:
     QList <QPushButton*> mButtonsList;

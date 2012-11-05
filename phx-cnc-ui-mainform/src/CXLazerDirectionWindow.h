@@ -5,6 +5,7 @@
 
 #include <QPushButton>
 #include <QLineEdit>
+#include <QLabel>
 
 class CXLazerDirectionView;
 class CXLazerVelocityView;
@@ -25,6 +26,15 @@ public:
 	//! Деструктор.
 	~CXLazerDirectionWindow();
 
+signals:
+	/*!
+		Сигнал о изменении позиции реза.
+
+		\param aPos - координаты реза.
+		\param aIsAbsolute - абсолютное ли смещение.
+	*/
+	void positionChanged(const QPointF& aPos, bool aIsAbsolute);
+
 private slots:
 	//! Запуск процесса.
 	void onStart();
@@ -41,8 +51,8 @@ private:
 	CXTouchButton* mSearchButton;
 	CXTouchButton* mStopButton;
 
-	QLineEdit* mXEdit;
-	QLineEdit* mYEdit;
+	CXTouchButton* mXYButton;
+	QLabel* mFLabel;
 	QLineEdit* mFEdit;
 
 	CXLazerDirectionView* mLazerDirectionView;
