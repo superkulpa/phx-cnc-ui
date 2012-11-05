@@ -5,33 +5,33 @@
 #include <QRadialGradient>
 #include <qmath.h>
 
+#define RADIUS 18.0
+
 CXLazerDirectionView::CXLazerDirectionView(QWidget* parent) : QWidget(parent)
 {
 	mDirection = LazerDirectionView::E_Stop;
-
-	const qreal radius = 18.0;
 
 	qreal x = 0;
 	qreal y = 0;
 
 	QPainterPath path;
-	path.addEllipse(QPointF(50, 50), radius, radius);
+	path.addEllipse(QPointF(50, 50), RADIUS, RADIUS);
 	mPathList.append(path);
 
 	for (int i = 0; i < 8; ++i)
 	{
-		x = radius * qCos(-(67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
-		y = radius * qSin(-(67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
+		x = RADIUS * qCos(-(67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
+		y = RADIUS * qSin(-(67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
 
 		QPainterPath path;
 		path.moveTo(x, y);
 		path.arcTo(0, 0, 100, 100, 67.5 + 45.0 * i, 45.0);
 
-		x = radius * qCos(-(67.5 + 45.0 * (i + 1)) * M_PI / 180.0) + 50.0;
-		y = radius * qSin(-(67.5 + 45.0 * (i + 1)) * M_PI / 180.0) + 50.0;
+		x = RADIUS * qCos(-(67.5 + 45.0 * (i + 1)) * M_PI / 180.0) + 50.0;
+		y = RADIUS * qSin(-(67.5 + 45.0 * (i + 1)) * M_PI / 180.0) + 50.0;
 
 		path.lineTo(x, y);
-		path.arcTo(50.0 - radius, 50.0 - radius, 2 * radius, 2 * radius, 67.5 + 45.0 * (i + 1), -45.0);
+		path.arcTo(50.0 - RADIUS, 50.0 - RADIUS, 2 * RADIUS, 2 * RADIUS, 67.5 + 45.0 * (i + 1), -45.0);
 
 		mPathList.append(path);
 	}
@@ -43,8 +43,8 @@ CXLazerDirectionView::CXLazerDirectionView(QWidget* parent) : QWidget(parent)
 
 		mDrawPath.moveTo(x, y);
 
-		x = radius * qCos((67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
-		y = radius * qSin((67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
+		x = RADIUS * qCos((67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
+		y = RADIUS * qSin((67.5 + 45.0 * i) * M_PI / 180.0) + 50.0;
 /*
 		x = 50.0 * qCos((67.5 + 45.0 * i + 180.0) * M_PI / 180.0) + 50.0;
 		y = 50.0 * qSin((67.5 + 45.0 * i + 180.0) * M_PI / 180.0) + 50.0;
@@ -52,8 +52,8 @@ CXLazerDirectionView::CXLazerDirectionView(QWidget* parent) : QWidget(parent)
 		mDrawPath.lineTo(x, y);
 	}
 
-	mDrawPath.addEllipse(QPointF(50, 50), radius, radius);
 	mDrawPath.addEllipse(0, 0, 100, 100);
+	mDrawPath.addEllipse(QPointF(50, 50), RADIUS, RADIUS);
 }
 
 CXLazerDirectionView::~CXLazerDirectionView()
@@ -96,6 +96,14 @@ void CXLazerDirectionView::paintEvent(QPaintEvent*)
 
 //	for (int i = 0; i < mPathList.count(); ++i) painter.drawPath(mPathList.at(i));
 	painter.drawPath(mDrawPath);
+
+	painter.scale(1.0 / scale, 1.0 / scale);
+
+	painter.setFont(QFont("", 6 * scale));
+
+	QTextOption textOption;
+	textOption.setAlignment(Qt::AlignCenter);
+	painter.drawText(QRectF((50.0 - RADIUS) * scale, (50.0 - RADIUS) * scale, 2.0 * RADIUS * scale, 2.0 * RADIUS * scale), trUtf8("стоп"), textOption);
 
 	painter.end();
 }

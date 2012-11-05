@@ -2,7 +2,7 @@
 
 CXLazerVelocity::CXLazerVelocity(QWidget* parent) : QWidget(parent)
 {
-	setupUi(this);
+	//setupUi(this);
 }
 
 CXLazerVelocity::~CXLazerVelocity()

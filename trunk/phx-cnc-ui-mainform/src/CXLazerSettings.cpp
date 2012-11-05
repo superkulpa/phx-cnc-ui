@@ -37,7 +37,7 @@ void CXLazerSettings::onZHClick()
 	bool isCheck = !(mCheckButtonGroup->checkedButton() != NULL);
 
 	for (int i = 0; i < list.count(); ++i)
-		{
+	{
 		list.at(i)->setChecked(isCheck);
-		}
+	}
 }

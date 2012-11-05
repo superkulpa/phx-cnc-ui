@@ -18,12 +18,20 @@ public:
 	//! Деструктор.
 	~CXLazerDirectionDialog();
 
+	//! Получение координат.
+	QPointF getPosition();
+
 private slots:
 	//! Слот абсолютного смещение.
 	void onAbsolute();
 
 	//! Слот относительного смещения.
 	void onRelative();
+
+	/*!
+		Слот обработки нажатий на виртуальную клавиатуру.
+	*/
+	void onButtonClicked();
 };
 
 #endif // CXLAZERDIRECTIONDIALOG_H

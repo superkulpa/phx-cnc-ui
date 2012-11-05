@@ -3,12 +3,17 @@
 //#include <QApplication>
 //#include <QDesktopWidget>
 #include <QProcess>
+#include <QVariant>
 
 #include "CXTouchButton.h"
+#include "CXWindowsManager.h"
+#include "CXExitDialog.h"
 #include "flowlayout.h"
 
 CXGroupPanel::CXGroupPanel() : AXBaseWindow()
 {
+	setWindowFlags(Qt::Window | Qt::FramelessWindowHint/* | Qt::WindowStaysOnTopHint*/);
+/**/
 	FlowLayout* centralLayout = new FlowLayout(this);
 	centralLayout->setMargin(8);
 	centralLayout->setSpacing(8);
@@ -56,6 +61,13 @@ void CXGroupPanel::setButtonText(int aButtonNumber, const QString& aText)
     }
 }
 
+void CXGroupPanel::setGroup()
+{
+	QPushButton* btn = qobject_cast<QPushButton*>(sender());
+
+	mManager->setCurrentGroup(btn->property("groupName").toInt());
+}
+
 void CXGroupPanel::directoryCommand()
 {
     QProcess::execute("bash ./fm.sh");
@@ -64,4 +76,27 @@ void CXGroupPanel::directoryCommand()
 void CXGroupPanel::macroCommand()
 {
     QProcess::execute("bash ./macro.sh");
+}
+
+void CXGroupPanel::onExit()
+{
+	CXExitDialog exitDialog(this);
+	exitDialog.setWindowState(Qt::WindowFullScreen);
+	int res = exitDialog.exec();
+
+	switch (res)
+	{
+		//выключение.
+		case 1:
+		{
+			break;
+		}
+		//выход.
+		case 2:
+		{
+			QApplication::quit();
+
+			break;
+		}
+	}
 }

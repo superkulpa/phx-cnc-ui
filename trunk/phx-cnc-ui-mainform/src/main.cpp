@@ -8,7 +8,7 @@
 #include <QLineEdit>
 
 #include "CXWindowsManager.h"
-#include "CXPanelWindow.h"
+//#include "CXPanelWindow.h"
 #include "CXPathWindow.h"
 #include "CXFilesList.h"
 #include "CXEditPathFile.h"
@@ -160,9 +160,10 @@ int main(int argc, char *argv[])
 						CXLazerSettings QAbstractButton { min-width: 80px; min-height: 75px; }\n\
 						CXLazerSettings QLabel { font-size: 14pt; min-width: 50px; }\n\
 						CXLazerDirectionWindow QAbstractButton { min-height: 75px; }\n\
-						CXLazerDirectionWindow #xButton, CXLazerDirectionWindow #yButton { min-height: 50px; min-width: 50px; font-size: 14pt; }\n\
+						CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { min-height: 50px; min-width: 50px; font-size: 14pt; }\n\
 						CXLazerDirectionWindow QLineEdit { font-size: 16pt; padding: 5px; }\n\
-						CXLazerDirectionDialog QAbstractButton { padding: 0px 10px; }\n\
+						CXLazerDirectionWindow QLabel { font-size: 14pt; }\n\
+						CXLazerDirectionDialog QAbstractButton { min-width: 100px; min-height: 75px; font-size: 14pt; }\n\
 						CXExitDialog QAbstractButton { padding: 30px 60px; }"
 					  );
 
@@ -210,6 +211,7 @@ int main(int argc, char *argv[])
 	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(statSaved()),								windows.value("CXFilesList"), SLOT(onStatSave()));
 	QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileOpened(const QString&)),				windows.value("CXIniFileEditor"), SLOT(onOpenFile(const QString&)));
 	QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileSaved()),								windows.value("CXIniFileEditor"), SLOT(onSave()));
+	QObject::connect(windows.value("CXLazerDirectionWindow"), SIGNAL(positionChanged(const QPointF&, bool)),	windows.values("CXPathWindow").at(0), SLOT(setPosition(const QPointF&, bool)));
 
     CXGroupPanel* curGroupPanel = NULL;
 
@@ -223,18 +225,26 @@ int main(int argc, char *argv[])
             case 1:
             {
                 QStringList texts;
-                texts.append(QString());
-                texts.append(QString());
-                texts.append(QString());
-                texts.append(QString());
+                texts.append(QObject::trUtf8("Управление"));
+				texts.append(QObject::trUtf8("Параметры"));
+				texts.append(QString());
+				texts.append(QString());
                 texts.append(QObject::trUtf8("Каталог"));
                 texts.append(QObject::trUtf8("Макро"));
                 texts.append(QObject::trUtf8("Загрузить"));
                 texts.append(QObject::trUtf8("Повернуть"));
+				texts.append(QString());
+				texts.append(QObject::trUtf8("Выключение"));
 
-                curGroupPanel->setButtonsText(texts);
+				curGroupPanel->setButtonsText(texts);
 
-                QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked()), curGroupPanel, SLOT(directoryCommand()));
+				curGroupPanel->getButton(0)->setProperty("groupName", 4);
+				curGroupPanel->getButton(1)->setProperty("groupName", 2);
+				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+				QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel, SLOT(onExit()));
+
+				QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked()), curGroupPanel, SLOT(directoryCommand()));
                 QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), curGroupPanel, SLOT(macroCommand()));
                 QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()), windows.value("CXEditPathFile"), SLOT(onSave()));
                 QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXFilesList"), SLOT(onTurn()));
@@ -246,8 +256,8 @@ int main(int argc, char *argv[])
             case 2:
             {
                 QStringList texts;
-                texts.append(QString());
-                texts.append(QString());
+				texts.append(QObject::trUtf8("УП"));
+				texts.append(QObject::trUtf8("Управление"));
                 texts.append(QString());
                 texts.append(QString());
                 texts.append(QString());
@@ -255,14 +265,19 @@ int main(int argc, char *argv[])
 				texts.append(QString());
                 texts.append(QObject::trUtf8("Наладка"));
                 texts.append(QObject::trUtf8("Загрузить"));
-                texts.append(QObject::trUtf8("Сохранить"));
+				texts.append(QObject::trUtf8("Сохранить"));
+
+				curGroupPanel->getButton(0)->setProperty("groupName", 1);
+				curGroupPanel->getButton(1)->setProperty("groupName", 4);
+				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 
                 curGroupPanel->setButtonsText(texts);
 
 				CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
 
 				QList <QPushButton*> buttons;
-				for (int i = 0; i < 7; ++i) buttons.append(curGroupPanel->getButton(i));
+				for (int i = 2; i < 7; ++i) buttons.append(curGroupPanel->getButton(i));
 
 				parametersWindow->setButtons(buttons);
 
@@ -271,7 +286,28 @@ int main(int argc, char *argv[])
                 QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), parametersWindow, SLOT(saveParameters()));
 
                 break;
-            }
+			}
+			case 4:
+			{
+				QStringList texts;
+				texts.append(QObject::trUtf8("УП"));
+				texts.append(QObject::trUtf8("Параметры"));
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+
+				curGroupPanel->getButton(0)->setProperty("groupName", 1);
+				curGroupPanel->getButton(1)->setProperty("groupName", 2);
+				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+
+				curGroupPanel->setButtonsText(texts);
+			}
         }
 	}
 
@@ -281,18 +317,17 @@ int main(int argc, char *argv[])
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)),	title, SLOT(onFileOpen(const QString&)));
 
 	//Общая панель управления.
-	CXPanelWindow* panel = new CXPanelWindow();
+	//CXPanelWindow* panel = new CXPanelWindow();
 
 	//Загрузка данных о геометрии окон (обязательно только после их создания!).
-	manager.load("windows.xml");
+	manager.load("settings.xml");
 	//Установка текущей группы.
 	manager.setCurrentGroup(1);
 
 	//Установка текущего состояния заморозки.
-	panel->setFreezeState(manager.getFreeze());
-	panel->show();
-
-	QObject::connect(panel, SIGNAL(closed()), &app, SLOT(quit()));
+//	panel->setFreezeState(manager.getFreeze());
+//	panel->show();
+//	QObject::connect(panel, SIGNAL(closed()), &app, SLOT(quit()));
 
 	return app.exec();
 }

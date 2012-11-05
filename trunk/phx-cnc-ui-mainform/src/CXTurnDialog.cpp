@@ -78,9 +78,9 @@ void CXTurnDialog::onButtonClicked()
 			}
 			else
 			{
-			QClipboard* clipboard = QApplication::clipboard();
-			clipboard->setText(text);
-			lineEdit->paste();
+				QClipboard* clipboard = QApplication::clipboard();
+				clipboard->setText(text);
+				lineEdit->paste();
 			}
 
 			return;
