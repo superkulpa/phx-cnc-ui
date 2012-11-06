@@ -131,26 +131,19 @@ bool CXParameterItemDelegate::editorEvent(QEvent* e, QAbstractItemModel* model, 
 			mModel = model;
 			mClickIndex = index;
 
-			if (mClickIndex.column() == 0)
+			if (index.column() == 0)
 			{
-				mClickTimer = startTimer(mDelay);
+				QMouseEvent* mouse = dynamic_cast<QMouseEvent*>(e);
+				qreal value = mouse->posF().x() / option.rect.width();
+
+				int min = index.data(Qt::UserRole + 100).toInt();
+				int max = index.data(Qt::UserRole + 101).toInt();
+
+				mClickValue = value * (max - min) + min;
 			}
 
-			if (mClickIndex.column() == 2 || mClickIndex.column() == 3)
-			{
-				if (mClickIndex.column() == 2)
-				{
-					model->setData(index, index.data(Qt::EditRole).toInt() + 1, Qt::EditRole);
-				}
-
-				if (mClickIndex.column() == 3)
-				{
-					model->setData(index, index.data(Qt::EditRole).toInt() - 1, Qt::EditRole);
-				}
-
-				mTimerInterval = 1000;
-				mClickTimer = startTimer(mTimerInterval);
-			}
+			mTimerInterval = mDelay;
+			mClickTimer = startTimer(mDelay);
 
 			break;
 		}
@@ -163,29 +156,51 @@ void CXParameterItemDelegate::timerEvent(QTimerEvent* e)
 {
 	if (e->timerId() == mClickTimer)
 	{
-		if (mClickIndex.column() == 2 || mClickIndex.column() == 3)
+		switch (mClickIndex.column())
 		{
-			if (mParentWidget != NULL && mParentWidget->indexAt(mParentWidget->mapFromGlobal(QCursor::pos())) != mClickIndex)
+			case 0:
+			{
+				mModel->setData(mClickIndex, mClickValue, Qt::EditRole);
+
+				killTimer(mClickTimer);
+				mClickTimer = -1;
+
+				break;
+			}
+			case 2:
+			case 3:
+			{
+				if (mParentWidget != NULL && mParentWidget->indexAt(mParentWidget->mapFromGlobal(QCursor::pos())) != mClickIndex)
+				{
+					killTimer(mClickTimer);
+					mClickTimer = -1;
+					return;
+				}
+
+				if (mClickIndex.column() == 2) mModel->setData(mClickIndex, mClickIndex.data(Qt::EditRole).toInt() + 1, Qt::EditRole);
+				else mModel->setData(mClickIndex, mClickIndex.data(Qt::EditRole).toInt() - 1, Qt::EditRole);
+
+				if (mTimerInterval == mDelay)
+				{
+					killTimer(mClickTimer);
+					mTimerInterval = 1000;
+					mClickTimer = startTimer(mTimerInterval);
+				}
+				else if (mTimerInterval == 1000)
+				{
+					killTimer(mClickTimer);
+					mTimerInterval = 50;
+					mClickTimer = startTimer(mTimerInterval);
+				}
+				break;
+			}
+			default:
 			{
 				killTimer(mClickTimer);
 				mClickTimer = -1;
-				return;
-			}
 
-			if (mClickIndex.column() == 2) mModel->setData(mClickIndex, mClickIndex.data(Qt::EditRole).toInt() + 1, Qt::EditRole);
-			else mModel->setData(mClickIndex, mClickIndex.data(Qt::EditRole).toInt() - 1, Qt::EditRole);
-
-			if (mTimerInterval == 1000)
-			{
-				killTimer(mClickTimer);
-				mTimerInterval = 50;
-				mClickTimer = startTimer(mTimerInterval);
+				break;
 			}
-		}
-		else
-		{
-			killTimer(mClickTimer);
-			mClickTimer = -1;
 		}
 	}
 }

@@ -3,9 +3,11 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QRadialGradient>
+#include <QXmlQuery>
 #include <qmath.h>
 
 #define RADIUS 18.0
+int CXLazerDirectionView::mDelay = 0;
 
 CXLazerDirectionView::CXLazerDirectionView(QWidget* parent) : QWidget(parent)
 {
@@ -13,6 +15,9 @@ CXLazerDirectionView::CXLazerDirectionView(QWidget* parent) : QWidget(parent)
 
 	qreal x = 0;
 	qreal y = 0;
+
+	mDelayTimer = -1;
+	if (mDelay == 0) mDelay = getDelay();
 
 	QPainterPath path;
 	path.addEllipse(QPointF(50, 50), RADIUS, RADIUS);
@@ -108,11 +113,14 @@ void CXLazerDirectionView::paintEvent(QPaintEvent*)
 	painter.end();
 }
 
-void CXLazerDirectionView::mousePressEvent(QMouseEvent* e)
+void CXLazerDirectionView::timerEvent(QTimerEvent* e)
 {
-	if (e->button() == Qt::LeftButton)
+	if (e->timerId() == mDelayTimer)
 	{
-		QPointF pos = e->posF();
+		killTimer(mDelayTimer);
+		mDelayTimer = -1;
+
+		QPointF pos = mapFromGlobal(QCursor::pos());
 
 		qreal scale = qMin(width() / mDrawPath.boundingRect().width(), height() /  mDrawPath.boundingRect().height());
 
@@ -120,13 +128,33 @@ void CXLazerDirectionView::mousePressEvent(QMouseEvent* e)
 	}
 }
 
+void CXLazerDirectionView::mousePressEvent(QMouseEvent* e)
+{
+	if (e->button() == Qt::LeftButton)
+	{
+		mDelayTimer = startTimer(mDelay);
+	}
+}
+
+void CXLazerDirectionView::mouseReleaseEvent(QMouseEvent*)
+{
+	if (mDelayTimer != -1)
+	{
+		killTimer(mDelayTimer);
+		mDelayTimer = -1;
+	}
+}
+
 void CXLazerDirectionView::mouseMoveEvent(QMouseEvent* e)
 {
-	QPointF pos = e->posF();
+	if (mDelayTimer == -1)
+	{
+		QPointF pos = e->posF();
 
-	qreal scale = qMin(width() / mDrawPath.boundingRect().width(), height() /  mDrawPath.boundingRect().height());
+		qreal scale = qMin(width() / mDrawPath.boundingRect().width(), height() /  mDrawPath.boundingRect().height());
 
-	updateDirection(pos / scale);
+		updateDirection(pos / scale);
+	}
 }
 
 void CXLazerDirectionView::updateDirection(const QPointF& aPos)
@@ -141,4 +169,25 @@ void CXLazerDirectionView::updateDirection(const QPointF& aPos)
 	}
 
 	update();
+}
+
+int CXLazerDirectionView::getDelay()
+{
+	QFile xmlFile("settings.xml");
+
+	if (xmlFile.open(QIODevice::ReadOnly))
+	{
+		QXmlQuery query;
+		query.setFocus(&xmlFile);
+		query.setQuery("/Settings/delay/text()");
+
+		QString res;
+		query.evaluateTo(&res);
+
+		xmlFile.close();
+
+		return qMax(200, res.toInt());
+	}
+
+	return 200;
 }

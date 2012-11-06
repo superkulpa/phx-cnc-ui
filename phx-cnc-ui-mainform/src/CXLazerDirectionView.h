@@ -41,8 +41,14 @@ protected:
 	//! Переопределенная фукнция рисования.
 	virtual void paintEvent(QPaintEvent* e);
 
+	//! Переопределенная функция событий таймера.
+	virtual void timerEvent(QTimerEvent* e);
+
 	//! Переопределенная фукнция обработки нажатия кнопки мышки.
 	virtual void mousePressEvent(QMouseEvent* e);
+
+	//! Переопределенная фукнция обработки отпускания кнопки мышки.
+	virtual void mouseReleaseEvent(QMouseEvent* e);
 
 	//! Переопределенная фукнция обработки движения мышки.
 	virtual void mouseMoveEvent(QMouseEvent* e);
@@ -55,7 +61,13 @@ private:
 	*/
 	void updateDirection(const QPointF& aPos);
 
+	//! Функция получения задержки.
+	static int getDelay();
+
 private:
+	static int mDelay;
+	int mDelayTimer;
+
 	QList <QPainterPath> mPathList;
 	QPainterPath mDrawPath;
 	LazerDirectionView::eMoveDirection mDirection;

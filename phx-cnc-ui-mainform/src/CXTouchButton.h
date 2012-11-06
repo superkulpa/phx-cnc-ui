@@ -15,8 +15,13 @@ public:
 	~CXTouchButton();
 
 protected:
+	//! Переопределенная фукнция обработки нажатия кнопки мышки.
 	virtual void mousePressEvent(QMouseEvent* e);
+
+	//! Переопределенная фукнция обработки отпускания кнопки мышки.
 	virtual void mouseReleaseEvent(QMouseEvent* e);
+
+	//! Переопределенная функция событий таймера.
 	virtual void timerEvent(QTimerEvent* e);
 
 private:
