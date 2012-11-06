@@ -1,6 +1,5 @@
 #include "CXParameterData.h"
 
-#include <QStringList>
 #include "iniFile.h"
 
 CXParameterData::CXParameterData()
@@ -29,19 +28,6 @@ int CXParameterData::getValue()
 
 void CXParameterData::save()
 {
-/*
-	QStringList groups = mConfigGroup.split("/");
-
-	QSettings settings(mConfigFileName, QSettings::IniFormat);
-	settings.setIniCodec("UTF-8");
-
-	for (int i = 0; i < groups.count(); ++i)
-	{
-		settings.beginGroup(groups.at(i));
-	}
-
-	settings.setValue(mName, mValue);
-/**/
 	CIniFile iniFile(mConfigFileName.toStdString());
 	iniFile.ReadIniFile();
 

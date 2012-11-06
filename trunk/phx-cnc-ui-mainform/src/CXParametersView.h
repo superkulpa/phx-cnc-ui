@@ -47,6 +47,7 @@ private:
 	int mTimerInterval;
 	QAbstractItemModel* mModel;
 	QModelIndex mClickIndex;
+	int mClickValue;
 };
 
 /*!

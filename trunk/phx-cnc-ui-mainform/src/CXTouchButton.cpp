@@ -81,7 +81,7 @@ int CXTouchButton::getDelay()
 	{
 		QXmlQuery query;
 		query.setFocus(&xmlFile);
-		query.setQuery("/Settings/delay/text()");
+		query.setQuery("/Settings/buttonDelay/text()");
 
 		QString res;
 		query.evaluateTo(&res);

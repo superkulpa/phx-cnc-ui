@@ -41,6 +41,9 @@ protected:
 	//! Переопределенная фукнция рисования.
 	virtual void paintEvent(QPaintEvent* e);
 
+	//! Переопределенная функция событий таймера.
+	virtual void timerEvent(QTimerEvent* e);
+
 	//! Переопределенная фукнция обработки нажатия кнопки мышки.
 	virtual void mousePressEvent(QMouseEvent* e);
 
@@ -61,7 +64,13 @@ private:
 	//! Функция установки текущего значения скорости.
 	void setVelocity(eVelocity aVelocity);
 
+	//! Функция получения задержки.
+	static int getDelay();
+
 private:
+	static int mDelay;
+	int mDelayTimer;
+
 	QList <QRectF> mPathList;
 	QList <QString> mTexts;
 	QPainterPath mDrawPath;

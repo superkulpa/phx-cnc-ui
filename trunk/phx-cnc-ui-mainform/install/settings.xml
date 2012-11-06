@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <Settings>
   <manager freeze="1"/>
+  <delay>200</delay>
+  <buttonDelay>200</buttonDelay>
   <window_1>AdnQywABAAAAAANyAAAAKQAABOQAAAJ5AAADcgAAACkAAATkAAACeQAAAAAAAA==</window_1>
   <window_2>AdnQywABAAD////1AAAAKwAAAasAAAJ5////9QAAACsAAAGrAAACeQAAAAAAAA==</window_2>
   <window_3>AdnQywABAAAAAAGsAAAAKwAAA3EAAAJ7AAABrAAAACsAAANxAAACewAAAAAAAA==</window_3>

@@ -2,11 +2,17 @@
 
 #include <QPainter>
 #include <QMouseEvent>
+#include <QXmlQuery>
+
+int CXLazerVelocityView::mDelay = 0;
 
 CXLazerVelocityView::CXLazerVelocityView(QWidget* parent) : QWidget(parent)
 {
 	mMode = E_Accumulate;
 	mVelocity = E_Normal;
+
+	mDelayTimer = -1;
+	if (mDelay == 0) mDelay = getDelay();
 
 	qreal width = 25;
 
@@ -99,11 +105,14 @@ void CXLazerVelocityView::paintEvent(QPaintEvent*)
 	painter.end();
 }
 
-void CXLazerVelocityView::mousePressEvent(QMouseEvent* e)
+void CXLazerVelocityView::timerEvent(QTimerEvent* e)
 {
-	if (e->button() == Qt::LeftButton)
+	if (e->timerId() == mDelayTimer)
 	{
-		QPointF pos = e->posF();
+		killTimer(mDelayTimer);
+		mDelayTimer = -1;
+
+		QPointF pos = mapFromGlobal(QCursor::pos());
 
 		qreal scaleX = width() / mDrawPath.boundingRect().width();
 		qreal scaleY = height() /  mDrawPath.boundingRect().height();
@@ -112,8 +121,22 @@ void CXLazerVelocityView::mousePressEvent(QMouseEvent* e)
 	}
 }
 
+void CXLazerVelocityView::mousePressEvent(QMouseEvent* e)
+{
+	if (e->button() == Qt::LeftButton)
+	{
+		mDelayTimer = startTimer(mDelay);
+	}
+}
+
 void CXLazerVelocityView::mouseReleaseEvent(QMouseEvent* e)
 {
+	if (mDelayTimer != -1)
+	{
+		killTimer(mDelayTimer);
+		mDelayTimer = -1;
+	}
+
 	if (e->button() == Qt::LeftButton && mMode == E_SingleMode)
 	{
 		setVelocity(E_Normal);
@@ -122,12 +145,15 @@ void CXLazerVelocityView::mouseReleaseEvent(QMouseEvent* e)
 
 void CXLazerVelocityView::mouseMoveEvent(QMouseEvent* e)
 {
-	QPointF pos = e->posF();
+	if (mDelayTimer == -1)
+	{
+		QPointF pos = e->posF();
 
-	qreal scaleX = width() / mDrawPath.boundingRect().width();
-	qreal scaleY = height() /  mDrawPath.boundingRect().height();
+		qreal scaleX = width() / mDrawPath.boundingRect().width();
+		qreal scaleY = height() /  mDrawPath.boundingRect().height();
 
-	updateVelocity(QPointF(pos.x() / scaleX, pos.y() / scaleY));
+		updateVelocity(QPointF(pos.x() / scaleX, pos.y() / scaleY));
+	}
 }
 
 void CXLazerVelocityView::updateVelocity(const QPointF& aPos)
@@ -147,6 +173,27 @@ void CXLazerVelocityView::setVelocity(eVelocity aVelocity)
 	if (mVelocity != aVelocity)
 	{
 		mVelocity = aVelocity;
-	update();
+		update();
+	}
 }
+
+int CXLazerVelocityView::getDelay()
+{
+	QFile xmlFile("settings.xml");
+
+	if (xmlFile.open(QIODevice::ReadOnly))
+	{
+		QXmlQuery query;
+		query.setFocus(&xmlFile);
+		query.setQuery("/Settings/delay/text()");
+
+		QString res;
+		query.evaluateTo(&res);
+
+		xmlFile.close();
+
+		return qMax(200, res.toInt());
+	}
+
+	return 200;
 }
