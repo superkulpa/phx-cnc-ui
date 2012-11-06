@@ -161,6 +161,7 @@ int main(int argc, char *argv[])
 						CXLazerSettings QLabel { font-size: 14pt; min-width: 50px; }\n\
 						CXLazerDirectionWindow QAbstractButton { min-height: 75px; }\n\
 						CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { min-height: 50px; min-width: 50px; font-size: 14pt; }\n\
+						CXLazerDirectionWindow #mFLabel { padding: 5px 15px 5px 50px; }\n\
 						CXLazerDirectionWindow QLineEdit { font-size: 16pt; padding: 5px; }\n\
 						CXLazerDirectionWindow QLabel { font-size: 14pt; }\n\
 						CXLazerDirectionDialog QAbstractButton { min-width: 100px; min-height: 75px; font-size: 14pt; }\n\
@@ -287,6 +288,18 @@ int main(int argc, char *argv[])
 
                 break;
 			}
+			case 3:
+			{
+				QStringList texts;
+				texts.append(QObject::trUtf8("Параметры"));
+
+				curGroupPanel->getButton(0)->setProperty("groupName", 2);
+				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+
+                curGroupPanel->setButtonsText(texts);
+
+				break;
+			}
 			case 4:
 			{
 				QStringList texts;
@@ -307,6 +320,8 @@ int main(int argc, char *argv[])
 				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 
 				curGroupPanel->setButtonsText(texts);
+
+				break;
 			}
         }
 	}
