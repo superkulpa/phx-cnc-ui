@@ -39,24 +39,38 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	mXYButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	positionLayout->addWidget(mXYButton);
 
+	QLineEdit* mXEdit = new QLineEdit(this);
+	mXEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
+	positionLayout->addWidget(mXEdit);
+
+	QLineEdit* mYEdit = new QLineEdit(this);
+	mYEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
+	positionLayout->addWidget(mYEdit);
+	
+	centralLayout->addLayout(positionLayout);
+
+	QHBoxLayout* velocityLayout = new QHBoxLayout;
+
 	mFLabel = new QLabel("F", this);
+	mFLabel->setObjectName("mFLabel");
+	mFLabel->setAlignment(Qt::AlignCenter);
 	mFLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	positionLayout->addWidget(mFLabel);
+	velocityLayout->addWidget(mFLabel);
 
 	mFEdit = new QLineEdit(this);
 	mFEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
-	positionLayout->addWidget(mFEdit);
+	velocityLayout->addWidget(mFEdit);
 
 	CXTouchButton* plusButton = new CXTouchButton("+", this);
 	plusButton->setObjectName("plusButton");
 	plusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	positionLayout->addWidget(plusButton);
+	velocityLayout->addWidget(plusButton);
 
 	CXTouchButton* minusButton = new CXTouchButton("-", this);
 	minusButton->setObjectName("minusButton");
-	positionLayout->addWidget(minusButton);
+	velocityLayout->addWidget(minusButton);
 
-	centralLayout->addLayout(positionLayout);
+	centralLayout->addLayout(velocityLayout);
 /**/
 	QHBoxLayout* lazerLayout = new QHBoxLayout;
 	lazerLayout->setSpacing(10);
@@ -65,12 +79,16 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	mLazerVelocityView->setTexts(QList<QString>() << trUtf8("у\nс\nк") << trUtf8("н\nо\nр\nм") << trUtf8("м\nе\nд\nл"));
 	lazerLayout->addWidget(mLazerVelocityView, 1);
 
+	QHBoxLayout* lazerDirectionLayout = new QHBoxLayout;
+	lazerDirectionLayout->setMargin(0);
+	lazerDirectionLayout->setSpacing(0);
+
 	mLazerDirectionView = new CXLazerDirectionView(this);
 	lazerLayout->addWidget(mLazerDirectionView, 5);
 
 	mLazerVelocity = new CXLazerVelocity(this);
 	mLazerVelocity->hide();
-	lazerLayout->addWidget(mLazerVelocity, 1);
+	lazerLayout->addWidget(mLazerVelocity, 5);
 
 	centralLayout->addLayout(lazerLayout);
 
@@ -106,11 +124,11 @@ void CXLazerDirectionWindow::onStart()
 	mForwardButton->hide();
 	mBackwardButton->hide();
 	mSearchButton->hide();
-	mXYButton->hide();
-	mFLabel->hide();
-	mFEdit->hide();
+//	mXYButton->hide();
+//	mFLabel->hide();
+//	mFEdit->hide();
 	mLazerDirectionView->hide();
-	mLazerVelocityView->hide();
+//	mLazerVelocityView->hide();
 
 	mStopButton->show();
 	mLazerVelocity->show();
@@ -121,11 +139,11 @@ void CXLazerDirectionWindow::onStop()
 	mForwardButton->show();
 	mBackwardButton->show();
 	mSearchButton->show();
-	mXYButton->show();
-	mFLabel->show();
-	mFEdit->show();
+//	mXYButton->show();
+//	mFLabel->show();
+//	mFEdit->show();
 	mLazerDirectionView->show();
-	mLazerVelocityView->show();
+//	mLazerVelocityView->show();
 
 	mStopButton->hide();
 	mLazerVelocity->hide();
