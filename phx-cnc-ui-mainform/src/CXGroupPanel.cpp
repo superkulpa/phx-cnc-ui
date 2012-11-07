@@ -4,6 +4,7 @@
 //#include <QDesktopWidget>
 #include <QProcess>
 #include <QVariant>
+#include <QShortcut>
 
 #include "CXTouchButton.h"
 #include "CXWindowsManager.h"
@@ -21,11 +22,14 @@ CXGroupPanel::CXGroupPanel() : AXBaseWindow()
 
 	CXTouchButton* button = NULL;
 //	int buttonSize = QApplication::desktop()->availableGeometry().width() / 20;
-
 	for (int i = 1; i < 11; ++i)
 	{
         button = new CXTouchButton(QString("F%1\n").arg(i), this);
 		button->setFocusPolicy(Qt::NoFocus);
+
+		QShortcut* shortcut = new QShortcut(QKeySequence(QString("F%1").arg(i)), this, 0, 0, Qt::ApplicationShortcut);
+		connect(shortcut, SIGNAL(activated()), button, SIGNAL(clicked()));
+
 //		button->setFont(QFont("", buttonSize / 7));
 //		button->setFixedSize(buttonSize + 20, buttonSize);
 
@@ -33,6 +37,9 @@ CXGroupPanel::CXGroupPanel() : AXBaseWindow()
 
         mButtonsList.append(button);
 	}
+
+	QShortcut* shortcut = new QShortcut(QKeySequence("Ctrl+Q"), this, 0, 0, Qt::ApplicationShortcut);
+	connect(shortcut, SIGNAL(activated()), qApp, SLOT(quit()));
 }
 
 CXGroupPanel::~CXGroupPanel()
