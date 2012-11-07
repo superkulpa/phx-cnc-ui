@@ -1,5 +1,6 @@
 #include <QApplication>
 
+#include <QXmlQuery>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QTextEdit>
@@ -143,6 +144,23 @@ int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 	app.setQuitOnLastWindowClosed(false);
+
+	QFile xmlFile("settings.xml");
+
+	if (xmlFile.open(QIODevice::ReadOnly))
+	{
+		QXmlQuery query;
+		query.setFocus(&xmlFile);
+		query.setQuery("/Settings/style/text()");
+
+		QString res;
+		query.evaluateTo(&res);
+
+		xmlFile.close();
+
+		app.setStyleSheet(res);
+	}
+/*
 	app.setStyleSheet(
 						"QWidget { font-size: 13pt; }\n\
 						CXPathView { font-size: 10pt; }\n\
@@ -167,7 +185,7 @@ int main(int argc, char *argv[])
 						CXLazerDirectionDialog QAbstractButton { min-width: 100px; min-height: 75px; font-size: 14pt; }\n\
 						CXExitDialog QAbstractButton { padding: 30px 60px; }"
 					  );
-
+*/
 	CXWindowsManager manager;
 	AXBaseWindow::mManager = &manager;
 
