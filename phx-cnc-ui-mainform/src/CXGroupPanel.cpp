@@ -86,12 +86,12 @@ void CXGroupPanel::onExit()
 
 	switch (res)
 	{
-		//выключение.
+		//РІС‹РєР»СЋС‡РµРЅРёРµ.
 		case 1:
 		{
 			break;
 		}
-		//выход.
+		//РІС‹С…РѕРґ.
 		case 2:
 		{
 			QApplication::quit();

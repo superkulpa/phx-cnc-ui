@@ -5,24 +5,24 @@
 #include "ui_CXExitDialog.h"
 
 /*!
-	Класс диалога выхода из программы.
+	РљР»Р°СЃСЃ РґРёР°Р»РѕРіР° РІС‹С…РѕРґР° РёР· РїСЂРѕРіСЂР°РјРјС‹.
 */
 class CXExitDialog : public QDialog, public Ui::CXExitDialog
 {
 	Q_OBJECT
 
 public:
-	//! Конструктор.
+	//! РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ.
 	CXExitDialog(QWidget* parent = 0);
 
-	//! Деструктор.
+	//! Р”РµСЃС‚СЂСѓРєС‚РѕСЂ.
 	~CXExitDialog();
 
 private slots:
-	//! Слот выключения.
+	//! РЎР»РѕС‚ РІС‹РєР»СЋС‡РµРЅРёСЏ.
 	void onTurnOff();
 
-	//! Слот выхода.
+	//! РЎР»РѕС‚ РІС‹С…РѕРґР°.
 	void onExit();
 };
 
