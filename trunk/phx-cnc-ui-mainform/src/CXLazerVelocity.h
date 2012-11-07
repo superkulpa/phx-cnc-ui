@@ -5,17 +5,17 @@
 #include "ui_CXLazerVelocity.h"
 
 /*!
-	Класс окна с настройками скорости реза.
+	РљР»Р°СЃСЃ РѕРєРЅР° СЃ РЅР°СЃС‚СЂРѕР№РєР°РјРё СЃРєРѕСЂРѕСЃС‚Рё СЂРµР·Р°.
 */
 class CXLazerVelocity : public QWidget, public Ui::CXLazerVelocity
 {
 	Q_OBJECT
 
 public:
-	//! Конструктор.
+	//! РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ.
 	CXLazerVelocity(QWidget *parent = 0);
 
-	//! Деструктор.
+	//! Р”РµСЃС‚СЂСѓРєС‚РѕСЂ.
 	~CXLazerVelocity();
 };
 
