@@ -46,27 +46,29 @@ void CXPathView::load(const QString& aMainFile, const QString& aMoveFile)
 	mMainPath.moveTo(0, 0);
 
 	QFile textFile(aMoveFile);
-	textFile.open(QIODevice::ReadOnly);
+	if (textFile.open(QIODevice::ReadOnly))
+	{
+		textFile.readLine();
+		textFile.readLine();
+		textFile.readLine();
 
-	textFile.readLine();
-	textFile.readLine();
-	textFile.readLine();
+		fillPath(textFile, &mMovePath, &mBurnPath);
 
-	fillPath(textFile, &mMovePath, &mBurnPath);
-
-	textFile.close();
-
+		textFile.close();
+	}
 
 	textFile.setFileName(aMainFile);
-	textFile.open(QIODevice::ReadOnly);
 
-	textFile.readLine();
-	textFile.readLine();
-	textFile.readLine();
+	if (textFile.open(QIODevice::ReadOnly))
+	{
+		textFile.readLine();
+		textFile.readLine();
+		textFile.readLine();
 
-	fillPath(textFile, &mMainPath);
+		fillPath(textFile, &mMainPath);
 
-	textFile.close();
+		textFile.close();
+	}
 
 	fitInView();
 }

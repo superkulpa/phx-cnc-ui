@@ -29,6 +29,7 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXLazerSettings.h \
 			src/CXLazerVelocity.h \
 			src/CXTextParameters.h \
+			src/CXCompileEdit.h \
 			src/CXTouchButton.h \
 			src/CXLazerDirectionDialog.h \
 			src/CXExitDialog.h
@@ -60,6 +61,7 @@ SOURCES +=	src/main.cpp \
 			src/CXLazerSettings.cpp \
 			src/CXLazerVelocity.cpp \
 			src/CXTextParameters.cpp \
+			src/CXCompileEdit.cpp \
 			src/CXTouchButton.cpp \
 			src/CXLazerDirectionDialog.cpp \
 			src/CXExitDialog.cpp

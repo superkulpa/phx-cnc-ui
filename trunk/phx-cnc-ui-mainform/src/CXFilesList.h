@@ -50,6 +50,11 @@ signals:
 	*/
 	void fileCreated(const QString& aMainFile, const QString& aMoveFile);
 
+	/*!
+		Сигнал об изменении в логе компиляции.
+	*/
+	void compileTextChanged(const QString& aText);
+
 private slots:
 	//! Слот выбора файла из списка.
 	void onItemActivate(const QModelIndex&);

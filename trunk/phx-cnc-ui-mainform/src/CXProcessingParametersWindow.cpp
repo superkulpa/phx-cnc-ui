@@ -6,7 +6,7 @@
 #include "CXParametersView.h"
 #include "CXWindowsManager.h"
 
-CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) : QWidget(parent)
+CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) : QDialog(parent)
 {
 	setupUi(this);
 

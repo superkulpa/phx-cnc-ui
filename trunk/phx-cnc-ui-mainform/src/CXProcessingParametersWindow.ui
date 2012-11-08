@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>CXProcessingParametersWindow</class>
- <widget class="QWidget" name="CXProcessingParametersWindow">
+ <widget class="QDialog" name="CXProcessingParametersWindow">
   <property name="geometry">
    <rect>
     <x>0</x>

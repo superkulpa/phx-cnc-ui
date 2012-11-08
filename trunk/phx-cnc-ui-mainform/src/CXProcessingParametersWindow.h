@@ -1,8 +1,6 @@
 #ifndef CXPROCESSINGPARAMETERSWINDOW_H
 #define CXPROCESSINGPARAMETERSWINDOW_H
 
-#include <QWidget>
-
 #include "ui_CXProcessingParametersWindow.h"
 
 class CXParametersView;
@@ -10,7 +8,7 @@ class CXParametersView;
 /*!
 	Класс для настройки системных параметров.
 */
-class CXProcessingParametersWindow : public QWidget, public Ui::CXProcessingParametersWindow
+class CXProcessingParametersWindow : public QDialog, public Ui::CXProcessingParametersWindow
 {
 	Q_OBJECT
 

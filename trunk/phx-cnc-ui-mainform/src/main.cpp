@@ -13,6 +13,7 @@
 #include "CXPathWindow.h"
 #include "CXFilesList.h"
 #include "CXEditPathFile.h"
+#include "CXCompileEdit.h"
 #include "CXIniFileEditor.h"
 #include "CXIniFileList.h"
 #include "CXTitleWindow.h"
@@ -58,6 +59,15 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 		}
 		case 3:
 		{
+			CXCompileEdit* compileEdit = new CXCompileEdit();
+			compileEdit->setGroupNumber(aGroup);
+
+			res = compileEdit;
+
+			break;
+		}
+		case 4:
+		{
 			AXBaseWindow* window = new AXBaseWindow();
 			window->setGroupNumber(aGroup);
 
@@ -71,7 +81,7 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 
 			break;
 		}
-		case 4:
+		case 5:
 		{
 			CXIniFileEditor* editIniFile = new CXIniFileEditor();
 			editIniFile->setGroupNumber(aGroup);
@@ -80,7 +90,7 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 
 			break;
 		}
-		case 5:
+		case 6:
 		{
 			CXIniFileList* iniFileList = new CXIniFileList();
 			iniFileList->setGroupNumber(aGroup);
@@ -89,7 +99,7 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 
 			break;
 		}
-		case 6:
+		case 7:
 		{
 			CXLazerDirectionWindow* lazerPosition = new CXLazerDirectionWindow();
 			lazerPosition->setGroupNumber(aGroup);
@@ -98,7 +108,7 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 
 			break;
 		}
-		case 7:
+		case 8:
 		{
 			CXLazerSettings* lazerSettings = new CXLazerSettings();
 			lazerSettings->setGroupNumber(aGroup);
@@ -107,7 +117,7 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 
 			break;
 		}
-		case 8:
+		case 9:
 		{
 			CXPathWindow* pathWindow = new CXPathWindow();
 			pathWindow->setGroupNumber(aGroup);
@@ -116,7 +126,7 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 
 			break;
 		}
-		case 9:
+		case 10:
 		{
 			CXTextParameters* textParameters = new CXTextParameters();
 			textParameters->setGroupNumber(aGroup);
@@ -195,7 +205,7 @@ int main(int argc, char *argv[])
 	QMap <QString, QWidget*> windows;
 
 	//Создание первой группы окон.
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 4; ++i)
 	{
 		window = getTestWindow(i, 1);
 		windows.insertMulti(window->metaObject()->className(), window);
@@ -204,27 +214,29 @@ int main(int argc, char *argv[])
 	//Создание второй группы окон.
 	for (int i = 0; i < 1; ++i)
 	{
-		window = getTestWindow(i + 3, 2);
+		window = getTestWindow(i + 4, 2);
 		windows.insertMulti(window->metaObject()->className(), window);
 	}
 
 	//Создание третьей группы окон.
 	for (int i = 0; i < 2; ++i)
 	{
-		window = getTestWindow(i + 4, 3);
+		window = getTestWindow(i + 5, 3);
 		windows.insertMulti(window->metaObject()->className(), window);
 	}
 
 	//Создание четвертой группы окон.
 	for (int i = 0; i < 4; ++i)
 	{
-		window = getTestWindow(i + 6, 4);
+		window = getTestWindow(i + 7, 4);
 		windows.insertMulti(window->metaObject()->className(), window);
 	}
 
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileCreated(const QString&, const QString&)),	windows.values("CXPathWindow").first(), SLOT(load(const QString&, const QString&)));
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileCreated(const QString&, const QString&)),	windows.values("CXPathWindow").at(1), SLOT(load(const QString&, const QString&)));
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)),					windows.value("CXEditPathFile"), SLOT(openFile(const QString&)));
+	QObject::connect(windows.value("CXFilesList"), SIGNAL(compileTextChanged(const QString&)),			windows.value("CXCompileEdit"), SLOT(setText(const QString&)));
+
 	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(textChanged(bool)),						windows.value("CXFilesList"), SLOT(onTextChanged(bool)));
 	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(newFileCreated()),							windows.value("CXFilesList"), SLOT(onCreateNewFile()));
 	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(statSaved()),								windows.value("CXFilesList"), SLOT(onStatSave()));
