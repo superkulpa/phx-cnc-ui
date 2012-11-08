@@ -1,6 +1,7 @@
 #include "CXLazerDirectionWindow.h"
 
 #include <QHBoxLayout>
+#include <QGroupBox>
 
 #include "CXLazerVelocityView.h"
 #include "CXLazerDirectionView.h"
@@ -13,64 +14,73 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	QVBoxLayout* centralLayout = new QVBoxLayout(this); 
 	centralLayout->setMargin(5);
 
+	QGroupBox* groupBox = new QGroupBox(this);
+	groupBox->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+
+	QVBoxLayout* groupBoxLayout = new QVBoxLayout(groupBox);
+	groupBoxLayout->setMargin(7);
+	groupBoxLayout->setSpacing(6);
+
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
 	buttonLayout->setMargin(0);
-	buttonLayout->setSpacing(0);
+	buttonLayout->setSpacing(6);
 
-	mForwardButton = new CXTouchButton(trUtf8("Вперед"), this);
+	mForwardButton = new CXTouchButton(trUtf8("Вперед"), groupBox);
 	buttonLayout->addWidget(mForwardButton);
 
-	mBackwardButton = new CXTouchButton(trUtf8("Назад"), this);
+	mBackwardButton = new CXTouchButton(trUtf8("Назад"), groupBox);
 	buttonLayout->addWidget(mBackwardButton);
 
-	mSearchButton = new CXTouchButton(trUtf8("Поиск"), this);
+	mSearchButton = new CXTouchButton(trUtf8("Поиск"), groupBox);
 	buttonLayout->addWidget(mSearchButton);
 
-	mStopButton = new CXTouchButton(trUtf8("Стоп"), this);
+	mStopButton = new CXTouchButton(trUtf8("Стоп"), groupBox);
 	mStopButton->hide();
 	buttonLayout->addWidget(mStopButton);
 
-	centralLayout->addLayout(buttonLayout);
+	groupBoxLayout->addLayout(buttonLayout);
 /**/
 	QHBoxLayout* positionLayout = new QHBoxLayout;
 
-	mXYButton = new CXTouchButton("X/Y", this);
+	mXYButton = new CXTouchButton("X/Y", groupBox);
 	mXYButton->setObjectName("xyButton");
 	mXYButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	positionLayout->addWidget(mXYButton);
 
-	QLineEdit* mXEdit = new QLineEdit(this);
+	QLineEdit* mXEdit = new QLineEdit(groupBox);
 	mXEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
 	positionLayout->addWidget(mXEdit);
 
-	QLineEdit* mYEdit = new QLineEdit(this);
+	QLineEdit* mYEdit = new QLineEdit(groupBox);
 	mYEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
 	positionLayout->addWidget(mYEdit);
 	
-	centralLayout->addLayout(positionLayout);
+	groupBoxLayout->addLayout(positionLayout);
 
 	QHBoxLayout* velocityLayout = new QHBoxLayout;
 
-	mFLabel = new QLabel("F", this);
+	mFLabel = new QLabel("F", groupBox);
 	mFLabel->setObjectName("mFLabel");
 	mFLabel->setAlignment(Qt::AlignCenter);
 	mFLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	velocityLayout->addWidget(mFLabel);
 
-	mFEdit = new QLineEdit(this);
+	mFEdit = new QLineEdit(groupBox);
 	mFEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
 	velocityLayout->addWidget(mFEdit);
 
-	CXTouchButton* plusButton = new CXTouchButton("+", this);
+	CXTouchButton* plusButton = new CXTouchButton("+", groupBox);
 	plusButton->setObjectName("plusButton");
 	plusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	velocityLayout->addWidget(plusButton);
 
-	CXTouchButton* minusButton = new CXTouchButton("-", this);
+	CXTouchButton* minusButton = new CXTouchButton("-", groupBox);
 	minusButton->setObjectName("minusButton");
 	velocityLayout->addWidget(minusButton);
 
-	centralLayout->addLayout(velocityLayout);
+	groupBoxLayout->addLayout(velocityLayout);
+
+	centralLayout->addWidget(groupBox);
 /**/
 	QHBoxLayout* lazerLayout = new QHBoxLayout;
 	lazerLayout->setSpacing(10);

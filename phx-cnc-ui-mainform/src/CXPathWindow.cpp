@@ -2,6 +2,7 @@
 
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QGroupBox>
 
 #include "CXPathView.h"
 #include "CXTouchButton.h"
@@ -9,26 +10,31 @@
 CXPathWindow::CXPathWindow() : AXBaseWindow()
 {
 	QVBoxLayout* centralLayout = new QVBoxLayout(this);
+	centralLayout->setMargin(5);
 
-	mPathView = new CXPathView(this);
+	QGroupBox* groupBox = new QGroupBox(this);
+
+	QVBoxLayout* groupBoxLayout = new QVBoxLayout(groupBox);
+	groupBoxLayout->setMargin(7);
+	groupBoxLayout->setSpacing(6);
+
+	mPathView = new CXPathView(groupBox);
 	//pathView->load("C:/Users/OLEG@tor/Downloads/files/list.kerf.cpr.ccp", "C:/Users/OLEG@tor/Downloads/files/list.cpr.ccp");
 	//pathView->load(QApplication::applicationDirPath() + "/tmp/list.cpr.ccp", QApplication::applicationDirPath() + "/tmp/list.kerf.cpr.ccp");
-	centralLayout->addWidget(mPathView);
+	groupBoxLayout->addWidget(mPathView);
 
 	QHBoxLayout* horLayout = new QHBoxLayout;
-	centralLayout->setMargin(5);
-	centralLayout->setSpacing(5);
 
-	CXTouchButton* zoomInButton = new CXTouchButton(QObject::trUtf8("+ Увеличить"), this);
+	CXTouchButton* zoomInButton = new CXTouchButton(QObject::trUtf8("+ Увеличить"), groupBox);
 	horLayout->addWidget(zoomInButton);
 
 	CXTouchButton* showAllButton = new CXTouchButton(QObject::trUtf8("x"), this);
 	horLayout->addWidget(showAllButton);
 
-	CXTouchButton* zoomOutButton = new CXTouchButton(QObject::trUtf8("- Уменьшить"), this);
+	CXTouchButton* zoomOutButton = new CXTouchButton(QObject::trUtf8("- Уменьшить"), groupBox);
 	horLayout->addWidget(zoomOutButton);
 
-	CXTouchButton* maximizeButton = new CXTouchButton(QObject::trUtf8("□"), this);
+	CXTouchButton* maximizeButton = new CXTouchButton(QObject::trUtf8("□"), groupBox);
 	horLayout->addWidget(maximizeButton);
 
 	connect(zoomInButton, SIGNAL(clicked()), mPathView, SLOT(zoomIn()));
@@ -36,7 +42,9 @@ CXPathWindow::CXPathWindow() : AXBaseWindow()
 	connect(showAllButton, SIGNAL(clicked()), mPathView, SLOT(fitInView()));
 	connect(maximizeButton, SIGNAL(clicked()), this, SLOT(onMaximize()));
 
-	centralLayout->addLayout(horLayout);
+	groupBoxLayout->addLayout(horLayout);
+
+	centralLayout->addWidget(groupBox);
 }
 
 CXPathWindow::~CXPathWindow()

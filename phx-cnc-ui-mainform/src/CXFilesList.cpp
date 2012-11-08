@@ -285,15 +285,15 @@ void CXFilesList::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatu
 	if (aExitStatus == QProcess::NormalExit)
 	{
 		//emit fileCreated(QApplication::applicationDirPath() + "/tmp/list.cpr.ccp", QApplication::applicationDirPath() + "/tmp/list.kerf.cpr.ccp");
-		emit fileCreated(QApplication::applicationDirPath() + "/" + getConfigAttribute("Common.OutputCpName"), QApplication::applicationDirPath() + "/" + getConfigAttribute("Common.OutputCpNameKerf"));
+		emit fileCreated(getConfigAttribute("Common.OutputCpName"), getConfigAttribute("Common.OutputCpNameKerf"));
 
-		QFile compileFile(QApplication::applicationDirPath() + getConfigAttribute("Common.OutputInfo"));
+		QFile compileFile(getConfigAttribute("Common.OutputInfo"));
 		compileFile.open(QIODevice::ReadOnly);
 
 		QTextStream in(&compileFile);
 		in.setCodec("UTF-8");
 
-		mCompileEdit->setText(in.readAll());
+		emit compileTextChanged(in.readAll());
 
 		compileFile.close();
 	}

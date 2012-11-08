@@ -5,8 +5,10 @@
   <buttonDelay>200</buttonDelay>
   <style>
 	QWidget { font-size: 13pt; }
-	CXPathView { font-size: 10pt; }
 	QTabBar::tab { padding: 15px; }
+	CXTitleWindow QLabel { border: 1px solid gray; min-width: 200px; }
+	AXBaseWindow, QDialog { background-color: silver; }
+	CXPathView { font-size: 10pt; }
 	CXProcessingParametersWindow QAbstractButton, CXEditPathFile QAbstractButton, CXPathWindow QAbstractButton { min-height: 30px; padding: 15px; }
 	CXFilesList QAbstractButton { padding: 20px 35px; }
 	CXPanelWindow QAbstractButton { min-width: 110px; min-height: 75px; }
@@ -18,30 +20,35 @@
 	CXLazerVelocity QAbstractButton { font-size: 24pt; min-height: 140px; min-width: 100px; }
 	CXLazerVelocity QLabel { font-size: 80pt; min-width: 100px; }
 	CXLazerSettings QAbstractButton { min-width: 80px; min-height: 75px; }
+	CXLazerSettings #mButtonWidget QAbstractButton { min-height: 65px; }
 	CXLazerSettings QLabel { font-size: 14pt; min-width: 50px; }
-	CXLazerDirectionWindow QAbstractButton { min-height: 75px; }
-	CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { min-height: 50px; min-width: 50px; font-size: 14pt; }
-	CXLazerDirectionWindow #mFLabel { padding: 5px 15px 5px 50px; }
+	CXLazerDirectionWindow QAbstractButton { min-height: 75px; padding: 0px; }
+	CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { min-height: 50px; min-width: 60px; font-size: 14pt; }
+	CXLazerDirectionWindow #mFLabel { padding: 5px 15px 5px 37px; }
 	CXLazerDirectionWindow QLineEdit { font-size: 16pt; padding: 5px; }
 	CXLazerDirectionWindow QLabel { font-size: 14pt; }
 	CXLazerDirectionDialog QAbstractButton { min-width: 100px; min-height: 75px; font-size: 14pt; }
 	CXExitDialog QAbstractButton { padding: 30px 60px; }
+	QScrollBar:horizontal { height: 40px; }
+	QScrollBar:vertical { width: 40px; }
+	QScrollBar::sub-line:vertical { height: 30px; }
   </style>
-  <window_1>AdnQywABAAAAAANyAAAAKQAABOQAAAJ5AAADcgAAACkAAATkAAACeQAAAAAAAA==</window_1>
-  <window_2>AdnQywABAAD////1AAAAKwAAAasAAAJ5////9QAAACsAAAGrAAACeQAAAAAAAA==</window_2>
-  <window_3>AdnQywABAAAAAAGsAAAAKwAAA3EAAAJ7AAABrAAAACsAAANxAAACewAAAAAAAA==</window_3>
-  <window_4>AdnQywABAAAAAAAAAAAAKQAABOQAAAJ5AAAAAAAAACkAAATkAAACeQAAAAAAAA==</window_4>
-  <window_5>AdnQywABAAAAAAIvAAAAKQAABOQAAAJ5AAACLwAAACkAAATkAAACeQAAAAAAAA==</window_5>
-  <window_6>AdnQywABAAAAAAAAAAAAKQAAAi4AAAJ5AAAAAAAAACkAAAIuAAACeQAAAAAAAA==</window_6>
-  <window_7>AdnQywABAAAAAAAAAAAAKQAAAhIAAAJ5AAAAAAAAACkAAAISAAACeQAAAAAAAA==</window_7>
-  <window_8>AdnQywABAAAAAAOUAAAAKQAABOQAAAJ5AAADlAAAACkAAATkAAACeQAAAAAAAA==</window_8>
-  <window_9>AdnQywABAAAAAAITAAAAiAAAA5MAAAJ5AAACEwAAAIgAAAOTAAACeQAAAAAAAA==</window_9>
-  <window_10>AdnQywABAAAAAAITAAAAKwAAA5MAAACHAAACEwAAACsAAAOTAAAAhwAAAAAAAA==</window_10>
-  <window_11>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_11>
+  <window_1>AdnQywABAAAAAANfAAAAKwAABOQAAAJ7AAADXwAAACsAAATkAAACewAAAAAAAA==</window_1>
+  <window_2>AdnQywABAAAAAAAAAAAAKwAAAaEAAAIhAAAAAAAAACsAAAGhAAACIQAAAAAAAA==</window_2>
+  <window_3>AdnQywABAAAAAAGiAAAAKwAAA14AAAJ5AAABogAAACsAAANeAAACeQAAAAAAAA==</window_3>
+  <window_4>AdnQywABAAAAAAAAAAACIgAAAaEAAAJ5AAAAAAAAAiIAAAGhAAACeQAAAAAAAA==</window_4>
+  <window_5>AdnQywABAAAAAAAAAAAAKQAABOQAAAJ5AAAAAAAAACkAAATkAAACeQAAAAAAAA==</window_5>
+  <window_6>AdnQywABAAAAAAIvAAAAKQAABOQAAAJ5AAACLwAAACkAAATkAAACeQAAAAAAAA==</window_6>
+  <window_7>AdnQywABAAAAAAAAAAAAKQAAAi4AAAJ5AAAAAAAAACkAAAIuAAACeQAAAAAAAA==</window_7>
+  <window_8>AdnQywABAAAAAAAAAAAAKQAAAhIAAAJ5AAAAAAAAACkAAAISAAACeQAAAAAAAA==</window_8>
+  <window_9>AdnQywABAAAAAAOUAAAAIQAABOQAAAJ5AAADlAAAACEAAATkAAACeQAAAAAAAA==</window_9>
+  <window_10>AdnQywABAAAAAAITAAAAiAAAA5gAAAJ5AAACEwAAAIgAAAOYAAACeQAAAAAAAA==</window_10>
+  <window_11>AdnQywABAAAAAAITAAAAKwAAA5MAAACHAAACEwAAACsAAAOTAAAAhwAAAAAAAA==</window_11>
   <window_12>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_12>
   <window_13>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_13>
   <window_14>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_14>
-  <window_15>AdnQywABAAAAAAAAAAAAAAAABOQAAAAqAAAAAAAAAAAAAATkAAAAKgAAAAAAAA==</window_15>
-  <window_16>AdnQywABAAAAAAAAAAAAAAAABOQAAALcAAAAAAAAAAAAAATkAAAC3AAAAAAAAA==</window_16>
-  <window_17>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_17>
+  <window_15>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_15>
+  <window_16>AdnQywABAAAAAAAAAAAAAAAABOQAAAAqAAAAAAAAAAAAAATkAAAAKgAAAAAAAA==</window_16>
+  <window_17>AdnQywABAAAAAAAAAAAAAAAABOQAAALcAAAAAAAAAAAAAATkAAAC3AAAAAAAAA==</window_17>
+  <window_18>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_18>
 </Settings>
