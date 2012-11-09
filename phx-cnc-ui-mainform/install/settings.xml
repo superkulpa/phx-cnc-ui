@@ -3,6 +3,7 @@
   <manager freeze="1"/>
   <delay>200</delay>
   <buttonDelay>200</buttonDelay>
+  <translate>en.qm</translate>
   <style>
 	QWidget { font-size: 13pt; }
 	QTabBar::tab { padding: 15px; }
@@ -35,7 +36,7 @@
   </style>
   <window_1>AdnQywABAAAAAANfAAAAKwAABOQAAAJ7AAADXwAAACsAAATkAAACewAAAAAAAA==</window_1>
   <window_2>AdnQywABAAAAAAAAAAAAKwAAAaEAAAIhAAAAAAAAACsAAAGhAAACIQAAAAAAAA==</window_2>
-  <window_3>AdnQywABAAAAAAGiAAAAKwAAA14AAAJ5AAABogAAACsAAANeAAACeQAAAAAAAA==</window_3>
+  <window_3>AdnQywABAAAAAAGiAAAAKwAAA2oAAAJ5AAABogAAACsAAANqAAACeQAAAAAAAA==</window_3>
   <window_4>AdnQywABAAAAAAAAAAACIgAAAaEAAAJ5AAAAAAAAAiIAAAGhAAACeQAAAAAAAA==</window_4>
   <window_5>AdnQywABAAAAAAAAAAAAKQAABOQAAAJ5AAAAAAAAACkAAATkAAACeQAAAAAAAA==</window_5>
   <window_6>AdnQywABAAAAAAIvAAAAKQAABOQAAAJ5AAACLwAAACkAAATkAAACeQAAAAAAAA==</window_6>

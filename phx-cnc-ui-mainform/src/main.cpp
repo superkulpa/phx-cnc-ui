@@ -2,11 +2,7 @@
 
 #include <QXmlQuery>
 #include <QVBoxLayout>
-#include <QLabel>
-#include <QTextEdit>
-#include <QTreeWidget>
-#include <QListWidget>
-#include <QLineEdit>
+#include <QTranslator>
 
 #include "CXWindowsManager.h"
 //#include "CXPanelWindow.h"
@@ -156,11 +152,23 @@ int main(int argc, char *argv[])
 	app.setQuitOnLastWindowClosed(false);
 
 	QFile xmlFile("settings.xml");
-
+	QXmlQuery query;
+	
 	if (xmlFile.open(QIODevice::ReadOnly))
 	{
-		QXmlQuery query;
 		query.setFocus(&xmlFile);
+		query.setQuery("/Settings/translate/text()");
+
+		QString res;
+		query.evaluateTo(&res);
+
+		QTranslator* translator = new QTranslator(&app);
+		translator->load(QApplication::applicationDirPath() + QDir::separator() + "translations" + QDir::separator() + res);
+		app.installTranslator(translator);
+	}
+
+	if (xmlFile.isOpen())
+	{
 		query.setQuery("/Settings/style/text()");
 
 		QString res;

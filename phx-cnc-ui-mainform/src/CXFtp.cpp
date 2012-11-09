@@ -140,7 +140,7 @@ void CXFtp::onFtpCommandFinish(int id, bool aIsError)
 			if (!mRemoteDir.isEmpty())
 			{
 				cd(mRemoteDir);
-				if (error() != QFtp::NoError) onFtpError(trUtf8("Не удалось подключиться к FTP-серверу:\n%").arg(errorString()));
+				if (error() != QFtp::NoError) onFtpError(trUtf8("Не удалось подключиться к FTP-серверу:\n%1").arg(errorString()));
 				break;
 			}
 		}
