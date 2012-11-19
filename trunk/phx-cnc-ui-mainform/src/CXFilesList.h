@@ -18,7 +18,7 @@ class CXFilesList : public AXBaseWindow, public Ui::CXFilesList
 
 public:
 	//! Конструктор.
-	CXFilesList();
+	CXFilesList(bool aIsSaveDialog = false);
 
 	//! Деструктор.
 	~CXFilesList();
@@ -51,9 +51,19 @@ signals:
 	void fileCreated(const QString& aMainFile, const QString& aMoveFile);
 
 	/*!
+		Сигнал на сохранение файла.
+		\param aFileName - имя файла.
+	*/
+	void fileSaved(const QString& aFileName);
+
+	/*!
 		Сигнал об изменении в логе компиляции.
 	*/
 	void compileTextChanged(const QString& aText);
+
+protected:
+	//! Переопределенная функция показа.
+	virtual void showEvent(QShowEvent* e);
 
 private slots:
 	//! Слот выбора файла из списка.
@@ -98,12 +108,19 @@ private slots:
 	//! Получение значения заданного параметра в файле настроек.
 	QString getConfigAttribute(const QString& aAttributeName);
 
+	//! Слот на сохранение файла.
+	void onSave();
+
 private:
+	bool mIsShow;
+	bool mIsSaveDialog;
 	QString mRootPath;
 	QString mFileName;
 	QFileSystemModel* mModel;
 	QModelIndex mRootIndex;
 	QPushButton* mButton;
+
+	QProcess* mProcess;
 	CXTurnDialog* mTurnDialog;
 
 	bool mIsModifier;

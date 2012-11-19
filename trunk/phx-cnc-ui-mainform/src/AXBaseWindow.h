@@ -7,6 +7,7 @@
 #include <QWidget>
 
 class CXWindowsManager;
+class CXUdpManager;
 
 /*!
 	Список для флага изменения размеров окна.
@@ -38,6 +39,9 @@ public:
 
 	//! Деструктор.
 	~AXBaseWindow();
+
+	//! Функция регистрации объекта в менеджере.
+	void registerManager();
 
 	/*!
 		Функция установки новой геометрии окна.
@@ -142,7 +146,13 @@ public:
 	//! Статический указатель на оконный менеджер.
 	static CXWindowsManager* mManager;
 
+	//! Статический указатель на класс работы с UDP.
+	static CXUdpManager* mUdpManager;
+
 private:
+	//! Признак нажатия кнопки мышки на форме.
+	bool mIsButtonPress;
+
 	//! Номер группы окна.
 	int mGroupNumber;
 

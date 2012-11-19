@@ -9,12 +9,17 @@
 */
 class CXTouchButton : public QPushButton
 {
+	Q_OBJECT
+
 public:
 	CXTouchButton(QWidget* parent);
 	CXTouchButton(const QString& text, QWidget* parent);
 	~CXTouchButton();
 
 protected:
+	//! Переопределенная фукнция рисования.
+	virtual void paintEvent(QPaintEvent* e);
+
 	//! Переопределенная фукнция обработки нажатия кнопки мышки.
 	virtual void mousePressEvent(QMouseEvent* e);
 

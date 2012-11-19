@@ -16,6 +16,8 @@ CXIniFileEditor::CXIniFileEditor() : AXBaseWindow()
 	mProgressBar = NULL;
 
 	mHighlighter = new CXIniSyntaxHighlighter(mIniFileEdit->document());
+
+	registerManager();
 }
 
 CXIniFileEditor::~CXIniFileEditor()

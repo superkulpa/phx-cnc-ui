@@ -264,7 +264,7 @@ void CXFtp::loadNextFile()
 		}
 		else
 		{
-			mLoadFile = new QFile(mSaveDir + "/" + fileName);
+			mLoadFile = new QFile(mSaveDir + QDir::separator() + fileName);
 			if (!mLoadFile->open(QIODevice::WriteOnly))
 			{
 				onFtpError(trUtf8("Не удалось создать файл:\n%1").arg(mLoadFile->fileName()));

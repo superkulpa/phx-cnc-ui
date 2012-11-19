@@ -70,10 +70,7 @@ void CXLazerVelocityView::paintEvent(QPaintEvent*)
 	{
 		case E_Accumulate:
 		{
-			for (int i = 0; i < mVelocity + 1; ++i)
-			{
-				painter.fillRect(mPathList.at(mPathList.count() - i - 1), QColor(0, 255, 0, 200 - (mPathList.count() - mVelocity) * 40));
-			}
+			painter.fillRect(mPathList.at(mPathList.count() - mVelocity - 1), QColor(0, 255, 0, 200)); //QColor(0, 255, 0, 200 - (mPathList.count() - mVelocity) * 40)
 
 			break;
 		}

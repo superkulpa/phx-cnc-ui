@@ -5,6 +5,8 @@
 
 CXTitleWindow::CXTitleWindow() : AXBaseWindow()
 {
+	setGroupNumber(0);
+
 	QHBoxLayout* centralLayout = new QHBoxLayout(this);
 	centralLayout->setMargin(7);
 
@@ -18,6 +20,8 @@ CXTitleWindow::CXTitleWindow() : AXBaseWindow()
 	QLabel* lbl2 = new QLabel(this);
 	lbl2->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
 	centralLayout->addWidget(lbl2);
+
+	registerManager();
 }
 
 CXTitleWindow::~CXTitleWindow()

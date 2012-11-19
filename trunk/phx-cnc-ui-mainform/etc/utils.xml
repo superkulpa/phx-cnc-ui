@@ -1,6 +1,6 @@
 
 <?xml version="1.0" ?>
-- <utils>
+ <utils>
   <util name="Раскрой" cmd="bash macro2.sh" modal="true" />
   <util id="2" name="Газовая консоль" description="" icon="images/dummy48.bmp" cmd="bash gasconsole.sh" access="all" modal="true" />
   <util id="3" name="Отчет об ошибке" description="" icon="images/dummy48.bmp" cmd="bash backup_log.sh" access="all" modal="true" />

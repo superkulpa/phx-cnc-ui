@@ -9,8 +9,11 @@ CXTextParameters::CXTextParameters() : AXBaseWindow()
 	centralLayout->setMargin(5);
 
 	QTextEdit* textEdit = new QTextEdit(this);
+	textEdit->setReadOnly(true);
 	textEdit->setMinimumHeight(10);
 	centralLayout->addWidget(textEdit);
+
+	registerManager();
 }
 
 CXTextParameters::~CXTextParameters()

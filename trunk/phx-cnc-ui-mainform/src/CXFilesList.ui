@@ -46,6 +46,20 @@
        </widget>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="mFileNameLabel">
+          <property name="text">
+           <string>Имя файла: </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="mFileNameEdit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <spacer name="horizontalSpacer">
@@ -62,9 +76,6 @@
         </item>
         <item>
          <widget class="CXTouchButton" name="mDownButton">
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
-          </property>
           <property name="text">
            <string/>
           </property>
@@ -88,9 +99,6 @@
         </item>
         <item>
          <widget class="CXTouchButton" name="mOpenButton">
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
-          </property>
           <property name="text">
            <string/>
           </property>
@@ -108,9 +116,6 @@
         </item>
         <item>
          <widget class="CXTouchButton" name="mUpButton">
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
-          </property>
           <property name="text">
            <string/>
           </property>
@@ -144,6 +149,24 @@
            </size>
           </property>
          </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="CXTouchButton" name="mSaveButton">
+          <property name="text">
+           <string>Сохранить</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="CXTouchButton" name="mCloseButton">
+          <property name="text">
+           <string>Закрыть</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

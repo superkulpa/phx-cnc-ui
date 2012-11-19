@@ -54,7 +54,7 @@ void CXParametersWindow::loadParameters()
 	for (int i = 0; i < fileList.count(); ++i)
 	{
 		curFile = fileList.at(i);
-		curFile.prepend(configsDir.path() + "/");
+		curFile.prepend(configsDir.path() + QDir::separator());
 /**/
 		CIniFile iniFile(curFile.toStdString());
 		iniFile.ReadIniFile();
@@ -104,73 +104,6 @@ void CXParametersWindow::loadParameters()
 				}
 			}
 		}
-/**/
-/*
-		QSettings settings(curFile, QSettings::IniFormat);
-		settings.setIniCodec("UTF-8");
-		curGroups = settings.childGroups();
-
-		for (int f = 0; f < curGroups.count(); ++f)
-		{
-			curGroup = curGroups.at(f);
-
-			if (curGroup == QString("Form"))
-			{
-				settings.beginGroup("Form/ParamGroups");
-				QStringList allGroups = settings.childGroups();
-				settings.endGroup();
-
-				for (int gr = 0; gr < allGroups.count(); ++gr)
-				{
-					settings.beginGroup("Form/ParamGroups/" + allGroups.at(gr));
-					if (settings.contains("value"))
-					{
-						curGroupData = new CXGroupData;
-						curGroupData->mName = settings.value("descr").toString();
-						if (settings.value("visible").toInt() == 1) curGroupData->mIsVisible = true;
-
-						CXParametersView::mGropusMap.insert(settings.value("value").toInt(), curGroupData);
-					}
-					settings.endGroup();
-				}
-
-				continue;
-			}
-
-			settings.beginGroup(curGroup);
-			allKeys = settings.allKeys();
-			settings.endGroup();
-
-			for (int key = 0; key < allKeys.count(); ++key)
-			{
-				curKey = allKeys.at(key);
-				if (curKey.endsWith("group"))
-				{
-					curKey = curGroup + "/" + curKey.left(curKey.count() - 6);
-					settings.beginGroup(curKey);
-
-					curParameterData = new CXParameterData;
-					curParameterData->mConfigFileName = curFile;
-					curParameterData->mConfigGroup = curKey;
-					curParameterData->mName = settings.value("descr").toString();
-					curParameterData->setValue(settings.value("value").toInt());
-					groups = settings.value("group").toString().split(",");
-
-					if (settings.contains("min")) curParameterData->mMin = settings.value("min").toInt();
-					if (settings.contains("max")) curParameterData->mMax = settings.value("max").toInt();
-
-					for (int gr = 0; gr < groups.count(); ++gr)
-					{
-						curParameterData->mGroups.append(groups.at(gr).toInt());
-
-						CXParametersView::mDataMap.insertMulti(groups.at(gr).toInt(), curParameterData);
-					}
-
-					settings.endGroup();
-				}
-			}
-		}
-/**/
 	}
 
 	makeTabs(mIsSystem);
@@ -283,7 +216,6 @@ void CXParametersWindow::clearData()
 		delete curParamData;
 	}
 
-//	qDeleteAll(parametersList.begin(), parametersList.end());
 	CXParametersView::mDataMap.clear();
 	qDeleteAll(CXParametersView::mGropusMap.begin(), CXParametersView::mGropusMap.end());
 	CXParametersView::mGropusMap.clear();

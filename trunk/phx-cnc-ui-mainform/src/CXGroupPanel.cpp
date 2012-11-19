@@ -10,6 +10,7 @@
 #include "CXWindowsManager.h"
 #include "CXExitDialog.h"
 #include "flowlayout.h"
+#include "CXUdpManager.h"
 
 CXGroupPanel::CXGroupPanel() : AXBaseWindow()
 {
@@ -40,6 +41,8 @@ CXGroupPanel::CXGroupPanel() : AXBaseWindow()
 
 	QShortcut* shortcut = new QShortcut(QKeySequence("Ctrl+Q"), this, 0, 0, Qt::ApplicationShortcut);
 	connect(shortcut, SIGNAL(activated()), qApp, SLOT(quit()));
+
+	registerManager();
 }
 
 CXGroupPanel::~CXGroupPanel()
@@ -96,6 +99,10 @@ void CXGroupPanel::onExit()
 		//выключение.
 		case 1:
 		{
+			mUdpManager->sendCommand(Commands::MSG_SECTION_START, Commands::MSG_CMD_SHUTDOWN);
+			QApplication::processEvents();
+//			QApplication::quit();
+
 			break;
 		}
 		//выход.
