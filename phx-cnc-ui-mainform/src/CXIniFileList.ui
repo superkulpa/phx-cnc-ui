@@ -17,23 +17,9 @@
    <item>
     <widget class="QListView" name="mIniFileView"/>
    </item>
-   <item>
-    <widget class="CXTouchButton" name="mSaveButton">
-     <property name="text">
-      <string>Сохранить</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>CXTouchButton</class>
-   <extends>QPushButton</extends>
-   <header>cxtouchbutton.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

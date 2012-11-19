@@ -4,6 +4,8 @@
 #include <QApplication>
 #include <QTimerEvent>
 #include <QMouseEvent>
+#include <QStyleOption>
+#include <QPainter>
 
 int CXTouchButton::mDelay = 0;
 
@@ -28,6 +30,17 @@ CXTouchButton::~CXTouchButton()
 
 }
 
+void CXTouchButton::paintEvent(QPaintEvent* e)
+{
+	QPushButton::paintEvent(e);
+/*
+	QStyleOption styleOption;
+	styleOption.init(this);
+	QPainter painter(this);
+	style()->drawPrimitive(QStyle::PE_Widget, &styleOption, &painter, this);
+*/
+}
+
 void CXTouchButton::mousePressEvent(QMouseEvent* e)
 {
 	if (e->button() == Qt::LeftButton)
@@ -42,6 +55,10 @@ void CXTouchButton::mouseReleaseEvent(QMouseEvent* e)
 {
 	if (e->button() == Qt::LeftButton)
 	{
+		e->pos();
+		e->buttons();
+		e->modifiers();
+
 		if (mTimer == -1) QPushButton::mouseReleaseEvent(e);
 		else
 		{
@@ -66,9 +83,8 @@ void CXTouchButton::timerEvent(QTimerEvent* e)
 		if (isCheckable()) setChecked(!isChecked());
 		else
 		{
-			QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonRelease, this->mapToGlobal(QPoint(1, 1)), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
+			QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonRelease, QPoint(1, 1), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
 			QApplication::postEvent(this, e);
-			emit clicked();
 		}
 	}
 }

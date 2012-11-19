@@ -11,6 +11,8 @@ CXLazerSettings::CXLazerSettings() : AXBaseWindow()
 
 	connect(mTButton, SIGNAL(clicked()), this, SLOT(onTClick()));
 	connect(mZHButton, SIGNAL(clicked()), this, SLOT(onZHClick()));
+
+	registerManager();
 }
 
 CXLazerSettings::~CXLazerSettings()

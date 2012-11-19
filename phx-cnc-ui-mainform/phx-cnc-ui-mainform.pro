@@ -5,7 +5,6 @@ QT      += xml xmlpatterns network
 # Input
 HEADERS	+=	src/AXBaseWindow.h \
 			src/CXWindowsManager.h \
-			src/CXPanelWindow.h \
 			src/CXPathView.h \
 			src/CXPathWindow.h \
 			src/flowlayout.h \
@@ -32,12 +31,14 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXCompileEdit.h \
 			src/CXTouchButton.h \
 			src/CXLazerDirectionDialog.h \
-			src/CXExitDialog.h
+			src/CXExitDialog.h \
+			src/CXVirtualKeyboard.h \
+			src/CXUtilsWindow.h \
+			src/CXUdpManager.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
 			src/CXWindowsManager.cpp \
-			src/CXPanelWindow.cpp \
 			src/CXPathView.cpp \
 			src/CXPathWindow.cpp \
 			src/flowlayout.cpp \
@@ -64,7 +65,10 @@ SOURCES +=	src/main.cpp \
 			src/CXCompileEdit.cpp \
 			src/CXTouchButton.cpp \
 			src/CXLazerDirectionDialog.cpp \
-			src/CXExitDialog.cpp
+			src/CXExitDialog.cpp \
+			src/CXVirtualKeyboard.cpp \
+			src/CXUtilsWindow.cpp \
+			src/CXUdpManager.cpp
 
 FORMS +=	src/CXFilesList.ui \
 			src/CXEditPathFile.ui \
@@ -75,6 +79,7 @@ FORMS +=	src/CXFilesList.ui \
 			src/CXLazerSettings.ui \
 			src/CXTurnDialog.ui \
 			src/CXLazerDirectionDialog.ui \
-			src/CXExitDialog.ui
+			src/CXExitDialog.ui \
+			src/CXVirtualKeyboard.ui
 
 RESOURCES += resource.qrc

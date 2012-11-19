@@ -45,6 +45,8 @@ CXPathWindow::CXPathWindow() : AXBaseWindow()
 	groupBoxLayout->addLayout(horLayout);
 
 	centralLayout->addWidget(groupBox);
+
+	registerManager();
 }
 
 CXPathWindow::~CXPathWindow()

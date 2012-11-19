@@ -20,18 +20,16 @@ public:
 	//! Деструктор.
 	~CXIniFileList();
 
+public slots:
+	//! Слот на открытие файла.
+	void onOpenFile();
+
 signals:
 	//! Сигнал на открытие файла.
 	void fileOpened(const QString& aFileName);
 
 	//! Сигнал на сохранение изменений в файле.
 	void fileSaved();
-
-private slots:
-	/*!
-		Слот выбора файла из списка на редактирование.
-	*/
-	void onItemActivate(const QModelIndex& aIndex);
 
 private:
 	QFileSystemModel* mModel;

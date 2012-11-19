@@ -9,19 +9,22 @@
 #include <QMouseEvent>
 #include <QXmlQuery>
 
-#include "CXPanelWindow.h"
 #include "CXGroupPanel.h"
+#include "CXVirtualKeyboard.h"
 
 CXWindowsManager::CXWindowsManager()
 {
-	mList.append(QApplication::desktop());
-	mList.append(QApplication::desktop());
+	mList.insertMulti("QDesktopWidget", QApplication::desktop());
+	mList.insertMulti("QDesktopWidget", QApplication::desktop());
 
 	mEvents << QEvent::MouseButtonDblClick << QEvent::MouseButtonPress << QEvent::MouseMove << QEvent::MouseButtonRelease << QEvent::Wheel << QEvent::KeyPress << QEvent::FocusIn << QEvent::WindowActivate << QEvent::HoverMove;
+//	mKeyboardWindows << "QTextEdit"
+
 	qApp->installEventFilter(this);
 
 	mIsFreeze = false;
 	mGroupNumber = 0;
+	mVirtualKeyboard = NULL;
 }
 
 CXWindowsManager::~CXWindowsManager()
@@ -31,13 +34,26 @@ CXWindowsManager::~CXWindowsManager()
 
 void CXWindowsManager::addWindow(AXBaseWindow* aWindow)
 {
-	if (aWindow == NULL || mList.contains(aWindow)) return;
+	if (aWindow == NULL || mList.values().contains(aWindow)) return;
 
-	mList.append(aWindow);
+	QString className = aWindow->metaObject()->className();
+
+	if (mList.contains(className))
+	{
+		int number = 1;
+		while (mList.contains(className + QString::number(number)))
+		{
+			number++;
+		}
+
+		className += QString::number(number);
+	}
+
+	mList.insert(className, aWindow);
 
 	connect(aWindow, SIGNAL(geometryChanged(const QRect&, bool)), SLOT(windowGeometryChange(const QRect&, bool)));
 
-	load(mList.count() - 1);
+	load(className, aWindow);
 	aWindow->setFreeze(mIsFreeze);
 }
 
@@ -48,15 +64,18 @@ void CXWindowsManager::setCurrentGroup(int aGroupNumber)
 	mGroupNumber = aGroupNumber;
 	AXBaseWindow* curWindow = NULL;
 
-	QList<QWidget*>::iterator iter;
+	QMap<QString, QWidget*>::iterator iter;
 	for (iter = mList.begin(); iter != mList.end(); ++iter)
 	{
 		curWindow = qobject_cast<AXBaseWindow*>(*iter);
 
 		if (curWindow == NULL) continue;
 
-		if (curWindow->groupNumber() >= 0 && curWindow->groupNumber() != mGroupNumber) curWindow->hide();
-		else if (curWindow->isHidden()) curWindow->show();
+		if (curWindow->groupNumber() >= 0)
+		{
+			if (curWindow->groupNumber() > 0 && curWindow->groupNumber() != mGroupNumber) curWindow->hide();
+			else curWindow->show();
+		}
 	}
 }
 
@@ -106,19 +125,19 @@ void CXWindowsManager::save(const QString& aFileName)
 			manager.setAttribute("freeze", mIsFreeze);
 		}
 
-		int count = 0;
+		QString className;
 
-		QList<QWidget*>::iterator iter;
+		QMap<QString, QWidget*>::iterator iter;
 		for (iter = mList.begin(); iter != mList.end(); ++iter)
 		{
 			curWindow = qobject_cast<AXBaseWindow*>(*iter);
 
 			if (curWindow != NULL)
 			{
-				count++;
+				className = iter.key();
 
-				QDomElement saveElement = root.firstChildElement(QString("window_%1").arg(count));
-				QDomElement newElement = document.createElement(QString("window_%1").arg(count));
+				QDomElement saveElement = root.firstChildElement(QString("window_%1").arg(className));
+				QDomElement newElement = document.createElement(QString("window_%1").arg(className));
 				newElement.appendChild(document.createTextNode(curWindow->saveGeometry().toBase64().data()));
 				if (saveElement.isNull())
 				{
@@ -172,10 +191,11 @@ void CXWindowsManager::load(const QString& aFileName)
 
 			if (element.tagName().left(7) == "window_")
 			{
-				int index = element.tagName().mid(7).toInt() + 1;
-				if (index > 1 && index < mList.count())
+				QString className = element.tagName().mid(7);
+
+				if (mList.contains(className))
 				{
-					curWindow = qobject_cast<AXBaseWindow*>(mList.at(index));
+					curWindow = qobject_cast<AXBaseWindow*>(mList.value(className));
 
 					if (curWindow != NULL)
 					{
@@ -192,7 +212,7 @@ void CXWindowsManager::load(const QString& aFileName)
 	setFreeze(isFreeze);
 }
 
-void CXWindowsManager::load(int aIndex)
+void CXWindowsManager::load(const QString& aClassName, AXBaseWindow* aWindow)
 {
 /*
 	QFile xmlFile(mFileName);
@@ -213,6 +233,8 @@ void CXWindowsManager::load(int aIndex)
 		xmlFile.close();
 	}
 /**/
+	if (aWindow == NULL) return;
+
 	QFile xmlFile(mFileName);
 
 	if (!xmlFile.open(QIODevice::ReadOnly)) return;
@@ -227,7 +249,6 @@ void CXWindowsManager::load(int aIndex)
 	if (!root.isNull())
 	{
 		QDomElement element = root.firstChildElement();
-		AXBaseWindow* curWindow = NULL;
 
 		while (!element.isNull())
 		{
@@ -238,16 +259,13 @@ void CXWindowsManager::load(int aIndex)
 
 			if (element.tagName().left(7) == "window_")
 			{
-				int index = element.tagName().mid(7).toInt() + 1;
-				if (index > 1 && index < mList.count() && index == aIndex)
+				QString className = element.tagName().mid(7);
+				if (aClassName == className)
 				{
-					curWindow = qobject_cast<AXBaseWindow*>(mList.at(index));
+					aWindow->restoreGeometry(QByteArray::fromBase64(QByteArray().append(element.text())));
+//					curWindow->setFreeze(element.attribute("freeze").toInt());
 
-					if (curWindow != NULL)
-					{
-						curWindow->restoreGeometry(QByteArray::fromBase64(QByteArray().append(element.text())));
-//						curWindow->setFreeze(element.attribute("freeze").toInt());
-					}
+					return;
 				}
 			}
 
@@ -261,7 +279,7 @@ void CXWindowsManager::bringToFront()
 {
 	AXBaseWindow* curWindow = NULL;
 
-	QList<QWidget*>::iterator iter;
+	QMap<QString, QWidget*>::iterator iter;
 	for (iter = mList.begin(); iter != mList.end(); ++iter)
 	{
 		curWindow = qobject_cast<AXBaseWindow*>(*iter);
@@ -279,6 +297,16 @@ bool CXWindowsManager::getFreeze()
 
 void CXWindowsManager::setFreeze(bool aIsFreeze)
 {
+	if (!aIsFreeze)
+	{
+		if (mVirtualKeyboard == NULL) mVirtualKeyboard = new CXVirtualKeyboard;
+		mVirtualKeyboard->show();
+	}
+	else if (mVirtualKeyboard != NULL)
+	{
+		mVirtualKeyboard->hide();
+	}
+
 	if (mIsFreeze == aIsFreeze) return;
 
 	mIsFreeze = aIsFreeze;
@@ -288,7 +316,7 @@ void CXWindowsManager::setFreeze(bool aIsFreeze)
 */
 	AXBaseWindow* curWindow = NULL;
 
-	QList<QWidget*>::iterator iter;
+	QMap<QString, QWidget*>::iterator iter;
 	for (iter = mList.begin(); iter != mList.end(); ++iter)
 	{
 		curWindow = qobject_cast<AXBaseWindow*>(*iter);
@@ -299,11 +327,23 @@ void CXWindowsManager::setFreeze(bool aIsFreeze)
 
 bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 {
-	if (e->type() == QEvent::WindowActivate && QString(watched->metaObject()->className()) == QString("CXGroupPanel"))
+	if (e->type() == QEvent::WindowActivate)
 	{
-		bringToFront();
+		if (QString(watched->metaObject()->className()) == QString("CXGroupPanel"))
+		{
+			bringToFront();
 
-		return false;
+			if (mIsFreeze) mVirtualKeyboard->hide();
+
+			return false;
+		}
+
+		if (watched->property("readOnly").isValid() && watched->property("readOnly").toBool() == false)
+		{
+			if (mVirtualKeyboard == NULL) mVirtualKeyboard = new CXVirtualKeyboard;
+
+			return false;
+		}
 	}
 
 	if (mIsFreeze) return false;
@@ -329,7 +369,7 @@ bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 			if (isBreak)
 			{
 				AXBaseWindow* baseWindow = qobject_cast<AXBaseWindow*>(widget);
-				bool isPanel = (/*qobject_cast<CXPanelWindow*>(widget) != NULL || */qobject_cast<CXGroupPanel*>(widget) != NULL || watched->objectName() == "mCloseButton");
+				bool isPanel = (qobject_cast<CXGroupPanel*>(widget) != NULL || watched->objectName() == QString("mCloseButton") || watched->objectName() == QString("mSaveAsButton"));
 
 				if (baseWindow != NULL && !baseWindow->isFreeze())
 				{
@@ -385,12 +425,12 @@ void CXWindowsManager::windowGeometryChange(const QRect& aNewGeometry, bool aIsR
 		QRect newRect = aNewGeometry;
 		QRect curRect;
 
-		QList<QWidget*>::iterator iter;
+		QMap<QString, QWidget*>::iterator iter;
 		for (iter = mList.begin(); iter != mList.end(); ++iter)
 		{
 			if (*iter == window || !(*iter)->isVisible()) continue;
 
-			if (iter == mList.begin()) curRect = qobject_cast<QDesktopWidget*>(*iter)->availableGeometry();
+			if (iter.key() == "QDesktopWidget") curRect = qobject_cast<QDesktopWidget*>(*iter)->availableGeometry();
 			else curRect = (*iter)->geometry();
 
 			if (intersects(aNewGeometry, curRect))

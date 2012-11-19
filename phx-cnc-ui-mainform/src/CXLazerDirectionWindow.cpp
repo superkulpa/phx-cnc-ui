@@ -8,9 +8,13 @@
 #include "CXLazerVelocity.h"
 #include "CXTouchButton.h"
 #include "CXLazerDirectionDialog.h"
+#include "CXUtilsWindow.h"
 
 CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 {
+	mIsRunning = false;
+	mUtils = NULL;
+
 	QVBoxLayout* centralLayout = new QVBoxLayout(this); 
 	centralLayout->setMargin(5);
 
@@ -48,10 +52,12 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	positionLayout->addWidget(mXYButton);
 
 	QLineEdit* mXEdit = new QLineEdit(groupBox);
+	mXEdit->setReadOnly(true);
 	mXEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
 	positionLayout->addWidget(mXEdit);
 
 	QLineEdit* mYEdit = new QLineEdit(groupBox);
+	mYEdit->setReadOnly(true);
 	mYEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
 	positionLayout->addWidget(mYEdit);
 	
@@ -66,6 +72,7 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	velocityLayout->addWidget(mFLabel);
 
 	mFEdit = new QLineEdit(groupBox);
+	mFEdit->setReadOnly(true);
 	mFEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
 	velocityLayout->addWidget(mFEdit);
 
@@ -107,6 +114,8 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	connect(mSearchButton, SIGNAL(clicked()), this, SLOT(onStart()));
 	connect(mStopButton, SIGNAL(clicked()), this, SLOT(onStop()));
 	connect(mXYButton, SIGNAL(clicked()), this, SLOT(onXYClick()));
+
+	registerManager();
 }
 
 CXLazerDirectionWindow::~CXLazerDirectionWindow()
@@ -114,8 +123,21 @@ CXLazerDirectionWindow::~CXLazerDirectionWindow()
 
 }
 
+void CXLazerDirectionWindow::onUtils()
+{
+	if (mUtils == NULL)
+	{
+		mUtils = new CXUtilsWindow();
+		mUtils->setWindowModality(Qt::ApplicationModal);
+	}
+
+	mUtils->show();
+}
+
 void CXLazerDirectionWindow::onStart()
 {
+	mIsRunning = true;
+
 	if (sender() == mForwardButton)
 	{
 		;
@@ -146,12 +168,15 @@ void CXLazerDirectionWindow::onStart()
 
 void CXLazerDirectionWindow::onStop()
 {
+	mIsRunning = false;
+
 	mForwardButton->show();
 	mBackwardButton->show();
 	mSearchButton->show();
 //	mXYButton->show();
 //	mFLabel->show();
 //	mFEdit->show();
+	mLazerDirectionView->setDirection(LazerDirectionView::E_Stop);
 	mLazerDirectionView->show();
 //	mLazerVelocityView->show();
 
@@ -161,6 +186,8 @@ void CXLazerDirectionWindow::onStop()
 
 void CXLazerDirectionWindow::onXYClick()
 {
+	if (mIsRunning) return;
+
 	CXLazerDirectionDialog dialog(qobject_cast<QWidget*>(sender()));
 	int res = dialog.exec();
 

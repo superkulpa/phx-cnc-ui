@@ -38,6 +38,8 @@ CXTurnDialog::CXTurnDialog() : AXBaseWindow()
 
 	mRotateEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d+"), mRotateEdit));
 	mScaleEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d+"), mScaleEdit));
+
+	registerManager();
 }
 
 CXTurnDialog::~CXTurnDialog()

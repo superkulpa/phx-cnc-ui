@@ -10,12 +10,28 @@
 #include "CXProcessingParametersWindow.h"
 #include "CXTurnDialog.h"
 
-CXFilesList::CXFilesList() : AXBaseWindow()
+CXFilesList::CXFilesList(bool aIsSaveDialog) : AXBaseWindow()
 {
 	setupUi(this);
 
+	mIsSaveDialog = aIsSaveDialog;
+	if (mIsSaveDialog)
+	{
+		//setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
+		//setWindowModality(Qt::ApplicationModal);
+	}
+	else
+	{
+		mCloseButton->hide();
+		mFileNameEdit->hide();
+		mFileNameLabel->hide();
+		mSaveButton->hide();
+	}
+
+	mProcess = NULL;
 	mTurnDialog = NULL;
 
+	mIsShow = false;
 	mIsModifier = false;
 	mIsCompileNeed = false;
 
@@ -35,9 +51,13 @@ CXFilesList::CXFilesList() : AXBaseWindow()
 	connect(mDownButton, SIGNAL(clicked()), this, SLOT(onDownList()));
 	connect(mUpButton, SIGNAL(clicked()), this, SLOT(onUpList()));
 	connect(mOpenButton, SIGNAL(clicked()), this, SLOT(onOpen()));
+	connect(mCloseButton, SIGNAL(clicked()), this, SLOT(close()));
+	connect(mSaveButton, SIGNAL(clicked()), this, SLOT(onSave()));
 
 	connect(mModel, SIGNAL(directoryLoaded(const QString&)), this, SLOT(onDirectoryLoaded()));
 	connect(mFileView->selectionModel(), SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(onCurrentChanged(const QModelIndex&, const QModelIndex&)));
+
+	registerManager();
 }
 
 CXFilesList::~CXFilesList()
@@ -82,6 +102,19 @@ void CXFilesList::onStatSave()
 	;
 }
 
+void CXFilesList::showEvent(QShowEvent* e)
+{
+	if (!mIsShow)
+	{
+		mFileName = getConfigAttribute("Common.CpName");
+		emit fileOpened(mFileName);
+		onProcessFinish(0, QProcess::NormalExit);
+		mIsShow = true;
+	}
+
+	AXBaseWindow::showEvent(e);
+}
+
 void CXFilesList::onItemActivate(const QModelIndex& aIndex)
 {
 	if (mModel->isDir(aIndex))
@@ -109,10 +142,15 @@ void CXFilesList::onItemActivate(const QModelIndex& aIndex)
 	}
 
 	mFileName = mModel->filePath(aIndex);
+	mFileNameEdit->setText(mFileName);
+	mFileNameEdit->setFocus();
 
-	emit fileOpened(mFileName);
+	if (!mIsSaveDialog)
+	{
+		emit fileOpened(mFileName);
 
-	onCompileFile();
+		onCompileFile();
+	}
 }
 
 void CXFilesList::onDownList()
@@ -188,12 +226,12 @@ void CXFilesList::onCompileFile()
 {
 	if (mFileName.isEmpty()) return;
 
-	QProcess* process = new QProcess(this);
+	mProcess = new QProcess(this);
 
-	connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(onProcessFinish(int, QProcess::ExitStatus)));
-	connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(onProcessError(QProcess::ProcessError)));
+	connect(mProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(onProcessFinish(int, QProcess::ExitStatus)));
+	connect(mProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(onProcessError(QProcess::ProcessError)));
 
-	QFile configFile("./jini/compiler0.cfg");
+	QFile configFile(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
 	configFile.open(QIODevice::ReadOnly);
 
 	QDomDocument doc;
@@ -229,8 +267,8 @@ void CXFilesList::onCompileFile()
 
 	configFile.close();
 
-//	process->start("bash ./cpc.sh");
-	process->start(QApplication::applicationDirPath() + "/compile.bat");
+//	mProcess->start("bash ./cpc.sh");
+	mProcess->start(QApplication::applicationDirPath() + "/compile.bat");
 }
 
 void CXFilesList::onLoadCheckFile()
@@ -274,7 +312,7 @@ void CXFilesList::onTextChanged(bool aIsSaved)
 		mIsModifier = true;
 		mIsCompileNeed = true;
 
-		if (mButton != NULL) mButton->setText( mButton->text().replace(QRegExp("\n.*"), trUtf8("\nПроверить")));
+		if (mButton != NULL) mButton->setText(mButton->text().replace(QRegExp("\n.*"), trUtf8("\nПроверить")));
 	}
 }
 
@@ -297,6 +335,9 @@ void CXFilesList::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatu
 
 		compileFile.close();
 	}
+
+	mProcess->deleteLater();
+	mProcess = NULL;
 }
 
 void CXFilesList::onProcessError(QProcess::ProcessError aError)
@@ -304,6 +345,9 @@ void CXFilesList::onProcessError(QProcess::ProcessError aError)
 	Q_UNUSED(aError)
 
 	QMessageBox::critical(NULL, trUtf8("Ошибка"), qobject_cast<QProcess*>(sender())->errorString());
+
+	mProcess->deleteLater();
+	mProcess = NULL;
 }
 
 QString CXFilesList::getConfigAttribute(const QString& aAttributeName)
@@ -335,4 +379,10 @@ QString CXFilesList::getConfigAttribute(const QString& aAttributeName)
 	}
 
 	return QString();
+}
+
+void CXFilesList::onSave()
+{
+	emit fileSaved(mFileNameEdit->text());
+	close();
 }

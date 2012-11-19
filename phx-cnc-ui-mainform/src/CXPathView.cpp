@@ -252,10 +252,12 @@ void CXPathView::mouseReleaseEvent(QMouseEvent* e)
 
 void CXPathView::mouseDoubleClickEvent(QMouseEvent* e)
 {
+/*
 	if (e->button() == Qt::LeftButton)
 	{
 		fitInView();
 	}
+*/
 }
 
 void CXPathView::showEvent(QShowEvent* e)

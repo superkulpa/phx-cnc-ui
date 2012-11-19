@@ -12,8 +12,9 @@ CXIniFileList::CXIniFileList() : AXBaseWindow()
 	//mRootIndex = mModel->setRootPath(QApplication::applicationDirPath() + "/../cps");
 	mIniFileView->setRootIndex(mModel->setRootPath(QApplication::applicationDirPath() + "/jini"));
 
-	connect(mIniFileView, SIGNAL(activated(const QModelIndex&)), this, SLOT(onItemActivate(const QModelIndex&)));
-	connect(mSaveButton, SIGNAL(clicked()), this, SIGNAL(fileSaved()));
+	connect(mIniFileView, SIGNAL(activated(const QModelIndex&)), this, SLOT(onOpenFile()));
+
+	registerManager();
 }
 
 CXIniFileList::~CXIniFileList()
@@ -21,7 +22,7 @@ CXIniFileList::~CXIniFileList()
 
 }
 
-void CXIniFileList::onItemActivate(const QModelIndex& aIndex)
+void CXIniFileList::onOpenFile()
 {
-	emit fileOpened(mModel->filePath(aIndex));
+	if (mIniFileView->currentIndex().isValid()) emit fileOpened(mModel->filePath(mIniFileView->currentIndex()));
 }

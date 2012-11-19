@@ -11,6 +11,7 @@ class CXLazerDirectionView;
 class CXLazerVelocityView;
 class CXLazerVelocity;
 class CXTouchButton;
+class CXUtilsWindow;
 
 /*!
 	Класс настройки направления и скорости реза с функциональными кнопками.
@@ -25,6 +26,10 @@ public:
 
 	//! Деструктор.
 	~CXLazerDirectionWindow();
+
+public slots:
+	//! Слот показа утилит.
+	void onUtils();
 
 signals:
 	/*!
@@ -46,6 +51,7 @@ private slots:
 	void onXYClick();
 
 private:
+	bool mIsRunning;
 	CXTouchButton* mForwardButton;
 	CXTouchButton* mBackwardButton;
 	CXTouchButton* mSearchButton;
@@ -58,6 +64,8 @@ private:
 	CXLazerDirectionView* mLazerDirectionView;
 	CXLazerVelocityView* mLazerVelocityView;
 	CXLazerVelocity* mLazerVelocity;
+
+	CXUtilsWindow* mUtils;
 };
 
 #endif // CXLAZERDIRECTIONWINDOW_H

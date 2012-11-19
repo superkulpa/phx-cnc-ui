@@ -5,8 +5,10 @@
 #include <QApplication>
 
 #include "CXWindowsManager.h"
+#include "CXUdpManager.h"
 
 CXWindowsManager* AXBaseWindow::mManager = NULL;
+CXUdpManager* AXBaseWindow::mUdpManager = NULL;
 
 AXBaseWindow::AXBaseWindow() : QWidget()
 {
@@ -14,6 +16,7 @@ AXBaseWindow::AXBaseWindow() : QWidget()
 
 	mGroupNumber = -1;
 	mResizeType = E_None;
+	mIsButtonPress = false;
 
 	mCursors.append(Qt::ArrowCursor);
 	mCursors.append(Qt::SizeFDiagCursor);
@@ -27,7 +30,7 @@ AXBaseWindow::AXBaseWindow() : QWidget()
 
 	mIsFreeze = false;
 
-	if (mManager != NULL) mManager->addWindow(this);
+//	if (mManager != NULL) mManager->addWindow(this);
 
 	setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
 
@@ -37,6 +40,11 @@ AXBaseWindow::AXBaseWindow() : QWidget()
 AXBaseWindow::~AXBaseWindow()
 {
 	;
+}
+
+void AXBaseWindow::registerManager()
+{
+	if (mManager != NULL) mManager->addWindow(this);
 }
 
 void AXBaseWindow::setNewGeometry(const QRect& aNewGeometry)
@@ -75,6 +83,7 @@ void AXBaseWindow::mousePress(QMouseEvent* e)
 
 	if (e->button() == Qt::LeftButton)
 	{
+		mIsButtonPress = true;
 		mPos = pos();
 		mPressPos = e->globalPos();
 
@@ -95,7 +104,7 @@ bool AXBaseWindow::mouseMove(QMouseEvent* e)
 {
 	if (mIsFreeze) return false;
 
-	if (e->buttons() == Qt::LeftButton)
+	if (mIsButtonPress && e->buttons() == Qt::LeftButton)
 	{
 		QRect geom = geometry();
 
@@ -150,6 +159,8 @@ bool AXBaseWindow::mouseMove(QMouseEvent* e)
 void AXBaseWindow::mouseRelease(QMouseEvent*)
 {
 	if (mIsFreeze) return;
+
+	mIsButtonPress = false;
 
 	qApp->restoreOverrideCursor();
 }

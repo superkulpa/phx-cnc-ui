@@ -1,9 +1,11 @@
 #ifndef CXWINDOWSMANAGER_H
 #define CXWINDOWSMANAGER_H
 
-#include <QList>
+#include <QMap>
 
 #include "AXBaseWindow.h"
+
+class CXVirtualKeyboard;
 
 /*!
 	Класс оконного менеджера.
@@ -48,9 +50,9 @@ public:
 	
 	/*!
 		Функция загрузка геометрии окона по индексу.
-		\param aIndex - индекс окна.
+		\param aWindow - указатель на окно.
 	*/
-	void load(int aIndex);
+	void load(const QString& aClassName, AXBaseWindow* aWindow);
 
 	/*!
 		Функция выноса всех окон на передний план.
@@ -99,8 +101,12 @@ private:
 	bool mIsFreeze;
 	int mGroupNumber;
 
-	QList <QWidget*> mList;
+	QMap <QString, QWidget*> mList;
 	QVector <int> mEvents;
+
+//	QVector <QString> mKeyboardWindows;
+
+	CXVirtualKeyboard* mVirtualKeyboard;
 };
 
 #endif // CXWINDOWSMANAGER_H

@@ -5,7 +5,6 @@
 #include <QTranslator>
 
 #include "CXWindowsManager.h"
-//#include "CXPanelWindow.h"
 #include "CXPathWindow.h"
 #include "CXFilesList.h"
 #include "CXEditPathFile.h"
@@ -17,6 +16,8 @@
 #include "CXLazerDirectionWindow.h"
 #include "CXLazerSettings.h"
 #include "CXTextParameters.h"
+#include "CXVirtualKeyboard.h"
+#include "CXUdpManager.h"
 
 #include "CXGroupPanel.h"
 
@@ -65,6 +66,7 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 		case 4:
 		{
 			AXBaseWindow* window = new AXBaseWindow();
+			window->registerManager();
 			window->setGroupNumber(aGroup);
 
 			QVBoxLayout* centralLayout = new QVBoxLayout(window);
@@ -178,34 +180,10 @@ int main(int argc, char *argv[])
 
 		app.setStyleSheet(res);
 	}
-/*
-	app.setStyleSheet(
-						"QWidget { font-size: 13pt; }\n\
-						CXPathView { font-size: 10pt; }\n\
-						QTabBar::tab { padding: 15px; }\n\
-						CXProcessingParametersWindow QAbstractButton, CXEditPathFile QAbstractButton, CXPathWindow QAbstractButton { min-height: 30px; padding: 15px; }\n\
-						CXFilesList QAbstractButton { padding: 20px 35px; }\n\
-						CXPanelWindow QAbstractButton { min-width: 110px; min-height: 75px; }\n\
-						CXGroupPanel QAbstractButton { min-width: 105px; min-height: 75px; }\n\
-						CXIniFileList QAbstractButton { padding: 15px; }\n\
-						CXTurnDialog * { font-size: 14pt; }\n\
-						CXTurnDialog QAbstractButton { min-width: 100px; min-height: 75px; }\n\
-						CXTurnDialog #mTurnSettings QAbstractButton { min-width: 200px; }\n\
-						CXLazerVelocity QAbstractButton { font-size: 24pt; min-height: 140px; min-width: 100px; }\n\
-						CXLazerVelocity QLabel { font-size: 80pt; min-width: 100px; }\n\
-						CXLazerSettings QAbstractButton { min-width: 80px; min-height: 75px; }\n\
-						CXLazerSettings QLabel { font-size: 14pt; min-width: 50px; }\n\
-						CXLazerDirectionWindow QAbstractButton { min-height: 75px; }\n\
-						CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { min-height: 50px; min-width: 50px; font-size: 14pt; }\n\
-						CXLazerDirectionWindow #mFLabel { padding: 5px 15px 5px 50px; }\n\
-						CXLazerDirectionWindow QLineEdit { font-size: 16pt; padding: 5px; }\n\
-						CXLazerDirectionWindow QLabel { font-size: 14pt; }\n\
-						CXLazerDirectionDialog QAbstractButton { min-width: 100px; min-height: 75px; font-size: 14pt; }\n\
-						CXExitDialog QAbstractButton { padding: 30px 60px; }"
-					  );
-*/
+
 	CXWindowsManager manager;
 	AXBaseWindow::mManager = &manager;
+	AXBaseWindow::mUdpManager = new CXUdpManager(NULL);
 
 	QWidget* window = NULL;
 
@@ -244,6 +222,7 @@ int main(int argc, char *argv[])
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileCreated(const QString&, const QString&)),	windows.values("CXPathWindow").at(1), SLOT(load(const QString&, const QString&)));
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)),					windows.value("CXEditPathFile"), SLOT(openFile(const QString&)));
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(compileTextChanged(const QString&)),			windows.value("CXCompileEdit"), SLOT(setText(const QString&)));
+	QObject::connect(windows.value("CXCompileEdit"), SIGNAL(error(const QString&, int)),				windows.value("CXEditPathFile"), SLOT(onError(const QString&, int)));
 
 	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(textChanged(bool)),						windows.value("CXFilesList"), SLOT(onTextChanged(bool)));
 	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(newFileCreated()),							windows.value("CXFilesList"), SLOT(onCreateNewFile()));
@@ -330,9 +309,21 @@ int main(int argc, char *argv[])
 			{
 				QStringList texts;
 				texts.append(QObject::trUtf8("Параметры"));
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QObject::trUtf8("Загрузить"));
+				texts.append(QObject::trUtf8("Сохранить"));
 
 				curGroupPanel->getButton(0)->setProperty("groupName", 2);
 				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+
+				QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), windows.value("CXIniFileList"), SLOT(onOpenFile()));
+				QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), windows.value("CXIniFileEditor"), SLOT(onSave()));
 
                 curGroupPanel->setButtonsText(texts);
 
@@ -346,7 +337,7 @@ int main(int argc, char *argv[])
 				texts.append(QString());
 				texts.append(QString());
 				texts.append(QString());
-				texts.append(QString());
+				texts.append(QObject::trUtf8("Утилиты"));
 				texts.append(QString());
 				texts.append(QString());
 				texts.append(QString());
@@ -356,6 +347,7 @@ int main(int argc, char *argv[])
 				curGroupPanel->getButton(1)->setProperty("groupName", 2);
 				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+				QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onUtils()));
 
 				curGroupPanel->setButtonsText(texts);
 
@@ -369,18 +361,10 @@ int main(int argc, char *argv[])
 	CXTitleWindow* title = new CXTitleWindow();
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)),	title, SLOT(onFileOpen(const QString&)));
 
-	//Общая панель управления.
-	//CXPanelWindow* panel = new CXPanelWindow();
-
 	//Загрузка данных о геометрии окон (обязательно только после их создания!).
 	manager.load("settings.xml");
 	//Установка текущей группы.
 	manager.setCurrentGroup(1);
-
-	//Установка текущего состояния заморозки.
-//	panel->setFreezeState(manager.getFreeze());
-//	panel->show();
-//	QObject::connect(panel, SIGNAL(closed()), &app, SLOT(quit()));
 
 	return app.exec();
 }

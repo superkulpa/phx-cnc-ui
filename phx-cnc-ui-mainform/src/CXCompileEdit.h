@@ -3,7 +3,7 @@
 
 #include "AXBaseWindow.h"
 
-#include <QTextEdit>
+#include <QTreeWidget>
 
 /*!
 	Класс отображения текста лога компиляции.
@@ -20,11 +20,19 @@ public:
 	~CXCompileEdit();
 
 public slots:
-	//! Слот обновления информации в 
+	//! Слот обновления информации.
 	void setText(const QString& aText);
 
+signals:
+	/*!
+		Сигнал об ошибке компиляции в строке.
+		\param aText - текст ошибки.
+		\param aLineNumber - номер строки с ошибкой.
+	*/
+	void error(const QString& aText, int aLineNumber);
+
 private:
-	QTextEdit* mTextEdit;
+	QTreeWidget* mTreeWidget;
 };
 
 #endif // CXCOMPILEEDIT_H
