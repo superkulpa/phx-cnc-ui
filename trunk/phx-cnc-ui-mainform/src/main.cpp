@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
 
 	CXWindowsManager manager;
 	AXBaseWindow::mManager = &manager;
-	AXBaseWindow::mUdpManager = new CXUdpManager(NULL);
+//	AXBaseWindow::mUdpManager = new CXUdpManager(NULL);
 
 	QWidget* window = NULL;
 
