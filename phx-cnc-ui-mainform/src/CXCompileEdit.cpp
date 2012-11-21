@@ -34,13 +34,32 @@ void CXCompileEdit::setText(const QString& aText)
 
 	if (doc.setContent(aText))
 	{
+		QTreeWidgetItem* newItem = NULL;
+
 		QDomElement root = doc.documentElement();
 		QDomElement element = root.firstChildElement("parameters");
 		element = element.firstChildElement("parameter");
 
 		while (!element.isNull())
 		{
-			mTreeWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << element.attribute("name") << element.attribute("value")));
+			newItem = new QTreeWidgetItem(QStringList() << element.attribute("name") << element.attribute("value"));
+
+			mTreeWidget->addTopLevelItem(newItem);
+			element = element.nextSiblingElement("parameter");
+		}
+
+		element = root.firstChildElement("errors");
+		element = element.firstChildElement("error");
+
+		while (!element.isNull())
+		{
+			newItem = new QTreeWidgetItem(QStringList() << element.attribute("name") << element.attribute("value"));
+			newItem->setForeground(0, Qt::red);
+
+			mTreeWidget->addTopLevelItem(newItem);
+
+			emit error(element.attribute("name"), element.attribute("value").toInt());
+
 			element = element.nextSiblingElement("parameter");
 		}
 	}
