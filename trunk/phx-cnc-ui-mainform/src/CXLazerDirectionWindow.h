@@ -9,7 +9,6 @@
 
 class CXLazerDirectionView;
 class CXLazerVelocityView;
-class CXLazerVelocity;
 class CXTouchButton;
 class CXUtilsWindow;
 
@@ -63,7 +62,7 @@ private:
 
 	CXLazerDirectionView* mLazerDirectionView;
 	CXLazerVelocityView* mLazerVelocityView;
-	CXLazerVelocity* mLazerVelocity;
+	QWidget* mLazerWidget;
 
 	CXUtilsWindow* mUtils;
 };

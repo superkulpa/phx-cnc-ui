@@ -5,7 +5,6 @@
 
 #include "CXLazerVelocityView.h"
 #include "CXLazerDirectionView.h"
-#include "CXLazerVelocity.h"
 #include "CXTouchButton.h"
 #include "CXLazerDirectionDialog.h"
 #include "CXUtilsWindow.h"
@@ -103,9 +102,9 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	mLazerDirectionView = new CXLazerDirectionView(this);
 	lazerLayout->addWidget(mLazerDirectionView, 5);
 
-	mLazerVelocity = new CXLazerVelocity(this);
-	mLazerVelocity->hide();
-	lazerLayout->addWidget(mLazerVelocity, 5);
+	mLazerWidget = new QWidget(this);
+	mLazerWidget->hide();
+	lazerLayout->addWidget(mLazerWidget, 5);
 
 	centralLayout->addLayout(lazerLayout);
 
@@ -160,10 +159,9 @@ void CXLazerDirectionWindow::onStart()
 //	mFLabel->hide();
 //	mFEdit->hide();
 	mLazerDirectionView->hide();
-//	mLazerVelocityView->hide();
 
 	mStopButton->show();
-	mLazerVelocity->show();
+	mLazerWidget->show();
 }
 
 void CXLazerDirectionWindow::onStop()
@@ -178,10 +176,9 @@ void CXLazerDirectionWindow::onStop()
 //	mFEdit->show();
 	mLazerDirectionView->setDirection(LazerDirectionView::E_Stop);
 	mLazerDirectionView->show();
-//	mLazerVelocityView->show();
 
 	mStopButton->hide();
-	mLazerVelocity->hide();
+	mLazerWidget->hide();
 }
 
 void CXLazerDirectionWindow::onXYClick()
