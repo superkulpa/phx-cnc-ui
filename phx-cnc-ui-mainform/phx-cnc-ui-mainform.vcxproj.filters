@@ -96,9 +96,6 @@
     <ClCompile Include="src\CXLazerSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CXLazerVelocity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\CXLazerVelocityView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -228,12 +225,6 @@
     <ClCompile Include="Release\moc_CXLazerSettings.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Debug\moc_CXLazerVelocity.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_CXLazerVelocity.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="Debug\moc_CXParametersView.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -350,9 +341,6 @@
     <CustomBuild Include="src\CXLazerSettings.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\CXLazerVelocity.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <ClInclude Include="src\CXLazerVelocityView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -428,9 +416,6 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXLazerSettings.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\CXLazerVelocity.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXProcessingParametersWindow.ui">
