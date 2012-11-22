@@ -31,7 +31,7 @@
 	CXLazerDirectionDialog QAbstractButton { min-width: 100px; min-height: 75px; font-size: 14pt; }
 	CXExitDialog QAbstractButton { padding: 30px 60px; }
 	QToolBox QAbstractButton { min-height: 40px; }
-	CXVirtualKeyboard CXTouchButton { min-width: 80px; min-height: 50px; }
+	CXVirtualKeyboard CXTouchButton { min-width: 80px; min-height: 42px; }
 	CXUtilsWindow QAbstractButton { min-width: 200px; min-height: 65px; }
 	CXUtilsWindow QTreeView::item { min-height: 65px; }
 	QScrollBar:horizontal { height: 40px; }
@@ -41,7 +41,7 @@
   <window_AXBaseWindow>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_AXBaseWindow>
   <window_AXBaseWindow1>AdnQywABAAAAAAH9AAAAKwAAA4IAAACHAAAB/QAAACsAAAOCAAAAhwAAAAAAAA==</window_AXBaseWindow1>
   <window_CXCompileEdit>AdnQywABAAAAAAAAAAACIgAAAaEAAAJ5AAAAAAAAAiIAAAGhAAACeQAAAAAAAA==</window_CXCompileEdit>
-  <window_CXEditPathFile>AdnQywABAAAAAAGiAAAAKwAAA14AAAJ5AAABogAAACsAAANeAAACeQAAAAAAAA==</window_CXEditPathFile>
+  <window_CXEditPathFile>AdnQywABAAAAAAGiAAAAKwAAA2oAAAJ5AAABogAAACsAAANqAAACeQAAAAAAAA==</window_CXEditPathFile>
   <window_CXFilesList>AdnQywABAAAAAAAAAAAAKwAAAaEAAAIhAAAAAAAAACsAAAGhAAACIQAAAAAAAA==</window_CXFilesList>
   <window_CXGroupPanel>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_CXGroupPanel>
   <window_CXGroupPanel1>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_CXGroupPanel1>
@@ -54,7 +54,7 @@
   <window_CXPathWindow>AdnQywABAAAAAANfAAAAKwAABOQAAAJ5AAADXwAAACsAAATkAAACeQAAAAAAAA==</window_CXPathWindow>
   <window_CXPathWindow1>AdnQywABAAAAAAH9AAAAiAAAA4IAAAJ5AAAB/QAAAIgAAAOCAAACeQAAAAAAAA==</window_CXPathWindow1>
   <window_CXTitleWindow>AdnQywABAAAAAAAAAAAAAAAABOQAAAAqAAAAAAAAAAAAAATkAAAAKgAAAAAAAA==</window_CXTitleWindow>
-  <window_CXVirtualKeyboard>AdnQywABAAAAAAAAAAAAAAAAAaEAAAJ5AAAAAAAAAAAAAAGhAAACeQAAAAAAAA==</window_CXVirtualKeyboard>
+  <window_CXVirtualKeyboard>AdnQywABAAAAAAAAAAAAKwAAAaEAAAJ5AAAAAAAAACsAAAGhAAACeQAAAAAAAA==</window_CXVirtualKeyboard>
   <window_CXTurnDialog>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_CXTurnDialog>
   <window_CXUtilsWindow>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_CXUtilsWindow>
   <window_CXFilesList1>AdnQywABAAAAAAGiAAAAKwAAA14AAAJ5AAABogAAACsAAANeAAACeQAAAAAAAA==</window_CXFilesList1>
