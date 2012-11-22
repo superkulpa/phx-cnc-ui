@@ -43,7 +43,7 @@ CXUtilsWindow::CXUtilsWindow() : AXBaseWindow()
 
 	registerManager();
 
-	load(QString("%1%2etc%2utils.xml").arg(QApplication::applicationDirPath()).arg(QDir::separator()));
+	load("utils.xml");
 }
 
 CXUtilsWindow::~CXUtilsWindow()
