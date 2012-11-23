@@ -27,6 +27,12 @@ private slots:
 
 	//!
 	void onZHClick();
+
+	//!
+	void onStart();
+
+	//!
+	void onStop();
 };
 
 #endif // CXLAZERSETTINGS_H

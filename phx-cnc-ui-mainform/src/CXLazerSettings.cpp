@@ -9,8 +9,14 @@ CXLazerSettings::CXLazerSettings() : AXBaseWindow()
 	mLazerVelocity->setMode(E_SingleMode);
 	mLazerVelocity->setTexts(QList<QString>() << "" << trUtf8("стоп\n-\nавто") << "");
 
+	mStopButton->hide();
+
 	connect(mTButton, SIGNAL(clicked()), this, SLOT(onTClick()));
 	connect(mZHButton, SIGNAL(clicked()), this, SLOT(onZHClick()));
+
+	connect(mPushingButton, SIGNAL(clicked()), this, SLOT(onStart()));
+	connect(mIncutButton, SIGNAL(clicked()), this, SLOT(onStart()));
+	connect(mStopButton, SIGNAL(clicked()), this, SLOT(onStop()));
 
 	registerManager();
 }
@@ -42,4 +48,28 @@ void CXLazerSettings::onZHClick()
 	{
 		list.at(i)->setChecked(isCheck);
 	}
+}
+
+void CXLazerSettings::onStart()
+{
+	if (sender() == mPushingButton)
+	{
+		;
+	}
+
+	if (sender() == mIncutButton)
+	{
+		;
+	}
+
+	mPushingButton->hide();
+	mIncutButton->hide();
+	mStopButton->show();
+}
+
+void CXLazerSettings::onStop()
+{
+	mStopButton->hide();
+	mPushingButton->show();
+	mIncutButton->show();
 }
