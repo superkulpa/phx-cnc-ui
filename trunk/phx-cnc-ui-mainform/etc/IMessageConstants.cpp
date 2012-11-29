@@ -36,7 +36,7 @@ namespace IMessageConstants
 //сообщения при старте формы/ядра 
     const String MSG_SECTION_START = "start";
 	//выкл всё - по кнопке "Выкл УЧПУ"
-    const String MSG_CMD_SHUTDOWN = "cmd_shutdown";
+//+    const String MSG_CMD_SHUTDOWN = "cmd_shutdown";
     //const String MSG_CMD_REBOOT = "cmd_reboot";
     //const String MSG_CMD_RESTART = "cmd_restart";
 	//рестарт формы, после того как форма стартанула
@@ -47,36 +47,29 @@ namespace IMessageConstants
 //
 	//команды/состояния режима "Управление"
     const String MSG_SECTION_OPERATOR = "Oper";
-	//Кнопка "Стоп" слева, значение =0
+	//Кнопка "Стоп", значение =0
     const String MSG_CMD_STOP_OPERATION = "cmd_stop_operation";
 	//
     const String MSG_CMD_CONTINUE_OPERATION = "cmd_continue_operation";
 	
 	//Кнопка "Управление"  - добавить кнопку в верхнуюю полосу, прижать влево
-	//верхняя панель, где имя УП написано, я просил поместить там три кнопки: Упр вкл/выкл | Ручные | Имя УП. Вот по нажатию Упр вкл/выкл отправлять cmd_control
-    const String MSG_CMD_CONTROL = "cmd_control";//значения:MSG_VALUE_INVERT
-	//состояние ядра - меняем цвет кнопки: on=Зеленый,off-безцвет
-    const String MSG_STATE_CONTROL = "state_control";//значения:MSG_VALUE_ON/OFF
+//+    const String MSG_CMD_CONTROL = "cmd_control";//значения:MSG_VALUE_INVERT
+	//состояние ядра - меняем цвет левой кнопки: on=Зеленый,off-безцвет
+//+    const String MSG_STATE_CONTROL = "state_control";//значения:MSG_VALUE_ON/OFF
 
 //Управление со стороны Перемещений(слева)
 	//Кнопки "Вперед/Назал/Выход", со значениями: MSG_VALUE_FORWARD, MSG_VALUE_BACKWARD, MSG_VALUE_FIND_TRJ - см ниже
-    const String MSG_CMD_RUN_CP = "cmd_run_cp";
-	const String MSG_STATE_RUN_CP = "state_run_cp";
-	const String MSG_STATE_STOP_CP = "state_run_cp";
+//+    const String MSG_CMD_RUN_CP = "cmd_run_cp";
+//+	const String MSG_STATE_RUN_CP = "state_run_cp";
+//+	const String MSG_STATE_STOP_CP = "state_stop_cp";
     //0: stop(hand), 1: forward, 2: backward, 3: findTrj
-	//нажатия нf круг: 0=X, 1=Y
-	//-> 1=+1, <- Y 1=-1
-	//^ 0=-1, v 0=+1
-	//по диагонали, комбинации
-	//0=+1,1=+1
-	//и тд
-    const String MSG_CMD_HAND = "hand";
-    const String MSG_VALUE_FORWARD = "forward";
-    const String MSG_VALUE_BACKWARD = "backward";
-    const String MSG_VALUE_FIND_TRJ = "find_trj";
+//+    const String MSG_CMD_HAND = "hand";
+//+    const String MSG_VALUE_FORWARD = "forward";
+//+    const String MSG_VALUE_BACKWARD = "backward";
+//+    const String MSG_VALUE_FIND_TRJ = "find_trj";
 	
-	//тек кадр, добавить box "Текущий кадр" в подрежим "Вперед/Назал/Выход", когда показывается кнопка Стоп, вместо круга, отображать значения value
-    const String MSG_STATE_CP_LINE = "state_CPLine";
+	//тек кадр, добавить box "Текущий кадр" в подрежим "Вперед/Назал/Выход", отображать значения value
+//+    const String MSG_STATE_CP_LINE = "state_CPLine";
     
     //"Покадрово", добавить кнопку F3 (пока не делать)
     const String MSG_CMD_MODE_BY_STEP = "cmd_mode_by_step";
@@ -87,56 +80,54 @@ namespace IMessageConstants
     const String MSG_STATE_MODE_LOOP = "state_loop";//on - зеленым
 
     //диалог "Перехать"(там где абс/относ), значение <цифра>
-	//MSG_CMD_FROM_STEP - это кнопка Переехать в кадр, а MSG_CMD_GOTO_STEP - это Установить в кадр и соответственно значение - просто число.
-    const String MSG_CMD_FROM_STEP = "cmd_from_step";
-    const String MSG_CMD_GOTO_STEP = "cmd_goto_step";
-    const String MSG_CMD_FROM_BURN = "cmd_from_burn";
-    const String MSG_CMD_GOTO_BURN = "cmd_goto_burn";
+//+    const String MSG_CMD_FROM_STEP = "cmd_from_step";
+//+    const String MSG_CMD_GOTO_STEP = "cmd_goto_step";
+//+    const String MSG_CMD_FROM_BURN = "cmd_from_burn";
+//+    const String MSG_CMD_GOTO_BURN = "cmd_goto_burn";
 	
 	//Сброс координат, добавить кнопку F7
-    const String MSG_CMD_RESET_POS = "cmd_reset_pos";
+//+    const String MSG_CMD_RESET_POS = "cmd_reset_pos";
 
 	//Загрузка УП на отработку, по диалогу "Загрузить"
-	//Диалог грузит компиленную УП (list.kerf.cpr.ccp) на УЧПУ и следом отсылвает MSG_CMD_LOAD_CP с 0
-    const String MSG_CMD_LOAD_CP = "cmd_load_cp";
+//+    const String MSG_CMD_LOAD_CP = "cmd_load_cp";
 //////////////////////////////////////////////////////////////////////
 	//секция Move перемещения, элементы со стороны Перемещений(слева)
     const String MSG_SECTION_MOVE = "MM";
 	//позиции осей, в поле X|Y в отражениии плота, все позициив микрометрах
-	const String MSG_STATE_POS_AXIS = "pos_axis";
+//+	const String MSG_STATE_POS_AXIS = "pos_axis";
 	//формат 0=1234,1=2345,... 1.234мм, 2.345мм, но отражать до 0.1мм
     
-	//Коррекция скорости +/- значения +1 или -1 */  это на кнопки F+/F-
-    const String MSG_CMD_FEED = "cmd_feed";
-    const String MSG_STATE_FEED_RESULT = "state_feed_result"; //тек скорость, в поле F, скорость в мкрм/мин, но отражать в мм/мин
+	//Коррекция скорости +/- значения +1 или -1 */
+//+    const String MSG_CMD_FEED = "cmd_feed";
+//+    const String MSG_STATE_FEED_RESULT = "state_feed_result"; //тек скорость, в поле F, скорость в мкрм/мин, но отражать в мм/мин
     const String MSG_STATE_FEED_PERCENTAGE = "state_feed_percentage"; //future
 	
 	//Режим работы скорости: команды с полосы скорости, значения
-    const String MSG_CMD_MODE_FEED = "cmd_mode_feed";
-    const String MSG_STATE_MODE_FEED = "state_mode_feed";
+//+    const String MSG_CMD_MODE_FEED = "cmd_mode_feed";
+//+    const String MSG_STATE_MODE_FEED = "state_mode_feed";
     const String MSG_VALUE_NORMAL = "0";
     const String MSG_VALUE_FAST = "1";
     const String MSG_VALUE_SLOW = "2";
 	//полоса меняет значения от состояний ядра и собств команд(как сейчас)
 	
     // Ручное абсолютное перемещение. Пример значения= 0=12345,1=23456 - движение в поз XY=[12.345мм:23.456мм]
-    const String MSG_CMD_HAND_ABSOLUTE_MOVING = "cmd_hand_absolute_moving";
+//+    const String MSG_CMD_HAND_ABSOLUTE_MOVING = "cmd_hand_absolute_moving";
     // Ручное относительное перемещение. Пример значения= 0=12345,1=23456 - движение в поз XY=[12.345мм:23.456мм]
-    const String MSG_CMD_HAND_COMPARATIVE_MOVING = "cmd_hand_comparative_moving";
+//+    const String MSG_CMD_HAND_COMPARATIVE_MOVING = "cmd_hand_comparative_moving";
 	
     // Ручное безразмерное перемещение в направлении. По заданию с "круга", Пример значения 0=+1,1=-1 движ в X+,Y-
-    const String MSG_CMD_HAND_DIR_MOVING = "cmd_hand_dir_moving";
-    const String MSG_CMD_MOVE_STOP = "cmd_move_stop"; //стоп перемещениям - кнопка внутри круга
+//+    const String MSG_CMD_HAND_DIR_MOVING = "cmd_hand_dir_moving";
+//+    const String MSG_CMD_MOVE_STOP = "cmd_move_stop"; //стоп перемещениям - кнопка внутри круга
 
 	
 //Управление со стороны технологии(справа)
     //секция "управление технологией реза"
     const String MSG_SECTION_TECH = "TM";
 
-	//команды по кнопке колонки "Т"
-    const String MSG_CMD_TS = "cmd_TS";
+	//команды по кнопке колонки "Т", посылать только изменившееся состояние кнопки: например 0=1
+//+    const String MSG_CMD_TS = "cmd_TS";
 	// Состояние резака, значение
-    const String MSG_STATE_TECH = "state_TS"; 
+//+    const String MSG_STATE_TECH = "state_TS"; 
 	//значения формат: <номер кнопки=значение, ...>, кнопки =0,1,2,3
 	//значения: 0 - кнопка отжата, без дескрипт
 	//			1 - кнопка зажата, написан номер кнопки+1 (те с надписи на кнопках идут с 1)
@@ -154,7 +145,7 @@ namespace IMessageConstants
     const String MSG_VALUE_TECH_FSHEET = "5fsheet";
 
 // Ручное безразмерное перемещение в направлении Z. По заданию с полосы Z
-	const String MSG_CMD_HAND_DIR_MOVING_Z = "cmd_hand_dir_moving_Z";
+//+	const String MSG_CMD_HAND_DIR_MOVING_Z = "cmd_hand_dir_moving_Z";
 	//значения 0=+1,...  и задаются от направление движения и зажатых кнопок столбца Z
 	//Если кнопка не зажата - в команде её значения нет
 	//+1:вниз, -1:вверх, 0-стоп, стоп дается всем, в не зависимости от зажатости кнопки
@@ -176,16 +167,16 @@ namespace IMessageConstants
     const String MSG_CMD_TECHNOLOGY  = "cmd_technology";
 	//в значении приходит имя технологии: Oxy, MPlasma, Plasma, Laser, ... - future
 
-    // Напряжение, в десятых долях вольта. цифры между столцами T и Z, формат 0=123,1=150...
-    const String MSG_STATE_SVR_VOLTAGE = "state_svr_voltage"; //
+    // Напряжение, в десятых долях вольта. цифры между столцами T и Z, формат 0=123,...
+//+    const String MSG_STATE_SVR_VOLTAGE = "state_svr_voltage"; //
 	
     //кнопки "Пробивка/Врезка" унести под кнопку Стоп реза (так же как Вперед)
 	//На месте расположить кнопки: Указатель,Вытяжка,Резка/Черчение,СВР
-    const String MSG_CMD_BURN = "cmd_burn";        //по кнопке пробивка
-    const String MSG_CMD_R_BURN = "cmd_r_burn";    //по кнопке врезка
+//+    const String MSG_CMD_BURN = "cmd_burn";        //по кнопке пробивка
+//+    const String MSG_CMD_R_BURN = "cmd_r_burn";    //по кнопке врезка
     const String MSG_CMD_F_BURN = "cmd_f_burn";
     const String MSG_CMD_FIRE = "cmd_fire";	     //по кнопке поджечь
-    const String MSG_CMD_CUT2_OFF = "cmd_tech2off";//по кнопке "стоп реза"
+//+    const String MSG_CMD_CUT2_OFF = "cmd_tech2off";//по кнопке "стоп реза"
 	
 	//состояние кнопки "Резка/Черчение" - on=зеленым
     const String MSG_STATE_MODE_CUT  = "state_cut";
@@ -194,8 +185,8 @@ namespace IMessageConstants
     const String MSG_STATE_MODE_POINTER  = "state_marker";
 	const String MSG_CMD_MODE_POINTER  = "cmd_marker";
 	//состояние кнопки "СВР" - on=зеленым
-    const String MSG_STATE_MODE_SVR  = "state_svr";
-	const String MSG_CMD_MODE_SVR = "cmd_mode_svr";
+//+    const String MSG_STATE_MODE_SVR  = "state_svr";
+//+	const String MSG_CMD_MODE_SVR = "cmd_mode_svr";
 
 
 
@@ -224,27 +215,27 @@ namespace IMessageConstants
 	//секция параметры
     const String MSG_SECTION_PARAMS = "section_params";
 	//ядро просит перечитать параметры
-    const String MSG_STATE_RELOAD_PARAMS = "state_reload_params";
-	//форма просит перечитать параметры (по кнопке "Сохранить")
-    const String MSG_CMD_RELOAD_PARAMS = "cmd_reload_params";
+//+    const String MSG_STATE_RELOAD_PARAMS = "state_reload_params";
+	//форма просит перечитать параметры
+//+    const String MSG_CMD_RELOAD_PARAMS = "cmd_reload_params";
 
     ////////////////////////////////////////////////////////////////////////////////
   //Общие информативные сообщения и аварии, отображаются в поле text режима "Управления"
     const String MSG_SECTION_ALARM = "alarm";
 
-    const String MSG_STATE_MULTI_ALARM = "state_multi_alarm";
+//+    const String MSG_STATE_MULTI_ALARM = "state_multi_alarm";
 	//отобразить value как строку сообщения
 	
-    const String MSG_STATE_MULTI_ALARM_ADD
+//+    const String MSG_STATE_MULTI_ALARM_ADD
                                   = "state_multi_alarm_add";
-    const String MSG_STATE_MULTI_ALARM_REMOVE
+//+    const String MSG_STATE_MULTI_ALARM_REMOVE
                                   = "state_multi_alarm_remove";
 	//добавить/удалить value в строку сообщения
 
-    const String MSG_STATE_INFO_ALARM = "state_info_alarm";
+//+    const String MSG_STATE_INFO_ALARM = "state_info_alarm";
 	//отобразить сообщение в верхней полосе, в верхнюю полосу добавить кнопку, прижать вправо
-	//сброс аварий, по нажатию на кнопку в верхней полосе (добавить F8 в режим Управление).
-    const String MSG_CMD_RESET_ALARMS = "cmd_reset_alarms";
+	//сброс аварий, по нажатию на кнопку в верхней полосе
+//+    const String MSG_CMD_RESET_ALARMS = "cmd_reset_alarms";
 	
     //const String MSG_STATE_RESET_ALARMS = "state_reset_alarms";
 

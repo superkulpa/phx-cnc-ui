@@ -3,6 +3,7 @@
 
 #include <QFtp>
 #include <QFile>
+#include <QStringList>
 
 /*!
 	Структура с данными по файлу на FTP-сервере.
@@ -66,7 +67,7 @@ public slots:
 	void onFtpDownload();
 
 	//! Слот загрузки файлов на FTP.
-	void onFtpUpload();
+	void onFtpUpload(const QStringList& aFiles = QStringList());
 
 signals:
 	//! Сигнал об изменении максимального значения прогресса загрузки.

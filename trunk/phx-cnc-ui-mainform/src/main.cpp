@@ -65,15 +65,8 @@ QWidget* getTestWindow(int aIndex, int aGroup)
 		}
 		case 4:
 		{
-			AXBaseWindow* window = new AXBaseWindow();
-			window->registerManager();
-			window->setGroupNumber(aGroup);
-
-			QVBoxLayout* centralLayout = new QVBoxLayout(window);
-/**/
-			CXParametersWindow* parametersWindow = new CXParametersWindow(window, false);
-
-			centralLayout->addWidget(parametersWindow);
+			CXParametersWindow* parametersWindow = new CXParametersWindow(false);
+			parametersWindow->setGroupNumber(aGroup);
 
 			res = parametersWindow;
 
@@ -183,7 +176,7 @@ int main(int argc, char *argv[])
 
 	CXWindowsManager manager;
 	AXBaseWindow::mManager = &manager;
-//	AXBaseWindow::mUdpManager = new CXUdpManager(NULL);
+	AXBaseWindow::mUdpManager = new CXUdpManager(NULL);
 
 	QWidget* window = NULL;
 
@@ -338,8 +331,8 @@ int main(int argc, char *argv[])
 				texts.append(QString());
 				texts.append(QString());
 				texts.append(QObject::trUtf8("Утилиты"));
-				texts.append(QString());
-				texts.append(QString());
+				texts.append(QObject::trUtf8("Сбросить\nкоординаты"));
+				texts.append(QObject::trUtf8("Сброс\nаварий"));
 				texts.append(QString());
 				texts.append(QString());
 
@@ -348,6 +341,8 @@ int main(int argc, char *argv[])
 				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 				QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onUtils()));
+				QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onResetCoordinates()));
+				QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXTextParameters"), SLOT(onResetAlarms()));
 
 				curGroupPanel->setButtonsText(texts);
 

@@ -11,6 +11,8 @@ class CXLazerDirectionView;
 class CXLazerVelocityView;
 class CXTouchButton;
 class CXUtilsWindow;
+namespace LazerDirectionView { enum eMoveDirection; }
+enum eVelocity;
 
 /*!
 	Класс настройки направления и скорости реза с функциональными кнопками.
@@ -29,6 +31,9 @@ public:
 public slots:
 	//! Слот показа утилит.
 	void onUtils();
+
+	//! Слот сброса координат.
+	void onResetCoordinates();
 
 signals:
 	/*!
@@ -49,6 +54,21 @@ private slots:
 	//! Слот обработки клика по X и Y.
 	void onXYClick();
 
+	//! Слот на изменение направления.
+	void onDirectionChange(LazerDirectionView::eMoveDirection aDirection);
+
+	//! Слот на изменение скорости.
+	void onVelocityChange(eVelocity aVelocity);
+
+	//! Слот увеличения скорости.
+	void onUpSpeed();
+
+	//! Слот уменьшения скорости.
+	void onDownSpeed();
+
+	//! Слот получения команды от ядра.
+	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
+
 private:
 	bool mIsRunning;
 	CXTouchButton* mForwardButton;
@@ -57,12 +77,14 @@ private:
 	CXTouchButton* mStopButton;
 
 	CXTouchButton* mXYButton;
+	QLineEdit* mXEdit;
+	QLineEdit* mYEdit;
 	QLabel* mFLabel;
 	QLineEdit* mFEdit;
 
 	CXLazerDirectionView* mLazerDirectionView;
 	CXLazerVelocityView* mLazerVelocityView;
-	QWidget* mLazerWidget;
+	QLabel* mCurrentFrameLabel;
 
 	CXUtilsWindow* mUtils;
 };

@@ -24,6 +24,8 @@ enum eVelocity
 */
 class CXLazerVelocityView : public QWidget
 {
+	Q_OBJECT
+
 public:
 	//! Конструктор.
 	CXLazerVelocityView(QWidget* parent = 0);
@@ -36,6 +38,13 @@ public:
 
 	//! Функция установки текста описания делений.
 	void setTexts(const QList <QString>& aTexts);
+
+	//! Функция установки текущего значения скорости.
+	void setVelocity(eVelocity aVelocity);
+
+signals:
+	//! Сигнал на изменение скорости.
+	void velocityChanged(eVelocity aVelocity);
 
 protected:
 	//! Переопределенная фукнция рисования.
@@ -62,7 +71,7 @@ private:
 	void updateVelocity(const QPointF& aPos);
 
 	//! Функция установки текущего значения скорости.
-	void setVelocity(eVelocity aVelocity);
+	void setCurrentVelocity(eVelocity aVelocity);
 
 	//! Функция получения задержки.
 	static int getDelay();

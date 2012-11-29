@@ -2,9 +2,13 @@
 
 #include <QClipboard>
 
+#include "CXUdpManager.h"
+
 CXLazerDirectionDialog::CXLazerDirectionDialog(QWidget* parent) : QDialog(parent)
 {
 	setupUi(this);
+
+	mUdpManager = NULL;
 
 	mXEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d*\\.?\\d*")));
 	mYEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d*\\.?\\d*")));
@@ -29,6 +33,11 @@ CXLazerDirectionDialog::CXLazerDirectionDialog(QWidget* parent) : QDialog(parent
 	connect(mButtonBackspace, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
 	connect(mButtonDel, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
 	connect(mButtonEnter, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
+
+	connect(mStepMoveButton, SIGNAL(clicked()), this, SLOT(onStepMove()));
+	connect(mStepSetButton, SIGNAL(clicked()), this, SLOT(onStepSet()));
+	connect(mBurnMoveButton, SIGNAL(clicked()), this, SLOT(onBurnMove()));
+	connect(mBurnSetButton, SIGNAL(clicked()), this, SLOT(onBurnSet()));
 }
 
 CXLazerDirectionDialog::~CXLazerDirectionDialog()
@@ -43,11 +52,27 @@ QPointF CXLazerDirectionDialog::getPosition()
 
 void CXLazerDirectionDialog::onAbsolute()
 {
+	if (mUdpManager != NULL && !mXEdit->text().isEmpty() && !mYEdit->text().isEmpty())
+	{
+		QString res("0=%1,1=%2");
+		res = res.arg(mXEdit->text()).arg(mYEdit->text());
+
+		mUdpManager->sendCommand(Commands::MSG_SECTION_MOVE, Commands::MSG_CMD_HAND_ABSOLUTE_MOVING, res.toStdString());
+	}
+
 	done(1);
 }
 
 void CXLazerDirectionDialog::onRelative()
 {
+	if (mUdpManager != NULL && !mXEdit->text().isEmpty() && !mYEdit->text().isEmpty())
+	{
+		QString res("0=%1,1=%2");
+		res = res.arg(mXEdit->text()).arg(mYEdit->text());
+
+		mUdpManager->sendCommand(Commands::MSG_SECTION_MOVE, Commands::MSG_CMD_HAND_COMPARATIVE_MOVING, res.toStdString());
+	}
+
 	done(2);
 }
 
@@ -113,4 +138,28 @@ void CXLazerDirectionDialog::onButtonClicked()
 			}
 		}
 	}
+}
+
+void CXLazerDirectionDialog::onStepMove()
+{
+	if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_STEP, mFrameEdit->text().toStdString());
+}
+
+void CXLazerDirectionDialog::onStepSet()
+{
+	if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_STEP, mFrameEdit->text().toStdString());
+}
+
+void CXLazerDirectionDialog::onBurnMove()
+{
+	if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_BURN, mFrameEdit->text().toStdString());
+}
+
+void CXLazerDirectionDialog::onBurnSet()
+{
+	if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_BURN, mFrameEdit->text().toStdString());
 }

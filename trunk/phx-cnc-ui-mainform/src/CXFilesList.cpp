@@ -9,6 +9,7 @@
 #include "CXParametersView.h"
 #include "CXProcessingParametersWindow.h"
 #include "CXTurnDialog.h"
+#include "CXUdpManager.h"
 
 CXFilesList::CXFilesList(bool aIsSaveDialog) : AXBaseWindow()
 {
@@ -296,7 +297,10 @@ void CXFilesList::onLoadCheckFile()
 	parametersWindow->setWindowModality(Qt::ApplicationModal);
 	parametersWindow->resize(800, 600);
 
-	parametersWindow->show();
+	if (parametersWindow->exec() == QDialog::Accepted)
+	{
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_LOAD_CP, "0");
+	}
 }
 
 void CXFilesList::onTextChanged(bool aIsSaved)

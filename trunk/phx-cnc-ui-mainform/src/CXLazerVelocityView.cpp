@@ -54,6 +54,16 @@ void CXLazerVelocityView::setTexts(const QList <QString>& aTexts)
 	update();
 }
 
+void CXLazerVelocityView::setVelocity(eVelocity aVelocity)
+{
+	if (mVelocity != aVelocity)
+	{
+		mVelocity = aVelocity;
+
+		update();
+	}
+}
+
 void CXLazerVelocityView::paintEvent(QPaintEvent*)
 {
 	qreal scaleX = width() / mDrawPath.boundingRect().width();
@@ -136,7 +146,7 @@ void CXLazerVelocityView::mouseReleaseEvent(QMouseEvent* e)
 
 	if (e->button() == Qt::LeftButton && mMode == E_SingleMode)
 	{
-		setVelocity(E_Normal);
+		setCurrentVelocity(E_Normal);
 	}
 }
 
@@ -159,18 +169,21 @@ void CXLazerVelocityView::updateVelocity(const QPointF& aPos)
 	{
 		if (mPathList.at(i).contains(aPos))
 		{
-			setVelocity(eVelocity(mPathList.count() - i - 1));
+			setCurrentVelocity(eVelocity(mPathList.count() - i - 1));
 			break;
 		}
 	}
 }
 
-void CXLazerVelocityView::setVelocity(eVelocity aVelocity)
+void CXLazerVelocityView::setCurrentVelocity(eVelocity aVelocity)
 {
 	if (mVelocity != aVelocity)
 	{
-		mVelocity = aVelocity;
-		update();
+//		mVelocity = aVelocity;
+
+		emit velocityChanged(mVelocity);
+
+//		update();
 	}
 }
 

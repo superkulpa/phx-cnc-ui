@@ -33,6 +33,21 @@ private slots:
 
 	//!
 	void onStop();
+
+	//!
+	void onSVR();
+
+	//! Слот на изменение скорости.
+	void onVelocityChange(eVelocity aVelocity);
+
+	//! Слот получения команды от ядра.
+	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
+
+	//!
+	void onButtonCheck();
+
+private:
+	QList <QLabel*> mVoltages;
 };
 
 #endif // CXLAZERSETTINGS_H
