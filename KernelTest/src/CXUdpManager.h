@@ -306,29 +306,25 @@ class CXUdpManager : public QUdpSocket
 
 public:
 	//! Конструктор.
-	CXUdpManager(QObject* parent);
+	CXUdpManager(const QString& aHost, int aPort, QObject* parent);
 
 	//! Деструктор.
 	~CXUdpManager();
 
 	//! Функция отправки команды.
-	void sendCommand(const String& aSection, const String& aCommand, const String& aValue = "");
+	void sendCommand(const QString& aCommand);
 
 signals:
 	//! Сигнал на получение команды от ядра.
-	void commandReceived(const QString& aSection, const QString& aCommand, const QString& aValue);
+	void commandReceived(const QString& aCommand);
 
 private slots:
 	//! Слот на получение порции данных.
 	void onReadyRead();
 
 private:
-	//! Функция анализа комманд строки.
-	void analyze();
-
-private:
-	QString mCommands;
-	QStringList mSections;
+	QString mHost;
+	int mPort;
 };
 
 #endif // CXUDPMANAGER_H

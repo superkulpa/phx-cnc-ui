@@ -49,12 +49,12 @@ void CXFtp::onFtpDownload()
 	loadFiles();
 }
 
-void CXFtp::onFtpUpload()
+void CXFtp::onFtpUpload(const QStringList& aFiles)
 {
 	mIsUpload = true;
 
 	QDir dir(mSaveDir);
-	QFileInfoList fileList = dir.entryInfoList(QDir::Files);
+	QFileInfoList fileList = dir.entryInfoList(aFiles, QDir::Files);
 
 	QFileInfoList::iterator iter;
 	for (iter = fileList.begin(); iter != fileList.end(); ++iter)

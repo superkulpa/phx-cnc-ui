@@ -80,7 +80,11 @@ void CXTouchButton::timerEvent(QTimerEvent* e)
 		killTimer(mTimer);
 		mTimer = -1;
 
-		if (isCheckable()) setChecked(!isChecked());
+		if (isCheckable())
+		{
+			setChecked(!isChecked());
+			emit clicked(isChecked());
+		}
 		else
 		{
 			QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonRelease, QPoint(1, 1), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);

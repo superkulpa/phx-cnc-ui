@@ -68,7 +68,11 @@ CXLazerDirectionView::~CXLazerDirectionView()
 
 void CXLazerDirectionView::setDirection(LazerDirectionView::eMoveDirection aDirection)
 {
+	if (mDirection == aDirection) return;
+
 	mDirection = aDirection;
+
+	emit directionChanged(mDirection);
 
 	update();
 }
@@ -163,12 +167,10 @@ void CXLazerDirectionView::updateDirection(const QPointF& aPos)
 	{
 		if (mPathList.at(i).contains(aPos))
 		{
-			mDirection = LazerDirectionView::eMoveDirection(i);
+			setDirection(LazerDirectionView::eMoveDirection(i));
 			break;
 		}
 	}
-
-	update();
 }
 
 int CXLazerDirectionView::getDelay()

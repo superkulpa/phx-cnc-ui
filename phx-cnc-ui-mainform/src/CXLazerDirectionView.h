@@ -27,6 +27,8 @@ namespace LazerDirectionView
 */
 class CXLazerDirectionView : public QWidget
 {
+	Q_OBJECT
+
 public:
 	//! Конструктор.
 	CXLazerDirectionView(QWidget* parent = 0);
@@ -36,6 +38,10 @@ public:
 
 	//! Функция установки направления реза.
 	void setDirection(LazerDirectionView::eMoveDirection aDirection);
+
+signals:
+	//! Сигнал на изменение направления.
+	void directionChanged(LazerDirectionView::eMoveDirection aDirection);
 
 protected:
 	//! Переопределенная фукнция рисования.

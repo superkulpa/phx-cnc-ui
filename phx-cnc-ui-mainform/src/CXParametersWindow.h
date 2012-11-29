@@ -1,6 +1,8 @@
 #ifndef CXPARAMETERSWINDOW_H
 #define CXPARAMETERSWINDOW_H
 
+#include "AXBaseWindow.h"
+
 #include <QTabWidget>
 #include <QProgressBar>
 #include <QPushButton>
@@ -10,12 +12,12 @@ class CXFtp;
 /*!
 	Класс для отображения и редактирования параметров.
 */
-class CXParametersWindow : public QTabWidget
+class CXParametersWindow : public AXBaseWindow
 {
 	Q_OBJECT
 
 public:
-	CXParametersWindow(QWidget* parent, bool aIsSystem);
+	CXParametersWindow(bool aIsSystem);
 	~CXParametersWindow();
 
 	//! Функция установки списка кнопок, которым будут назначены имена.
@@ -47,6 +49,9 @@ private slots:
 	//! Слот на нажатие кнопки.
 	void buttonClicked();
 
+	//! Слот получения команды от ядра.
+	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
+
 private:
 	//! Функция загрузки данных на/с FTP-сервера.
 	void loadFiles(bool aIsUpload);
@@ -61,6 +66,7 @@ private:
 	void updateButtonsText();
 
 private:
+	QTabWidget* mTabWidget;
 	QProgressBar* mProgressBar;
 	CXFtp* mFtp;
 	bool mIsSystem;

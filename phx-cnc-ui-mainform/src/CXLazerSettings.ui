@@ -116,7 +116,7 @@
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="CXTouchButton" name="pushButton_4">
+          <widget class="CXTouchButton" name="mButton1">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -135,7 +135,7 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="mLabel1">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -170,7 +170,7 @@
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="CXTouchButton" name="pushButton_5">
+          <widget class="CXTouchButton" name="mButton2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -189,7 +189,7 @@
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="mLabel2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -205,7 +205,7 @@
           </widget>
          </item>
          <item row="4" column="0">
-          <widget class="CXTouchButton" name="pushButton_6">
+          <widget class="CXTouchButton" name="mButton3">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -224,7 +224,7 @@
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="mLabel3">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -259,7 +259,7 @@
           </widget>
          </item>
          <item row="5" column="0">
-          <widget class="CXTouchButton" name="pushButton_7">
+          <widget class="CXTouchButton" name="mButton4">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -278,7 +278,7 @@
           </widget>
          </item>
          <item row="5" column="1">
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="mLabel4">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -332,7 +332,7 @@
          </widget>
         </item>
         <item>
-         <widget class="CXTouchButton" name="pushButton_14">
+         <widget class="CXTouchButton" name="mSVRButton">
           <property name="text">
            <string>СВР</string>
           </property>

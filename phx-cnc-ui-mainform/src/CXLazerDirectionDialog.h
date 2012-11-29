@@ -4,6 +4,8 @@
 #include <QDialog>
 #include "ui_CXLazerDirectionDialog.h"
 
+class CXUdpManager;
+
 /*!
 	Класс диалога указания типа смещения (абсолютное, относительное).
 */
@@ -32,6 +34,22 @@ private slots:
 		Слот обработки нажатий на виртуальную клавиатуру.
 	*/
 	void onButtonClicked();
+
+	//! Слот переезда в кадр.
+	void onStepMove();
+
+	//! Слот установки в кадр.
+	void onStepSet();
+
+	//! Слот переезда в пробивку.
+	void onBurnMove();
+
+	//! Слот установки в пробивку.
+	void onBurnSet();
+
+public:
+	CXUdpManager* mUdpManager;
+
 };
 
 #endif // CXLAZERDIRECTIONDIALOG_H

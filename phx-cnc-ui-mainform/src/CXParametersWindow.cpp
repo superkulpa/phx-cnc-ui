@@ -1,5 +1,6 @@
 #include "CXParametersWindow.h"
 
+#include <QVBoxLayout>
 #include <QDir>
 //#include <QSettings>
 #include <QApplication>
@@ -11,13 +12,25 @@
 #include "iniFile.h"
 #include "AXBaseWindow.h"
 #include "CXWindowsManager.h"
+#include "CXUdpManager.h"
 
-CXParametersWindow::CXParametersWindow(QWidget* parent, bool aIsSystem) : QTabWidget(parent)
+CXParametersWindow::CXParametersWindow(bool aIsSystem) : AXBaseWindow()
 {
 	mProgressBar = NULL;
 	mIsSystem = aIsSystem;
 
+	QVBoxLayout* centralLayout = new QVBoxLayout(this);
+	centralLayout->setMargin(7);
+	centralLayout->setSpacing(6);
+
+	mTabWidget = new QTabWidget(this);
+	centralLayout->addWidget(mTabWidget);
+
 	loadParameters();
+
+	connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)), this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
+
+	registerManager();
 }
 
 CXParametersWindow::~CXParametersWindow()
@@ -134,7 +147,7 @@ void CXParametersWindow::makeTabs(bool aIsSystem)
 
 		curGroupData = CXParametersView::mGropusMap.value(groups.at(i));
 
-		if (curGroupData->mIsVisible != aIsSystem) addTab(new CXParametersView(this, parameters), curGroupData->mName);
+		if (curGroupData->mIsVisible != aIsSystem) mTabWidget->addTab(new CXParametersView(this, parameters), curGroupData->mName);
 	}
 
 	updateButtonsText();
@@ -157,6 +170,7 @@ void CXParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 	mFtp = NULL;
 
 	if (!aIsUpload) loadParameters();
+	else mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "0");
 }
 
 void CXParametersWindow::showSettings()
@@ -170,7 +184,18 @@ void CXParametersWindow::buttonClicked()
 
 	if (button != NULL)
 	{
-		setCurrentIndex(mButtons.indexOf(button));
+		mTabWidget->setCurrentIndex(mButtons.indexOf(button));
+	}
+}
+
+void CXParametersWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
+{
+	if (aSection == QString::fromStdString(Commands::MSG_SECTION_PARAMS))
+	{
+		if (aCommand == QString::fromStdString(Commands::MSG_STATE_RELOAD_PARAMS))
+		{
+			loadParametersFromFtp();
+		}
 	}
 }
 
@@ -224,10 +249,10 @@ void CXParametersWindow::clearData()
 void CXParametersWindow::clearTables()
 {
 	QWidget* curWidget = NULL;
-	for (int i = 0; i < count(); ++i)
+	for (int i = 0; i < mTabWidget->count(); ++i)
 	{
-		curWidget = widget(i);
-		removeTab(i);
+		curWidget = mTabWidget->widget(i);
+		mTabWidget->removeTab(i);
 		delete curWidget;
 
 		i--;
