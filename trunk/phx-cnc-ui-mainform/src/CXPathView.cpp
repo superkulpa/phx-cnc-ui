@@ -315,7 +315,12 @@ void CXPathView::fillPath(QFile& aTextFile, QPainterPath* aMainPath, QPainterPat
 					{
 						if (twoFigures.indexIn(buffer, pos) >= 0)
 						{
-							if (aBurnPath == NULL) curPath->moveTo(QPointF(twoFigures.cap(3).toFloat() / 1000, twoFigures.cap(1).toFloat() / 1000) + curPoint);
+							if (aBurnPath == NULL)
+							{
+								if (curPath->elementCount() == 1 && curPath->elementAt(0).type == QPainterPath::MoveToElement)
+									curPath->moveTo(QPointF(twoFigures.cap(3).toFloat() / 1000, twoFigures.cap(1).toFloat() / 1000) + curPoint);
+								else curPath->lineTo(QPointF(twoFigures.cap(3).toFloat() / 1000, twoFigures.cap(1).toFloat() / 1000) + curPoint);
+							}
 							else curPath->lineTo(QPointF(twoFigures.cap(3).toFloat() / 1000, twoFigures.cap(1).toFloat() / 1000) + curPoint);
 
 							curPoint = curPath->elementAt(curPath->elementCount() - 1);
