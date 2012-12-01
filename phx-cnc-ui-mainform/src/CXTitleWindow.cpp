@@ -26,6 +26,7 @@ CXTitleWindow::CXTitleWindow() : AXBaseWindow()
 	registerManager();
 
 	connect(mControlButton, SIGNAL(clicked()), this, SLOT(onControl()));
+	connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)), this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 }
 
 CXTitleWindow::~CXTitleWindow()

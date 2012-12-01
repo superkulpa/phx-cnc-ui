@@ -132,6 +132,12 @@ void CXLazerVelocityView::mousePressEvent(QMouseEvent* e)
 {
 	if (e->button() == Qt::LeftButton)
 	{
+		if (mDelayTimer != -1)
+		{
+			killTimer(mDelayTimer);
+			mDelayTimer = -1;
+		}
+
 		mDelayTimer = startTimer(mDelay);
 	}
 }
@@ -181,7 +187,7 @@ void CXLazerVelocityView::setCurrentVelocity(eVelocity aVelocity)
 	{
 //		mVelocity = aVelocity;
 
-		emit velocityChanged(mVelocity);
+		emit velocityChanged(aVelocity);
 
 //		update();
 	}
