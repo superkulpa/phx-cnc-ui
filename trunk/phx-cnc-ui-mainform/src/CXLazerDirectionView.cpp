@@ -136,6 +136,12 @@ void CXLazerDirectionView::mousePressEvent(QMouseEvent* e)
 {
 	if (e->button() == Qt::LeftButton)
 	{
+		if (mDelayTimer != -1)
+		{
+			killTimer(mDelayTimer);
+			mDelayTimer = -1;
+		}
+
 		mDelayTimer = startTimer(mDelay);
 	}
 }

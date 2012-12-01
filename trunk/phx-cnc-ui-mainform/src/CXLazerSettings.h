@@ -47,6 +47,7 @@ private slots:
 	void onButtonCheck();
 
 private:
+	QButtonGroup* mCheckButtonGroup;
 	QList <QLabel*> mVoltages;
 };
 

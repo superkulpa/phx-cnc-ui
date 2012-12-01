@@ -300,7 +300,7 @@ void CXLazerDirectionWindow::onCommandReceive(const QString& aSection, const QSt
 			mCurrentFrameLabel->hide();
 		}
 
-		//Стоп
+		//Запуск
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_RUN_CP))
 		{
 			mIsRunning = true;
@@ -330,7 +330,7 @@ void CXLazerDirectionWindow::onCommandReceive(const QString& aSection, const QSt
 			QString x = list.at(0);
 			x = x.mid(x.indexOf("=") + 1);
 			QString y = list.at(1);
-			y = y.mid(x.indexOf("=") + 1);
+			y = y.mid(y.indexOf("=") + 1);
 
 			mXEdit->setText(x);
 			mYEdit->setText(y);
@@ -338,7 +338,7 @@ void CXLazerDirectionWindow::onCommandReceive(const QString& aSection, const QSt
 		//Текущая скорость.
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_FEED_RESULT))
 		{
-			QString value = QString("%1").arg(aValue.toDouble() * 1000.0, 0, 'f');
+			QString value = QString("%1").arg(aValue.toDouble() * 1000.0, 0, 'f', 2);
 
 			mFEdit->setText(value);
 		}

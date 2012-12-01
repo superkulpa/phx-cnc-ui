@@ -99,7 +99,7 @@ void CXGroupPanel::onExit()
 		//выключение.
 		case 1:
 		{
-			mUdpManager->sendCommand(Commands::MSG_SECTION_START, Commands::MSG_CMD_SHUTDOWN);
+			mUdpManager->sendCommand(Commands::MSG_SECTION_START, Commands::MSG_CMD_SHUTDOWN, "0");
 			QApplication::processEvents();
 //			QApplication::quit();
 

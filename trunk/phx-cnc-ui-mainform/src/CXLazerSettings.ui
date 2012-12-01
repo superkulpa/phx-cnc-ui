@@ -74,9 +74,6 @@
            <property name="checkable">
             <bool>true</bool>
            </property>
-           <attribute name="buttonGroup">
-            <string notr="true">mCheckButtonGroup</string>
-           </attribute>
           </widget>
          </item>
          <item row="1" column="3" rowspan="5">
@@ -164,9 +161,6 @@
            <property name="checkable">
             <bool>true</bool>
            </property>
-           <attribute name="buttonGroup">
-            <string notr="true">mCheckButtonGroup</string>
-           </attribute>
           </widget>
          </item>
          <item row="3" column="0">
@@ -253,9 +247,6 @@
            <property name="checkable">
             <bool>true</bool>
            </property>
-           <attribute name="buttonGroup">
-            <string notr="true">mCheckButtonGroup</string>
-           </attribute>
           </widget>
          </item>
          <item row="5" column="0">
@@ -307,9 +298,6 @@
            <property name="checkable">
             <bool>true</bool>
            </property>
-           <attribute name="buttonGroup">
-            <string notr="true">mCheckButtonGroup</string>
-           </attribute>
           </widget>
          </item>
         </layout>
@@ -363,11 +351,6 @@
  <connections/>
  <buttongroups>
   <buttongroup name="mNuberButtonGroup">
-   <property name="exclusive">
-    <bool>false</bool>
-   </property>
-  </buttongroup>
-  <buttongroup name="mCheckButtonGroup">
    <property name="exclusive">
     <bool>false</bool>
    </property>

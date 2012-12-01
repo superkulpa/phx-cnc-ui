@@ -50,7 +50,7 @@ void CXTextParameters::onCommandReceive(const QString& aSection, const QString& 
 		}
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM_REMOVE))
 		{
-			if (!mTextEdit->toPlainText().contains(aValue))
+			if (mTextEdit->toPlainText().contains(aValue))
 			{
 				mTextEdit->setText(mTextEdit->toPlainText().replace(aValue, ""));
 			}

@@ -8,6 +8,13 @@ CXLazerSettings::CXLazerSettings() : AXBaseWindow()
 {
 	setupUi(this);
 
+	mCheckButtonGroup = new QButtonGroup(this);
+	mCheckButtonGroup->addButton(pushButton_8, 0);
+	mCheckButtonGroup->addButton(pushButton_9, 0);
+	mCheckButtonGroup->addButton(pushButton_10, 0);
+	mCheckButtonGroup->addButton(pushButton_11, 0);
+	mCheckButtonGroup->setExclusive(false);
+
 	mLazerVelocity->setMode(E_SingleMode);
 	mLazerVelocity->setTexts(QList<QString>() << "" << trUtf8("стоп\n-\nавто") << "");
 
@@ -137,17 +144,15 @@ void CXLazerSettings::onVelocityChange(eVelocity aVelocity)
 	}
 
 	QString res;
-	QList<QAbstractButton*> buttons = mNuberButtonGroup->buttons();
+	QList<QAbstractButton*> buttons = mCheckButtonGroup->buttons();
 
 	for (int i = 0; i < buttons.count(); ++i)
 	{
 		if (!res.isEmpty()) res.append(",");
 
-		if (buttons.at(i)->isChecked()) res.append(QString("%1=%2").arg(i + 1));
+		if (buttons.at(i)->isChecked()) res.append(QString("%1=%2").arg(i + 1).arg(value));
 		else res.append(QString("%1=0").arg(i + 1));
 	}
-
-	res = res.arg(value);
 
 	mUdpManager->sendCommand(Commands::MSG_SECTION_TECH, Commands::MSG_CMD_HAND_DIR_MOVING_Z, res.toStdString());
 }
@@ -178,13 +183,15 @@ void CXLazerSettings::onCommandReceive(const QString& aSection, const QString& a
 		{
 			QString currentValue;
 			QStringList list = aValue.split(",");
-			QList<QAbstractButton*> buttons = mCheckButtonGroup->buttons();
+			QList<QAbstractButton*> buttons = mNuberButtonGroup->buttons();
 			QAbstractButton* curButton = NULL;
 
 			for (int i = 0; i < list.count(); i++)
 			{
 				currentValue = list.at(i);
-				int index = QString(currentValue.at(0)).toInt() - 1;
+				if (currentValue.length() < 3) continue;
+
+				int index = QString(currentValue.at(0)).toInt();
 				int value = QString(currentValue.at(2)).toInt();
 
 				if (index >= 0 && index < buttons.count())
@@ -198,7 +205,7 @@ void CXLazerSettings::onCommandReceive(const QString& aSection, const QString& a
 					if (value == 5) curButton->setText(trUtf8("Поиск\nлиста"));
 
 					if (value == 0 || value == 4) curButton->setChecked(false);
-					if (value >= 1 || value <= 3 || value == 5) curButton->setChecked(true);
+					if (value >= 1 && value <= 3 || value == 5) curButton->setChecked(true);
 
 					if (value <= 1 || value == 4 || value == 5) curButton->setStyleSheet("");
 					if (value == 2) curButton->setStyleSheet("background-color: yellow;");
