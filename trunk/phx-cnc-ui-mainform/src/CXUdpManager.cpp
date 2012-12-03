@@ -1,5 +1,9 @@
 #include "CXUdpManager.h"
 
+#include <QApplication>
+
+#include "iniFile.h"
+
 CXUdpManager::CXUdpManager(QObject* parent) : QUdpSocket(parent)
 {
 	mSections	<< QString::fromStdString(Commands::MSG_SECTION_IO)
@@ -14,7 +18,11 @@ CXUdpManager::CXUdpManager(QObject* parent) : QUdpSocket(parent)
 
 	connect(this, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 
-	bind(QHostAddress::LocalHost, 7755);
+	CIniFile iniFile(QApplication::applicationDirPath().toStdString() + "/jini/config.ini");
+	iniFile.ReadIniFile();
+	QString host = QString::fromStdString(iniFile.GetValue("Connect", "form_ip"));
+
+	bind(QHostAddress(host), 7755);
 }
 
 CXUdpManager::~CXUdpManager()
