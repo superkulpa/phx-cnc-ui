@@ -2,6 +2,7 @@
 
 #include <QVBoxLayout>
 #include <QApplication>
+#include <QFileInfo>
 
 #include "CXUdpManager.h"
 
@@ -36,7 +37,8 @@ CXTitleWindow::~CXTitleWindow()
 
 void CXTitleWindow::onFileOpen(const QString& aFileName)
 {
-	mFileName = QString(aFileName).replace(QApplication::applicationDirPath() + "/cps/", "");
+//	mFileName = QString(aFileName).replace(QApplication::applicationDirPath() + "/cps/", "");
+	mFileName = QFontMetrics(font()).elidedText(QFileInfo(aFileName).fileName(), Qt::ElideMiddle, width() - 10);
 	mFileLabel->setText(mFileName);
 }
 
