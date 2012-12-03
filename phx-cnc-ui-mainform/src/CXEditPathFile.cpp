@@ -42,7 +42,7 @@ void CXEditPathFile::openFile(const QString& aFileName)
 {
 	mFileName = aFileName;
 
-	mTitleGroup->setTitle(QString(mFileName).replace(QApplication::applicationDirPath() + "/cps/", ""));
+	mTitleGroup->setTitle(QFontMetrics(mTitleGroup->font()).elidedText(QFileInfo(mFileName).fileName(), Qt::ElideMiddle, mTitleGroup->width() - 10));
 
 	QFile file(aFileName);
 	file.open(QIODevice::ReadOnly);
