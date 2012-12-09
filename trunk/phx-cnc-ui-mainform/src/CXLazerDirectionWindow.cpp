@@ -3,8 +3,6 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 
-#include "CXLazerVelocityView.h"
-#include "CXLazerDirectionView.h"
 #include "CXTouchButton.h"
 #include "CXLazerDirectionDialog.h"
 #include "CXUtilsWindow.h"

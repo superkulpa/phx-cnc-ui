@@ -333,7 +333,7 @@ bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 		{
 			bringToFront();
 
-			if (mIsFreeze) mVirtualKeyboard->hide();
+			if (mIsFreeze && mVirtualKeyboard != NULL) mVirtualKeyboard->hide();
 
 			return false;
 		}

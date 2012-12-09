@@ -1,4 +1,5 @@
 TEMPLATE = app
+INCLUDEPATH += ./src ./GeneratedFiles
 QT      += xml xmlpatterns network
 
 

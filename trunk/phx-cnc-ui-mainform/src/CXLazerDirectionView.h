@@ -76,6 +76,7 @@ private:
 
 	QList <QPainterPath> mPathList;
 	QPainterPath mDrawPath;
+	QPainterPath mArrowPath;
 	LazerDirectionView::eMoveDirection mDirection;
 };
 

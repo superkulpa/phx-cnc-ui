@@ -4,6 +4,8 @@
   <delay>200</delay>
   <buttonDelay>200</buttonDelay>
   <translate>ru.qm</translate>
+  <kernel_ip>127.0.0.1</kernel_ip>
+  <kernel_port>7755</kernel_port>
   <style>
 	QWidget { font-size: 13pt; }
 	QTabBar::tab { padding: 15px; }
