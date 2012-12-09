@@ -338,12 +338,12 @@
   <customwidget>
    <class>CXTouchButton</class>
    <extends>QPushButton</extends>
-   <header>cxtouchbutton.h</header>
+   <header>CXTouchButton.h</header>
   </customwidget>
   <customwidget>
    <class>CXLazerVelocityView</class>
    <extends>QWidget</extends>
-   <header>cxlazervelocityview.h</header>
+   <header>CXLazerVelocityView.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

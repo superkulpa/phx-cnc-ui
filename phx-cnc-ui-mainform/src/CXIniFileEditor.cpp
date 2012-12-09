@@ -4,9 +4,9 @@
 //#include <QMessageBox>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QXmlQuery>
 
 #include "CXSyntaxHighlighter.h"
-#include "iniFile.h"
 #include "CXFtp.h"
 
 CXIniFileEditor::CXIniFileEditor() : AXBaseWindow()
@@ -83,9 +83,19 @@ void CXIniFileEditor::loadFiles(bool aIsUpload)
 	QSize size = QApplication::desktop()->availableGeometry().size();
 	mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
 
-	CIniFile iniFile(QApplication::applicationDirPath().toStdString() + "/jini/config.ini");
-	iniFile.ReadIniFile();
-	QString host = QString::fromStdString(iniFile.GetValue("Connect", "core_ip"));
+	QString host;
+	QFile xmlFile("settings.xml");
+
+	if (xmlFile.open(QIODevice::ReadOnly))
+	{
+		QXmlQuery query;
+		query.setFocus(&xmlFile);
+		query.setQuery("/Settings/kernel_ip/text()");
+
+		query.evaluateTo(&host);
+
+		xmlFile.close();
+	}
 
 	mFtp = new CXFtp(this);
 	mFtp->setConnectData(host, 21, "ftp", "ftp");

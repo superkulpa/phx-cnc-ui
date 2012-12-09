@@ -1,8 +1,8 @@
 #include "CXUdpManager.h"
 
 #include <QApplication>
-
-#include "iniFile.h"
+#include <QFile>
+#include <QXmlQuery>
 
 CXUdpManager::CXUdpManager(QObject* parent) : QUdpSocket(parent)
 {
@@ -18,11 +18,26 @@ CXUdpManager::CXUdpManager(QObject* parent) : QUdpSocket(parent)
 
 	connect(this, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 
-	CIniFile iniFile(QApplication::applicationDirPath().toStdString() + "/jini/config.ini");
-	iniFile.ReadIniFile();
-	QString host = QString::fromStdString(iniFile.GetValue("Connect", "form_ip"));
+	QString host;
+	QString port;
+	QFile xmlFile("settings.xml");
 
-	bind(QHostAddress(host), 7755);
+	if (xmlFile.open(QIODevice::ReadOnly))
+	{
+		QXmlQuery query;
+		query.setFocus(&xmlFile);
+		query.setQuery("/Settings/kernel_ip/text()");
+
+		query.evaluateTo(&host);
+
+		query.setQuery("/Settings/kernel_port/text()");
+
+		query.evaluateTo(&port);
+
+		xmlFile.close();
+	}
+
+	bind(QHostAddress(host), port.toInt());
 }
 
 CXUdpManager::~CXUdpManager()

@@ -59,6 +59,11 @@ CXLazerDirectionView::CXLazerDirectionView(QWidget* parent) : QWidget(parent)
 
 	mDrawPath.addEllipse(0, 0, 100, 100);
 	mDrawPath.addEllipse(QPointF(50, 50), RADIUS, RADIUS);
+
+	mArrowPath.moveTo(5 + 0, 15 - 50);
+	mArrowPath.lineTo(0 + 0, 5 - 50);
+	mArrowPath.lineTo(-5 + 0, 15 - 50);
+	mArrowPath.lineTo(5 + 0, 15 - 50);
 }
 
 CXLazerDirectionView::~CXLazerDirectionView()
@@ -105,6 +110,16 @@ void CXLazerDirectionView::paintEvent(QPaintEvent*)
 
 //	for (int i = 0; i < mPathList.count(); ++i) painter.drawPath(mPathList.at(i));
 	painter.drawPath(mDrawPath);
+
+	painter.translate(50, 50);
+
+	for (int i = 0; i < 8; i++)
+	{
+		painter.rotate(45.0);
+		painter.fillPath(mArrowPath, QColor(0, 0, 0, 100));
+	}
+
+	painter.translate(-50, -50);
 
 	painter.scale(1.0 / scale, 1.0 / scale);
 

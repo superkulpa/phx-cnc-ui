@@ -58,7 +58,7 @@
   <customwidget>
    <class>CXTouchButton</class>
    <extends>QPushButton</extends>
-   <header>cxtouchbutton.h</header>
+   <header>CXTouchButton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

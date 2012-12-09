@@ -7,12 +7,11 @@
 #include <QLineEdit>
 #include <QLabel>
 
-class CXLazerDirectionView;
-class CXLazerVelocityView;
+#include "CXLazerDirectionView.h"
+#include "CXLazerVelocityView.h"
+
 class CXTouchButton;
 class CXUtilsWindow;
-namespace LazerDirectionView { enum eMoveDirection; }
-enum eVelocity;
 
 /*!
 	Класс настройки направления и скорости реза с функциональными кнопками.

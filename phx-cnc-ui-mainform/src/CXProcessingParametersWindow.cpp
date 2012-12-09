@@ -2,10 +2,10 @@
 
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QXmlQuery>
 
 #include "CXParametersView.h"
 #include "CXWindowsManager.h"
-#include "iniFile.h"
 #include "CXFtp.h"
 
 CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) : QDialog(parent)
@@ -27,9 +27,19 @@ CXProcessingParametersWindow::~CXProcessingParametersWindow()
 
 void CXProcessingParametersWindow::onFileLoad()
 {
-	CIniFile iniFile(QApplication::applicationDirPath().toStdString() + "/jini/config.ini");
-	iniFile.ReadIniFile();
-	QString host = QString::fromStdString(iniFile.GetValue("Connect", "core_ip"));
+	QString host;
+	QFile xmlFile("settings.xml");
+
+	if (xmlFile.open(QIODevice::ReadOnly))
+	{
+		QXmlQuery query;
+		query.setFocus(&xmlFile);
+		query.setQuery("/Settings/kernel_ip/text()");
+
+		query.evaluateTo(&host);
+
+		xmlFile.close();
+	}
 
 	mFtp = new CXFtp(this);
 	mFtp->setConnectData(host, 21, "ftp", "ftp");
