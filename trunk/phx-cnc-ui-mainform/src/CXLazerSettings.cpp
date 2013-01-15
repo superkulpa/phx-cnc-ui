@@ -205,7 +205,7 @@ void CXLazerSettings::onCommandReceive(const QString& aSection, const QString& a
 					if (value == 5) curButton->setText(trUtf8("Поиск\nлиста"));
 
 					if (value == 0 || value == 4) curButton->setChecked(false);
-					if (value >= 1 && value <= 3 || value == 5) curButton->setChecked(true);
+					if ((value >= 1 && value <= 3) || value == 5) curButton->setChecked(true);
 
 					if (value <= 1 || value == 4 || value == 5) curButton->setStyleSheet("");
 					if (value == 2) curButton->setStyleSheet("background-color: yellow;");

@@ -49,14 +49,16 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	mXYButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	positionLayout->addWidget(mXYButton);
 
+	QRegExp regExp("\\d*\\.?\\d*");
+
 	mXEdit = new QLineEdit(groupBox);
 	mXEdit->setReadOnly(true);
-	mXEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
+	mXEdit->setValidator(new QRegExpValidator(regExp, mXEdit));
 	positionLayout->addWidget(mXEdit);
 
 	mYEdit = new QLineEdit(groupBox);
 	mYEdit->setReadOnly(true);
-	mYEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
+	mYEdit->setValidator(new QRegExpValidator(regExp, mYEdit));
 	positionLayout->addWidget(mYEdit);
 	
 	groupBoxLayout->addLayout(positionLayout);
@@ -71,7 +73,7 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 
 	mFEdit = new QLineEdit(groupBox);
 	mFEdit->setReadOnly(true);
-	mFEdit->setValidator(new QRegExpValidator(QRegExp("\\d*\\.?\\d*")));
+	mFEdit->setValidator(new QRegExpValidator(regExp, mFEdit));
 	velocityLayout->addWidget(mFEdit);
 
 	CXTouchButton* plusButton = new CXTouchButton("+", groupBox);

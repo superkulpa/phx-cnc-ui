@@ -191,6 +191,8 @@ void CXParametersWindow::buttonClicked()
 
 void CXParametersWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
+	Q_UNUSED(aValue)
+
 	if (aSection == QString::fromStdString(Commands::MSG_SECTION_PARAMS))
 	{
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_RELOAD_PARAMS))

@@ -39,12 +39,12 @@ void CXIniFileEditor::onOpenFile(const QString& aFileName)
 
 	file.close();
 
-	if (mIniFileEdit->toPlainText().at(0) == '<' && mHighlighter->metaObject()->className() != "CXXmlSyntaxHighlighter")
+	if (mIniFileEdit->toPlainText().at(0) == '<' && mHighlighter->metaObject()->className() != QString("CXXmlSyntaxHighlighter"))
 	{
 		delete mHighlighter;
 		mHighlighter = new CXXmlSyntaxHighlighter(mIniFileEdit->document());
 	}
-	else if (mHighlighter->metaObject()->className() != "CXXmlSyntaxHighlighter")
+	else if (mHighlighter->metaObject()->className() != QString("CXXmlSyntaxHighlighter"))
 	{
 		delete mHighlighter;
 		mHighlighter = new CXIniSyntaxHighlighter(mIniFileEdit->document());

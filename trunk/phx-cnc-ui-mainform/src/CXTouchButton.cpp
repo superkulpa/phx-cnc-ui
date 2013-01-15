@@ -6,6 +6,7 @@
 #include <QMouseEvent>
 #include <QStyleOption>
 #include <QPainter>
+#include <QFile>
 
 int CXTouchButton::mDelay = 0;
 
