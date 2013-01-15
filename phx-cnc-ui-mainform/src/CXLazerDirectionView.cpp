@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QRadialGradient>
 #include <QXmlQuery>
+#include <QFile>
 #include <qmath.h>
 
 #define RADIUS 18.0

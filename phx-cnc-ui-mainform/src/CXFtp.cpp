@@ -86,6 +86,10 @@ void CXFtp::timerEvent(QTimerEvent* e)
 
 				break;
 			}
+			default:
+			{
+				break;
+			}
 		}
 
 		emit allFilesIsLoaded(mIsUpload);
@@ -183,6 +187,10 @@ void CXFtp::onFtpCommandFinish(int id, bool aIsError)
 
 			loadNextFile();
 
+			break;
+		}
+		default:
+		{
 			break;
 		}
 	}

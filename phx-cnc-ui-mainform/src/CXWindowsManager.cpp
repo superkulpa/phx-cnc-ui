@@ -232,7 +232,7 @@ void CXWindowsManager::load(const QString& aClassName, AXBaseWindow* aWindow)
 
 		xmlFile.close();
 	}
-/**/
+*/
 	if (aWindow == NULL) return;
 
 	QFile xmlFile(mFileName);
@@ -244,7 +244,7 @@ void CXWindowsManager::load(const QString& aClassName, AXBaseWindow* aWindow)
 
 	QDomElement root = document.documentElement();
 
-	bool isFreeze = mIsFreeze;
+//	bool isFreeze = mIsFreeze;
 
 	if (!root.isNull())
 	{
@@ -252,11 +252,12 @@ void CXWindowsManager::load(const QString& aClassName, AXBaseWindow* aWindow)
 
 		while (!element.isNull())
 		{
+/*
 			if (element.tagName() == "manager")
 			{
 				isFreeze = element.attribute("freeze").toInt();
 			}
-
+*/
 			if (element.tagName().left(7) == "window_")
 			{
 				QString className = element.tagName().mid(7);

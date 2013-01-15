@@ -40,6 +40,8 @@ void CXVirtualKeyboard::mouseReleaseEvent(QMouseEvent* e)
 
 void CXVirtualKeyboard::onFocusChange(QWidget* old, QWidget* now)
 {
+	Q_UNUSED(old)	
+
 	if (now != 0 && !isAncestorOf(now))
 	{
 		mFocusedWidget = now;

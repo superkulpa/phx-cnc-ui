@@ -3,6 +3,7 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QXmlQuery>
+#include <QFile>
 
 int CXLazerVelocityView::mDelay = 0;
 

@@ -130,6 +130,8 @@ void CXPathView::setPosition(const QPointF& aPos, bool aIsAbsolute)
 
 void CXPathView::paintEvent(QPaintEvent* e)
 {
+	Q_UNUSED(e)
+
 	QWidget::paintEvent(e);
 
 	QPainter painter;
@@ -252,6 +254,7 @@ void CXPathView::mouseReleaseEvent(QMouseEvent* e)
 
 void CXPathView::mouseDoubleClickEvent(QMouseEvent* e)
 {
+	Q_UNUSED(e)
 /*
 	if (e->button() == Qt::LeftButton)
 	{

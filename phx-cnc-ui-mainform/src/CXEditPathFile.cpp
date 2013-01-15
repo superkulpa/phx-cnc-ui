@@ -127,6 +127,8 @@ void CXEditPathFile::onSaveAs()
 
 void CXEditPathFile::onError(const QString& aText, int aLineNumber)
 {
+	Q_UNUSED(aText)
+
 	QTextDocument* doc = mTextEdit->document();
 	QTextBlock textBlock = doc->findBlockByLineNumber(aLineNumber - 1);
 	int pos = textBlock.position();

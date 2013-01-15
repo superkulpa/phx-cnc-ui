@@ -7,6 +7,7 @@
 #include <QSpinBox>
 #include <QApplication>
 #include <QMouseEvent>
+#include <QFile>
 
 int CXParameterItemDelegate::mDelay = 0;
 QMap <int, CXGroupData*> CXParametersView::mGropusMap;
@@ -145,6 +146,10 @@ bool CXParameterItemDelegate::editorEvent(QEvent* e, QAbstractItemModel* model, 
 			mTimerInterval = mDelay;
 			mClickTimer = startTimer(mDelay);
 
+			break;
+		}
+		default:
+		{
 			break;
 		}
 	}

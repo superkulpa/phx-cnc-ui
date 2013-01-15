@@ -10,9 +10,10 @@ CXLazerDirectionDialog::CXLazerDirectionDialog(QWidget* parent) : QDialog(parent
 
 	mUdpManager = NULL;
 
-	mXEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d*\\.?\\d*")));
-	mYEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d*\\.?\\d*")));
-	mFrameEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d*\\.?\\d*")));
+	QRegExp regExp("(\\+|-)?\\d*\\.?\\d*");
+	mXEdit->setValidator(new QRegExpValidator(regExp, mXEdit));
+	mYEdit->setValidator(new QRegExpValidator(regExp, mYEdit));
+	mFrameEdit->setValidator(new QRegExpValidator(regExp, mFrameEdit));
 
 	connect(mCancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(mAbsoluteButton, SIGNAL(clicked()), this, SLOT(onAbsolute()));
