@@ -165,31 +165,45 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
     int y = effectiveRect.y();
     int lineHeight = 0;
 //! [9]
+	QLayoutItem *item;
+	int count = 0;
+	int itemsWidth = 0;
+	int spaceX = horizontalSpacing();
+	foreach (item, itemList)
+	{
+		itemsWidth += item->sizeHint().width() + spaceX;
+		count++;
+	}
+
+	if (itemsWidth < effectiveRect.width())
+	{
+		itemsWidth = effectiveRect.width() / count;
+	}
+	else itemsWidth = 0;
 
 //! [10]
-    QLayoutItem *item;
     foreach (item, itemList) {
         QWidget *wid = item->widget();
-        int spaceX = horizontalSpacing();
-        if (spaceX == -1)
-            spaceX = wid->style()->layoutSpacing(
-                QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Horizontal);
+        if (spaceX == -1) spaceX = wid->style()->layoutSpacing(QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Horizontal);
         int spaceY = verticalSpacing();
-        if (spaceY == -1)
-            spaceY = wid->style()->layoutSpacing(
-                QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Vertical);
+        if (spaceY == -1) spaceY = wid->style()->layoutSpacing(QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Vertical);
 //! [10]
 //! [11]
-        int nextX = x + item->sizeHint().width() + spaceX;
+        int nextX = x + qMax(item->sizeHint().width() + spaceX, itemsWidth);
+
         if (nextX - spaceX > effectiveRect.right() && lineHeight > 0) {
             x = effectiveRect.x();
             y = y + lineHeight + spaceY;
-            nextX = x + item->sizeHint().width() + spaceX;
+            nextX = x + qMax(item->sizeHint().width() + spaceX, itemsWidth);
             lineHeight = 0;
         }
 
         if (!testOnly)
-            item->setGeometry(QRect(QPoint(x, y), item->sizeHint()));
+		{
+			if (itemsWidth == 0)
+				item->setGeometry(QRect(QPoint(x, y), item->sizeHint()));
+			else item->setGeometry(QRect(QPoint(x, y), QSize(itemsWidth - spaceX, item->sizeHint().height())));
+		}
 
         x = nextX;
         lineHeight = qMax(lineHeight, item->sizeHint().height());
