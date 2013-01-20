@@ -11,7 +11,7 @@ CXVirtualKeyboard::CXVirtualKeyboard() : AXBaseWindow()
 
 	setFocusPolicy(Qt::NoFocus);
 	setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
-//	setAttribute(Qt::WA_GroupLeader);
+	setAttribute(Qt::WA_GroupLeader);
 
 	installEventFilter(this);
 
@@ -85,5 +85,6 @@ void CXVirtualKeyboard::onButtonClick()
 
 void CXVirtualKeyboard::onHide()
 {
-	setWindowState(Qt::WindowMinimized);
+	hide();
+	//setWindowState(Qt::WindowMinimized);
 }
