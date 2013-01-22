@@ -3,6 +3,7 @@ INCLUDEPATH += ./src ./GeneratedFiles
 QT      += xml xmlpatterns network
 UI_DIR	+= ./GeneratedFiles
 
+QMAKE_CXXFLAGS += -std=gnu++0x -g -O2
 
 # Input
 HEADERS	+=	src/AXBaseWindow.h \
