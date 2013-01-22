@@ -2,7 +2,6 @@
 
 //#include <QApplication>
 //#include <QDesktopWidget>
-#include <QProcess>
 #include <QVariant>
 #include <QShortcut>
 
@@ -11,6 +10,7 @@
 #include "CXExitDialog.h"
 #include "flowlayout.h"
 #include "CXUdpManager.h"
+#include "CXProcess.h"
 
 CXGroupPanel::CXGroupPanel() : AXBaseWindow()
 {
@@ -80,12 +80,12 @@ void CXGroupPanel::setGroup()
 
 void CXGroupPanel::directoryCommand()
 {
-    QProcess::execute("bash ./fm.sh");
+    CXProcess::execute("bash ./fm.sh");
 }
 
 void CXGroupPanel::macroCommand()
 {
-    QProcess::execute("bash ./macro.sh");
+    CXProcess::execute("bash ./macro.sh");
 }
 
 void CXGroupPanel::onExit()

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -16,7 +16,7 @@
     <Keyword>Qt4VSv1.0</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <OutputDirectory>debug\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>NotSet</CharacterSet>
@@ -24,7 +24,7 @@
     <IntermediateDirectory>debug\</IntermediateDirectory>
     <PrimaryOutput>phx-cnc-ui-mainform</PrimaryOutput>
   </PropertyGroup>
-  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <OutputDirectory>release\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>NotSet</CharacterSet>
@@ -34,27 +34,27 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings" />
-  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
   </ImportGroup>
-  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\</OutDir>
-    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\</IntDir>
-    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">phx-cnc-ui-mainform</TargetName>
-    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</IgnoreImportLibrary>
-    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\</OutDir>
-    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\</IntDir>
-    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">phx-cnc-ui-mainform</TargetName>
-    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</IgnoreImportLibrary>
-    <LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">phx-cnc-ui-mainform</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">phx-cnc-ui-mainform</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>&quot;c:\Qt\4.8.2\include\QtCore&quot;;&quot;c:\Qt\4.8.2\include\QtNetwork&quot;;&quot;c:\Qt\4.8.2\include\QtGui&quot;;&quot;c:\Qt\4.8.2\include\QtXml&quot;;&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot;;&quot;c:\Qt\4.8.2\include&quot;;&quot;src&quot;;&quot;GeneratedFiles&quot;;&quot;c:\Qt\4.8.2\include\ActiveQt&quot;;&quot;debug&quot;;&quot;GeneratedFiles&quot;;c:\Qt\4.8.2\mkspecs\default;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"c:\Qt\4.8.2\include\QtCore";"c:\Qt\4.8.2\include\QtNetwork";"c:\Qt\4.8.2\include\QtGui";"c:\Qt\4.8.2\include\QtXml";"c:\Qt\4.8.2\include\QtXmlPatterns";"c:\Qt\4.8.2\include";"src";"GeneratedFiles";"c:\Qt\4.8.2\include\ActiveQt";"debug";"GeneratedFiles";c:\Qt\4.8.2\mkspecs\default;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -75,7 +75,7 @@
     <Link>
       <AdditionalDependencies>c:\Qt\4.8.2\lib\qtmaind.lib;c:\Qt\4.8.2\lib\QtXmlPatternsd4.lib;c:\Qt\4.8.2\lib\QtXmld4.lib;c:\Qt\4.8.2\lib\QtGuid4.lib;c:\Qt\4.8.2\lib\QtNetworkd4.lib;c:\Qt\4.8.2\lib\QtCored4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>c:\Qt\4.8.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -93,9 +93,9 @@
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_XMLPATTERNS_LIB;QT_XML_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;QT_HAVE_MMX;QT_HAVE_3DNOW;QT_HAVE_SSE;QT_HAVE_MMXEXT;QT_HAVE_SSE2;QT_THREAD_SUPPORT;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>&quot;c:\Qt\4.8.2\include\QtCore&quot;;&quot;c:\Qt\4.8.2\include\QtNetwork&quot;;&quot;c:\Qt\4.8.2\include\QtGui&quot;;&quot;c:\Qt\4.8.2\include\QtXml&quot;;&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot;;&quot;c:\Qt\4.8.2\include&quot;;&quot;src&quot;;&quot;GeneratedFiles&quot;;&quot;c:\Qt\4.8.2\include\ActiveQt&quot;;&quot;release&quot;;&quot;GeneratedFiles&quot;;c:\Qt\4.8.2\mkspecs\default;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"c:\Qt\4.8.2\include\QtCore";"c:\Qt\4.8.2\include\QtNetwork";"c:\Qt\4.8.2\include\QtGui";"c:\Qt\4.8.2\include\QtXml";"c:\Qt\4.8.2\include\QtXmlPatterns";"c:\Qt\4.8.2\include";"src";"GeneratedFiles";"c:\Qt\4.8.2\include\ActiveQt";"release";"GeneratedFiles";c:\Qt\4.8.2\mkspecs\default;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -115,7 +115,7 @@
     <Link>
       <AdditionalDependencies>c:\Qt\4.8.2\lib\qtmain.lib;c:\Qt\4.8.2\lib\QtXmlPatterns4.lib;c:\Qt\4.8.2\lib\QtXml4.lib;c:\Qt\4.8.2\lib\QtGui4.lib;c:\Qt\4.8.2\lib\QtNetwork4.lib;c:\Qt\4.8.2\lib\QtCore4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>c:\Qt\4.8.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -154,6 +154,7 @@
     <ClCompile Include="src\CXParametersWindow.cpp" />
     <ClCompile Include="src\CXPathView.cpp" />
     <ClCompile Include="src\CXPathWindow.cpp" />
+    <ClCompile Include="src\CXProcess.cpp" />
     <ClCompile Include="src\CXProcessingParametersWindow.cpp" />
     <ClCompile Include="src\CXSettingsXML.cpp" />
     <ClCompile Include="src\CXSyntaxHighlighter.cpp" />
@@ -171,449 +172,450 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\AXBaseWindow.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\AXBaseWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\AXBaseWindow.h -o debug\moc_AXBaseWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\AXBaseWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_AXBaseWindow.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\AXBaseWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\AXBaseWindow.h -o release\moc_AXBaseWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\AXBaseWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_AXBaseWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\AXBaseWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\AXBaseWindow.h -o debug\moc_AXBaseWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\AXBaseWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_AXBaseWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\AXBaseWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\AXBaseWindow.h -o release\moc_AXBaseWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\AXBaseWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_AXBaseWindow.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXCompileEdit.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXCompileEdit.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXCompileEdit.h -o debug\moc_CXCompileEdit.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXCompileEdit.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXCompileEdit.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXCompileEdit.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXCompileEdit.h -o release\moc_CXCompileEdit.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXCompileEdit.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXCompileEdit.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXCompileEdit.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXCompileEdit.h -o debug\moc_CXCompileEdit.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXCompileEdit.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXCompileEdit.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXCompileEdit.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXCompileEdit.h -o release\moc_CXCompileEdit.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXCompileEdit.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXCompileEdit.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXEditPathFile.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXEditPathFile.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXEditPathFile.h -o debug\moc_CXEditPathFile.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXEditPathFile.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXEditPathFile.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXEditPathFile.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXEditPathFile.h -o release\moc_CXEditPathFile.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXEditPathFile.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXEditPathFile.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXEditPathFile.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXEditPathFile.h -o debug\moc_CXEditPathFile.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXEditPathFile.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXEditPathFile.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXEditPathFile.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXEditPathFile.h -o release\moc_CXEditPathFile.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXEditPathFile.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXEditPathFile.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXExitDialog.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXExitDialog.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXExitDialog.h -o debug\moc_CXExitDialog.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXExitDialog.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXExitDialog.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXExitDialog.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXExitDialog.h -o release\moc_CXExitDialog.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXExitDialog.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXExitDialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXExitDialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXExitDialog.h -o debug\moc_CXExitDialog.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXExitDialog.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXExitDialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXExitDialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXExitDialog.h -o release\moc_CXExitDialog.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXExitDialog.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXExitDialog.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXFilesList.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXFilesList.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXFilesList.h -o debug\moc_CXFilesList.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXFilesList.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXFilesList.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXFilesList.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXFilesList.h -o release\moc_CXFilesList.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXFilesList.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXFilesList.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXFilesList.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXFilesList.h -o debug\moc_CXFilesList.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXFilesList.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXFilesList.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXFilesList.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXFilesList.h -o release\moc_CXFilesList.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXFilesList.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXFilesList.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXFtp.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXFtp.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXFtp.h -o debug\moc_CXFtp.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXFtp.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXFtp.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXFtp.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXFtp.h -o release\moc_CXFtp.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXFtp.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXFtp.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXFtp.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXFtp.h -o debug\moc_CXFtp.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXFtp.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXFtp.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXFtp.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXFtp.h -o release\moc_CXFtp.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXFtp.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXFtp.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXGroupPanel.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXGroupPanel.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXGroupPanel.h -o debug\moc_CXGroupPanel.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXGroupPanel.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXGroupPanel.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXGroupPanel.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXGroupPanel.h -o release\moc_CXGroupPanel.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXGroupPanel.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXGroupPanel.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXGroupPanel.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXGroupPanel.h -o debug\moc_CXGroupPanel.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXGroupPanel.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXGroupPanel.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXGroupPanel.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXGroupPanel.h -o release\moc_CXGroupPanel.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXGroupPanel.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXGroupPanel.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXIniFileEditor.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXIniFileEditor.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXIniFileEditor.h -o debug\moc_CXIniFileEditor.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXIniFileEditor.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXIniFileEditor.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXIniFileEditor.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXIniFileEditor.h -o release\moc_CXIniFileEditor.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXIniFileEditor.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXIniFileEditor.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXIniFileEditor.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXIniFileEditor.h -o debug\moc_CXIniFileEditor.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXIniFileEditor.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXIniFileEditor.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXIniFileEditor.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXIniFileEditor.h -o release\moc_CXIniFileEditor.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXIniFileEditor.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXIniFileEditor.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXIniFileList.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXIniFileList.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXIniFileList.h -o debug\moc_CXIniFileList.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXIniFileList.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXIniFileList.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXIniFileList.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXIniFileList.h -o release\moc_CXIniFileList.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXIniFileList.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXIniFileList.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXIniFileList.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXIniFileList.h -o debug\moc_CXIniFileList.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXIniFileList.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXIniFileList.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXIniFileList.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXIniFileList.h -o release\moc_CXIniFileList.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXIniFileList.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXIniFileList.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXLazerDirectionDialog.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionDialog.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionDialog.h -o debug\moc_CXLazerDirectionDialog.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXLazerDirectionDialog.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXLazerDirectionDialog.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionDialog.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionDialog.h -o release\moc_CXLazerDirectionDialog.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXLazerDirectionDialog.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXLazerDirectionDialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionDialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionDialog.h -o debug\moc_CXLazerDirectionDialog.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXLazerDirectionDialog.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXLazerDirectionDialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionDialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionDialog.h -o release\moc_CXLazerDirectionDialog.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXLazerDirectionDialog.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXLazerDirectionDialog.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXLazerDirectionView.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionView.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionView.h -o debug\moc_CXLazerDirectionView.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXLazerDirectionView.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXLazerDirectionView.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionView.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionView.h -o release\moc_CXLazerDirectionView.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXLazerDirectionView.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXLazerDirectionView.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionView.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionView.h -o debug\moc_CXLazerDirectionView.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXLazerDirectionView.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXLazerDirectionView.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionView.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionView.h -o release\moc_CXLazerDirectionView.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXLazerDirectionView.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXLazerDirectionView.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXLazerDirectionWindow.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionWindow.h -o debug\moc_CXLazerDirectionWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXLazerDirectionWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXLazerDirectionWindow.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionWindow.h -o release\moc_CXLazerDirectionWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXLazerDirectionWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXLazerDirectionWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionWindow.h -o debug\moc_CXLazerDirectionWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXLazerDirectionWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXLazerDirectionWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerDirectionWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerDirectionWindow.h -o release\moc_CXLazerDirectionWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXLazerDirectionWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXLazerDirectionWindow.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXLazerSettings.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerSettings.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerSettings.h -o debug\moc_CXLazerSettings.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXLazerSettings.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXLazerSettings.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerSettings.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerSettings.h -o release\moc_CXLazerSettings.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXLazerSettings.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXLazerSettings.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerSettings.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerSettings.h -o debug\moc_CXLazerSettings.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXLazerSettings.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXLazerSettings.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerSettings.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerSettings.h -o release\moc_CXLazerSettings.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXLazerSettings.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXLazerSettings.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXLazerVelocityView.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerVelocityView.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerVelocityView.h -o debug\moc_CXLazerVelocityView.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXLazerVelocityView.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXLazerVelocityView.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerVelocityView.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerVelocityView.h -o release\moc_CXLazerVelocityView.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXLazerVelocityView.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXLazerVelocityView.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerVelocityView.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerVelocityView.h -o debug\moc_CXLazerVelocityView.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXLazerVelocityView.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXLazerVelocityView.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXLazerVelocityView.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXLazerVelocityView.h -o release\moc_CXLazerVelocityView.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXLazerVelocityView.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXLazerVelocityView.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <ClInclude Include="src\CXParameterData.h" />
     <CustomBuild Include="src\CXParametersView.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXParametersView.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXParametersView.h -o debug\moc_CXParametersView.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXParametersView.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXParametersView.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXParametersView.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXParametersView.h -o release\moc_CXParametersView.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXParametersView.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXParametersView.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXParametersView.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXParametersView.h -o debug\moc_CXParametersView.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXParametersView.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXParametersView.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXParametersView.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXParametersView.h -o release\moc_CXParametersView.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXParametersView.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXParametersView.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXParametersWindow.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXParametersWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXParametersWindow.h -o debug\moc_CXParametersWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXParametersWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXParametersWindow.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXParametersWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXParametersWindow.h -o release\moc_CXParametersWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXParametersWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXParametersWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXParametersWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXParametersWindow.h -o debug\moc_CXParametersWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXParametersWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXParametersWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXParametersWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXParametersWindow.h -o release\moc_CXParametersWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXParametersWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXParametersWindow.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXPathView.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXPathView.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXPathView.h -o debug\moc_CXPathView.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXPathView.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXPathView.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXPathView.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXPathView.h -o release\moc_CXPathView.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXPathView.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXPathView.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXPathView.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXPathView.h -o debug\moc_CXPathView.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXPathView.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXPathView.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXPathView.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXPathView.h -o release\moc_CXPathView.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXPathView.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXPathView.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXPathWindow.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXPathWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXPathWindow.h -o debug\moc_CXPathWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXPathWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXPathWindow.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXPathWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXPathWindow.h -o release\moc_CXPathWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXPathWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXPathWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXPathWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXPathWindow.h -o debug\moc_CXPathWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXPathWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXPathWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXPathWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXPathWindow.h -o release\moc_CXPathWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXPathWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXPathWindow.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXProcessingParametersWindow.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXProcessingParametersWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXProcessingParametersWindow.h -o debug\moc_CXProcessingParametersWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXProcessingParametersWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXProcessingParametersWindow.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXProcessingParametersWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXProcessingParametersWindow.h -o release\moc_CXProcessingParametersWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXProcessingParametersWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXProcessingParametersWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXProcessingParametersWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXProcessingParametersWindow.h -o debug\moc_CXProcessingParametersWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXProcessingParametersWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXProcessingParametersWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXProcessingParametersWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXProcessingParametersWindow.h -o release\moc_CXProcessingParametersWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXProcessingParametersWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXProcessingParametersWindow.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <ClInclude Include="src\CXProcess.h" />
     <ClInclude Include="src\CXSettingsXML.h" />
     <ClInclude Include="src\CXSyntaxHighlighter.h" />
     <CustomBuild Include="src\CXTextParameters.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXTextParameters.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTextParameters.h -o debug\moc_CXTextParameters.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXTextParameters.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXTextParameters.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXTextParameters.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTextParameters.h -o release\moc_CXTextParameters.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXTextParameters.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXTextParameters.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXTextParameters.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTextParameters.h -o debug\moc_CXTextParameters.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXTextParameters.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXTextParameters.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXTextParameters.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTextParameters.h -o release\moc_CXTextParameters.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXTextParameters.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXTextParameters.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXTitleWindow.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXTitleWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTitleWindow.h -o debug\moc_CXTitleWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXTitleWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXTitleWindow.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXTitleWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTitleWindow.h -o release\moc_CXTitleWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXTitleWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXTitleWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXTitleWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTitleWindow.h -o debug\moc_CXTitleWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXTitleWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXTitleWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXTitleWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTitleWindow.h -o release\moc_CXTitleWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXTitleWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXTitleWindow.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXTouchButton.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXTouchButton.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTouchButton.h -o debug\moc_CXTouchButton.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXTouchButton.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXTouchButton.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXTouchButton.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTouchButton.h -o release\moc_CXTouchButton.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXTouchButton.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXTouchButton.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXTouchButton.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTouchButton.h -o debug\moc_CXTouchButton.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXTouchButton.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXTouchButton.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXTouchButton.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTouchButton.h -o release\moc_CXTouchButton.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXTouchButton.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXTouchButton.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXTurnDialog.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXTurnDialog.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTurnDialog.h -o debug\moc_CXTurnDialog.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXTurnDialog.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXTurnDialog.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXTurnDialog.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTurnDialog.h -o release\moc_CXTurnDialog.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXTurnDialog.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXTurnDialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXTurnDialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTurnDialog.h -o debug\moc_CXTurnDialog.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXTurnDialog.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXTurnDialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXTurnDialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXTurnDialog.h -o release\moc_CXTurnDialog.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXTurnDialog.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXTurnDialog.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXUdpManager.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXUdpManager.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXUdpManager.h -o debug\moc_CXUdpManager.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXUdpManager.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXUdpManager.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXUdpManager.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXUdpManager.h -o release\moc_CXUdpManager.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXUdpManager.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXUdpManager.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXUdpManager.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXUdpManager.h -o debug\moc_CXUdpManager.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXUdpManager.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXUdpManager.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXUdpManager.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXUdpManager.h -o release\moc_CXUdpManager.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXUdpManager.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXUdpManager.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXUtilsWindow.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXUtilsWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXUtilsWindow.h -o debug\moc_CXUtilsWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXUtilsWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXUtilsWindow.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXUtilsWindow.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXUtilsWindow.h -o release\moc_CXUtilsWindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXUtilsWindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXUtilsWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXUtilsWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXUtilsWindow.h -o debug\moc_CXUtilsWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXUtilsWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXUtilsWindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXUtilsWindow.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXUtilsWindow.h -o release\moc_CXUtilsWindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXUtilsWindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXUtilsWindow.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXVirtualKeyboard.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXVirtualKeyboard.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXVirtualKeyboard.h -o debug\moc_CXVirtualKeyboard.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXVirtualKeyboard.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXVirtualKeyboard.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXVirtualKeyboard.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXVirtualKeyboard.h -o release\moc_CXVirtualKeyboard.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXVirtualKeyboard.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXVirtualKeyboard.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXVirtualKeyboard.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXVirtualKeyboard.h -o debug\moc_CXVirtualKeyboard.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXVirtualKeyboard.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXVirtualKeyboard.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXVirtualKeyboard.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXVirtualKeyboard.h -o release\moc_CXVirtualKeyboard.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXVirtualKeyboard.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXVirtualKeyboard.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXWindowsManager.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXWindowsManager.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;debug&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXWindowsManager.h -o debug\moc_CXWindowsManager.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">MOC src\CXWindowsManager.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\moc_CXWindowsManager.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe;src\CXWindowsManager.h;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I&quot;c:\Qt\4.8.2\include\QtCore&quot; -I&quot;c:\Qt\4.8.2\include\QtNetwork&quot; -I&quot;c:\Qt\4.8.2\include\QtGui&quot; -I&quot;c:\Qt\4.8.2\include\QtXml&quot; -I&quot;c:\Qt\4.8.2\include\QtXmlPatterns&quot; -I&quot;c:\Qt\4.8.2\include&quot; -I&quot;src&quot; -I&quot;GeneratedFiles&quot; -I&quot;c:\Qt\4.8.2\include\ActiveQt&quot; -I&quot;release&quot; -I&quot;GeneratedFiles&quot; -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXWindowsManager.h -o release\moc_CXWindowsManager.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">MOC src\CXWindowsManager.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\moc_CXWindowsManager.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXWindowsManager.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXWindowsManager.h -o debug\moc_CXWindowsManager.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXWindowsManager.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXWindowsManager.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXWindowsManager.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXWindowsManager.h -o release\moc_CXWindowsManager.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXWindowsManager.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXWindowsManager.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <ClInclude Include="src\flowlayout.h" />
     <ClInclude Include="src\iniFile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug\moc_AXBaseWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_AXBaseWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXCompileEdit.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXCompileEdit.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXEditPathFile.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXEditPathFile.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXExitDialog.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXExitDialog.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXFilesList.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXFilesList.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXFtp.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXFtp.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXGroupPanel.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXGroupPanel.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXIniFileEditor.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXIniFileEditor.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXIniFileList.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXIniFileList.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXLazerDirectionDialog.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXLazerDirectionDialog.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXLazerDirectionView.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXLazerDirectionView.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXLazerDirectionWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXLazerDirectionWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXLazerSettings.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXLazerSettings.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXLazerVelocityView.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXLazerVelocityView.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXParametersView.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXParametersView.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXParametersWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXParametersWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXPathView.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXPathView.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXPathWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXPathWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXProcessingParametersWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXProcessingParametersWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXTextParameters.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXTextParameters.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXTitleWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXTitleWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXTouchButton.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXTouchButton.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXTurnDialog.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXTurnDialog.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXUdpManager.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXUdpManager.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXUtilsWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXUtilsWindow.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXVirtualKeyboard.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXVirtualKeyboard.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\moc_CXWindowsManager.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXWindowsManager.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\qrc_resource.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\qrc_resource.cpp">
-      <ExcludedFromBuild Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClInclude Include="GeneratedFiles\ui_CXEditPathFile.h" />
     <ClInclude Include="GeneratedFiles\ui_CXExitDialog.h" />
@@ -629,113 +631,113 @@
   <ItemGroup>
     <CustomBuild Include="src\CXEditPathFile.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXEditPathFile.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXEditPathFile.ui -o GeneratedFiles\ui_CXEditPathFile.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC src\CXEditPathFile.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">GeneratedFiles\ui_CXEditPathFile.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXEditPathFile.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXEditPathFile.ui -o GeneratedFiles\ui_CXEditPathFile.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC src\CXEditPathFile.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">GeneratedFiles\ui_CXEditPathFile.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXEditPathFile.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXEditPathFile.ui -o GeneratedFiles\ui_CXEditPathFile.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXEditPathFile.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXEditPathFile.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXEditPathFile.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXEditPathFile.ui -o GeneratedFiles\ui_CXEditPathFile.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXEditPathFile.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXEditPathFile.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXExitDialog.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXExitDialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXExitDialog.ui -o GeneratedFiles\ui_CXExitDialog.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC src\CXExitDialog.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">GeneratedFiles\ui_CXExitDialog.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXExitDialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXExitDialog.ui -o GeneratedFiles\ui_CXExitDialog.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC src\CXExitDialog.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">GeneratedFiles\ui_CXExitDialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXExitDialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXExitDialog.ui -o GeneratedFiles\ui_CXExitDialog.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXExitDialog.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXExitDialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXExitDialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXExitDialog.ui -o GeneratedFiles\ui_CXExitDialog.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXExitDialog.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXExitDialog.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXFilesList.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXFilesList.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXFilesList.ui -o GeneratedFiles\ui_CXFilesList.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC src\CXFilesList.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">GeneratedFiles\ui_CXFilesList.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXFilesList.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXFilesList.ui -o GeneratedFiles\ui_CXFilesList.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC src\CXFilesList.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">GeneratedFiles\ui_CXFilesList.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXFilesList.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXFilesList.ui -o GeneratedFiles\ui_CXFilesList.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXFilesList.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXFilesList.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXFilesList.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXFilesList.ui -o GeneratedFiles\ui_CXFilesList.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXFilesList.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXFilesList.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXIniFileEditor.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;src\CXIniFileEditor.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXIniFileEditor.ui -o GeneratedFiles\ui_CXIniFileEditor.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC src\CXIniFileEditor.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">GeneratedFiles\ui_CXIniFileEditor.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;src\CXIniFileEditor.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXIniFileEditor.ui -o GeneratedFiles\ui_CXIniFileEditor.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC src\CXIniFileEditor.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">GeneratedFiles\ui_CXIniFileEditor.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;src\CXIniFileEditor.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXIniFileEditor.ui -o GeneratedFiles\ui_CXIniFileEditor.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXIniFileEditor.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXIniFileEditor.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;src\CXIniFileEditor.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXIniFileEditor.ui -o GeneratedFiles\ui_CXIniFileEditor.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXIniFileEditor.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXIniFileEditor.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXIniFileList.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;src\CXIniFileList.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXIniFileList.ui -o GeneratedFiles\ui_CXIniFileList.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC src\CXIniFileList.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">GeneratedFiles\ui_CXIniFileList.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;src\CXIniFileList.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXIniFileList.ui -o GeneratedFiles\ui_CXIniFileList.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC src\CXIniFileList.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">GeneratedFiles\ui_CXIniFileList.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;src\CXIniFileList.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXIniFileList.ui -o GeneratedFiles\ui_CXIniFileList.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXIniFileList.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXIniFileList.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;src\CXIniFileList.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXIniFileList.ui -o GeneratedFiles\ui_CXIniFileList.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXIniFileList.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXIniFileList.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXLazerDirectionDialog.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXLazerDirectionDialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXLazerDirectionDialog.ui -o GeneratedFiles\ui_CXLazerDirectionDialog.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC src\CXLazerDirectionDialog.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">GeneratedFiles\ui_CXLazerDirectionDialog.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXLazerDirectionDialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXLazerDirectionDialog.ui -o GeneratedFiles\ui_CXLazerDirectionDialog.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC src\CXLazerDirectionDialog.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">GeneratedFiles\ui_CXLazerDirectionDialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXLazerDirectionDialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXLazerDirectionDialog.ui -o GeneratedFiles\ui_CXLazerDirectionDialog.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXLazerDirectionDialog.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXLazerDirectionDialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXLazerDirectionDialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXLazerDirectionDialog.ui -o GeneratedFiles\ui_CXLazerDirectionDialog.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXLazerDirectionDialog.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXLazerDirectionDialog.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXLazerSettings.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXLazerVelocityView.h;CXTouchButton.h;src\CXLazerSettings.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXLazerSettings.ui -o GeneratedFiles\ui_CXLazerSettings.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC src\CXLazerSettings.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">GeneratedFiles\ui_CXLazerSettings.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXLazerVelocityView.h;CXTouchButton.h;src\CXLazerSettings.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXLazerSettings.ui -o GeneratedFiles\ui_CXLazerSettings.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC src\CXLazerSettings.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">GeneratedFiles\ui_CXLazerSettings.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXLazerVelocityView.h;CXTouchButton.h;src\CXLazerSettings.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXLazerSettings.ui -o GeneratedFiles\ui_CXLazerSettings.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXLazerSettings.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXLazerSettings.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXLazerVelocityView.h;CXTouchButton.h;src\CXLazerSettings.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXLazerSettings.ui -o GeneratedFiles\ui_CXLazerSettings.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXLazerSettings.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXLazerSettings.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXProcessingParametersWindow.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXProcessingParametersWindow.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXProcessingParametersWindow.ui -o GeneratedFiles\ui_CXProcessingParametersWindow.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC src\CXProcessingParametersWindow.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">GeneratedFiles\ui_CXProcessingParametersWindow.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXProcessingParametersWindow.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXProcessingParametersWindow.ui -o GeneratedFiles\ui_CXProcessingParametersWindow.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC src\CXProcessingParametersWindow.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">GeneratedFiles\ui_CXProcessingParametersWindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXProcessingParametersWindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXProcessingParametersWindow.ui -o GeneratedFiles\ui_CXProcessingParametersWindow.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXProcessingParametersWindow.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXProcessingParametersWindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXProcessingParametersWindow.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXProcessingParametersWindow.ui -o GeneratedFiles\ui_CXProcessingParametersWindow.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXProcessingParametersWindow.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXProcessingParametersWindow.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXTurnDialog.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXTurnDialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXTurnDialog.ui -o GeneratedFiles\ui_CXTurnDialog.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC src\CXTurnDialog.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">GeneratedFiles\ui_CXTurnDialog.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXTurnDialog.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXTurnDialog.ui -o GeneratedFiles\ui_CXTurnDialog.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC src\CXTurnDialog.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">GeneratedFiles\ui_CXTurnDialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXTurnDialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXTurnDialog.ui -o GeneratedFiles\ui_CXTurnDialog.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXTurnDialog.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXTurnDialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXTurnDialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXTurnDialog.ui -o GeneratedFiles\ui_CXTurnDialog.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXTurnDialog.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXTurnDialog.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="src\CXVirtualKeyboard.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXVirtualKeyboard.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXVirtualKeyboard.ui -o GeneratedFiles\ui_CXVirtualKeyboard.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">UIC src\CXVirtualKeyboard.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">GeneratedFiles\ui_CXVirtualKeyboard.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXVirtualKeyboard.ui;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\uic.exe src\CXVirtualKeyboard.ui -o GeneratedFiles\ui_CXVirtualKeyboard.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">UIC src\CXVirtualKeyboard.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">GeneratedFiles\ui_CXVirtualKeyboard.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXVirtualKeyboard.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXVirtualKeyboard.ui -o GeneratedFiles\ui_CXVirtualKeyboard.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXVirtualKeyboard.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXVirtualKeyboard.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXVirtualKeyboard.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXVirtualKeyboard.ui -o GeneratedFiles\ui_CXVirtualKeyboard.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXVirtualKeyboard.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXVirtualKeyboard.h;%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -743,14 +745,14 @@
     <None Include="images\open_folder.png" />
     <CustomBuild Include="resource.qrc">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\rcc.exe;images\down.png;images\open_folder.png;images\up.png;resource.qrc;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">C:\Qt\4.8.2\bin\rcc.exe -name resource resource.qrc -o debug\qrc_resource.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">RCC resource.qrc</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|Win32&apos;">debug\qrc_resource.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\rcc.exe;images\down.png;images\open_folder.png;images\up.png;resource.qrc;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">C:\Qt\4.8.2\bin\rcc.exe -name resource resource.qrc -o release\qrc_resource.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">RCC resource.qrc</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|Win32&apos;">release\qrc_resource.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\rcc.exe;images\down.png;images\open_folder.png;images\up.png;resource.qrc;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\rcc.exe -name resource resource.qrc -o debug\qrc_resource.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RCC resource.qrc</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\qrc_resource.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\rcc.exe;images\down.png;images\open_folder.png;images\up.png;resource.qrc;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\rcc.exe -name resource resource.qrc -o release\qrc_resource.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RCC resource.qrc</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\qrc_resource.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <None Include="images\up.png" />
   </ItemGroup>

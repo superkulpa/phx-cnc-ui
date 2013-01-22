@@ -230,7 +230,7 @@ void CXFilesList::onCompileFile()
 {
 	if (mFileName.isEmpty()) return;
 
-	mProcess = new QProcess(this);
+	mProcess = new CXProcess(this);
 
 	connect(mProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(onProcessFinish(int, QProcess::ExitStatus)));
 	connect(mProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(onProcessError(QProcess::ProcessError)));
