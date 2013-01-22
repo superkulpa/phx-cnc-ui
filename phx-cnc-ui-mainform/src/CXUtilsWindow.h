@@ -4,7 +4,8 @@
 #include "AXBaseWindow.h"
 
 #include <QTreeWidget>
-#include <QProcess>
+
+#include "CXProcess.h"
 
 /*!
 	Класс окна для утилит.
@@ -39,7 +40,7 @@ private slots:
 
 private:
 	QTreeWidget* mTreeWidget;
-	QProcess* mProcess;
+	CXProcess* mProcess;
 };
 
 #endif // CXUTILSWINDOW_H

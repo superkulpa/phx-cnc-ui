@@ -124,7 +124,7 @@ void CXLazerDirectionView::paintEvent(QPaintEvent*)
 
 	painter.scale(1.0 / scale, 1.0 / scale);
 
-	painter.setFont(QFont("", 6 * scale));
+	painter.setFont(QFont(font().family(), 6 * scale));
 
 	QTextOption textOption;
 	textOption.setAlignment(Qt::AlignCenter);

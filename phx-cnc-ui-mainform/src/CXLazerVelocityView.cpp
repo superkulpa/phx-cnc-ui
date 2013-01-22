@@ -93,7 +93,7 @@ void CXLazerVelocityView::paintEvent(QPaintEvent*)
 		}
 	}
 
-	painter.setFont(QFont("", 6 * scaleY));
+	painter.setFont(QFont(font().family(), 6 * scaleY));
 	QTextOption textOption(Qt::AlignCenter);
 
 	painter.drawPath(mDrawPath);
