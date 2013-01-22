@@ -6,6 +6,7 @@
   <translate>ru.qm</translate>
   <kernel_ip>127.0.0.1</kernel_ip>
   <kernel_port>7755</kernel_port>
+  <virtual_keyboard>1</virtual_keyboard>
   <style>
 	QWidget { font-size: 13pt; }
 	QTabBar::tab { padding: 15px; }
