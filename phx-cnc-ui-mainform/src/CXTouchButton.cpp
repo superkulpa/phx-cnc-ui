@@ -1,12 +1,12 @@
 #include "CXTouchButton.h"
 
-#include <QXmlQuery>
 #include <QApplication>
 #include <QTimerEvent>
 #include <QMouseEvent>
 #include <QStyleOption>
 #include <QPainter>
-#include <QFile>
+
+#include "CXSettingsXML.h"
 
 int CXTouchButton::mDelay = 0;
 
@@ -96,21 +96,7 @@ void CXTouchButton::timerEvent(QTimerEvent* e)
 
 int CXTouchButton::getDelay()
 {
-	QFile xmlFile("settings.xml");
+	int value = CXSettingsXML::getValue("settings.xml", "delay").toInt();
 
-	if (xmlFile.open(QIODevice::ReadOnly))
-	{
-		QXmlQuery query;
-		query.setFocus(&xmlFile);
-		query.setQuery("/Settings/buttonDelay/text()");
-
-		QString res;
-		query.evaluateTo(&res);
-
-		xmlFile.close();
-
-		return qMax(200, res.toInt());
-	}
-
-	return 200;
+	return qMax(200, value);
 }

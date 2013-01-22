@@ -1,8 +1,8 @@
 #include "CXUdpManager.h"
 
 #include <QApplication>
-#include <QFile>
-#include <QXmlQuery>
+
+#include "CXSettingsXML.h"
 
 CXUdpManager::CXUdpManager(QObject* parent) : QUdpSocket(parent)
 {
@@ -18,24 +18,8 @@ CXUdpManager::CXUdpManager(QObject* parent) : QUdpSocket(parent)
 
 	connect(this, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 
-	QString host;
-	QString port;
-	QFile xmlFile("settings.xml");
-
-	if (xmlFile.open(QIODevice::ReadOnly))
-	{
-		QXmlQuery query;
-		query.setFocus(&xmlFile);
-		query.setQuery("/Settings/kernel_ip/text()");
-
-		query.evaluateTo(&host);
-
-		query.setQuery("/Settings/kernel_port/text()");
-
-		query.evaluateTo(&port);
-
-		xmlFile.close();
-	}
+	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
+	QString port = CXSettingsXML::getValue("settings.xml", "kernel_port");
 
 	bind(QHostAddress(host), port.toInt());
 }

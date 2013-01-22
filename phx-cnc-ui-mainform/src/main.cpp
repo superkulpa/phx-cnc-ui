@@ -1,6 +1,5 @@
 #include <QApplication>
 
-#include <QXmlQuery>
 #include <QVBoxLayout>
 #include <QTranslator>
 
@@ -20,6 +19,8 @@
 #include "CXUdpManager.h"
 
 #include "CXGroupPanel.h"
+
+#include "CXSettingsXML.h"
 
 QWidget* getTestWindow(int aIndex, int aGroup)
 {
@@ -146,32 +147,20 @@ int main(int argc, char *argv[])
 	QApplication app(argc, argv);
 	app.setQuitOnLastWindowClosed(false);
 
-	QFile xmlFile("settings.xml");
-	QXmlQuery query;
+	QString translate = CXSettingsXML::getValue("settings.xml", "translate");
 	
-	if (xmlFile.open(QIODevice::ReadOnly))
+	if (!translate.isEmpty())
 	{
-		query.setFocus(&xmlFile);
-		query.setQuery("/Settings/translate/text()");
-
-		QString res;
-		query.evaluateTo(&res);
-
 		QTranslator* translator = new QTranslator(&app);
-		translator->load(QApplication::applicationDirPath() + QDir::separator() + "translations" + QDir::separator() + res);
+		translator->load(QApplication::applicationDirPath() + QDir::separator() + "translations" + QDir::separator() + translate);
 		app.installTranslator(translator);
 	}
 
-	if (xmlFile.isOpen())
+	QString style = CXSettingsXML::getValue("settings.xml", "style");
+
+	if (!style.isEmpty())
 	{
-		query.setQuery("/Settings/style/text()");
-
-		QString res;
-		query.evaluateTo(&res);
-
-		xmlFile.close();
-
-		app.setStyleSheet(res);
+		app.setStyleSheet(style);
 	}
 
 	CXWindowsManager manager;

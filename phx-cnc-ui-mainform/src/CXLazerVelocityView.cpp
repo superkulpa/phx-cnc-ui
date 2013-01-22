@@ -2,8 +2,8 @@
 
 #include <QPainter>
 #include <QMouseEvent>
-#include <QXmlQuery>
-#include <QFile>
+
+#include "CXSettingsXML.h"
 
 int CXLazerVelocityView::mDelay = 0;
 
@@ -196,21 +196,7 @@ void CXLazerVelocityView::setCurrentVelocity(eVelocity aVelocity)
 
 int CXLazerVelocityView::getDelay()
 {
-	QFile xmlFile("settings.xml");
+	int value = CXSettingsXML::getValue("settings.xml", "delay").toInt();
 
-	if (xmlFile.open(QIODevice::ReadOnly))
-	{
-		QXmlQuery query;
-		query.setFocus(&xmlFile);
-		query.setQuery("/Settings/delay/text()");
-
-		QString res;
-		query.evaluateTo(&res);
-
-		xmlFile.close();
-
-		return qMax(200, res.toInt());
-	}
-
-	return 200;
+	return qMax(200, value);
 }

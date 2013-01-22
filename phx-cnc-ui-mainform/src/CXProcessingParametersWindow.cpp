@@ -2,11 +2,11 @@
 
 #include <QVBoxLayout>
 #include <QPushButton>
-#include <QXmlQuery>
 
 #include "CXParametersView.h"
 #include "CXWindowsManager.h"
 #include "CXFtp.h"
+#include "CXSettingsXML.h"
 
 CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) : QDialog(parent)
 {
@@ -27,19 +27,7 @@ CXProcessingParametersWindow::~CXProcessingParametersWindow()
 
 void CXProcessingParametersWindow::onFileLoad()
 {
-	QString host;
-	QFile xmlFile("settings.xml");
-
-	if (xmlFile.open(QIODevice::ReadOnly))
-	{
-		QXmlQuery query;
-		query.setFocus(&xmlFile);
-		query.setQuery("/Settings/kernel_ip/text()");
-
-		query.evaluateTo(&host);
-
-		xmlFile.close();
-	}
+	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
 
 	mFtp = new CXFtp(this);
 	mFtp->setConnectData(host, 21, "ftp", "ftp");
