@@ -35,7 +35,8 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXExitDialog.h \
 			src/CXVirtualKeyboard.h \
 			src/CXUtilsWindow.h \
-			src/CXUdpManager.h
+			src/CXUdpManager.h \
+			src/CXSettingsXML.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
@@ -68,7 +69,8 @@ SOURCES +=	src/main.cpp \
 			src/CXExitDialog.cpp \
 			src/CXVirtualKeyboard.cpp \
 			src/CXUtilsWindow.cpp \
-			src/CXUdpManager.cpp
+			src/CXUdpManager.cpp \
+			src/CXSettingsXML.cpp
 
 FORMS +=	src/CXFilesList.ui \
 			src/CXEditPathFile.ui \

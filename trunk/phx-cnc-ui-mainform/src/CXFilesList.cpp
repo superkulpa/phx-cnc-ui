@@ -143,8 +143,11 @@ void CXFilesList::onItemActivate(const QModelIndex& aIndex)
 	}
 
 	mFileName = mModel->filePath(aIndex);
-	mFileNameEdit->setText(mFileName);
-	mFileNameEdit->setFocus();
+	if (mIsSaveDialog)
+	{
+		mFileNameEdit->setText(mModel->fileName(aIndex));
+		mFileNameEdit->setFocus();
+	}
 
 	if (!mIsSaveDialog)
 	{
@@ -387,6 +390,7 @@ QString CXFilesList::getConfigAttribute(const QString& aAttributeName)
 
 void CXFilesList::onSave()
 {
-	emit fileSaved(mFileNameEdit->text());
+	QString rootPath = mModel->filePath(mFileView->rootIndex());
+	emit fileSaved(rootPath + QDir::separator() + mFileNameEdit->text());
 	close();
 }

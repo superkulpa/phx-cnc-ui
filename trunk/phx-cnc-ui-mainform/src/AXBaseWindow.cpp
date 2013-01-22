@@ -32,7 +32,7 @@ AXBaseWindow::AXBaseWindow() : QWidget()
 
 //	if (mManager != NULL) mManager->addWindow(this);
 
-	setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
+	setWindowFlags(Qt::SplashScreen);
 
 	setMouseTracking(true);
 }
