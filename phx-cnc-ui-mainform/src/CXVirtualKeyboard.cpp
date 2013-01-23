@@ -85,9 +85,8 @@ void CXVirtualKeyboard::onButtonClick()
 
 void CXVirtualKeyboard::onHide()
 {
-  disconnect(qApp, SIGNAL(focusChanged(QWidget*, QWidget*)), this, SLOT(onFocusChange(QWidget*, QWidget*)));
+	disconnect(qApp, SIGNAL(focusChanged(QWidget*, QWidget*)), this, SLOT(onFocusChange(QWidget*, QWidget*)));
 	hide();
 	QApplication::processEvents();
 	connect(qApp, SIGNAL(focusChanged(QWidget*, QWidget*)), this, SLOT(onFocusChange(QWidget*, QWidget*)));
-	//setWindowState(Qt::WindowMinimized);
 }

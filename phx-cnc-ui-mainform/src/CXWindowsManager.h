@@ -107,6 +107,7 @@ private:
 //	QVector <QString> mKeyboardWindows;
 
 	CXVirtualKeyboard* mVirtualKeyboard;
+	bool IsVirtualKeyboardEnabled;
 };
 
 #endif // CXWINDOWSMANAGER_H

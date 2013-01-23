@@ -1,13 +1,13 @@
 #include "CXParametersView.h"
 
-#include <QXmlQuery>
 #include <QStandardItemModel>
 #include <QHeaderView>
 #include <QStylePainter>
 #include <QSpinBox>
 #include <QApplication>
 #include <QMouseEvent>
-#include <QFile>
+
+#include "CXSettingsXML.h"
 
 int CXParameterItemDelegate::mDelay = 0;
 QMap <int, CXGroupData*> CXParametersView::mGropusMap;
@@ -217,23 +217,9 @@ void CXParameterItemDelegate::updateValue()
 
 int CXParameterItemDelegate::getDelay()
 {
-	QFile xmlFile("settings.xml");
+	int value = CXSettingsXML::getValue("settings.xml", "delay").toInt();
 
-	if (xmlFile.open(QIODevice::ReadOnly))
-	{
-		QXmlQuery query;
-		query.setFocus(&xmlFile);
-		query.setQuery("/Settings/delay/text()");
-
-		QString res;
-		query.evaluateTo(&res);
-
-		xmlFile.close();
-
-		return qMax(200, res.toInt());
-	}
-
-	return 200;
+	return qMax(200, value);
 }
 
 /**/

@@ -4,10 +4,10 @@
 //#include <QMessageBox>
 #include <QApplication>
 #include <QDesktopWidget>
-#include <QXmlQuery>
 
 #include "CXSyntaxHighlighter.h"
 #include "CXFtp.h"
+#include "CXSettingsXML.h"
 
 CXIniFileEditor::CXIniFileEditor() : AXBaseWindow()
 {
@@ -83,19 +83,7 @@ void CXIniFileEditor::loadFiles(bool aIsUpload)
 	QSize size = QApplication::desktop()->availableGeometry().size();
 	mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
 
-	QString host;
-	QFile xmlFile("settings.xml");
-
-	if (xmlFile.open(QIODevice::ReadOnly))
-	{
-		QXmlQuery query;
-		query.setFocus(&xmlFile);
-		query.setQuery("/Settings/kernel_ip/text()");
-
-		query.evaluateTo(&host);
-
-		xmlFile.close();
-	}
+	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
 
 	mFtp = new CXFtp(this);
 	mFtp->setConnectData(host, 21, "ftp", "ftp");
