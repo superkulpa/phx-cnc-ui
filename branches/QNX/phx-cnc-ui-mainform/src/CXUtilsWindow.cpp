@@ -89,7 +89,7 @@ void CXUtilsWindow::onExecute()
 	if (curItem != NULL)
 	{
 		QString command = curItem->data(0, Qt::UserRole + 100).toString();
-		mProcess = new QProcess(this);
+		mProcess = new CXProcess(this);
 
 		connect(mProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(onProcessFinish(int, QProcess::ExitStatus)));
 		connect(mProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(onProcessError(QProcess::ProcessError)));

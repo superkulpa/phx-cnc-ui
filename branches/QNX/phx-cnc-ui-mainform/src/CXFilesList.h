@@ -2,10 +2,10 @@
 #define CXFILESLIST_H
 
 #include <QFileSystemModel>
-#include <QProcess>
 
 #include "ui_CXFilesList.h"
 #include "AXBaseWindow.h"
+#include "CXProcess.h"
 
 class CXTurnDialog;
 
@@ -120,7 +120,7 @@ private:
 	QModelIndex mRootIndex;
 	QPushButton* mButton;
 
-	QProcess* mProcess;
+	CXProcess* mProcess;
 	CXTurnDialog* mTurnDialog;
 
 	bool mIsModifier;

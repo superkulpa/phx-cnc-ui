@@ -3,9 +3,9 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QRadialGradient>
-#include <QXmlQuery>
-#include <QFile>
 #include <qmath.h>
+
+#include "CXSettingsXML.h"
 
 #define RADIUS 18.0
 int CXLazerDirectionView::mDelay = 0;
@@ -124,7 +124,7 @@ void CXLazerDirectionView::paintEvent(QPaintEvent*)
 
 	painter.scale(1.0 / scale, 1.0 / scale);
 
-	painter.setFont(QFont("", 6 * scale));
+	painter.setFont(QFont(font().family(), 6 * scale));
 
 	QTextOption textOption;
 	textOption.setAlignment(Qt::AlignCenter);
@@ -197,21 +197,7 @@ void CXLazerDirectionView::updateDirection(const QPointF& aPos)
 
 int CXLazerDirectionView::getDelay()
 {
-	QFile xmlFile("settings.xml");
+	int value = CXSettingsXML::getValue("settings.xml", "delay").toInt();
 
-	if (xmlFile.open(QIODevice::ReadOnly))
-	{
-		QXmlQuery query;
-		query.setFocus(&xmlFile);
-		query.setQuery("/Settings/delay/text()");
-
-		QString res;
-		query.evaluateTo(&res);
-
-		xmlFile.close();
-
-		return qMax(200, res.toInt());
-	}
-
-	return 200;
+	return qMax(200, value);
 }

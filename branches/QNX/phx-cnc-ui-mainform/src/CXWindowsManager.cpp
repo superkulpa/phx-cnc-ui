@@ -11,6 +11,7 @@
 
 #include "CXGroupPanel.h"
 #include "CXVirtualKeyboard.h"
+#include "CXSettingsXML.h"
 
 CXWindowsManager::CXWindowsManager()
 {
@@ -25,6 +26,9 @@ CXWindowsManager::CXWindowsManager()
 	mIsFreeze = false;
 	mGroupNumber = 0;
 	mVirtualKeyboard = NULL;
+	IsVirtualKeyboardEnabled = true;
+	QString virtualKeyboardEnabled = CXSettingsXML::getValue("settings.xml", "virtual_keyboard");
+	if (!virtualKeyboardEnabled.isEmpty() && virtualKeyboardEnabled.toInt() == 0) IsVirtualKeyboardEnabled = false;
 }
 
 CXWindowsManager::~CXWindowsManager()
@@ -300,8 +304,11 @@ void CXWindowsManager::setFreeze(bool aIsFreeze)
 {
 	if (!aIsFreeze)
 	{
-		if (mVirtualKeyboard == NULL) mVirtualKeyboard = new CXVirtualKeyboard;
-		mVirtualKeyboard->show();
+		if (IsVirtualKeyboardEnabled)
+		{
+			if (mVirtualKeyboard == NULL) mVirtualKeyboard = new CXVirtualKeyboard;
+			mVirtualKeyboard->show();
+		}
 	}
 	else if (mVirtualKeyboard != NULL)
 	{
@@ -341,7 +348,7 @@ bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
 
 		if (watched->property("readOnly").isValid() && watched->property("readOnly").toBool() == false)
 		{
-			if (mVirtualKeyboard == NULL) mVirtualKeyboard = new CXVirtualKeyboard;
+			if (mVirtualKeyboard == NULL && IsVirtualKeyboardEnabled) mVirtualKeyboard = new CXVirtualKeyboard;
 
 			return false;
 		}

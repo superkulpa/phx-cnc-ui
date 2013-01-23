@@ -143,8 +143,11 @@ void CXFilesList::onItemActivate(const QModelIndex& aIndex)
 	}
 
 	mFileName = mModel->filePath(aIndex);
-	mFileNameEdit->setText(mFileName);
-	mFileNameEdit->setFocus();
+	if (mIsSaveDialog)
+	{
+		mFileNameEdit->setText(mModel->fileName(aIndex));
+		mFileNameEdit->setFocus();
+	}
 
 	if (!mIsSaveDialog)
 	{
@@ -227,7 +230,7 @@ void CXFilesList::onCompileFile()
 {
 	if (mFileName.isEmpty()) return;
 
-	mProcess = new QProcess(this);
+	mProcess = new CXProcess(this);
 
 	connect(mProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(onProcessFinish(int, QProcess::ExitStatus)));
 	connect(mProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(onProcessError(QProcess::ProcessError)));
@@ -269,7 +272,7 @@ void CXFilesList::onCompileFile()
 	configFile.close();
 
 //	mProcess->start("bash ./cpc.sh");
-	mProcess->start(QApplication::applicationDirPath() + "/compile.bat");
+	mProcess->start(/*QApplication::applicationDirPath() +*/ "/bin/sh /CNC/compile.sh");
 }
 
 void CXFilesList::onLoadCheckFile()
@@ -387,6 +390,7 @@ QString CXFilesList::getConfigAttribute(const QString& aAttributeName)
 
 void CXFilesList::onSave()
 {
-	emit fileSaved(mFileNameEdit->text());
+	QString rootPath = mModel->filePath(mFileView->rootIndex());
+	emit fileSaved(rootPath + QDir::separator() + mFileNameEdit->text());
 	close();
 }
