@@ -15,7 +15,7 @@ CXTouchButton::CXTouchButton(QWidget* parent) : QPushButton(parent)
 	mTimer = -1;
 	setFocusPolicy(Qt::NoFocus);
 
-	if (mDelay == 0) mDelay = getDelay();
+	if (mDelay == 0) mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
 }
 
 CXTouchButton::CXTouchButton(const QString& text, QWidget* parent) : QPushButton(text, parent)
@@ -23,7 +23,7 @@ CXTouchButton::CXTouchButton(const QString& text, QWidget* parent) : QPushButton
 	mTimer = -1;
 	setFocusPolicy(Qt::NoFocus);
 
-	if (mDelay == 0) mDelay = getDelay();
+	if (mDelay == 0) mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
 }
 
 CXTouchButton::~CXTouchButton()
@@ -92,11 +92,4 @@ void CXTouchButton::timerEvent(QTimerEvent* e)
 			QApplication::postEvent(this, e);
 		}
 	}
-}
-
-int CXTouchButton::getDelay()
-{
-	int value = CXSettingsXML::getValue("settings.xml", "delay").toInt();
-
-	return qMax(200, value);
 }

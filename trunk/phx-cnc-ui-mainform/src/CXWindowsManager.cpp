@@ -7,7 +7,6 @@
 #include <QTextStream>
 #include <QDomDocument>
 #include <QMouseEvent>
-#include <QXmlQuery>
 
 #include "CXGroupPanel.h"
 #include "CXVirtualKeyboard.h"
@@ -331,6 +330,14 @@ void CXWindowsManager::setFreeze(bool aIsFreeze)
 
 		if (curWindow != NULL) curWindow->setFreeze(aIsFreeze);
 	}
+}
+
+void CXWindowsManager::changeVisibleVirtualKeyboard()
+{
+	if (mVirtualKeyboard == NULL) mVirtualKeyboard = new CXVirtualKeyboard;
+
+	if (mVirtualKeyboard->isVisible()) mVirtualKeyboard->hide();
+	else mVirtualKeyboard->show();
 }
 
 bool CXWindowsManager::eventFilter(QObject* watched, QEvent* e)
