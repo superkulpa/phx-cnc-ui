@@ -228,7 +228,7 @@ int main(int argc, char *argv[])
                 texts.append(QObject::trUtf8("Управление"));
 				texts.append(QObject::trUtf8("Параметры"));
 				texts.append(QString());
-				texts.append(QString());
+				texts.append(QObject::trUtf8("Клавиатура"));
                 texts.append(QObject::trUtf8("Каталог"));
                 texts.append(QObject::trUtf8("Макро"));
                 texts.append(QObject::trUtf8("Загрузить"));
@@ -242,12 +242,13 @@ int main(int argc, char *argv[])
 				curGroupPanel->getButton(1)->setProperty("groupName", 2);
 				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
-				QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel, SLOT(onExit()));
-
+				QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()), &manager, SLOT(changeVisibleVirtualKeyboard()));
 				QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked()), curGroupPanel, SLOT(directoryCommand()));
                 QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), curGroupPanel, SLOT(macroCommand()));
                 QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()), windows.value("CXEditPathFile"), SLOT(onSave()));
                 QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXFilesList"), SLOT(onTurn()));
+				QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel, SLOT(onExit()));
+
 
 				qobject_cast<CXFilesList*>(windows.value("CXFilesList"))->setButton(curGroupPanel->getButton(6));
 
