@@ -25,6 +25,7 @@
 	CXLazerVelocity QLabel { font-size: 80pt; min-width: 100px; }
 	CXLazerSettings QAbstractButton { min-width: 80px; min-height: 75px; }
 	CXLazerSettings #mButtonWidget QAbstractButton { min-height: 65px; }
+	CXLazerSettings #mButtonWidget QAbstractButton:checked { background-color: green; }
 	CXLazerSettings QLabel { font-size: 14pt; min-width: 50px; }
 	CXLazerDirectionWindow QAbstractButton { min-height: 75px; padding: 0px; }
 	CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { min-height: 50px; min-width: 60px; font-size: 14pt; }
