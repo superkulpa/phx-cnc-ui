@@ -1,30 +1,31 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <Settings>
-  <manager freeze="1"/>
-  <delay>200</delay>
-  <buttonDelay>200</buttonDelay>
+  <manager freeze="0"/>
+  <delay>100</delay>
+  <buttonDelay>100</buttonDelay>
   <translate>ru.qm</translate>
   <kernel_ip>127.0.0.1</kernel_ip>
   <kernel_port>7755</kernel_port>
+  <virtual_keyboard>1</virtual_keyboard>
   <style>
-	QWidget { font-size: 13pt; }
-	QTabBar::tab { padding: 15px; }
-	CXTitleWindow QLabel, CXTitleWindow QAbstractButton { border: 1px solid gray; min-width: 200px; }
+	QWidget { font-size: 11pt; }
+	QTabBar::tab { padding: 12px; }
+	CXTitleWindow QLabel, CXTitleWindow QAbstractButton { border: 1px solid gray; min-width: 75px; }
 	AXBaseWindow, QDialog { background-color: silver; }
 	CXPathView { font-size: 10pt; }
 	CXProcessingParametersWindow QAbstractButton, CXEditPathFile QAbstractButton, CXPathWindow QAbstractButton { min-height: 30px; padding: 15px; }
 	CXFilesList QAbstractButton { padding: 20px 35px; }
 	CXFilesList QLineEdit { font-size: 16pt; padding: 5px; }
-	CXGroupPanel QAbstractButton { min-width: 105px; min-height: 75px; }
+	CXGroupPanel QAbstractButton { min-width: 55px; min-height: 55px; }
 	CXIniFileList QAbstractButton { padding: 15px; }
 	CXTurnDialog * { font-size: 14pt; }
-	CXTurnDialog QAbstractButton { min-width: 100px; min-height: 75px; }
-	CXTurnDialog #mTurnSettings QAbstractButton { min-width: 200px; }
-	CXLazerVelocity QAbstractButton { font-size: 24pt; min-height: 140px; min-width: 100px; }
-	CXLazerVelocity QLabel { font-size: 80pt; min-width: 100px; }
-	CXLazerSettings QAbstractButton { min-width: 80px; min-height: 75px; }
+	CXTurnDialog QAbstractButton { min-width: 75px; min-height: 75px; }
+	CXTurnDialog #mTurnSettings QAbstractButton { min-width: 75px; }
+	CXLazerVelocity QAbstractButton { font-size: 14pt; min-height: 75px; min-width: 75px; }
+	CXLazerVelocity QLabel { font-size: 16pt; min-width: 75px; }
+	CXLazerSettings QAbstractButton { min-width: 75px; min-height: 75px; }
 	CXLazerSettings #mButtonWidget QAbstractButton { min-height: 65px; }
-	CXLazerSettings QLabel { font-size: 14pt; min-width: 50px; }
+	CXLazerSettings QLabel { font-size: 12pt; min-width: 50px; }
 	CXLazerDirectionWindow QAbstractButton { min-height: 75px; padding: 0px; }
 	CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { min-height: 50px; min-width: 60px; font-size: 14pt; }
 	CXLazerDirectionWindow #mFLabel { padding: 5px 15px 5px 37px; }
@@ -33,7 +34,7 @@
 	CXLazerDirectionDialog QAbstractButton { min-width: 100px; min-height: 75px; font-size: 14pt; }
 	CXExitDialog QAbstractButton { padding: 30px 60px; }
 	QToolBox QAbstractButton { min-height: 40px; }
-	CXVirtualKeyboard CXTouchButton { min-width: 80px; min-height: 50px; }
+	CXVirtualKeyboard CXTouchButton { min-width: 50px; min-height: 40px; }
 	CXUtilsWindow QAbstractButton { min-width: 200px; min-height: 65px; }
 	CXUtilsWindow QTreeView::item { min-height: 65px; }
 	QScrollBar:horizontal { height: 40px; }
@@ -41,24 +42,24 @@
 	QScrollBar::sub-line:vertical { height: 30px; }
   </style>
   <window_AXBaseWindow>AdnQywABAAAAAAH9AAAAKwAAA4IAAACHAAAB/QAAACsAAAOCAAAAhwAAAAAAAA==</window_AXBaseWindow>
-  <window_CXParametersWindow>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_CXParametersWindow>
-  <window_CXCompileEdit>AdnQywABAAAAAAAAAAACIgAAAaEAAAJ5AAAAAAAAAiIAAAGhAAACeQAAAAAAAA==</window_CXCompileEdit>
-  <window_CXEditPathFile>AdnQywABAAAAAAGiAAAAKwAAA14AAAJ5AAABogAAACsAAANeAAACeQAAAAAAAA==</window_CXEditPathFile>
-  <window_CXFilesList>AdnQywABAAAAAAAAAAAAKwAAAaEAAAIhAAAAAAAAACsAAAGhAAACIQAAAAAAAA==</window_CXFilesList>
-  <window_CXGroupPanel>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_CXGroupPanel>
-  <window_CXGroupPanel1>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_CXGroupPanel1>
-  <window_CXGroupPanel2>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_CXGroupPanel2>
-  <window_CXGroupPanel3>AdnQywABAAAAAAAAAAACegAABOQAAALcAAAAAAAAAnoAAATkAAAC3AAAAAAAAA==</window_CXGroupPanel3>
-  <window_CXIniFileEditor>AdnQywABAAAAAAIvAAAAKQAABOQAAAJ5AAACLwAAACkAAATkAAACeQAAAAAAAA==</window_CXIniFileEditor>
-  <window_CXIniFileList>AdnQywABAAAAAAAAAAAAKQAAAi4AAAJ5AAAAAAAAACkAAAIuAAACeQAAAAAAAA==</window_CXIniFileList>
-  <window_CXLazerDirectionWindow>AdnQywABAAAAAAAAAAAAKwAAAfwAAAJ5AAAAAAAAACsAAAH8AAACeQAAAAAAAA==</window_CXLazerDirectionWindow>
-  <window_CXLazerSettings>AdnQywABAAAAAAODAAAAKwAABOQAAAJ5AAADgwAAACsAAATkAAACeQAAAAAAAA==</window_CXLazerSettings>
-  <window_CXPathWindow>AdnQywABAAAAAANfAAAAKwAABOQAAAJ5AAADXwAAACsAAATkAAACeQAAAAAAAA==</window_CXPathWindow>
-  <window_CXPathWindow1>AdnQywABAAAAAAH9AAAAiAAAA4IAAAJ5AAAB/QAAAIgAAAOCAAACeQAAAAAAAA==</window_CXPathWindow1>
-  <window_CXTitleWindow>AdnQywABAAAAAAAAAAAAAAAABOQAAAAqAAAAAAAAAAAAAATkAAAAKgAAAAAAAA==</window_CXTitleWindow>
-  <window_CXVirtualKeyboard>AdnQywABAAAAAAAAAAAAAAAAAaEAAAKeAAAAAAAAAAAAAAGhAAACngAAAAAAAA==</window_CXVirtualKeyboard>
+  <window_CXParametersWindow>AdnQywABAAAAAAA+AAAAKwAABOQAAAJ5AAAAPgAAACsAAATkAAACeQAAAAAAAA==</window_CXParametersWindow>
+  <window_CXCompileEdit>AdnQywABAAAAAAA+AAACAAAAAY8AAAKwAAAAPgAAAgAAAAGPAAACsAAAAAAAAA==</window_CXCompileEdit>
+  <window_CXEditPathFile>AdnQywABAAAAAAGQAAAAKwAAAy8AAAKwAAABkAAAACsAAAMvAAACsAAAAAAAAA==</window_CXEditPathFile>
+  <window_CXFilesList>AdnQywABAAAAAAA+AAAAKwAAAY8AAAH/AAAAPgAAACsAAAGPAAAB/wAAAAAAAA==</window_CXFilesList>
+  <window_CXGroupPanel>AdnQywABAAAAAAA+AAACsQAABOQAAAL/AAAAPgAAArEAAATkAAAC/wAAAAAAAA==</window_CXGroupPanel>
+  <window_CXGroupPanel1>AdnQywABAAAAAAA+AAACegAABOQAAALcAAAAPgAAAnoAAATkAAAC3AAAAAAAAA==</window_CXGroupPanel1>
+  <window_CXGroupPanel2>AdnQywABAAAAAAA+AAACegAABOQAAALcAAAAPgAAAnoAAATkAAAC3AAAAAAAAA==</window_CXGroupPanel2>
+  <window_CXGroupPanel3>AdnQywABAAAAAAA+AAACsQAABOkAAAL/AAAAPgAAArEAAATpAAAC/wAAAAAAAA==</window_CXGroupPanel3>
+  <window_CXIniFileEditor>AdnQywABAAAAAAGUAAAAKwAABOQAAAJ5AAABlAAAACsAAATkAAACeQAAAAAAAA==</window_CXIniFileEditor>
+  <window_CXIniFileList>AdnQywABAAAAAAA+AAAAKwAAAZMAAAJ5AAAAPgAAACsAAAGTAAACeQAAAAAAAA==</window_CXIniFileList>
+  <window_CXLazerDirectionWindow>AdnQywABAAAAAAA+AAAAKwAAAZsAAAKwAAAAPgAAACsAAAGbAAACsAAAAAAAAA==</window_CXLazerDirectionWindow>
+  <window_CXLazerSettings>AdnQywABAAAAAAOSAAAAKwAABOkAAAKwAAADkgAAACsAAATpAAACsAAAAAAAAA==</window_CXLazerSettings>
+  <window_CXPathWindow>AdnQywABAAAAAAMwAAAAKwAABOQAAAKwAAADMAAAACsAAATkAAACsAAAAAAAAA==</window_CXPathWindow>
+  <window_CXPathWindow1>AdnQywABAAAAAAGcAAAAiAAAA5EAAAKwAAABnAAAAIgAAAORAAACsAAAAAAAAA==</window_CXPathWindow1>
+  <window_CXTitleWindow>AdnQywABAAAAAAA+AAAAAAAABOkAAAAqAAAAPgAAAAAAAATpAAAAKgAAAAAAAA==</window_CXTitleWindow>
+  <window_CXVirtualKeyboard>AdnQywABAAAAAAA+AAAAEQAAAY8AAAI3AAAAPgAAABEAAAGPAAACNwAAAAAAAA==</window_CXVirtualKeyboard>
   <window_CXTurnDialog>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_CXTurnDialog>
   <window_CXUtilsWindow>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_CXUtilsWindow>
   <window_CXFilesList1>AdnQywABAAAAAAGiAAAAKwAAA14AAAJ5AAABogAAACsAAANeAAACeQAAAAAAAA==</window_CXFilesList1>
-  <window_CXTextParameters>AdnQywABAAAAAAH9AAAAKwAAA4IAAACHAAAB/QAAACsAAAOCAAAAhwAAAAAAAA==</window_CXTextParameters>
+  <window_CXTextParameters>AdnQywABAAAAAAGcAAAAKwAAA5EAAACHAAABnAAAACsAAAORAAAAhwAAAAAAAA==</window_CXTextParameters>
 </Settings>
