@@ -230,6 +230,9 @@ void CXFilesList::onCompileFile()
 {
 	if (mFileName.isEmpty()) return;
 
+	//не компилировать пока не закочена предыдущая компиляция.
+	if (mProcess != NULL) return;
+
 	mProcess = new CXProcess(this);
 
 	connect(mProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(onProcessFinish(int, QProcess::ExitStatus)));
