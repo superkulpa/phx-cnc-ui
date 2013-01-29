@@ -8,31 +8,27 @@
   <kernel_port>7755</kernel_port>
   <virtual_keyboard>1</virtual_keyboard>
   <style>
-	QWidget { font-size: 13pt; }
 	QTabBar::tab { padding: 15px; }
 	CXTitleWindow QLabel, CXTitleWindow QAbstractButton { border: 1px solid gray; min-width: 200px; }
 	AXBaseWindow, QDialog { background-color: silver; }
-	CXPathView { font-size: 10pt; }
 	CXProcessingParametersWindow QAbstractButton, CXEditPathFile QAbstractButton, CXPathWindow QAbstractButton { min-height: 30px; padding: 15px; }
 	CXFilesList QAbstractButton { padding: 20px 35px; }
-	CXFilesList QLineEdit { font-size: 16pt; padding: 5px; }
+	CXFilesList QLineEdit { padding: 5px; }
 	CXGroupPanel QAbstractButton { min-width: 105px; min-height: 75px; }
 	CXIniFileList QAbstractButton { padding: 15px; }
-	CXTurnDialog * { font-size: 14pt; }
 	CXTurnDialog QAbstractButton { min-width: 100px; min-height: 75px; }
 	CXTurnDialog #mTurnSettings QAbstractButton { min-width: 200px; }
-	CXLazerVelocity QAbstractButton { font-size: 24pt; min-height: 140px; min-width: 100px; }
-	CXLazerVelocity QLabel { font-size: 80pt; min-width: 100px; }
+	CXLazerVelocity QAbstractButton { min-height: 140px; min-width: 100px; }
+	CXLazerVelocity QLabel { min-width: 100px; }
 	CXLazerSettings QAbstractButton { min-width: 80px; min-height: 75px; }
 	CXLazerSettings #mButtonWidget QAbstractButton { min-height: 65px; }
 	CXLazerSettings #mButtonWidget QAbstractButton:checked { background-color: green; }
-	CXLazerSettings QLabel { font-size: 14pt; min-width: 50px; }
+	CXLazerSettings QLabel { min-width: 50px; }
 	CXLazerDirectionWindow QAbstractButton { min-height: 75px; padding: 0px; }
-	CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { min-height: 50px; min-width: 60px; font-size: 14pt; }
+	CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { min-height: 50px; min-width: 60px; }
 	CXLazerDirectionWindow #mFLabel { padding: 5px 15px 5px 37px; }
-	CXLazerDirectionWindow QLineEdit { font-size: 16pt; padding: 5px; }
-	CXLazerDirectionWindow QLabel { font-size: 14pt; }
-	CXLazerDirectionDialog QAbstractButton { min-width: 100px; min-height: 75px; font-size: 14pt; }
+	CXLazerDirectionWindow QLineEdit { padding: 5px; }
+	CXLazerDirectionDialog QAbstractButton { min-width: 100px; min-height: 75px; }
 	CXExitDialog QAbstractButton { padding: 30px 60px; }
 	QToolBox QAbstractButton { min-height: 40px; }
 	CXVirtualKeyboard CXTouchButton { min-width: 80px; min-height: 50px; }
@@ -41,6 +37,18 @@
 	QScrollBar:horizontal { height: 40px; }
 	QScrollBar:vertical { width: 40px; }
 	QScrollBar::sub-line:vertical { height: 30px; }
+
+	QWidget { font-size: 13pt; }
+	CXPathView { font-size: 10pt; }
+	CXFilesList QLineEdit { font-size: 16pt; }
+	CXTurnDialog * { font-size: 14pt; }
+	CXLazerVelocity QAbstractButton { font-size: 24pt; }
+	CXLazerVelocity QLabel { font-size: 80pt; }
+	CXLazerSettings QLabel { font-size: 14pt; }
+	CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { font-size: 14pt; }
+	CXLazerDirectionWindow QLineEdit { font-size: 16pt; }
+	CXLazerDirectionWindow QLabel { font-size: 14pt; }
+	CXLazerDirectionDialog QAbstractButton { font-size: 14pt; }
   </style>
   <window_AXBaseWindow>AdnQywABAAAAAAH9AAAAKwAAA4IAAACHAAAB/QAAACsAAAOCAAAAhwAAAAAAAA==</window_AXBaseWindow>
   <window_CXParametersWindow>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_CXParametersWindow>
