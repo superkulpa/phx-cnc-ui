@@ -290,12 +290,14 @@ void CXFilesList::onLoadCheckFile()
 		mIsCompileNeed = false;
 		onCompileFile();
 
-		if (mButton != NULL) mButton->setText( mButton->text().replace(QRegExp("\n.*"), trUtf8("\nЗагрузить")));
+		if (mButton != NULL) mButton->setText(mButton->text().replace(QRegExp("\n.*"), trUtf8("\nЗагрузить")));
 
 		return;
 	}
 
 /**/
+	//не загружать пока не закочена компиляция.
+	if (mProcess != NULL) return;
 
 	CXProcessingParametersWindow* parametersWindow = new CXProcessingParametersWindow(this);
 	parametersWindow->setAttribute(Qt::WA_DeleteOnClose);
