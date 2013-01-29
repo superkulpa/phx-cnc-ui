@@ -36,10 +36,6 @@ private slots:
 	void updateValue();
 
 private:
-	//! Функция получения задержки.
-	static int getDelay();
-
-private:
 	static int mDelay;
 
 	QAbstractItemView* mParentWidget;

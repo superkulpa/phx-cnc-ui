@@ -15,11 +15,11 @@ CXEditPathFile::CXEditPathFile() : AXBaseWindow()
 	mSaveDialog = NULL;
 
 	mTextEdit->setReadOnly(true);
-
+/*
 	mSaveButton->setFont(QFont("", mSaveButton->height() / 5));
 	mSaveAsButton->setFont(QFont("", mSaveButton->height() / 5));
 	mCreateButton->setFont(QFont("", mSaveButton->height() / 5));
-
+*/
 	new CXSyntaxHighlighter(mTextEdit->document());
 
 	connect(mSaveButton, SIGNAL(clicked()), this, SLOT(onSave()));

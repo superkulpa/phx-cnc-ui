@@ -72,6 +72,9 @@ public slots:
 	*/
 	void setFreeze(bool aIsFreeze);
 
+	//! Функция показа/скрытия виртуальной клавиатуры.
+	void changeVisibleVirtualKeyboard();
+
 protected:
 	virtual bool eventFilter(QObject* watched, QEvent* e);
 

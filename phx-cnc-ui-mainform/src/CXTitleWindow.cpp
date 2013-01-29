@@ -15,6 +15,7 @@ CXTitleWindow::CXTitleWindow() : AXBaseWindow()
 
 	mControlButton = new QPushButton(trUtf8("Управление выкл."), this);
 	mControlButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+	mControlButton->setFocusPolicy(Qt::NoFocus);
 	centralLayout->addWidget(mControlButton);
 
 	QLabel* lbl2 = new QLabel(this);

@@ -18,7 +18,7 @@ CXLazerDirectionView::CXLazerDirectionView(QWidget* parent) : QWidget(parent)
 	qreal y = 0;
 
 	mDelayTimer = -1;
-	if (mDelay == 0) mDelay = getDelay();
+	if (mDelay == 0) mDelay = CXSettingsXML::getDelay("settings.xml", "delay");
 
 	QPainterPath path;
 	path.addEllipse(QPointF(50, 50), RADIUS, RADIUS);
@@ -193,11 +193,4 @@ void CXLazerDirectionView::updateDirection(const QPointF& aPos)
 			break;
 		}
 	}
-}
-
-int CXLazerDirectionView::getDelay()
-{
-	int value = CXSettingsXML::getValue("settings.xml", "delay").toInt();
-
-	return qMax(200, value);
 }

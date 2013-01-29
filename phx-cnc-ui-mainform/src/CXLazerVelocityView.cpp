@@ -13,7 +13,7 @@ CXLazerVelocityView::CXLazerVelocityView(QWidget* parent) : QWidget(parent)
 	mVelocity = E_Normal;
 
 	mDelayTimer = -1;
-	if (mDelay == 0) mDelay = getDelay();
+	if (mDelay == 0) mDelay = CXSettingsXML::getDelay("settings.xml", "delay");
 
 	qreal width = 25;
 
@@ -192,11 +192,4 @@ void CXLazerVelocityView::setCurrentVelocity(eVelocity aVelocity)
 
 //		update();
 	}
-}
-
-int CXLazerVelocityView::getDelay()
-{
-	int value = CXSettingsXML::getValue("settings.xml", "delay").toInt();
-
-	return qMax(200, value);
 }

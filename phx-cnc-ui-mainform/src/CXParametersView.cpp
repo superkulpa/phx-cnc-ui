@@ -23,7 +23,7 @@ CXParameterItemDelegate::CXParameterItemDelegate(QAbstractItemView* parent) : QS
 
 	mModel = NULL;
 
-	if (mDelay == 0) mDelay = getDelay();
+	if (mDelay == 0) mDelay = CXSettingsXML::getDelay("settings.xml", "delay");
 }
 
 QWidget* CXParameterItemDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -213,13 +213,6 @@ void CXParameterItemDelegate::timerEvent(QTimerEvent* e)
 void CXParameterItemDelegate::updateValue()
 {
 	emit commitData(qobject_cast<QWidget*>(sender()));
-}
-
-int CXParameterItemDelegate::getDelay()
-{
-	int value = CXSettingsXML::getValue("settings.xml", "delay").toInt();
-
-	return qMax(200, value);
 }
 
 /**/

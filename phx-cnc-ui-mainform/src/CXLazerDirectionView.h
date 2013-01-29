@@ -67,9 +67,6 @@ private:
 	*/
 	void updateDirection(const QPointF& aPos);
 
-	//! Функция получения задержки.
-	static int getDelay();
-
 private:
 	static int mDelay;
 	int mDelayTimer;

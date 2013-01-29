@@ -73,9 +73,6 @@ private:
 	//! Функция установки текущего значения скорости.
 	void setCurrentVelocity(eVelocity aVelocity);
 
-	//! Функция получения задержки.
-	static int getDelay();
-
 private:
 	static int mDelay;
 	int mDelayTimer;
