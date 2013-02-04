@@ -237,6 +237,7 @@ void CXWindowsManager::load(const QString& aClassName, AXBaseWindow* aWindow)
 	}
 */
 	if (aWindow == NULL) return;
+	if (!QFile::exists(mFileName)) return;
 
 	QFile xmlFile(mFileName);
 
