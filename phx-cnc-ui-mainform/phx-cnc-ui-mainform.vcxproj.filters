@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Form Files">
@@ -107,6 +107,9 @@
     <ClCompile Include="src\CXProcessingParametersWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CXSettingsXML.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\CXSyntaxHighlighter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -141,6 +144,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXProcess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -205,6 +211,9 @@
     <CustomBuild Include="src\CXProcessingParametersWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="src\CXSettingsXML.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\CXSyntaxHighlighter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -408,34 +417,34 @@
     <ClCompile Include="release\qrc_resource.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClInclude Include="ui_CXEditPathFile.h">
+    <ClInclude Include="GeneratedFiles\ui_CXEditPathFile.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui_CXExitDialog.h">
+    <ClInclude Include="GeneratedFiles\ui_CXExitDialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui_CXFilesList.h">
+    <ClInclude Include="GeneratedFiles\ui_CXFilesList.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui_CXIniFileEditor.h">
+    <ClInclude Include="GeneratedFiles\ui_CXIniFileEditor.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui_CXIniFileList.h">
+    <ClInclude Include="GeneratedFiles\ui_CXIniFileList.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui_CXLazerDirectionDialog.h">
+    <ClInclude Include="GeneratedFiles\ui_CXLazerDirectionDialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui_CXLazerSettings.h">
+    <ClInclude Include="GeneratedFiles\ui_CXLazerSettings.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui_CXProcessingParametersWindow.h">
+    <ClInclude Include="GeneratedFiles\ui_CXProcessingParametersWindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui_CXTurnDialog.h">
+    <ClInclude Include="GeneratedFiles\ui_CXTurnDialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui_CXVirtualKeyboard.h">
+    <ClInclude Include="GeneratedFiles\ui_CXVirtualKeyboard.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -484,5 +493,10 @@
     <None Include="images\up.png">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\CXProcess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
