@@ -348,8 +348,11 @@ void CXFilesList::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatu
 		compileFile.close();
 	}
 
-	mProcess->deleteLater();
-	mProcess = NULL;
+	if (mProcess != NULL)
+	{
+		mProcess->deleteLater();
+		mProcess = NULL;
+	}
 }
 
 void CXFilesList::onProcessError(QProcess::ProcessError aError)

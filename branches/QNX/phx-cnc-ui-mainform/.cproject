@@ -8,11 +8,8 @@
 				<externalSettings/>
 				<extensions>
 					<extension id="com.qnx.tools.ide.qde.core.QDEBynaryParser" point="org.eclipse.cdt.core.BinaryParser"/>
-					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
-					<extension id="com.qnx.tools.ide.qde.core.QDELinkerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -28,10 +25,23 @@
 							<tool id="com.qnx.qcc.tool.compiler.1922718311" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.699669634" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compile.debug.945523561" name="Debug (-g)" superClass="com.qnx.qcc.option.compile.debug" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.680660206" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;D:\QNX650\target\qnx6\usr\include\qt4&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:D:\QNX650\target\qnx6\usr\include\qt4\QtCore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:D:\QNX650\target\qnx6\usr\include\qt4\QtGui}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:D:\QNX650\target\qnx6\usr\include\qt4\QtXML}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;D:\QNX650\target\qnx6\usr\include\qt4\QtXmlPatterns&quot;"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1775470386" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1537457596" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<option id="com.qnx.qcc.option.assembler.debug.1287229799" name="Debug (-g)" superClass="com.qnx.qcc.option.assembler.debug" value="true" valueType="boolean"/>
+								<option id="com.qnx.qcc.option.assembler.includePath.435090279" name="Include Directories (-I)" superClass="com.qnx.qcc.option.assembler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;D:\QNX650\target\qnx6\usr\include\qt4&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:D:\QNX650\target\qnx6\usr\include\qt4\GtCore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:D:\QNX650\target\qnx6\usr\include\qt4\QtGui}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:D:\QNX650\target\qnx6\usr\include\qt4\QtXML}&quot;"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.assembler.970529761" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.166041715" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
@@ -59,6 +69,21 @@
 	<storageModule moduleId="refreshScope" versionNumber="1">
 		<resource resourceType="PROJECT" workspacePath="/phx-cnc-ui-mainform"/>
 	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812;cdt.managedbuild.config.gnu.mingw.exe.debug.298795812.;cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.1587291394;cdt.managedbuild.tool.gnu.c.compiler.input.1897549131">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812;cdt.managedbuild.config.gnu.mingw.exe.debug.298795812.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.2725331;cdt.managedbuild.tool.gnu.cpp.compiler.input.1411994147">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.qnx.tools.ide.qde.managedbuilder.core.qccScannerInfo"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812;cdt.managedbuild.config.gnu.mingw.exe.debug.298795812.;com.qnx.qcc.tool.compiler.1922718311;com.qnx.qcc.inputType.compiler.1775470386">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.qnx.tools.ide.qde.managedbuilder.core.qccScannerInfo"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
 			<target name="clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
@@ -79,7 +104,7 @@
 			</target>
 			<target name="qmake" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>qmake</buildCommand>
-				<buildArguments> -r -spec unsupported/qws/qnx-i386-g++ ../*.pro</buildArguments>
+				<buildArguments> -r -spec  win32-g++  ../*.pro</buildArguments>
 				<buildTarget/>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
@@ -88,26 +113,10 @@
 			<target name="qmake arm" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>qmake</buildCommand>
 				<buildArguments> -r -spec unsupported/qws/qnx-armv7-g++ *.pro</buildArguments>
-				<buildTarget/>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
 		</buildTargets>
-	</storageModule>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812;cdt.managedbuild.config.gnu.mingw.exe.debug.298795812.;cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.1587291394;cdt.managedbuild.tool.gnu.c.compiler.input.1897549131">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812;cdt.managedbuild.config.gnu.mingw.exe.debug.298795812.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.2725331;cdt.managedbuild.tool.gnu.cpp.compiler.input.1411994147">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.qnx.tools.ide.qde.managedbuilder.core.qccScannerInfo"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812;cdt.managedbuild.config.gnu.mingw.exe.debug.298795812.;com.qnx.qcc.tool.compiler.1922718311;com.qnx.qcc.inputType.compiler.1775470386">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.qnx.tools.ide.qde.managedbuilder.core.qccScannerInfo"/>
-		</scannerConfigBuildInfo>
 	</storageModule>
 </cproject>
