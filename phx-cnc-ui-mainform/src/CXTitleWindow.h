@@ -30,7 +30,7 @@ private slots:
 
 private:
 	QLabel* mFileLabel;
-
+	QLabel* mCPStateLabel;
 	QPushButton* mControlButton;
 	QString mFileName;
 };

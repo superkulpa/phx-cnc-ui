@@ -18,10 +18,10 @@ CXUdpManager::CXUdpManager(QObject* parent) : QUdpSocket(parent)
 
 	connect(this, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 
-	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
-	QString port = CXSettingsXML::getValue("settings.xml", "kernel_port");
+	host = QHostAddress(CXSettingsXML::getValue("settings.xml", "kernel_ip"));
+	port = CXSettingsXML::getValue("settings.xml", "kernel_port").toInt();
 
-	bind(QHostAddress(host), port.toInt());
+	bind(QHostAddress::Any, port);
 }
 
 CXUdpManager::~CXUdpManager()
@@ -35,7 +35,7 @@ void CXUdpManager::sendCommand(const String& aSection, const String& aCommand, c
 	command = command.arg(QString::fromStdString(Commands::SIMPLE_DELIMITER)).arg(QString::fromStdString(Commands::DELIMITER)).arg(QString::fromStdString(Commands::END_OF_MESSAGE));
 	command = command.arg(QString::fromStdString(aSection)).arg(QString::fromStdString(aCommand)).arg(QString::fromStdString(aValue));
 
-	writeDatagram(QByteArray().append(command), QHostAddress::LocalHost, 7755);
+	writeDatagram(QByteArray().append(command), host, port);
 }
 
 void CXUdpManager::onReadyRead()
