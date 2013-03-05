@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?fileVersion 4.0.0?>
-
-<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812" moduleId="org.eclipse.cdt.core.settings" name="Debug">
@@ -20,7 +18,7 @@
 					<folderInfo id="cdt.managedbuild.config.gnu.mingw.exe.debug.298795812." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.exe.debug.1623816694" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.exe.debug">
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.exe.debug.1345141520" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.mingw.exe.debug"/>
-							<builder buildPath="${workspace_loc:/phx-cnc-ui-mainform-win32/build}" id="cdt.managedbuild.builder.gnu.cross.1070098513" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
+							<builder arguments="-j4" buildPath="${workspace_loc:/phx-cnc-ui-mainform}/build" command="make" id="cdt.managedbuild.builder.gnu.cross.1070098513" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.mingw.exe.debug.1843154580" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.exe.debug">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1921981667" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
@@ -28,6 +26,17 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.2725331" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug">
 								<option id="gnu.cpp.compiler.mingw.exe.debug.option.optimization.level.1091403549" name="Optimization Level" superClass="gnu.cpp.compiler.mingw.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.mingw.exe.debug.option.debugging.level.339072924" name="Debug Level" superClass="gnu.cpp.compiler.mingw.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.include.paths.1501533711" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;D:\QtSDK\Desktop\Qt\4.7.4\mingw\include\ActiveQt&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;D:\QtSDK\Desktop\Qt\4.7.4\mingw\include\Qt&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;D:\QtSDK\Desktop\Qt\4.7.4\mingw\include\QtCore&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;D:\QtSDK\Desktop\Qt\4.7.4\mingw\include\QtNetwork&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;D:\QtSDK\Desktop\Qt\4.7.4\mingw\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;D:\QtSDK\Desktop\Qt\4.7.4\mingw\include\QtGui&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;D:\QtSDK\Desktop\Qt\4.7.4\mingw\include\QtXml&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;D:\QtSDK\Desktop\Qt\4.7.4\mingw\include\QtXmlPatterns&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CNC}&quot;"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1411994147" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.1587291394" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug">
@@ -64,18 +73,22 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="refreshScope" versionNumber="1">
+		<resource resourceType="PROJECT" workspacePath="/phx-cnc-ui-mainform-win32"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
 			<target name="clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
-				<buildArguments/>
+				<buildArguments>-j4</buildArguments>
 				<buildTarget>clean</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
 			</target>
 			<target name="make" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
+				<buildCommand>mingw32-make</buildCommand>
 				<buildArguments>-f Makefile</buildArguments>
 				<buildTarget>all</buildTarget>
 				<stopOnError>true</stopOnError>
@@ -85,15 +98,10 @@
 			<target name="qmake" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>qmake</buildCommand>
 				<buildArguments> -r -spec  win32-g++  ../*.pro</buildArguments>
-				<buildTarget/>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
 		</buildTargets>
 	</storageModule>
-	<storageModule moduleId="refreshScope" versionNumber="1">
-		<resource resourceType="PROJECT" workspacePath="/phx-cnc-ui-mainform-win32"/>
-	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>
