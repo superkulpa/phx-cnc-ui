@@ -18,9 +18,9 @@ CXTitleWindow::CXTitleWindow() : AXBaseWindow()
 	mControlButton->setFocusPolicy(Qt::NoFocus);
 	centralLayout->addWidget(mControlButton);
 
-	QLabel* lbl2 = new QLabel(this);
-	lbl2->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-	centralLayout->addWidget(lbl2);
+	mCPStateLabel = new QLabel(trUtf8("Ручное упр."), this);
+	mCPStateLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+	centralLayout->addWidget(mCPStateLabel);
 
 	mFileLabel = new QLabel(this);
 	centralLayout->addWidget(mFileLabel);
@@ -45,7 +45,7 @@ void CXTitleWindow::onFileOpen(const QString& aFileName)
 
 void CXTitleWindow::onControl()
 {
-	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CONTROL, "0");
+	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CONTROL, Commands::MSG_VALUE_INVERT);
 }
 
 void CXTitleWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
@@ -57,12 +57,25 @@ void CXTitleWindow::onCommandReceive(const QString& aSection, const QString& aCo
 			if (aValue == QString::fromStdString(Commands::MSG_VALUE_ON))
 			{
 				mControlButton->setStyleSheet("background-color: green;");
+				mControlButton->setText(trUtf8("Управление вкл."));
 			}
 			else
 			{
 				mControlButton->setStyleSheet("");
+				mControlButton->setText(trUtf8("Управление выкл."));
 			}
-		}
+		}else if (aCommand == QString::fromStdString(Commands::MSG_STATE_STOP_CP)){
+		  mCPStateLabel->setText(trUtf8("Ручное упр."));
+    }else if (aCommand == QString::fromStdString(Commands::MSG_STATE_RUN_CP)){
+      if(aValue == QString::fromStdString(Commands::MSG_VALUE_HAND))
+        mCPStateLabel->setText(trUtf8("Ручное упр."));
+      else if(aValue == QString::fromStdString(Commands::MSG_VALUE_FORWARD))
+        mCPStateLabel->setText(trUtf8("Вперед"));
+      else if(aValue == QString::fromStdString(Commands::MSG_VALUE_BACKWARD))
+        mCPStateLabel->setText(trUtf8("Назад"));
+      else if(aValue == QString::fromStdString(Commands::MSG_VALUE_FIND_TRJ))
+        mCPStateLabel->setText(trUtf8("Поиск контура"));
+    }
 	}
 
 	if (aSection == QString::fromStdString(Commands::MSG_SECTION_ALARM))
