@@ -31,7 +31,7 @@ void CXWidget::onStart()
 
 void CXWidget::onSend()
 {
-	mUdpManager->sendCommand(mSendEdit->toPlainText());
+	if (mUdpManager != NULL) mUdpManager->sendCommand(mSendEdit->toPlainText());
 }
 
 void CXWidget::onReceive(const QString& aCommand)
