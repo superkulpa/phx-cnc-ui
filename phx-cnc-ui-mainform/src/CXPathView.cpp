@@ -4,6 +4,8 @@
 #include <QWheelEvent>
 #include <qmath.h>
 
+#include "CXSettingsXML.h"
+
 #define MARGIN 5
 
 CXPathView::CXPathView(QWidget* parent) : QWidget(parent)
@@ -22,6 +24,8 @@ CXPathView::CXPathView(QWidget* parent) : QWidget(parent)
 	mCellSize = 40;
 	mIsFirstStart = false;
 	mIsPositionVisible = false;
+
+	mRotateAxis = CXSettingsXML::getValue("settings.xml", "rotateAxis").toInt();
 }
 
 CXPathView::~CXPathView()
@@ -183,8 +187,21 @@ void CXPathView::paintEvent(QPaintEvent* e)
 
 	painter.setRenderHint(QPainter::Antialiasing);
 
-	painter.scale(mScale, mScale);
-	painter.translate(-mCurPosition);
+	if (mRotateAxis)
+	{
+		QTransform transform;
+		transform.scale(mScale, mScale);
+		transform.translate(-mCurPosition.x(), -mCurPosition.y());
+		transform.rotate(90.0);
+		transform.scale(1.0, -1.0);
+
+		painter.setTransform(transform);
+	}
+	else
+	{
+		painter.scale(mScale, mScale);
+		painter.translate(-mCurPosition);
+	}
 
 	painter.setPen(Qt::darkGreen);
 	painter.drawPath(mMainPath);

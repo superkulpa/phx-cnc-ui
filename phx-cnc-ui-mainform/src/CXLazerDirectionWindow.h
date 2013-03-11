@@ -67,9 +67,11 @@ private slots:
 
 	//! Слот получения команды от ядра.
 	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
+
 private:
 	void StopCP();
 	void StartCP();
+
 private:
 	bool mIsRunning;
 	CXTouchButton* mForwardButton;

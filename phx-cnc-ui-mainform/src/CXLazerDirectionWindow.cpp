@@ -175,27 +175,6 @@ void CXLazerDirectionWindow::onXYClick()
 	CXLazerDirectionDialog dialog(qobject_cast<QWidget*>(sender()));
 	dialog.mUdpManager = mUdpManager;
 	dialog.exec();
-/*
-	int res = dialog.exec();
-
-	QPointF pos = dialog.getPosition();
-
-	switch (res)
-	{
-		//абсолютное.
-		case 1:
-		{
-			emit positionChanged(pos, true);
-			break;
-		}
-		//относительное.
-		case 2:
-		{
-			emit positionChanged(pos, false);
-			break;
-		}
-	}
-*/
 }
 
 void CXLazerDirectionWindow::onDirectionChange(LazerDirectionView::eMoveDirection aDirection)
@@ -270,38 +249,40 @@ void CXLazerDirectionWindow::onVelocityChange(eVelocity aVelocity)
 
 void CXLazerDirectionWindow::onUpSpeed()
 {
-	mUdpManager->sendCommand(Commands::MSG_SECTION_MOVE, Commands::MSG_CMD_FEED, "+1");
+	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FEED, "+1");
 }
 
 void CXLazerDirectionWindow::onDownSpeed()
 {
-	mUdpManager->sendCommand(Commands::MSG_SECTION_MOVE, Commands::MSG_CMD_FEED, "-1");
+	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FEED, "-1");
 }
 
-void CXLazerDirectionWindow::StartCP(){
-  mIsRunning = true;
+void CXLazerDirectionWindow::StartCP()
+{
+	mIsRunning = true;
 
-  mForwardButton->hide();
-  mBackwardButton->hide();
-  mSearchButton->hide();
-  mLazerDirectionView->hide();
+	mForwardButton->hide();
+	mBackwardButton->hide();
+	mSearchButton->hide();
+	mLazerDirectionView->hide();
 
-  mStopButton->show();
-  mCurrentFrameLabel->show();
+	mStopButton->show();
+	mCurrentFrameLabel->show();
 
 };
 
-void CXLazerDirectionWindow::StopCP(){
-  mIsRunning = false;
+void CXLazerDirectionWindow::StopCP()
+{
+	mIsRunning = false;
 
-  mForwardButton->show();
-  mBackwardButton->show();
-  mSearchButton->show();
-  mLazerDirectionView->setDirection(LazerDirectionView::E_Stop);
-  mLazerDirectionView->show();
+	mForwardButton->show();
+	mBackwardButton->show();
+	mSearchButton->show();
+	mLazerDirectionView->setDirection(LazerDirectionView::E_Stop);
+	mLazerDirectionView->show();
 
-  mStopButton->hide();
-  mCurrentFrameLabel->hide();
+	mStopButton->hide();
+	mCurrentFrameLabel->hide();
 }
 
 void CXLazerDirectionWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
@@ -311,16 +292,15 @@ void CXLazerDirectionWindow::onCommandReceive(const QString& aSection, const QSt
 		//Стоп
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_STOP_CP))
 		{
-		  StopCP();
-    }
+			StopCP();
+		}
 
 		//Запуск
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_RUN_CP))
 		{
-		  if(aValue == QString::fromStdString(Commands::MSG_VALUE_HAND))
-		    StopCP();
-		  else StartCP();
-    }
+			if(aValue == QString::fromStdString(Commands::MSG_VALUE_HAND)) StopCP();
+			else StartCP();
+		}
 
 		//Текущий кадр.
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_CP_LINE))
@@ -334,30 +314,47 @@ void CXLazerDirectionWindow::onCommandReceive(const QString& aSection, const QSt
 		//Позиция осей.
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_POS_AXIS))
 		{
-		  //TODO реализовать красиво отображеие координат может прихолить по одной
+			//TODO реализовать красиво отображеие координат может прихолить по одной
 			QStringList list = aValue.split(",");
-			for(int i = 0; i < list.size(); i++){
-			  QString axisPosStr = list.at(i);
-			  int indx = axisPosStr.indexOf("=");
-			  int axisIndx = axisPosStr.mid(0, indx).toInt();
-			  double axisPos = axisPosStr.mid(indx + 1).toDouble() / 1000;
-			  switch(axisIndx){
-			    case 0:
-			      mXEdit->setText(QString("%1").arg(axisPos, 0, 'f', 2));
-          break;
-			    case 1:
-            mYEdit->setText(QString("%1").arg(axisPos, 0, 'f', 2));
-          break;
-			  };
-			};
-    }
+			for (int i = 0; i < list.size(); i++)
+			{
+				QString axisPosStr = list.at(i);
+				int indx = axisPosStr.indexOf("=");
+				int axisIndx = axisPosStr.mid(0, indx).toInt();
+				double axisPos = axisPosStr.mid(indx + 1).toDouble() / 1000.0;
+
+				switch (axisIndx)
+				{
+					case 0:
+					{
+						mXEdit->setText(trUtf8("%1 мм").arg(axisPos, 0, 'f', 2));
+						break;
+					}
+					case 1:
+					{
+						mYEdit->setText(trUtf8("%1 мм").arg(axisPos, 0, 'f', 2));
+						break;
+					}
+				}
+			}
+
+			QString valueX = mXEdit->text();
+			valueX = valueX.mid(0, valueX.indexOf(" "));
+
+			QString valueY = mYEdit->text();
+			valueY = valueY.mid(0, valueY.indexOf(" "));
+
+			emit positionChanged(QPointF(valueX.toDouble(), valueY.toDouble()), true);
+		}
+
 		//Текущая скорость.
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_FEED_RESULT))
 		{
-			QString value = QString("%1").arg(aValue.toDouble() / 1000.0, 0, 'f', 2);
+			QString value = trUtf8("%1 мм/мин").arg(aValue.toDouble() / 1000.0, 0, 'f', 2);
 
 			mFEdit->setText(value);
 		}
+
 		//Скорость работы (нормально, медленно, ускоренно)
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_FEED))
 		{

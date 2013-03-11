@@ -3,6 +3,8 @@
 
 #include <QUdpSocket>
 #include <QStringList>
+#include <QTextCodec>
+
 #include "../../CNC/IMessageConstants.h"
 typedef std::string String;
 
@@ -40,7 +42,7 @@ private:
 
 private:
 	QString mCommands;
-	QStringList mSections;
+	QTextCodec* mCodec;
 };
 
 #endif // CXUDPMANAGER_H

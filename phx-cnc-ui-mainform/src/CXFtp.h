@@ -63,10 +63,16 @@ public:
 	void setLoadFilesData(const QString& aSaveDir, const QString& aRemoteDir = QString());
 
 public slots:
-	//! Слот загрузки файлов c FTP.
-	void onFtpDownload();
+	/*!
+		Слот загрузки файлов c FTP.
+		\param aFiles - фильтр расширений файлов.
+	*/
+	void onFtpDownload(const QStringList& aFiles = QStringList());
 
-	//! Слот загрузки файлов на FTP.
+	/*!
+		Слот загрузки файлов на FTP.
+		\param aFiles - фильтр расширений файлов.
+	*/
 	void onFtpUpload(const QStringList& aFiles = QStringList());
 
 signals:
@@ -81,6 +87,9 @@ signals:
 
 	//! Сигнал о завершении загрузки.
 	void allFilesIsLoaded(bool aIsUpload);
+
+	//! Сигнал об ошибке.
+	void errorReceived();
 
 protected:
 	//! Функция событий таймера.
@@ -157,6 +166,7 @@ private:
 
 	QFile* mLoadFile;
 
+	QStringList mFileFilters;
 	QList <CXFtpFileInfo> mFilesList;
 };
 

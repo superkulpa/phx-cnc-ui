@@ -344,12 +344,17 @@ int main(int argc, char *argv[])
 /**/
 	//Общий заголовок
 	CXTitleWindow* title = new CXTitleWindow();
-	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)),	title, SLOT(onFileOpen(const QString&)));
+	QObject::connect(windows.value("CXFilesList"),		SIGNAL(fileOpened(const QString&)),	title, SLOT(onFileOpen(const QString&)));
+	QObject::connect(windows.value("CXTextParameters"),	SIGNAL(errorReceived(const QString&)),	title, SLOT(onErrorReceive(const QString&)));
 
 	//Загрузка данных о геометрии окон (обязательно только после их создания!).
 	manager.load("settings.xml");
 	//Установка текущей группы.
 	manager.setCurrentGroup(1);
+
+	AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_START, Commands::MSG_CMD_FORM_RESTART, "0");
+	CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
+	parametersWindow->loadParametersFromFtp();
 
 	return app.exec();
 }

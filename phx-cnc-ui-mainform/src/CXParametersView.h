@@ -93,8 +93,18 @@ public:
 	CXParametersView(QWidget* parent, QList <CXParameterData*> aParameters);
 	~CXParametersView();
 
+	/*!
+		Функция проверки на модификацию данных.
+		\return true - данные были изменены, иначе false.
+	*/
+	bool isModified();
+
 protected slots:
 	virtual void closeEditor(QWidget* editor, QAbstractItemDelegate::EndEditHint hint);
+
+private slots:
+	//! Слот на изменение данных в модели.
+	void onDataChange();
 
 public:
 	//! Номер группы параметров, которые будут отображены.
@@ -105,6 +115,9 @@ public:
 
 	//! Статический список параметров с привязкой к номеру группы.
 	static QMap<int, CXParameterData*> mDataMap;
+
+private:
+	bool mIsModified;
 };
 
 #endif // CXPARAMETERSVIEW_H
