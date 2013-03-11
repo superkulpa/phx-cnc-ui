@@ -1,12 +1,14 @@
 #include "CXUdpManager.h"
 
+#include <QTextCodec>
+
 CXUdpManager::CXUdpManager(const QString& aHost, int aPort, QObject* parent) : QUdpSocket(parent)
 {
 	connect(this, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 
 	mHost = aHost;
 	mPort = aPort;
-	bind(QHostAddress(mHost), mPort);
+	bind(QHostAddress::Any, mPort);
 }
 
 CXUdpManager::~CXUdpManager()
@@ -16,7 +18,9 @@ CXUdpManager::~CXUdpManager()
 
 void CXUdpManager::sendCommand(const QString& aCommand)
 {
-	writeDatagram(QByteArray().append(aCommand), QHostAddress(mHost), mPort);
+	QTextCodec* codec = QTextCodec::codecForName("UTF-8");
+	
+	writeDatagram(codec->fromUnicode(aCommand), QHostAddress(mHost), mPort);
 }
 
 void CXUdpManager::onReadyRead()
@@ -30,6 +34,6 @@ void CXUdpManager::onReadyRead()
 
 		readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
 
-		emit commandReceived(datagram);
+		emit commandReceived(QTextCodec::codecForName("UTF-8")->toUnicode(datagram));
 	}
 }
