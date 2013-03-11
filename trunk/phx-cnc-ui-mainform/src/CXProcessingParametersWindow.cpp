@@ -2,6 +2,8 @@
 
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QFileInfo>
+#include <QDir>
 
 #include "CXParametersView.h"
 #include "CXWindowsManager.h"
@@ -25,20 +27,24 @@ CXProcessingParametersWindow::~CXProcessingParametersWindow()
 {
 }
 
+void CXProcessingParametersWindow::setFileName(const QString& aFileName)
+{
+	mFileName = aFileName;
+}
+
 void CXProcessingParametersWindow::onFileLoad()
 {
 	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
 
+	QFileInfo fileInfo(mFileName);
+
 	mFtp = new CXFtp(this);
 	mFtp->setConnectData(host, 21, "ftp", "ftp");
-	mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/tmp", "pub/updates/jini");
+	mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath(), "unitverru/www/!test!");
 
 	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
 
-	mFtp->onFtpUpload(QStringList()  << "list.kerf.cpr.ccp");
-
-	AXBaseWindow::mManager->setCurrentGroup(4);
-	accept();
+	mFtp->onFtpUpload(QStringList() << fileInfo.fileName());
 }
 
 void CXProcessingParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
@@ -49,4 +55,7 @@ void CXProcessingParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 
 	mFtp->deleteLater();
 	mFtp = NULL;
+
+	AXBaseWindow::mManager->setCurrentGroup(4);
+	accept();
 }

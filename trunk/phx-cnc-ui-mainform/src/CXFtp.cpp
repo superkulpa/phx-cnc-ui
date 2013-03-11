@@ -42,9 +42,10 @@ void CXFtp::setLoadFilesData(const QString& aSaveDir, const QString& aRemoteDir)
 	mSaveDir = aSaveDir;
 }
 
-void CXFtp::onFtpDownload()
+void CXFtp::onFtpDownload(const QStringList& aFiles)
 {
 	mIsUpload = false;
+	mFileFilters = aFiles;
 
 	loadFiles();
 }
@@ -92,7 +93,8 @@ void CXFtp::timerEvent(QTimerEvent* e)
 			}
 		}
 
-		emit allFilesIsLoaded(mIsUpload);
+		emit error();
+//		emit allFilesIsLoaded(mIsUpload);
 	}
 }
 
@@ -100,7 +102,7 @@ void CXFtp::onStateChanged(int aState)
 {
 	if (aState == QFtp::Unconnected)
 	{
-		emit allFilesIsLoaded(mIsUpload);
+//		emit allFilesIsLoaded(mIsUpload);
 	}
 }
 
@@ -179,7 +181,16 @@ void CXFtp::onFtpCommandFinish(int id, bool aIsError)
 			break;
 		}
 		case QFtp::Put:
+		{
+			QString fileName = mFilesList.first().mFileName;
+			fileName = QFileInfo(fileName).fileName();
+
+			rawCommand(QString("chmod 666 %1").arg(fileName));
+
+			break;
+		}
 		case QFtp::Get:
+		case QFtp::RawCommand:
 		{
 			clearCurrentFileData();
 
@@ -200,7 +211,10 @@ void CXFtp::onListInfo(const QUrlInfo& aInfo)
 {
 	if (aInfo.isFile())
 	{
-		mFilesList.append(CXFtpFileInfo(aInfo.name(), aInfo.size()));
+		if (mFileFilters.isEmpty() || mFileFilters.contains(QFileInfo(aInfo.name()).completeSuffix()))
+		{
+			mFilesList.append(CXFtpFileInfo(aInfo.name(), aInfo.size()));
+		}
 	}
 }
 
@@ -273,6 +287,7 @@ void CXFtp::loadNextFile()
 		else
 		{
 			mLoadFile = new QFile(mSaveDir + QDir::separator() + fileName);
+
 			if (!mLoadFile->open(QIODevice::WriteOnly))
 			{
 				onFtpError(trUtf8("Не удалось создать файл:\n%1").arg(mLoadFile->fileName()));
@@ -282,13 +297,23 @@ void CXFtp::loadNextFile()
 				return;
 			}
 
+			if (!mLoadFile->setPermissions(QFile::WriteOwner | QFile::WriteUser | QFile::WriteGroup))
+			{
+				onFtpError(trUtf8("Не удалось изменить права доступа файла:\n%1").arg(mLoadFile->fileName()));
+			}
+
 			get(fileName);
 		}
 
 		emit progressTextChanged(fileName);
 	}
 
-	if (mFilesList.isEmpty()) close();
+	if (mFilesList.isEmpty())
+	{
+		close();
+
+		emit allFilesIsLoaded(mIsUpload);
+	}
 }
 
 void CXFtp::clearCurrentFileData()
@@ -310,4 +335,6 @@ void CXFtp::onFtpError(const QString& aErrorText)
 	close();
 
 	QMessageBox::information(NULL, trUtf8("Ошибка"), aErrorText);
+
+	emit error();
 }

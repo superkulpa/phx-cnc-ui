@@ -144,6 +144,7 @@ private:
 private:
 	qreal mScale;		//текущий мастаб
 
+	bool mRotateAxis;
 	bool mIsFirstStart;
 	bool mIsPositionVisible;
 

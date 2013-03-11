@@ -39,11 +39,18 @@ public slots:
 	//! Слот установки текста в прогресс загрузки.
 	void setProgressText(const QString& aText);
 
+	//! Слот на закрытие FTP.
+	void closeFtp();
+
 	//! Слот, вызываемый по окончанию загрузки.
 	void onAllFilesIsLoaded(bool aIsUpload);
 
 	//! Слот показа настроек.
 	void showSettings();
+
+protected:
+	//! Функция событий таймера.
+	void timerEvent(QTimerEvent* e);
 
 private slots:
 	//! Слот на нажатие кнопки.
@@ -70,6 +77,9 @@ private:
 	QProgressBar* mProgressBar;
 	CXFtp* mFtp;
 	bool mIsSystem;
+	bool mIsUpload;
+
+	int mWaitTimer;
 
 	QList <QPushButton*> mButtons;
 };

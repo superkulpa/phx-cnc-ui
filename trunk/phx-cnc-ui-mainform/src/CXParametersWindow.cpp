@@ -5,9 +5,9 @@
 //#include <QSettings>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QMessageBox>
 
 #include "CXFtp.h"
-#include "CXParametersView.h"
 #include "CXParametersView.h"
 #include "iniFile.h"
 #include "AXBaseWindow.h"
@@ -17,6 +17,8 @@
 
 CXParametersWindow::CXParametersWindow(bool aIsSystem) : AXBaseWindow()
 {
+	mWaitTimer = -1;
+	mIsUpload = false;
 	mProgressBar = NULL;
 	mIsSystem = aIsSystem;
 
@@ -46,7 +48,12 @@ void CXParametersWindow::setButtons(const QList <QPushButton*>& aButtons)
 
 void CXParametersWindow::loadParametersFromFtp()
 {
-	loadFiles(false);
+	mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "1");
+	mWaitTimer = CXSettingsXML::getValue("settings.xml", "parametersTimeout").toInt();
+
+	if (mWaitTimer <= 0) mWaitTimer = 1000;
+
+	mWaitTimer = startTimer(mWaitTimer);
 }
 
 void CXParametersWindow::loadParameters()
@@ -125,6 +132,23 @@ void CXParametersWindow::loadParameters()
 
 void CXParametersWindow::saveParameters()
 {
+	bool isModified = false;
+
+	for (int i = 0; i < mTabWidget->count(); i++)
+	{
+		CXParametersView* view = qobject_cast<CXParametersView*>(mTabWidget->widget(i));
+		if (view != NULL)
+		{
+			if (view->isModified())
+			{
+				isModified = true;
+				break;
+			}
+		}
+	}
+
+	if (!isModified) return;
+
 	QMap <int, CXParameterData*>::iterator iter;
 	for (iter = CXParametersView::mDataMap.begin(); iter != CXParametersView::mDataMap.end(); ++iter)
 	{
@@ -156,10 +180,11 @@ void CXParametersWindow::makeTabs(bool aIsSystem)
 
 void CXParametersWindow::setProgressText(const QString& aText)
 {
-	mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
+	if (mIsUpload) mProgressBar->setFormat(trUtf8("Сохранение ") + aText + " (%p%)");
+	else mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
 }
 
-void CXParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
+void CXParametersWindow::closeFtp()
 {
 	if (mProgressBar == NULL) return;
 
@@ -167,8 +192,15 @@ void CXParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 	delete mProgressBar;
 	mProgressBar = NULL;
 
+	disconnect(mFtp, 0, 0, 0);
+
 	mFtp->deleteLater();
 	mFtp = NULL;
+}
+
+void CXParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
+{
+	closeFtp();
 
 	if (!aIsUpload) loadParameters();
 	else mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "0");
@@ -177,6 +209,17 @@ void CXParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 void CXParametersWindow::showSettings()
 {
 	AXBaseWindow::mManager->setCurrentGroup(3);
+}
+
+void CXParametersWindow::timerEvent(QTimerEvent* e)
+{
+	if (e->timerId() == mWaitTimer)
+	{
+		killTimer(mWaitTimer);
+		mWaitTimer = -1;
+
+		QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Нет ответа от ядра."));
+	}
 }
 
 void CXParametersWindow::buttonClicked()
@@ -197,13 +240,15 @@ void CXParametersWindow::onCommandReceive(const QString& aSection, const QString
 	{
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_RELOAD_PARAMS))
 		{
-			loadParametersFromFtp();
+			loadFiles(false);
 		}
 	}
 }
 
 void CXParametersWindow::loadFiles(bool aIsUpload)
 {
+	mIsUpload = aIsUpload;
+
 	mProgressBar = new QProgressBar;
 	mProgressBar->setWindowFlags(Qt::FramelessWindowHint);
 	mProgressBar->setAlignment(Qt::AlignCenter);
@@ -215,16 +260,20 @@ void CXParametersWindow::loadFiles(bool aIsUpload)
 	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
 
 	mFtp = new CXFtp(this);
-	mFtp->setConnectData(host, 21, "ftp", "ftp");
-	mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", "pub/updates/jini");
+
+	//mFtp->setConnectData(host, 21, "ftp", "ftp");
+	//mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", "pub/updates/jini");
+	mFtp->setConnectData("78.108.81.100", 21, "f60550", "cfqnFTP192837465");
+	mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", "unitverru/www/!test!");
 
 	connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
 	connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
 	connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
 	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
+	connect(mFtp, SIGNAL(errorReceived(bool)), this, SLOT(closeFtp()));
 
-	if (aIsUpload) mFtp->onFtpUpload();
-	else mFtp->onFtpDownload();
+	if (aIsUpload) mFtp->onFtpUpload(QStringList() << "*.ini" << "*.xml");
+	else mFtp->onFtpDownload(QStringList() << "ini" << "xml");
 
 	mProgressBar->show();
 }

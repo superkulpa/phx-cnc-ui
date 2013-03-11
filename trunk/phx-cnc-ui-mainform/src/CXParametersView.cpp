@@ -354,6 +354,8 @@ void CXParametersModel::sort(int column, Qt::SortOrder order)
 
 CXParametersView::CXParametersView(QWidget* parent, QList <CXParameterData*> aParameters) : QTableView(parent)
 {
+	mIsModified = false;
+
 	QHeaderView* horHeader = horizontalHeader();
 	horHeader->hide();
 
@@ -375,6 +377,8 @@ CXParametersView::CXParametersView(QWidget* parent, QList <CXParameterData*> aPa
 	setColumnWidth(3, 70);
 
 	horHeader->setResizeMode(0, QHeaderView::Stretch);
+
+	connect(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(onDataChange()));
 }
 
 CXParametersView::~CXParametersView()
@@ -382,7 +386,17 @@ CXParametersView::~CXParametersView()
 	;
 }
 
+bool CXParametersView::isModified()
+{
+	return mIsModified;
+}
+
 void CXParametersView::closeEditor(QWidget* editor, QAbstractItemDelegate::EndEditHint hint)
 {
 	QTableView::closeEditor(editor, hint);
+}
+
+void CXParametersView::onDataChange()
+{
+	mIsModified = true;
 }

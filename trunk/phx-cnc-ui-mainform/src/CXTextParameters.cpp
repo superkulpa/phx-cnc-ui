@@ -13,6 +13,7 @@ CXTextParameters::CXTextParameters() : AXBaseWindow()
 	mTextEdit = new QTextEdit(this);
 	mTextEdit->setReadOnly(true);
 	mTextEdit->setMinimumHeight(10);
+	mTextEdit->setPlainText(trUtf8("Нет сообщений"));
 	centralLayout->addWidget(mTextEdit);
 
 	connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)), this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
@@ -55,5 +56,13 @@ void CXTextParameters::onCommandReceive(const QString& aSection, const QString& 
 				mTextEdit->setText(mTextEdit->toPlainText().replace(aValue, ""));
 			}
 		}
+
+		QString errorText = mTextEdit->toPlainText();
+
+		if (errorText.indexOf("\n") >= 0) errorText = errorText.mid(0, errorText.indexOf("\n"));
+
+		emit errorReceived(errorText);
+
+		if (mTextEdit->toPlainText().isEmpty()) mTextEdit->setPlainText(trUtf8("Нет сообщений"));
 	}
 }

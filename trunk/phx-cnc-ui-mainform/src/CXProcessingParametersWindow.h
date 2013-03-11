@@ -17,6 +17,12 @@ public:
 	CXProcessingParametersWindow(QWidget* parent);
 	~CXProcessingParametersWindow();
 
+	/*!
+		Установка имени откомпилированного файла.
+		\param aFileName - имя файла.
+	*/
+	void setFileName(const QString& aFileName);
+
 private slots:
 	//! Слот на загрузку.
 	void onFileLoad();
@@ -25,6 +31,7 @@ private slots:
 	void onAllFilesIsLoaded(bool aIsUpload);
 
 private:
+	QString mFileName;
 	CXParametersView* mParametersView;
 	CXFtp* mFtp;
 };

@@ -6,11 +6,13 @@
   <translate>ru.qm</translate>
   <kernel_ip>127.0.0.1</kernel_ip>
   <kernel_port>7755</kernel_port>
+  <rotateAxis>1</rotateAxis>
+  <parametersTimeout>1000</parametersTimeout>
   <virtual_keyboard>0</virtual_keyboard>
   <style>
 	QWidget { font-size: 11pt; }
 	QTabBar::tab { padding: 12px; }
-	CXTitleWindow QLabel, CXTitleWindow QAbstractButton { border: 1px solid gray; min-width: 75px; }
+	CXTitleWindow QLabel, CXTitleWindow QAbstractButton { border: 1px solid gray; min-width: 160px; }
 	AXBaseWindow, QDialog { background-color: silver; }
 	CXPathView { font-size: 10pt; }
 	CXProcessingParametersWindow QAbstractButton, CXEditPathFile QAbstractButton, CXPathWindow QAbstractButton { min-height: 30px; padding: 15px; }
@@ -56,7 +58,7 @@
   <window_CXLazerSettings>AdnQywABAAAAAAA+AAAAKwAAAZUAAAKwAAAAPgAAACsAAAGVAAACsAAAAAAAAA==</window_CXLazerSettings>
   <window_CXPathWindow>AdnQywABAAAAAAMwAAAAKwAABOQAAAKwAAADMAAAACsAAATkAAACsAAAAAAAAA==</window_CXPathWindow>
   <window_CXPathWindow1>AdnQywABAAAAAAGWAAAAiAAAAwUAAAKwAAABlgAAAIgAAAMFAAACsAAAAAAAAA==</window_CXPathWindow1>
-  <window_CXTitleWindow>AdnQywABAAAAAAA+AAAAAAAABOkAAAAqAAAAPgAAAAAAAATpAAAAKgAAAAAAAA==</window_CXTitleWindow>
+  <window_CXTitleWindow>AdnQywABAAAAAAA+AAAAAAAABOQAAAAqAAAAPgAAAAAAAATkAAAAKgAAAAAAAA==</window_CXTitleWindow>
   <window_CXVirtualKeyboard>AdnQywABAAAAAAA+AAAAEAAAAY8AAAI2AAAAPgAAABAAAAGPAAACNgAAAAAAAA==</window_CXVirtualKeyboard>
   <window_CXTurnDialog>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_CXTurnDialog>
   <window_CXUtilsWindow>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_CXUtilsWindow>

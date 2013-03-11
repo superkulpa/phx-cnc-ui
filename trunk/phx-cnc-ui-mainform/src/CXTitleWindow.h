@@ -18,8 +18,17 @@ public:
 	~CXTitleWindow();
 
 public slots:
-	//! Слот на загрузку файла.
+	/*!
+		Слот на загрузку файла.
+		\param aFileName - имя файла.
+	*/
 	void onFileOpen(const QString& aFileName);
+
+	/*!
+		Слот на отображение ошибки.
+		\param aError - текстовая строка с ошибкой.
+	*/
+	void onErrorReceive(const QString& aError);
 
 private slots:
 	//! Слот на управление.

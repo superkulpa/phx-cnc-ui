@@ -58,7 +58,7 @@ void CXLazerDirectionDialog::onAbsolute()
 		QString res("0=%1,1=%2");
 		res = res.arg(mXEdit->text()).arg(mYEdit->text());
 
-		mUdpManager->sendCommand(Commands::MSG_SECTION_MOVE, Commands::MSG_CMD_HAND_ABSOLUTE_MOVING, res.toStdString());
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_ABSOLUTE_MOVING, res.toStdString());
 	}
 
 	done(1);
@@ -71,7 +71,7 @@ void CXLazerDirectionDialog::onRelative()
 		QString res("0=%1,1=%2");
 		res = res.arg(mXEdit->text()).arg(mYEdit->text());
 
-		mUdpManager->sendCommand(Commands::MSG_SECTION_MOVE, Commands::MSG_CMD_HAND_COMPARATIVE_MOVING, res.toStdString());
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_COMPARATIVE_MOVING, res.toStdString());
 	}
 
 	done(2);

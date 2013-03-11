@@ -23,6 +23,13 @@ public slots:
 	//! Слот сброса предупреждений и аварий.
 	void onResetAlarms();
 
+signals:
+	/*!
+		Сигнал на ошибку.
+		\param aError - текстовая строка с ошибкой.
+	*/
+	void errorReceived(const QString& aError);
+
 private slots:
 	//! Слот получения команды от ядра.
 	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
