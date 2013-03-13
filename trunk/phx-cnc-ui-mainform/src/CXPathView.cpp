@@ -6,7 +6,7 @@
 
 #include "CXSettingsXML.h"
 
-#define MARGIN 5
+#define MARGIN 10
 
 CXPathView::CXPathView(QWidget* parent) : QWidget(parent)
 {
@@ -35,7 +35,16 @@ CXPathView::~CXPathView()
 
 QRectF CXPathView::boundingRect()
 {
-	return mMainPath.boundingRect().united(mMovePath.boundingRect()).united(mBurnPath.boundingRect());
+	QRectF rect = mMainPath.boundingRect().united(mMovePath.boundingRect()).united(mBurnPath.boundingRect());
+
+	if (mRotateAxis)
+	{
+		qreal h = rect.height();
+		rect.setHeight(rect.width());
+		rect.setWidth(h);
+	}
+		
+	return rect;
 }
 
 void CXPathView::load(const QString& aMainFile, const QString& aMoveFile)
@@ -124,8 +133,10 @@ void CXPathView::setPositionVisible(bool aIsVisible)
 
 void CXPathView::setPosition(const QPointF& aPos, bool aIsAbsolute)
 {
-	if (aIsAbsolute) mPos = aPos;
-	else mPos += aPos;
+	QPointF pos(aPos.x(), aPos.y());
+
+	if (aIsAbsolute) mPos = pos;
+	else mPos += pos;
 
 	setPositionVisible(true);
 
@@ -458,3 +469,4 @@ qreal CXPathView::getFitScale(qreal aMargin)
 
 	return qMin((width() - 2.0 * aMargin) / s.width(), (height() - 2.0 * aMargin) / s.height());
 }
+
