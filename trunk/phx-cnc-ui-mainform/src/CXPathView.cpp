@@ -39,9 +39,11 @@ QRectF CXPathView::boundingRect()
 
 	if (mRotateAxis)
 	{
-		qreal h = rect.height();
-		rect.setHeight(rect.width());
-		rect.setWidth(h);
+		QTransform transform;
+		transform.rotate(90.0);
+		transform.scale(1.0, -1.0);
+
+		rect = transform.mapRect(rect);
 	}
 		
 	return rect;
