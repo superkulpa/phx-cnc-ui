@@ -36,6 +36,7 @@ private slots:
 
 private:
 	QTextEdit* mTextEdit;
+	bool mIsError;
 };
 
 #endif // CXTEXTPARAMETERS_H

@@ -7,6 +7,8 @@
 
 CXTextParameters::CXTextParameters() : AXBaseWindow()
 {
+	mIsError = false;
+
 	QVBoxLayout* centralLayout = new QVBoxLayout(this);
 	centralLayout->setMargin(5);
 
@@ -37,24 +39,49 @@ void CXTextParameters::onCommandReceive(const QString& aSection, const QString& 
 {
 	if (aSection == QString::fromStdString(Commands::MSG_SECTION_ALARM))
 	{
-		if (aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM))
+		if (!mIsError || aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM))
 		{
 			mTextEdit->clear();
-			mTextEdit->setPlainText(aValue);
 		}
-		if (aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM_ADD))
+
+		mIsError = true;
+
+		QStringList alarms = aValue.split(";", QString::SkipEmptyParts);
+
+		if (aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM) || aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM_ADD))
 		{
-			if (!mTextEdit->toPlainText().contains(aValue))
+			QString buffer;
+
+			for (int i = 0; i < alarms.count(); i++)
 			{
-				mTextEdit->append(aValue);
+				buffer = alarms.at(i).trimmed();
+
+				if (!mTextEdit->toPlainText().contains(buffer))
+				{
+					mTextEdit->append(buffer);
+				}
 			}
 		}
+
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM_REMOVE))
 		{
-			if (mTextEdit->toPlainText().contains(aValue))
+			QString text = mTextEdit->toPlainText();
+			QString buffer;
+
+			for (int i = 0; i < alarms.count(); i++)
 			{
-				mTextEdit->setText(mTextEdit->toPlainText().replace(aValue, ""));
+				buffer = alarms.at(i).trimmed();
+
+				if (text.contains(buffer))
+				{
+					text.replace(buffer, "");
+				}
 			}
+
+			while (text.contains(QRegExp("^\n"))) text.replace(QRegExp("^\n"), "");
+//			if (text == "\n") text = "";
+
+			mTextEdit->setPlainText(text);
 		}
 
 		QString errorText = mTextEdit->toPlainText();
@@ -63,6 +90,10 @@ void CXTextParameters::onCommandReceive(const QString& aSection, const QString& 
 
 		emit errorReceived(errorText);
 
-		if (mTextEdit->toPlainText().isEmpty()) mTextEdit->setPlainText(trUtf8("Нет сообщений"));
+		if (mTextEdit->toPlainText().isEmpty())
+		{
+			mIsError = false;
+			mTextEdit->setPlainText(trUtf8("Нет аварий и предупреждений"));
+		}
 	}
 }
