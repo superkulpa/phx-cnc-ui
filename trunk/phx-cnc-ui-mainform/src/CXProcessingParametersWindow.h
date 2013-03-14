@@ -27,6 +27,9 @@ private slots:
 	//! Слот на загрузку.
 	void onFileLoad();
 
+	//! Слот на закрытие FTP.
+	void closeFtp();
+
 	//! Слот, вызываемый по окончанию загрузки.
 	void onAllFilesIsLoaded(bool aIsUpload);
 

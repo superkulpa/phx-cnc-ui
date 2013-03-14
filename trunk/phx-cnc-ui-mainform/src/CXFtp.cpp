@@ -93,7 +93,7 @@ void CXFtp::timerEvent(QTimerEvent* e)
 			}
 		}
 
-		emit error();
+		emit errorReceived();
 //		emit allFilesIsLoaded(mIsUpload);
 	}
 }
@@ -328,13 +328,16 @@ void CXFtp::clearCurrentFileData()
 
 void CXFtp::onFtpError(const QString& aErrorText)
 {
-	killTimer(mWaitTimer);
-	mWaitTimer = -1;
+	if (mWaitTimer != -1)
+	{
+		killTimer(mWaitTimer);
+		mWaitTimer = -1;
+	}
 
 	clearCurrentFileData();
 	close();
 
-	QMessageBox::information(NULL, trUtf8("Ошибка"), aErrorText);
+	emit errorReceived();
 
-	emit error();
+	QMessageBox::information(NULL, trUtf8("Ошибка"), aErrorText);
 }

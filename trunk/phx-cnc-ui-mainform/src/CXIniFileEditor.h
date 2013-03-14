@@ -41,12 +41,17 @@ public slots:
 	//! Слот установки текста в прогресс загрузки.
 	void setProgressText(const QString& aText);
 
+	//! Слот на закрытие FTP.
+	void closeFtp();
+
 	//! Слот, вызываемый по окончанию загрузки.
 	void onAllFilesIsLoaded(bool aIsUpload);
 
 private:
 	QString mFileName;
 	QSyntaxHighlighter* mHighlighter;
+
+	bool mIsUpload;
 
 	QProgressBar* mProgressBar;
 	CXFtp* mFtp;

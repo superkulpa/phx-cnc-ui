@@ -40,21 +40,29 @@ void CXProcessingParametersWindow::onFileLoad()
 
 	mFtp = new CXFtp(this);
 	mFtp->setConnectData(host, 21, "ftp", "ftp");
-	mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath(), "unitverru/www/!test!");
+	mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath(), "pub/updates/jini");
 
 	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
+	connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
 
 	mFtp->onFtpUpload(QStringList() << fileInfo.fileName());
+}
+
+void CXProcessingParametersWindow::closeFtp()
+{
+	if (mFtp == NULL) return;
+
+	disconnect(mFtp, 0, 0, 0);
+
+	mFtp->deleteLater();
+	mFtp = NULL;
 }
 
 void CXProcessingParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 {
 	Q_UNUSED(aIsUpload);
 
-	if (mFtp == NULL) return;
-
-	mFtp->deleteLater();
-	mFtp = NULL;
+	closeFtp();
 
 	AXBaseWindow::mManager->setCurrentGroup(4);
 	accept();
