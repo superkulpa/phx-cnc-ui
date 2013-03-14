@@ -260,11 +260,8 @@ void CXParametersWindow::loadFiles(bool aIsUpload)
 	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
 
 	mFtp = new CXFtp(this);
-
-	//mFtp->setConnectData(host, 21, "ftp", "ftp");
-	//mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", "pub/updates/jini");
-	mFtp->setConnectData("78.108.81.100", 21, "f60550", "cfqnFTP192837465");
-	mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", "unitverru/www/!test!");
+	mFtp->setConnectData(host, 21, "ftp", "ftp");
+	mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", "pub/updates/jini");
 
 	connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
 	connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));

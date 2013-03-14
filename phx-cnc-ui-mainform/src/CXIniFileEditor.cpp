@@ -13,6 +13,7 @@ CXIniFileEditor::CXIniFileEditor() : AXBaseWindow()
 {
 	setupUi(this);
 
+	mIsUpload = false;
 	mProgressBar = NULL;
 
 	mHighlighter = new CXIniSyntaxHighlighter(mIniFileEdit->document());
@@ -75,6 +76,8 @@ void CXIniFileEditor::onSave()
 
 void CXIniFileEditor::loadFiles(bool aIsUpload)
 {
+	mIsUpload = aIsUpload;
+
 	mProgressBar = new QProgressBar;
 	mProgressBar->setWindowFlags(Qt::FramelessWindowHint);
 	mProgressBar->setAlignment(Qt::AlignCenter);
@@ -93,28 +96,37 @@ void CXIniFileEditor::loadFiles(bool aIsUpload)
 	connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
 	connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
 	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
+	connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
 
-	if (aIsUpload) mFtp->onFtpUpload();
-	else mFtp->onFtpDownload();
+	if (aIsUpload) mFtp->onFtpUpload(QStringList() << "*.ini" << "*.xml");
+	else mFtp->onFtpDownload(QStringList() << "ini" << "xml");
 
 	mProgressBar->show();
 }
 
 void CXIniFileEditor::setProgressText(const QString& aText)
 {
-	mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
+	if (mIsUpload) mProgressBar->setFormat(trUtf8("Сохранение ") + aText + " (%p%)");
+	else mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
 }
 
-void CXIniFileEditor::onAllFilesIsLoaded(bool aIsUpload)
+void CXIniFileEditor::closeFtp()
 {
-	Q_UNUSED(aIsUpload);
-
 	if (mProgressBar == NULL) return;
 
 	mProgressBar->close();
 	delete mProgressBar;
 	mProgressBar = NULL;
 
+	disconnect(mFtp, 0, 0, 0);
+
 	mFtp->deleteLater();
 	mFtp = NULL;
+}
+
+void CXIniFileEditor::onAllFilesIsLoaded(bool aIsUpload)
+{
+	Q_UNUSED(aIsUpload);
+
+	closeFtp();
 }
