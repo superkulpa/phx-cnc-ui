@@ -30,7 +30,7 @@ CXProcessingParametersWindow::~CXProcessingParametersWindow()
 void CXProcessingParametersWindow::setFileName(const QString& aFileName, const QString& aFtpFileName)
 {
 	mFileName = aFileName;
-	mFtpFileName = aFtpFileName;
+	mFtpFileName = QFileInfo(mFileName).absoluteDir().absoluteFilePath(QFileInfo(aFtpFileName).fileName());
 }
 
 void CXProcessingParametersWindow::onFileLoad()
