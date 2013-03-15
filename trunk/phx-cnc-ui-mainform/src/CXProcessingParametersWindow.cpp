@@ -44,7 +44,8 @@ void CXProcessingParametersWindow::onFileLoad()
 	mFtp = new CXFtp(this);
 
 	mFtp->setConnectData(host, 21, "ftp", "ftp");
-	mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath(), "pub/updates/jini");
+	mFtp->setLoadFilesData(/*fileInfo.absoluteDir().absolutePath()*/
+	    QApplication::applicationDirPath() + "/jini" , "pub/updates/jini");
 
 	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
 	connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
@@ -54,7 +55,13 @@ void CXProcessingParametersWindow::onFileLoad()
 
 	if (mParametersView->isModified())
 	{
-//		CXParametersView::mDataMap.values(0).save();
+
+    QMap <int, CXParameterData*>::iterator iter;
+    for (iter = CXParametersView::mDataMap.begin(); iter != CXParametersView::mDataMap.end(); ++iter)
+    {
+      iter.value()->save();
+    }
+	  loadFiles << "*.ini";
 	}
 
 	mFtp->onFtpUpload(loadFiles);
