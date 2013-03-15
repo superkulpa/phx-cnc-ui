@@ -135,7 +135,7 @@ void CXPathView::setPositionVisible(bool aIsVisible)
 
 void CXPathView::setPosition(const QPointF& aPos, bool aIsAbsolute)
 {
-	QPointF pos(aPos.x(), aPos.y());
+	QPointF pos(aPos.y(), aPos.x());
 
 	if (aIsAbsolute) mPos = pos;
 	else mPos += pos;

@@ -50,7 +50,7 @@ void CXTitleWindow::onErrorReceive(const QString& aError)
 	if (aError.isEmpty())
 	{
 		mFileLabel->setText(mFileName);
-		mFileLabel->setStyleSheet("color: black");
+		mFileLabel->setStyleSheet("");
 		mFileLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 	}
 	else

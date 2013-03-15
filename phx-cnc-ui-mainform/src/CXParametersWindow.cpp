@@ -30,7 +30,7 @@ CXParametersWindow::CXParametersWindow(bool aIsSystem) : AXBaseWindow()
 	centralLayout->addWidget(mTabWidget);
 
 	//загружаем параметры
-  loadFiles(false);
+	loadFiles(false);
 
 //	loadParameters();
 
@@ -242,14 +242,20 @@ void CXParametersWindow::onCommandReceive(const QString& aSection, const QString
 
 	if (aSection == QString::fromStdString(Commands::MSG_SECTION_PARAMS))
 	{
+		if (mWaitTimer != -1)
+		{
+			killTimer(mWaitTimer);
+			mWaitTimer = -1;
+		}
+
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_RELOAD_PARAMS))
 		{
 			loadFiles(false);
-		}else if (aCommand == QString::fromStdString(Commands::MSG_STATE_REFRESH_PARAMS)){
+		}
+		else if (aCommand == QString::fromStdString(Commands::MSG_STATE_REFRESH_PARAMS))
+		{
 
-		};
-		killTimer(mWaitTimer);
-    mWaitTimer = -1;
+		}
 	}
 }
 
