@@ -310,7 +310,7 @@ void CXFtp::loadNextFile()
 
 	if (mFilesList.isEmpty())
 	{
-		close();
+//		close();
 
 		emit allFilesIsLoaded(mIsUpload);
 	}

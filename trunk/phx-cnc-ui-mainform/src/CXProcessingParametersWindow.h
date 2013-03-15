@@ -20,8 +20,9 @@ public:
 	/*!
 		Установка имени откомпилированного файла.
 		\param aFileName - имя файла.
+		\param aFtpFileName - имя файла на FTP-сервере (в которое будет переименовано).
 	*/
-	void setFileName(const QString& aFileName);
+	void setFileName(const QString& aFileName, const QString& aFtpFileName);
 
 private slots:
 	//! Слот на загрузку.
@@ -35,6 +36,7 @@ private slots:
 
 private:
 	QString mFileName;
+	QString mFtpFileName;
 	CXParametersView* mParametersView;
 	CXFtp* mFtp;
 };

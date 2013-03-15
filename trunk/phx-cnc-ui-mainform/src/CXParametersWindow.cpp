@@ -142,7 +142,7 @@ void CXParametersWindow::saveParameters()
 			if (view->isModified())
 			{
 				isModified = true;
-				break;
+				view->resetIsModified();
 			}
 		}
 	}
@@ -194,6 +194,7 @@ void CXParametersWindow::closeFtp()
 
 	disconnect(mFtp, 0, 0, 0);
 
+	mFtp->close();
 	mFtp->deleteLater();
 	mFtp = NULL;
 }
