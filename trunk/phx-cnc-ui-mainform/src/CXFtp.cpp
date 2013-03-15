@@ -184,8 +184,9 @@ void CXFtp::onFtpCommandFinish(int id, bool aIsError)
 		{
 			QString fileName = mFilesList.first().mFileName;
 			fileName = QFileInfo(fileName).fileName();
-
-			rawCommand(QString("chmod 666 %1").arg(fileName));
+			QString command = QString("chmod 666 %1%2").arg("/home/ftp/pub/updates/jini/").arg(fileName);
+			//rawCommand(QString("cd /cps/net/updates/jini"));
+			rawCommand(command);
 
 			break;
 		}

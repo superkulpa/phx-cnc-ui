@@ -353,8 +353,8 @@ int main(int argc, char *argv[])
 	manager.setCurrentGroup(1);
 
 	AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_START, Commands::MSG_CMD_FORM_RESTART, "0");
-	CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
-	parametersWindow->loadParametersFromFtp();
+//	CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
+//	parametersWindow->loadParametersFromFtp();
 
 	return app.exec();
 }
