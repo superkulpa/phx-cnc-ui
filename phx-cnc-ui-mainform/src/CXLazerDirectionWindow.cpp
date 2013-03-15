@@ -108,6 +108,18 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	lazerLayout->addWidget(mCurrentFrameLabel, 5);
 
 	centralLayout->addLayout(lazerLayout);
+/**/
+	QHBoxLayout* modeLayout = new QHBoxLayout;
+
+	modeLayout->setSpacing(10);
+	mCycleButton = new CXTouchButton(trUtf8("Зацикленно"), NULL);
+	modeLayout->addWidget(mCycleButton);
+	mReservButton = new CXTouchButton(trUtf8(""), NULL);
+  modeLayout->addWidget(mReservButton);
+	mStepButton = new CXTouchButton(trUtf8("Покадрово"), NULL);
+	modeLayout->addWidget(mStepButton);
+
+  centralLayout->addLayout(modeLayout);
 
 	connect(mForwardButton, SIGNAL(clicked()), this, SLOT(onStart()));
 	connect(mBackwardButton, SIGNAL(clicked()), this, SLOT(onStart()));
@@ -118,6 +130,8 @@ CXLazerDirectionWindow::CXLazerDirectionWindow() : AXBaseWindow()
 	connect(mLazerVelocityView, SIGNAL(velocityChanged(eVelocity)), this, SLOT(onVelocityChange(eVelocity)));
 	connect(plusButton, SIGNAL(clicked()), this, SLOT(onUpSpeed()));
 	connect(minusButton, SIGNAL(clicked()), this, SLOT(onDownSpeed()));
+	connect(mCycleButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
+  connect(mStepButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
 
 	connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)), this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 
@@ -249,13 +263,23 @@ void CXLazerDirectionWindow::onVelocityChange(eVelocity aVelocity)
 
 void CXLazerDirectionWindow::onUpSpeed()
 {
-	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FEED, "+1");
+	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FEED, Commands::MSG_VALUE_INC);
 }
 
 void CXLazerDirectionWindow::onDownSpeed()
 {
-	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FEED, "-1");
+	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FEED, Commands::MSG_VALUE_DEC);
 }
+
+void CXLazerDirectionWindow::onModeChange()
+{
+  if (sender() == mCycleButton){
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_LOOP, Commands::MSG_VALUE_INVERT);
+  }else if(sender() == mStepButton){
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_BY_STEP, Commands::MSG_VALUE_INVERT);
+  }
+}
+
 
 void CXLazerDirectionWindow::StartCP()
 {
@@ -307,7 +331,21 @@ void CXLazerDirectionWindow::onCommandReceive(const QString& aSection, const QSt
 		{
 			mCurrentFrameLabel->setText(trUtf8("Текущий кадр: %1").arg(aValue));
 		}
+		//Режимы работы
+	  if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_LOOP)){
+	    if(aValue == QString::fromStdString(Commands::MSG_VALUE_ON))
+	      mCycleButton->setStyleSheet("background-color: green;");
+	    else
+	      mCycleButton->setStyleSheet("");
+	  }else if(aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_BY_STEP)){
+	    if(aValue == QString::fromStdString(Commands::MSG_VALUE_ON))
+        mStepButton->setStyleSheet("background-color: green;");
+      else
+        mStepButton->setStyleSheet("");
+	  };
+
 	}
+
 
 	if (aSection == QString::fromStdString(Commands::MSG_SECTION_MOVE))
 	{
@@ -344,7 +382,7 @@ void CXLazerDirectionWindow::onCommandReceive(const QString& aSection, const QSt
 			QString valueY = mYEdit->text();
 			valueY = valueY.mid(0, valueY.indexOf(" "));
 
-			emit positionChanged(QPointF(valueX.toDouble(), valueY.toDouble()), true);
+			emit positionChanged(QPointF(valueY.toDouble(), valueX.toDouble()), true);
 		}
 
 		//Текущая скорость.

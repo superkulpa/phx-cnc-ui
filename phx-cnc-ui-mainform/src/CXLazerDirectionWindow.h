@@ -65,6 +65,9 @@ private slots:
 	//! Слот уменьшения скорости.
 	void onDownSpeed();
 
+	//! Изменение режима работы
+  void onModeChange();
+
 	//! Слот получения команды от ядра.
 	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
 
@@ -84,6 +87,10 @@ private:
 	QLineEdit* mYEdit;
 	QLabel* mFLabel;
 	QLineEdit* mFEdit;
+
+	CXTouchButton* mCycleButton;
+	CXTouchButton* mStepButton;
+	CXTouchButton* mReservButton;
 
 	CXLazerDirectionView* mLazerDirectionView;
 	CXLazerVelocityView* mLazerVelocityView;
