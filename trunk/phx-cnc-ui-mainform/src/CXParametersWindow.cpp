@@ -240,6 +240,12 @@ void CXParametersWindow::onCommandReceive(const QString& aSection, const QString
 	{
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_RELOAD_PARAMS))
 		{
+			if (mWaitTimer != -1)
+			{
+				killTimer(mWaitTimer);
+				mWaitTimer = -1;
+			}
+
 			loadFiles(false);
 		}
 	}
@@ -267,7 +273,7 @@ void CXParametersWindow::loadFiles(bool aIsUpload)
 	connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
 	connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
 	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
-	connect(mFtp, SIGNAL(errorReceived(bool)), this, SLOT(closeFtp()));
+	connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
 
 	if (aIsUpload) mFtp->onFtpUpload(QStringList() << "*.ini" << "*.xml");
 	else mFtp->onFtpDownload(QStringList() << "ini" << "xml");
