@@ -29,7 +29,10 @@ CXParametersWindow::CXParametersWindow(bool aIsSystem) : AXBaseWindow()
 	mTabWidget = new QTabWidget(this);
 	centralLayout->addWidget(mTabWidget);
 
-	loadParameters();
+	//загружаем параметры
+  loadFiles(false);
+
+//	loadParameters();
 
 	connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)), this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 
@@ -204,7 +207,7 @@ void CXParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 	closeFtp();
 
 	if (!aIsUpload) loadParameters();
-	else mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "0");
+	else mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_REFRESH_PARAMS, "0");
 }
 
 void CXParametersWindow::showSettings()
@@ -241,14 +244,12 @@ void CXParametersWindow::onCommandReceive(const QString& aSection, const QString
 	{
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_RELOAD_PARAMS))
 		{
-			if (mWaitTimer != -1)
-			{
-				killTimer(mWaitTimer);
-				mWaitTimer = -1;
-			}
-
 			loadFiles(false);
-		}
+		}else if (aCommand == QString::fromStdString(Commands::MSG_STATE_REFRESH_PARAMS)){
+
+		};
+		killTimer(mWaitTimer);
+    mWaitTimer = -1;
 	}
 }
 
