@@ -391,6 +391,11 @@ bool CXParametersView::isModified()
 	return mIsModified;
 }
 
+void CXParametersView::resetIsModified()
+{
+	mIsModified = false;
+}
+
 void CXParametersView::closeEditor(QWidget* editor, QAbstractItemDelegate::EndEditHint hint)
 {
 	QTableView::closeEditor(editor, hint);

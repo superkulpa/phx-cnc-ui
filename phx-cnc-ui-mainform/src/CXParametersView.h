@@ -99,6 +99,11 @@ public:
 	*/
 	bool isModified();
 
+	/*!
+		Функция сброса флага модификации данных.
+	*/
+	void resetIsModified();
+
 protected slots:
 	virtual void closeEditor(QWidget* editor, QAbstractItemDelegate::EndEditHint hint);
 

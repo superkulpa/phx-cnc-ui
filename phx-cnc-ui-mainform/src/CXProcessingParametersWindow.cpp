@@ -27,33 +27,48 @@ CXProcessingParametersWindow::~CXProcessingParametersWindow()
 {
 }
 
-void CXProcessingParametersWindow::setFileName(const QString& aFileName)
+void CXProcessingParametersWindow::setFileName(const QString& aFileName, const QString& aFtpFileName)
 {
 	mFileName = aFileName;
+	mFtpFileName = aFtpFileName;
 }
 
 void CXProcessingParametersWindow::onFileLoad()
 {
 	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
 
-	QFileInfo fileInfo(mFileName);
+	QFile::rename(mFileName, mFtpFileName);
+
+	QFileInfo fileInfo(mFtpFileName);
 
 	mFtp = new CXFtp(this);
+
 	mFtp->setConnectData(host, 21, "ftp", "ftp");
 	mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath(), "pub/updates/jini");
 
 	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
 	connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
 
-	mFtp->onFtpUpload(QStringList() << fileInfo.fileName());
+	QStringList loadFiles;
+	loadFiles << fileInfo.fileName();
+
+	if (mParametersView->isModified())
+	{
+//		CXParametersView::mDataMap.values(0).save();
+	}
+
+	mFtp->onFtpUpload(loadFiles);
 }
 
 void CXProcessingParametersWindow::closeFtp()
 {
 	if (mFtp == NULL) return;
+	
+	QFile::rename(mFtpFileName, mFileName);
 
 	disconnect(mFtp, 0, 0, 0);
 
+	mFtp->close();
 	mFtp->deleteLater();
 	mFtp = NULL;
 }

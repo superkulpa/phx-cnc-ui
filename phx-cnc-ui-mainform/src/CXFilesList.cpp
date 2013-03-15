@@ -304,7 +304,7 @@ void CXFilesList::onLoadCheckFile()
 	parametersWindow->setWindowFlags(Qt::Dialog);
 	parametersWindow->setWindowModality(Qt::ApplicationModal);
 	parametersWindow->resize(800, 600);
-	parametersWindow->setFileName(getConfigAttribute("Common.OutputCpNameKerf"));
+	parametersWindow->setFileName(getConfigAttribute("Common.OutputCpNameKerf"), getConfigAttribute("Common.OutputRunCpName"));
 
 	if (parametersWindow->exec() == QDialog::Accepted)
 	{

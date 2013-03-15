@@ -120,6 +120,7 @@ void CXIniFileEditor::closeFtp()
 
 	disconnect(mFtp, 0, 0, 0);
 
+	mFtp->close();
 	mFtp->deleteLater();
 	mFtp = NULL;
 }
