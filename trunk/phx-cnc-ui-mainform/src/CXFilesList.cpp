@@ -154,6 +154,7 @@ void CXFilesList::onItemActivate(const QModelIndex& aIndex)
 		if (mIsModifier)
 		{
 			mIsModifier = false;
+			mIsCompileNeed = false;
 			if (mButton != NULL) mButton->setText(mButton->text().replace(QRegExp("\n.*"), trUtf8("\nЗагрузить")));
 		}
 
