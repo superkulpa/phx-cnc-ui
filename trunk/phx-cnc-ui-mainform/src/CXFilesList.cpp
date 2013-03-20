@@ -151,6 +151,12 @@ void CXFilesList::onItemActivate(const QModelIndex& aIndex)
 
 	if (!mIsSaveDialog)
 	{
+		if (mIsModifier)
+		{
+			mIsModifier = false;
+			if (mButton != NULL) mButton->setText(mButton->text().replace(QRegExp("\n.*"), trUtf8("\nЗагрузить")));
+		}
+
 		emit fileOpened(mFileName);
 
 		onCompileFile();
