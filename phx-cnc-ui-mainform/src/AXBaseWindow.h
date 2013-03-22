@@ -6,8 +6,9 @@
 
 #include <QWidget>
 
-class CXWindowsManager;
 class CXUdpManager;
+class CXWindowsManager;
+
 
 /*!
 	Список для флага изменения размеров окна.
