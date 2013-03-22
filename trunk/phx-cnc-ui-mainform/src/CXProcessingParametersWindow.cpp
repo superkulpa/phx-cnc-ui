@@ -9,6 +9,7 @@
 #include "CXWindowsManager.h"
 #include "CXFtp.h"
 #include "CXSettingsXML.h"
+#include "CXUdpManager.h"
 
 CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) : QDialog(parent)
 {
@@ -89,5 +90,6 @@ void CXProcessingParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 	closeFtp();
 
 	AXBaseWindow::mManager->setCurrentGroup(4);
+	AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_REFRESH_PARAMS, "0");
 	accept();
 }

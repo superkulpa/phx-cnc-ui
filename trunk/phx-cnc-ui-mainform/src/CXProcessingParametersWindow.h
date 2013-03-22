@@ -1,6 +1,5 @@
 #ifndef CXPROCESSINGPARAMETERSWINDOW_H
 #define CXPROCESSINGPARAMETERSWINDOW_H
-
 #include "ui_CXProcessingParametersWindow.h"
 
 class CXParametersView;

@@ -48,7 +48,7 @@ CXLazerDirectionDialog::~CXLazerDirectionDialog()
 
 QPointF CXLazerDirectionDialog::getPosition()
 {
-	return QPointF(mXEdit->text().toDouble(), mYEdit->text().toDouble());
+  return QPointF(mXEdit->text().toDouble() * 100, mYEdit->text().toDouble() * 100);
 }
 
 void CXLazerDirectionDialog::onAbsolute()
@@ -56,7 +56,7 @@ void CXLazerDirectionDialog::onAbsolute()
 	if (mUdpManager != NULL && !mXEdit->text().isEmpty() && !mYEdit->text().isEmpty())
 	{
 		QString res("0=%1,1=%2");
-		res = res.arg(mXEdit->text()).arg(mYEdit->text());
+		res = res.arg(mXEdit->text().toDouble() * 100).arg(mYEdit->text().toDouble() * 100);
 
 		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_ABSOLUTE_MOVING, res.toStdString());
 	}
@@ -69,7 +69,7 @@ void CXLazerDirectionDialog::onRelative()
 	if (mUdpManager != NULL && !mXEdit->text().isEmpty() && !mYEdit->text().isEmpty())
 	{
 		QString res("0=%1,1=%2");
-		res = res.arg(mXEdit->text()).arg(mYEdit->text());
+		res = res.arg(mXEdit->text().toDouble() * 100).arg(mYEdit->text().toDouble() * 100);
 
 		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_COMPARATIVE_MOVING, res.toStdString());
 	}
@@ -144,13 +144,13 @@ void CXLazerDirectionDialog::onButtonClicked()
 void CXLazerDirectionDialog::onStepMove()
 {
 	if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
-		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_STEP, mFrameEdit->text().toStdString());
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_STEP, mFrameEdit->text().toStdString());
 }
 
 void CXLazerDirectionDialog::onStepSet()
 {
 	if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
-		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_STEP, mFrameEdit->text().toStdString());
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_STEP, mFrameEdit->text().toStdString());
 }
 
 void CXLazerDirectionDialog::onBurnMove()

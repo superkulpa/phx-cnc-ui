@@ -16,7 +16,17 @@
   <layout class="QHBoxLayout" name="horizontalLayout_2">
    <item>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="1" column="0" colspan="4">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>X</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="mXEdit"/>
+     </item>
+     <item row="1" column="0" colspan="8">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="CXTouchButton" name="mAbsoluteButton">
@@ -40,40 +50,7 @@
        </item>
       </layout>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>X</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QLineEdit" name="mYEdit"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="mXEdit"/>
-     </item>
-     <item row="0" column="2">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Y</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0" colspan="4">
-      <spacer name="verticalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="2" column="0" colspan="4">
+     <item row="2" column="0" colspan="8">
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
         <string/>
@@ -130,6 +107,43 @@
         </item>
        </layout>
       </widget>
+     </item>
+     <item row="3" column="0" colspan="8">
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>0.1mm</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>0.1mm</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QLineEdit" name="mYEdit"/>
      </item>
     </layout>
    </item>
@@ -387,7 +401,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>mXEdit</tabstop>
-  <tabstop>mYEdit</tabstop>
  </tabstops>
  <resources/>
  <connections/>
