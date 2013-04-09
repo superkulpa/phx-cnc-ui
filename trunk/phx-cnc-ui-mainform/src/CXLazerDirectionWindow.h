@@ -66,7 +66,7 @@ private slots:
 	void onDownSpeed();
 
 	//! Изменение режима работы
-  void onModeChange();
+	void onModeChange();
 
 	//! Слот получения команды от ядра.
 	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);

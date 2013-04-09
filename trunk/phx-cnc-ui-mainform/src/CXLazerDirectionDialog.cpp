@@ -7,6 +7,7 @@
 CXLazerDirectionDialog::CXLazerDirectionDialog(QWidget* parent) : QDialog(parent)
 {
 	setupUi(this);
+	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	mUdpManager = NULL;
 

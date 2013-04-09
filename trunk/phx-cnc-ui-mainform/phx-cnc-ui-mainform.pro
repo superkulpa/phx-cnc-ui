@@ -37,7 +37,11 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXUtilsWindow.h \
 			src/CXUdpManager.h \
 			src/CXSettingsXML.h \
-			src/CXProcess.h
+			src/CXProcess.h \
+			src/SXChannelData.h \
+			src/CXDeviceView.h \
+			src/CXChannelEdit.h \
+			src/CXDeviceEdit.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
@@ -72,7 +76,10 @@ SOURCES +=	src/main.cpp \
 			src/CXUtilsWindow.cpp \
 			src/CXUdpManager.cpp \
 			src/CXSettingsXML.cpp \
-			src/CXProcess.cpp
+			src/CXProcess.cpp \
+			src/CXDeviceView.cpp \
+			src/CXChannelEdit.cpp \
+			src/CXDeviceEdit.cpp
 
 FORMS +=	src/CXFilesList.ui \
 			src/CXEditPathFile.ui \
@@ -83,6 +90,8 @@ FORMS +=	src/CXFilesList.ui \
 			src/CXTurnDialog.ui \
 			src/CXLazerDirectionDialog.ui \
 			src/CXExitDialog.ui \
-			src/CXVirtualKeyboard.ui
+			src/CXVirtualKeyboard.ui \
+			src/CXDeviceView.ui \
+			src/CXChannelEdit.ui
 
 RESOURCES += resource.qrc
