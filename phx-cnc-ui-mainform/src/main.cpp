@@ -15,6 +15,7 @@
 #include "CXLazerDirectionWindow.h"
 #include "CXLazerSettings.h"
 #include "CXTextParameters.h"
+#include "CXDeviceView.h"
 #include "CXVirtualKeyboard.h"
 #include "CXUdpManager.h"
 
@@ -24,112 +25,79 @@
 
 QWidget* getTestWindow(int aIndex, int aGroup)
 {
-	QWidget* res = NULL;
+	AXBaseWindow* res = NULL;
 
 	switch (aIndex)
 	{
 		case 0:
 		{
-			CXPathWindow* pathWindow = new CXPathWindow();
-			pathWindow->setGroupNumber(aGroup);
-
-			res = pathWindow;
+			res = new CXPathWindow();
 
 			break;
 		}
 		case 1:
 		{
-			CXFilesList* filesList = new CXFilesList();
-			filesList->setGroupNumber(aGroup);
-
-			res = filesList;
+			res = new CXFilesList();
 
 			break;
 		}
 		case 2:
 		{
-			CXEditPathFile* editFile = new CXEditPathFile();
-			editFile->setGroupNumber(aGroup);
-
-			res = editFile;
+			res = new CXEditPathFile();
 
 			break;
 		}
 		case 3:
 		{
-			CXCompileEdit* compileEdit = new CXCompileEdit();
-			compileEdit->setGroupNumber(aGroup);
-
-			res = compileEdit;
+			res = new CXCompileEdit();
 
 			break;
 		}
 		case 4:
 		{
-			CXParametersWindow* parametersWindow = new CXParametersWindow(false);
-			parametersWindow->setGroupNumber(aGroup);
-
-			res = parametersWindow;
+			res = new CXParametersWindow(false);
 
 			break;
 		}
 		case 5:
 		{
-			CXIniFileEditor* editIniFile = new CXIniFileEditor();
-			editIniFile->setGroupNumber(aGroup);
-
-			res = editIniFile;
+			res = new CXIniFileEditor();
 
 			break;
 		}
 		case 6:
 		{
-			CXIniFileList* iniFileList = new CXIniFileList();
-			iniFileList->setGroupNumber(aGroup);
-
-			res = iniFileList;
+			res = new CXIniFileList();
 
 			break;
 		}
 		case 7:
 		{
-			CXLazerDirectionWindow* lazerPosition = new CXLazerDirectionWindow();
-			lazerPosition->setGroupNumber(aGroup);
-
-			res = lazerPosition;
+			res = new CXLazerDirectionWindow();
 
 			break;
 		}
 		case 8:
 		{
-			CXLazerSettings* lazerSettings = new CXLazerSettings();
-			lazerSettings->setGroupNumber(aGroup);
-
-			res = lazerSettings;
+			res = new CXLazerSettings();
 
 			break;
 		}
 		case 9:
 		{
-			CXPathWindow* pathWindow = new CXPathWindow();
-			pathWindow->setGroupNumber(aGroup);
-
-			res = pathWindow;
+			res = new CXPathWindow();
 
 			break;
 		}
 		case 10:
 		{
-			CXTextParameters* textParameters = new CXTextParameters();
-			textParameters->setGroupNumber(aGroup);
-
-			res = textParameters;
+			res = new CXTextParameters();
 
 			break;
 		}
 	}
 
-//	window->show();
+	if (res != NULL) res->setGroupNumber(aGroup);
 
 	return res;
 }
@@ -216,7 +184,7 @@ int main(int argc, char *argv[])
   CXGroupPanel* curGroupPanel = NULL;
 
 	//Создание функциональных панелей управления для каждой группы окон.
-	for (int i = 1; i < 5; ++i)
+	for (int i = 1; i < 6; ++i)
 	{
         curGroupPanel = addGroupPanel(i);
 
@@ -227,7 +195,7 @@ int main(int argc, char *argv[])
                 QStringList texts;
                 texts.append(QObject::trUtf8("Управление"));
                 texts.append(QObject::trUtf8("Параметры"));
-                texts.append(QString());
+                texts.append(QObject::trUtf8("Устройства"));
                 texts.append(QObject::trUtf8("Клавиатура"));
                 texts.append(QObject::trUtf8("Каталог"));
                 texts.append(QObject::trUtf8("Макро"));
@@ -239,9 +207,12 @@ int main(int argc, char *argv[])
                 curGroupPanel->setButtonsText(texts);
 
                 curGroupPanel->getButton(0)->setProperty("groupName", 4);
-                curGroupPanel->getButton(1)->setProperty("groupName", 2);
+				curGroupPanel->getButton(1)->setProperty("groupName", 2);
+                curGroupPanel->getButton(2)->setProperty("groupName", 5);
                 QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
-                QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+                QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+
                 QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()), &manager, SLOT(changeVisibleVirtualKeyboard()));
                 QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked()), curGroupPanel, SLOT(directoryCommand()));
                 QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), curGroupPanel, SLOT(macroCommand()));
@@ -333,6 +304,31 @@ int main(int argc, char *argv[])
 				QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onUtils()));
 				QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onResetCoordinates()));
 				QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXTextParameters"), SLOT(onResetAlarms()));
+
+				curGroupPanel->setButtonsText(texts);
+
+				break;
+			}
+			case 5:
+			{
+				CXDeviceView::loadDevices(5);
+
+				QStringList texts;
+				texts.append(QObject::trUtf8("УП"));
+				texts.append(QObject::trUtf8("Параметры"));
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+				texts.append(QString());
+
+				curGroupPanel->getButton(0)->setProperty("groupName", 1);
+				curGroupPanel->getButton(1)->setProperty("groupName", 2);
+				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 
 				curGroupPanel->setButtonsText(texts);
 

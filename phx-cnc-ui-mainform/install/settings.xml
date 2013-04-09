@@ -15,9 +15,9 @@
 	CXTitleWindow QLabel, CXTitleWindow QAbstractButton { border: 1px solid gray; min-width: 160px; }
 	AXBaseWindow, QDialog { background-color: silver; }
 	CXPathView { font-size: 10pt; }
-	CXProcessingParametersWindow QAbstractButton, CXEditPathFile QAbstractButton, CXPathWindow QAbstractButton { min-height: 30px; padding: 15px; }
+	CXProcessingParametersWindow QAbstractButton, CXEditPathFile QAbstractButton, CXPathWindow QAbstractButton, CXChannelEdit QAbstractButton, CXDeviceEdit QAbstractButton { min-height: 30px; padding: 15px; }
 	CXFilesList QAbstractButton { padding: 20px 35px; }
-	CXFilesList QLineEdit { font-size: 16pt; padding: 5px; }
+	CXFilesList QLineEdit, CXLazerDirectionWindow QLineEdit, CXChannelEdit QLineEdit, CXDeviceEdit QLineEdit { font-size: 16pt; padding: 5px; }
 	CXGroupPanel QAbstractButton { min-width: 55px; min-height: 55px; }
 	CXIniFileList QAbstractButton { padding: 15px; }
 	CXTurnDialog * { font-size: 14pt; }
@@ -31,7 +31,6 @@
 	CXLazerDirectionWindow QAbstractButton { min-height: 75px; padding: 0px; }
 	CXLazerDirectionWindow #xyButton, CXLazerDirectionWindow #plusButton, CXLazerDirectionWindow #minusButton { min-height: 50px; min-width: 60px; font-size: 14pt; }
 	CXLazerDirectionWindow #mFLabel { padding: 5px 15px 5px 37px; }
-	CXLazerDirectionWindow QLineEdit { font-size: 16pt; padding: 5px; }
 	CXLazerDirectionWindow QLabel { font-size: 14pt; }
 	CXLazerDirectionDialog QAbstractButton { min-width: 100px; min-height: 75px; font-size: 14pt; }
 	CXExitDialog QAbstractButton { padding: 30px 60px; }
@@ -64,4 +63,9 @@
   <window_CXUtilsWindow>AdnQywABAAAAAAAAAAAAKwAABOQAAAJ5AAAAAAAAACsAAATkAAACeQAAAAAAAA==</window_CXUtilsWindow>
   <window_CXFilesList1>AdnQywABAAAAAAGiAAAAKwAAA14AAAJ5AAABogAAACsAAANeAAACeQAAAAAAAA==</window_CXFilesList1>
   <window_CXTextParameters>AdnQywABAAAAAAGcAAAAKwAAA5EAAACHAAABnAAAACsAAAORAAAAhwAAAAAAAA==</window_CXTextParameters>
+  <window_CXGroupPanel4>AdnQywABAAAAAAA+AAACsQAABOQAAAL/AAAAPgAAArEAAATkAAAC/wAAAAAAAA==</window_CXGroupPanel4>
+  <window_CXDeviceView>AdnQywABAAAAAAA+AAAAKwAAAWYAAAKwAAAAPgAAACsAAAFmAAACsAAAAAAAAA==</window_CXDeviceView>
+  <window_CXDeviceView1>AdnQywABAAAAAAKQAAAAKwAAA7gAAAKwAAACkAAAACsAAAO4AAACsAAAAAAAAA==</window_CXDeviceView1>
+  <window_CXDeviceView2>AdnQywABAAAAAAO5AAAAKwAABOQAAAKwAAADuQAAACsAAATkAAACsAAAAAAAAA==</window_CXDeviceView2>
+  <window_CXDeviceView3>AdnQywABAAAAAAFnAAAAKwAAAo8AAAKwAAABZwAAACsAAAKPAAACsAAAAAAAAA==</window_CXDeviceView3>
 </Settings>

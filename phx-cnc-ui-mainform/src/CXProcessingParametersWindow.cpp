@@ -14,6 +14,7 @@
 CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) : QDialog(parent)
 {
 	setupUi(this);
+	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	mFtp = NULL;
 	mParametersView = new CXParametersView(this, CXParametersView::mDataMap.values(0));
