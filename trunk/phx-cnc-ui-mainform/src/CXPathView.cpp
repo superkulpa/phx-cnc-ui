@@ -52,13 +52,13 @@ QRectF CXPathView::boundingRect()
 void CXPathView::load(const QString& aMainFile, const QString& aMoveFile)
 {
 	mBurnPath = QPainterPath();
-	mBurnPath.moveTo(0, 0);
+//	mBurnPath.moveTo(0, 0);
 
 	mMovePath = QPainterPath();
-	mMovePath.moveTo(0, 0);
+//	mMovePath.moveTo(0, 0);
 
 	mMainPath = QPainterPath();
-	mMainPath.moveTo(0, 0);
+//	mMainPath.moveTo(0, 0);
 
 	QFile textFile(aMoveFile);
 	if (textFile.open(QIODevice::ReadOnly))
@@ -350,7 +350,8 @@ void CXPathView::fillPath(QFile& aTextFile, QPainterPath* aMainPath, QPainterPat
 						{
 							if (aBurnPath == NULL)
 							{
-								if (curPath->elementCount() == 1 && curPath->elementAt(0).type == QPainterPath::MoveToElement)
+								//if (curPath->elementCount() == 1 && curPath->elementAt(0).type == QPainterPath::MoveToElement)
+								if (curPath->elementCount() == 0)
 									curPath->moveTo(QPointF(twoFigures.cap(3).toFloat() / 1000, twoFigures.cap(1).toFloat() / 1000) + curPoint);
 								else curPath->lineTo(QPointF(twoFigures.cap(3).toFloat() / 1000, twoFigures.cap(1).toFloat() / 1000) + curPoint);
 							}
@@ -363,7 +364,11 @@ void CXPathView::fillPath(QFile& aTextFile, QPainterPath* aMainPath, QPainterPat
 					}
 					case E_TechnoCommand:
 					{
-						if (aBurnPath == NULL) continue;
+						if (aBurnPath == NULL)
+						{
+							curPath->lineTo(curPoint);
+							continue;
+						}
 
 						if (oneFigures.indexIn(buffer, pos) >= 0)
 						{

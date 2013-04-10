@@ -195,7 +195,7 @@ int main(int argc, char *argv[])
                 QStringList texts;
                 texts.append(QObject::trUtf8("Управление"));
                 texts.append(QObject::trUtf8("Параметры"));
-                texts.append(QObject::trUtf8("Устройства"));
+                texts.append(QString());
                 texts.append(QObject::trUtf8("Клавиатура"));
                 texts.append(QObject::trUtf8("Каталог"));
                 texts.append(QObject::trUtf8("Макро"));
@@ -208,10 +208,8 @@ int main(int argc, char *argv[])
 
                 curGroupPanel->getButton(0)->setProperty("groupName", 4);
 				curGroupPanel->getButton(1)->setProperty("groupName", 2);
-                curGroupPanel->getButton(2)->setProperty("groupName", 5);
                 QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
-                QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 
                 QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()), &manager, SLOT(changeVisibleVirtualKeyboard()));
                 QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked()), curGroupPanel, SLOT(directoryCommand()));
@@ -229,9 +227,9 @@ int main(int argc, char *argv[])
             {
                 QStringList texts;
                 texts.append(QObject::trUtf8("УП"));
-                texts.append(QObject::trUtf8("Управление"));
-                texts.append(QString());
-                texts.append(QString());
+				texts.append(QObject::trUtf8("Управление"));
+				texts.append(QString());
+				texts.append(QString());
                 texts.append(QString());
                 texts.append(QString());
                 texts.append(QString());
@@ -240,7 +238,7 @@ int main(int argc, char *argv[])
                 texts.append(QObject::trUtf8("Сохранить"));
 
                 curGroupPanel->getButton(0)->setProperty("groupName", 1);
-                curGroupPanel->getButton(1)->setProperty("groupName", 4);
+				curGroupPanel->getButton(1)->setProperty("groupName", 4);
                 QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
                 QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 
@@ -288,7 +286,7 @@ int main(int argc, char *argv[])
 				QStringList texts;
 				texts.append(QObject::trUtf8("УП"));
 				texts.append(QObject::trUtf8("Параметры"));
-				texts.append(QString());
+				texts.append(QObject::trUtf8("Наладка"));
 				texts.append(QString());
 				texts.append(QString());
 				texts.append(QObject::trUtf8("Утилиты"));
@@ -299,8 +297,11 @@ int main(int argc, char *argv[])
 
 				curGroupPanel->getButton(0)->setProperty("groupName", 1);
 				curGroupPanel->getButton(1)->setProperty("groupName", 2);
+				curGroupPanel->getButton(2)->setProperty("groupName", 5);
 				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+				QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+
 				QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onUtils()));
 				QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onResetCoordinates()));
 				QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXTextParameters"), SLOT(onResetAlarms()));
@@ -311,7 +312,7 @@ int main(int argc, char *argv[])
 			}
 			case 5:
 			{
-				CXDeviceView::loadDevices(5);
+				CXDeviceView::loadDevices(5, curGroupPanel->getButton(8), curGroupPanel->getButton(9));
 
 				QStringList texts;
 				texts.append(QObject::trUtf8("УП"));
@@ -322,8 +323,8 @@ int main(int argc, char *argv[])
 				texts.append(QString());
 				texts.append(QString());
 				texts.append(QString());
-				texts.append(QString());
-				texts.append(QString());
+				texts.append(QObject::trUtf8("Канал"));
+				texts.append(QObject::trUtf8("Устройство"));
 
 				curGroupPanel->getButton(0)->setProperty("groupName", 1);
 				curGroupPanel->getButton(1)->setProperty("groupName", 2);
