@@ -2,6 +2,7 @@
 
 #include <QTextCodec>
 #include <QKeyEvent>
+#include <QSignalMapper>
 
 #include "CXSettingsXML.h"
 #include "CXUdpManager.h"
@@ -18,8 +19,6 @@ CXDeviceView::CXDeviceView(const QString& aDeviceName, QWidget*) : AXBaseWindow(
 
 	mDeviceName = aDeviceName;
 	mChannelCount = 0;
-	mClickTimer = -1;
-	mCurrentRow = -1;
 	if (mDelay == 0)
 	{
 		mDelay = CXSettingsXML::getDelay("settings.xml", "delay");
@@ -125,24 +124,26 @@ void CXDeviceView::load()
 
 	for (int i = 0; i < mChannelCount; i++)
 	{
-		if (mChannelsTable->item(i, 0) == NULL)
-		{
-			mChannelsTable->setItem(i, 0, new QTableWidgetItem);
-		}
+		if (mChannelsTable->item(i, 0) == NULL) mChannelsTable->setItem(i, 0, new QTableWidgetItem);
+		if (mChannelsTable->item(i, 1) == NULL) mChannelsTable->setItem(i, 1, new QTableWidgetItem);
 
 		setDescription(i, mChannelList.at(i).mDescription);
+
+		if (!mChannelList.at(i).mDescription.isEmpty()) mChannelsTable->item(i, 1)->setText("0");
 	}
 
 	mChannelsTable->resizeColumnToContents(0);
 }
 
-void CXDeviceView::loadDevices(int aGroupNumber, QPushButton* aChannelEditButton, QPushButton* aDeviceEditButton)
+void CXDeviceView::loadDevices(int aGroupNumber, const QList <QPushButton*>& aButtonsList)
 {
 	QString path = QApplication::applicationDirPath() + "/jini/config.ini";
 	CIniFile configFile(path.toStdString());
 	configFile.ReadIniFile();
 
 	QString devices = QString::fromStdString(configFile.GetValue("IO", "start"));
+
+	QSignalMapper* signalMapper = NULL;
 
 	if (!devices.isEmpty())
 	{
@@ -157,8 +158,25 @@ void CXDeviceView::loadDevices(int aGroupNumber, QPushButton* aChannelEditButton
 			curDeviceView = new CXDeviceView(devicesList.at(i));
 			curDeviceView->setGroupNumber(aGroupNumber);
 
-			connect(aChannelEditButton, SIGNAL(clicked()), curDeviceView, SLOT(editChannel()));
-			connect(aDeviceEditButton, SIGNAL(clicked()), curDeviceView, SLOT(editDevice()));
+			signalMapper = new QSignalMapper(curDeviceView);
+
+			if (aButtonsList.count() > 5) connect(aButtonsList.at(5), SIGNAL(clicked()), curDeviceView, SLOT(editChannel()));
+			if (aButtonsList.count() > 4) connect(aButtonsList.at(4), SIGNAL(clicked()), curDeviceView, SLOT(editDevice()));
+			if (aButtonsList.count() > 3)
+			{
+				connect(signalMapper, SIGNAL(mapped(const QString&)), curDeviceView, SLOT(onSendCommand(const QString &)));
+
+				QPushButton* curButton = NULL;
+				QList <QString> commands;
+				commands << "inc" << "dec" << "stop" << "invert";
+
+				for (int button = 0; button < 4; button++)
+				{
+					curButton = aButtonsList.at(button);
+					connect(curButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
+					signalMapper->setMapping(curButton, commands.at(button));
+				}
+			}
 		}
 	}
 }
@@ -211,17 +229,6 @@ bool CXDeviceView::eventFilter(QObject* watched, QEvent* e)
 	}
 
 	return false;
-}
-
-void CXDeviceView::timerEvent(QTimerEvent* e)
-{
-	if (e->timerId() == mClickTimer)
-	{
-		killTimer(mClickTimer);
-		mClickTimer = -1;
-
-		editDevice();
-	}
 }
 
 void CXDeviceView::keyPressEvent(QKeyEvent* e)
@@ -291,14 +298,6 @@ void CXDeviceView::editDevice()
 
 		channelsFile.WriteIniFile();
 	}
-}
-
-void CXDeviceView::timerEditChannel()
-{
-	if (mClickTimer != -1) killTimer(mClickTimer);
-
-	mClickTimer = startTimer(mDelay);
-	mCurrentRow = mChannelsTable->currentRow();
 }
 
 void CXDeviceView::editChannel()
@@ -374,6 +373,13 @@ void CXDeviceView::editChannel()
 
 		setDescription(index, curChannelData.mDescription);
 	}
+}
+
+void CXDeviceView::onSendCommand(const QString& aCommand)
+{
+	if (this != mLastView) return;
+
+	mUdpManager->sendCommand(Commands::MSG_SECTION_IO, Commands::MSG_CMD_SET_VALUE + mDeviceName.toStdString(), aCommand.toStdString());
 }
 
 void CXDeviceView::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)

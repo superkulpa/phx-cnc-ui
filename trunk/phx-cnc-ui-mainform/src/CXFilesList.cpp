@@ -316,6 +316,7 @@ void CXFilesList::onLoadCheckFile()
 	if (parametersWindow->exec() == QDialog::Accepted)
 	{
 		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_LOAD_CP, "0");
+		emit fileManageCreated(getConfigAttribute("Common.OutputCpName"), getConfigAttribute("Common.OutputCpNameKerf"));
 	}
 }
 
@@ -344,6 +345,8 @@ void CXFilesList::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatu
 	{
 		//emit fileCreated(QApplication::applicationDirPath() + "/tmp/list.cpr.ccp", QApplication::applicationDirPath() + "/tmp/list.kerf.cpr.ccp");
 		emit fileCreated(getConfigAttribute("Common.OutputCpName"), getConfigAttribute("Common.OutputCpNameKerf"));
+
+		if (!mIsShow) emit fileManageCreated(getConfigAttribute("Common.OutputCpName"), getConfigAttribute("Common.OutputCpNameKerf"));
 
 		QFile compileFile(getConfigAttribute("Common.OutputInfo"));
 		compileFile.open(QIODevice::ReadOnly);

@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>CXTurnDialog</class>
  <widget class="QWidget" name="CXTurnDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>535</width>
+    <height>308</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Повернуть/Перевернуть/Масштабировать</string>
   </property>
@@ -107,7 +115,11 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
          <item row="1" column="0">
-          <widget class="QLineEdit" name="mScaleEdit"/>
+          <widget class="QLineEdit" name="mScaleEdit">
+           <property name="text">
+            <string>100</string>
+           </property>
+          </widget>
          </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label_2">

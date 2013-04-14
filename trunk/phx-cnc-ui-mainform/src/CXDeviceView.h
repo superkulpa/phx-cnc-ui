@@ -31,14 +31,11 @@ public:
 		\param aChannelEditButton - кнопка редактирования канала.
 		\param aDeviceEditButton - кнопка редактирования устройства.
 	*/
-	static void loadDevices(int aGroupNumber, QPushButton* aChannelEditButton, QPushButton* aDeviceEditButton);
+	static void loadDevices(int aGroupNumber, const QList <QPushButton*>& aButtonsList);
 
 protected:
 	//! Переопределенная функция фильтрации событий.
 	virtual bool eventFilter(QObject* watched, QEvent* e);
-
-	//! Переопределенная функция таймера.
-	virtual void timerEvent(QTimerEvent* e);
 
 	//! Переопределенная функция обработки нажатий клавиш клавиатуры.
 	virtual void keyPressEvent(QKeyEvent* e);
@@ -57,10 +54,14 @@ private slots:
 	//! Слот редактирования данных устройства.
 	void editDevice();
 
-	void timerEditChannel();
-
 	//! Слот на редактирование данных канала.
 	void editChannel();
+
+	/*!
+		Слот на отсылку команды.
+		\param aCommand - команда.
+	*/
+	void onSendCommand(const QString& aCommand);
 
 	//! Слот получения команды от ядра.
 	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
@@ -83,8 +84,6 @@ private:
 	QString mDeviceData;
 	int mChannelCount;
 	QVector <SXChannelData> mChannelList;
-	int mClickTimer;
-	int mCurrentRow;
 };
 
 #endif // CXDEVICEVIEW_H

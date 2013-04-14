@@ -51,6 +51,13 @@ signals:
 	void fileCreated(const QString& aMainFile, const QString& aMoveFile);
 
 	/*!
+		Сигнал на открытие пути реза в управлении.
+		\param aMainFile - файл с основным путем реза.
+		\param aMoveFile - файл с полными данными для реза.
+	*/
+	void fileManageCreated(const QString& aMainFile, const QString& aMoveFile);
+
+	/*!
 		Сигнал на сохранение файла.
 		\param aFileName - имя файла.
 	*/

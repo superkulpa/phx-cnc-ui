@@ -52,11 +52,11 @@ void CXParametersWindow::setButtons(const QList <QPushButton*>& aButtons)
 void CXParametersWindow::loadParametersFromFtp()
 {
 	mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "1");
-	mWaitTimer = CXSettingsXML::getValue("settings.xml", "parametersTimeout").toInt();
+	int timerTimeout = CXSettingsXML::getValue("settings.xml", "parametersTimeout").toInt();
 
-	if (mWaitTimer <= 0) mWaitTimer = 1000;
+	if (timerTimeout <= 0) timerTimeout = 1000;
 
-	mWaitTimer = startTimer(mWaitTimer);
+	mWaitTimer = startTimer(timerTimeout);
 }
 
 void CXParametersWindow::loadParameters()
@@ -131,6 +131,11 @@ void CXParametersWindow::loadParameters()
 	}
 
 	makeTabs(mIsSystem);
+}
+
+void CXParametersWindow::saveParametersAnyway()
+{
+	loadFiles(true);
 }
 
 void CXParametersWindow::saveParameters()

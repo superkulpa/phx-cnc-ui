@@ -6,6 +6,7 @@
 #include <QDomDocument>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QKeyEvent>
 
 CXTurnDialog::CXTurnDialog() : AXBaseWindow()
 {
@@ -45,6 +46,16 @@ CXTurnDialog::CXTurnDialog() : AXBaseWindow()
 CXTurnDialog::~CXTurnDialog()
 {
 
+}
+
+void CXTurnDialog::keyPressEvent(QKeyEvent* e)
+{
+	if (e->key() == Qt::Key_Escape)
+	{
+		close();
+	}
+
+	AXBaseWindow::keyPressEvent(e);
 }
 
 void CXTurnDialog::onButtonClicked()

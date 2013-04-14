@@ -783,6 +783,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe src\CXTurnDialog.ui -o GeneratedFiles\ui_CXTurnDialog.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXTurnDialog.ui</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXTurnDialog.h;%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
     </CustomBuild>
     <CustomBuild Include="src\CXVirtualKeyboard.ui">
       <FileType>Document</FileType>

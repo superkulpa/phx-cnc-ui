@@ -300,7 +300,7 @@ int main(int argc, char *argv[])
 				curGroupPanel->getButton(2)->setProperty("groupName", 5);
 				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
 				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
-				QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+				QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel, SLOT(onDeviceEditShow()));
 
 				QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onUtils()));
 				QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onResetCoordinates()));
@@ -312,24 +312,31 @@ int main(int argc, char *argv[])
 			}
 			case 5:
 			{
-				CXDeviceView::loadDevices(5, curGroupPanel->getButton(8), curGroupPanel->getButton(9));
+				QList <QPushButton*> buttonsList;
+				buttonsList << curGroupPanel->getButton(2) << curGroupPanel->getButton(3) << curGroupPanel->getButton(4) << curGroupPanel->getButton(5) << curGroupPanel->getButton(6) << curGroupPanel->getButton(7);
+
+				CXDeviceView::loadDevices(5, buttonsList);
 
 				QStringList texts;
 				texts.append(QObject::trUtf8("УП"));
 				texts.append(QObject::trUtf8("Параметры"));
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QString());
+				texts.append(QObject::trUtf8("+"));
+				texts.append(QObject::trUtf8("-"));
+				texts.append(QObject::trUtf8("0"));
+				texts.append(QObject::trUtf8("авто"));
 				texts.append(QObject::trUtf8("Канал"));
 				texts.append(QObject::trUtf8("Устройство"));
+				texts.append(QObject::trUtf8("Загрузить"));
+				texts.append(QObject::trUtf8("Сохранить"));
 
 				curGroupPanel->getButton(0)->setProperty("groupName", 1);
 				curGroupPanel->getButton(1)->setProperty("groupName", 2);
-				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
-				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(onDeviceEditHide()));
+				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(onDeviceEditHide()));
+
+				CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
+				QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), parametersWindow, SLOT(loadParametersFromFtp()));
+				QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), parametersWindow, SLOT(saveParametersAnyway()));
 
 				curGroupPanel->setButtonsText(texts);
 

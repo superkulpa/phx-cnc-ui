@@ -41,6 +41,12 @@ public slots:
 	//! Слот на выход.
 	void onExit();
 
+	//! Слот на показ группы настройки устройств.
+	void onDeviceEditShow();
+
+	//! Слот на сокрытие группы настройки устройств.
+	void onDeviceEditHide();
+
 private:
     QList <QPushButton*> mButtonsList;
 };
