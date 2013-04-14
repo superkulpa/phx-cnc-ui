@@ -114,3 +114,21 @@ void CXGroupPanel::onExit()
 		}
 	}
 }
+
+void CXGroupPanel::onDeviceEditShow()
+{
+	QPushButton* btn = qobject_cast<QPushButton*>(sender());
+
+	mManager->setCurrentGroup(btn->property("groupName").toInt());
+
+	AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "cmd_star", "0");
+}
+
+void CXGroupPanel::onDeviceEditHide()
+{
+	QPushButton* btn = qobject_cast<QPushButton*>(sender());
+
+	mManager->setCurrentGroup(btn->property("groupName").toInt());
+
+	AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "cmd_stop", "0");
+}

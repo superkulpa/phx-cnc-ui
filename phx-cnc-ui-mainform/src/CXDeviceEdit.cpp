@@ -20,6 +20,7 @@ CXDeviceEdit::CXDeviceEdit(QWidget* parent) : QDialog(parent)
 	layout->addLayout(mCentralLayout);
 
 	CXTouchButton* acceptButton = new CXTouchButton(trUtf8("Применить"), this);
+	acceptButton->setDefault(true);
 	layout->addWidget(acceptButton);
 
 	mValidator = new QRegExpValidator(QRegExp("[^=,]*"), this);
