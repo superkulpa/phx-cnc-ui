@@ -204,17 +204,17 @@ bool CXDeviceView::eventFilter(QObject* watched, QEvent* e)
 				if (incKeys.contains(ev->key()))
 				{
 					index = incKeys.indexOf(ev->key());
-					value = QString("%1=").arg(index) + QString::fromStdString(MSG_VALUE_INC);
+					value = QString("%1=").arg(index) + QString::fromStdString(Commands::MSG_VALUE_INC);
 				}
 				else if (invKeys.contains(ev->key()))
 				{
 					index = invKeys.indexOf(ev->key());
-					value = QString("%1=").arg(index) + QString::fromStdString(MSG_VALUE_INVERT);
+					value = QString("%1=").arg(index) + QString::fromStdString(Commands::MSG_VALUE_INVERT);
 				}
 				else if (decKeys.contains(ev->key()))
 				{
 					index = decKeys.indexOf(ev->key());
-					value = QString("%1=").arg(index) + QString::fromStdString(MSG_VALUE_DEC);
+					value = QString("%1=").arg(index) + QString::fromStdString(Commands::MSG_VALUE_DEC);
 				}
 				else break;
 

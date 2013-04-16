@@ -24,7 +24,11 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="mXEdit"/>
+      <widget class="QLineEdit" name="mXEdit">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0" colspan="8">
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -69,7 +73,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="mFrameEdit"/>
+           <widget class="QLineEdit" name="mFrameEdit">
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -143,7 +151,11 @@
       </widget>
      </item>
      <item row="0" column="4">
-      <widget class="QLineEdit" name="mYEdit"/>
+      <widget class="QLineEdit" name="mYEdit">
+       <property name="text">
+        <string>0</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
