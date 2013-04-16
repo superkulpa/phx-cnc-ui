@@ -168,8 +168,8 @@ int main(int argc, char *argv[])
 		windows.insertMulti(window->metaObject()->className(), window);
 	}
 
-	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileCreated(const QString&, const QString&)),	windows.values("CXPathWindow").first(), SLOT(load(const QString&, const QString&)));
-	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileManageCreated(const QString&, const QString&)),	windows.values("CXPathWindow").at(1), SLOT(load(const QString&, const QString&)));
+	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileManageCreated(const QString&, const QString&)),	windows.values("CXPathWindow").first(), SLOT(load(const QString&, const QString&)));
+	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileCreated(const QString&, const QString&)),	windows.values("CXPathWindow").at(1), SLOT(load(const QString&, const QString&)));
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)),					windows.value("CXEditPathFile"), SLOT(openFile(const QString&)));
 	QObject::connect(windows.value("CXFilesList"), SIGNAL(compileTextChanged(const QString&)),			windows.value("CXCompileEdit"), SLOT(setText(const QString&)));
 	QObject::connect(windows.value("CXCompileEdit"), SIGNAL(error(const QString&, int)),				windows.value("CXEditPathFile"), SLOT(onError(const QString&, int)));
