@@ -313,11 +313,11 @@ void CXFilesList::onLoadCheckFile()
 	parametersWindow->resize(800, 600);
 	parametersWindow->setFileName(getConfigAttribute("Common.OutputCpNameKerf"), getConfigAttribute("Common.OutputRunCpName"));
 
-	parametersWindow->exec();
-//	if (parametersWindow->exec() == QDialog::Accepted)
-//	{
+	if (parametersWindow->exec() == QDialog::Accepted)
+	{
 //		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_LOAD_CP, "0");
-//	}
+		emit fileManageCreated(getConfigAttribute("Common.OutputCpName"), getConfigAttribute("Common.OutputCpNameKerf"));
+	}
 }
 
 void CXFilesList::onTextChanged(bool aIsSaved)
