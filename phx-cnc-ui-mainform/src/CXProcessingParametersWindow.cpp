@@ -32,22 +32,26 @@ CXProcessingParametersWindow::~CXProcessingParametersWindow()
 void CXProcessingParametersWindow::setFileName(const QString& aFileName, const QString& aFtpFileName)
 {
 	mFileName = aFileName;
-	mFtpFileName = QFileInfo(mFileName).absoluteDir().absoluteFilePath(QFileInfo(aFtpFileName).fileName());
+	mFtpFileName = aFtpFileName;
 }
 
 void CXProcessingParametersWindow::onFileLoad()
 {
 	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
 
-	QFile::rename(mFileName, mFtpFileName);
+	//QFile::rename(mFileName, mFtpFileName);
 
-	QFileInfo fileInfo(mFtpFileName);
+	QFileInfo fileInfo(mFileName);
+	//QFileInfo fileFTPInfo(mFtpFileName);
 
 	mFtp = new CXFtp(this);
 
 	mFtp->setConnectData(host, 21, "ftp", "ftp");
-	mFtp->setLoadFilesData(/*fileInfo.absoluteDir().absolutePath()*/
-							QApplication::applicationDirPath() + "/jini" , "pub/updates/jini");
+	mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath()
+	                      ,mFtpFileName);
+
+	//записываем куда загрузится
+	mFtpFileName += "/" + fileInfo.fileName();
 
 	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
 	connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
@@ -92,5 +96,6 @@ void CXProcessingParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 
 	AXBaseWindow::mManager->setCurrentGroup(4);
 	AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_REFRESH_PARAMS, "0");
+	AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_LOAD_CP, mFtpFileName.toStdString());
 	accept();
 }
