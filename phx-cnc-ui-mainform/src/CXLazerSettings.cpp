@@ -23,9 +23,10 @@ CXLazerSettings::CXLazerSettings() : AXBaseWindow()
 	connect(mTButton, SIGNAL(clicked()), this, SLOT(onTClick()));
 	connect(mZHButton, SIGNAL(clicked()), this, SLOT(onZHClick()));
 
-	connect(mPushingButton, SIGNAL(clicked()), this, SLOT(onStart()));
-	connect(mIncutButton, SIGNAL(clicked()), this, SLOT(onStart()));
+	connect(mBurnButton, SIGNAL(clicked()), this, SLOT(onStart()));
+	connect(mRBurnButton, SIGNAL(clicked()), this, SLOT(onStart()));
 	connect(mStopButton, SIGNAL(clicked()), this, SLOT(onStop()));
+	connect(mCutModeButton, SIGNAL(clicked()), this, SLOT(onCutMode()));
 	connect(mSVRButton, SIGNAL(clicked()), this, SLOT(onSVR()));
 
 	connect(mLazerVelocity, SIGNAL(velocityChanged(eVelocity)), this, SLOT(onVelocityChange(eVelocity)));
@@ -40,10 +41,12 @@ CXLazerSettings::CXLazerSettings() : AXBaseWindow()
 
 	registerManager();
 
-	mVoltages.append(mLabel1);
+	mVoltages.append(mSVR1ValueLabel);
 	mVoltages.append(mLabel2);
 	mVoltages.append(mLabel3);
 	mVoltages.append(mLabel4);
+
+	mCutModeButton->setText(trUtf8("Черчение"));
 }
 
 CXLazerSettings::~CXLazerSettings()
@@ -91,33 +94,38 @@ void CXLazerSettings::onZHClick()
 
 void CXLazerSettings::onStart()
 {
-	if (sender() == mPushingButton)
+	if (sender() == mBurnButton)
 	{
-		mUdpManager->sendCommand(Commands::MSG_SECTION_TECH, Commands::MSG_CMD_BURN, "0");
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_BURN, "0");
 	}
 
-	if (sender() == mIncutButton)
+	if (sender() == mRBurnButton)
 	{
-		mUdpManager->sendCommand(Commands::MSG_SECTION_TECH, Commands::MSG_CMD_R_BURN, "0");
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_R_BURN, "0");
 	}
 
-	mPushingButton->hide();
-	mIncutButton->hide();
+	mBurnButton->hide();
+	mRBurnButton->hide();
 	mStopButton->show();
 }
 
 void CXLazerSettings::onStop()
 {
-	mUdpManager->sendCommand(Commands::MSG_SECTION_TECH, Commands::MSG_CMD_CUT2_OFF, "0");
+	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CUT2_OFF, "0");
 
 	mStopButton->hide();
-	mPushingButton->show();
-	mIncutButton->show();
+	mBurnButton->show();
+	mRBurnButton->show();
 }
 
 void CXLazerSettings::onSVR()
 {
-	mUdpManager->sendCommand(Commands::MSG_SECTION_TECH, Commands::MSG_CMD_MODE_SVR, "0");
+	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_SVR, MSG_VALUE_INVERT);
+}
+
+void CXLazerSettings::onCutMode()
+{
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_CUT, MSG_VALUE_INVERT);
 }
 
 void CXLazerSettings::onVelocityChange(eVelocity aVelocity)
@@ -154,7 +162,7 @@ void CXLazerSettings::onVelocityChange(eVelocity aVelocity)
 		else res.append(QString("%1=0").arg(i + 1));
 	}
 
-	mUdpManager->sendCommand(Commands::MSG_SECTION_TECH, Commands::MSG_CMD_HAND_DIR_MOVING_Z, res.toStdString());
+	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING_Z, res.toStdString());
 }
 
 void CXLazerSettings::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
@@ -196,16 +204,17 @@ void CXLazerSettings::onCommandReceive(const QString& aSection, const QString& a
 
 				if (index >= 0 && index < buttons.count())
 				{
-					curButton = buttons.at(index);
+					curButton = buttons.at(index - 1);
 
 					curButton->blockSignals(true);
+					if (value == 0) curButton->setText("");
+					else curButton->setText(QString::number(index));
+//					if (value <= 3) curButton->setText(QString::number(index + 1));
+//					if (value == 4) curButton->setText(trUtf8("Поиск\n0"));
+//					if (value == 5) curButton->setText(trUtf8("Поиск\nлиста"));
 
-					if (value <= 3) curButton->setText(QString::number(index + 1));
-					if (value == 4) curButton->setText(trUtf8("Поиск\n0"));
-					if (value == 5) curButton->setText(trUtf8("Поиск\nлиста"));
-
-					if (value == 0 || value == 4) curButton->setChecked(false);
-					if ((value >= 1 && value <= 3) || value == 5) curButton->setChecked(true);
+//					if (value == 0 || value == 4) curButton->setChecked(false);
+//					if ((value >= 1 && value <= 3) || value == 5) curButton->setChecked(true);
 
 					if (value <= 1 || value == 4 || value == 5) curButton->setStyleSheet("");
 					if (value == 2) curButton->setStyleSheet("background-color: yellow;");
@@ -221,6 +230,16 @@ void CXLazerSettings::onCommandReceive(const QString& aSection, const QString& a
 			if (aValue == QString::fromStdString(Commands::MSG_VALUE_ON)) mSVRButton->setStyleSheet("background-color: green;");
 			else mSVRButton->setStyleSheet("");
 		}
+		if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_CUT))
+    {
+      if (aValue == QString::fromStdString(Commands::MSG_VALUE_ON)){
+        mCutModeButton->setStyleSheet("background-color: green;");
+        mCutModeButton->setText(trUtf8("Резка"));
+      }else{
+        mCutModeButton->setStyleSheet("");
+        mCutModeButton->setText(trUtf8("Черчение"));
+      }
+    }
 	}
 }
 
@@ -234,8 +253,11 @@ void CXLazerSettings::onButtonCheck()
 
 		int index = buttons.indexOf(button);
 		QString res("%1=%2");
-		res = res.arg(index).arg(button->isChecked()? "1" : "0");
 
-		mUdpManager->sendCommand(Commands::MSG_SECTION_TECH, Commands::MSG_CMD_TS, res.toStdString());
+		if(buttons[index]->text() == "")
+		  res = res.arg(index + 1).arg(QString::fromStdString(Commands::MSG_VALUE_TECH_READY));
+    else
+      res = res.arg(index + 1).arg(QString::fromStdString(Commands::MSG_VALUE_TECH_DISACT));
+		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_TS, res.toStdString());
 	}
 }
