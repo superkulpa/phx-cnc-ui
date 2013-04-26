@@ -388,7 +388,7 @@ void CXLazerDirectionWindow::onCommandReceive(const QString& aSection, const QSt
 		//Текущая скорость.
 		if (aCommand == QString::fromStdString(Commands::MSG_STATE_FEED_RESULT))
 		{
-			QString value = trUtf8("%1 мм/мин").arg(aValue.toDouble() / 1000.0, 0, 'f', 2);
+			QString value = trUtf8("%1 мм/мин").arg(aValue.toInt() / 1000.0);
 
 			mFEdit->setText(value);
 		}
