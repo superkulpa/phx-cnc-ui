@@ -37,6 +37,8 @@ private slots:
 	//!
 	void onSVR();
 
+	void onCutMode();
+
 	//! Слот на изменение скорости.
 	void onVelocityChange(eVelocity aVelocity);
 
