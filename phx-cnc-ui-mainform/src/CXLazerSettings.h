@@ -8,49 +8,58 @@
 #include "ui_CXLazerSettings.h"
 
 /*!
-	Класс настройки начальной позиции реза.
-*/
+ Класс настройки начальной позиции реза.
+ */
 class CXLazerSettings : public AXBaseWindow, public Ui::CXLazerSettings
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
-	//! Конструктор.
-	CXLazerSettings();
+  //! Конструктор.
+  CXLazerSettings();
 
-	//! Деструктор.
-	~CXLazerSettings();
+  //! Деструктор.
+  virtual ~CXLazerSettings();
 
 private slots:
-	//!
-	void onTClick();
+  //!
+  void
+  onTClick();
 
-	//!
-	void onZHClick();
+  //!
+  void
+  onZHClick();
 
-	//!
-	void onStart();
+  //!
+  void
+  onStart();
 
-	//!
-	void onStop();
+  //!
+  void
+  onStop();
 
-	//!
-	void onSVR();
+  //!
+  void
+  onSVR();
 
-	void onCutMode();
+  void
+  onCutMode();
 
-	//! Слот на изменение скорости.
-	void onVelocityChange(eVelocity aVelocity);
+  //! Слот на изменение скорости.
+  void
+  onVelocityChange(eVelocity aVelocity);
 
-	//! Слот получения команды от ядра.
-	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
+  //! Слот получения команды от ядра.
+  void
+  onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
 
-	//!
-	void onButtonCheck();
+  //!
+  void
+  onButtonCheck();
 
 private:
-	QButtonGroup* mCheckButtonGroup;
-	QList <QLabel*> mVoltages;
+  QButtonGroup* mCheckButtonGroup;
+  QList<QLabel*> mVoltages;
 };
 
 #endif // CXLAZERSETTINGS_H

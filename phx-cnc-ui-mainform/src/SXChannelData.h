@@ -2,24 +2,26 @@
 #define SXCHANNELDATA_H
 
 /*!
-	Структура с данными канала.
-*/
+ Структура с данными канала.
+ */
 struct SXChannelData
 {
-	//! Конструктор.
-	SXChannelData() { }
+  //! Конструктор.
+  SXChannelData()
+  {
+  }
 
-	//! Данныме поля модификатора.
-	QString mModify;
+  //! Данныме поля модификатора.
+  QString mModify;
 
-	//! Название секции, которой принадлежит канал.
-	QString mSectionName;
+  //! Название секции, которой принадлежит канал.
+  QString mSectionName;
 
-	//! Название поля, которому принадлежит канал.
-	QString mValueName;
+  //! Название поля, которому принадлежит канал.
+  QString mValueName;
 
-	//! Описание.
-	QString mDescription;
+  //! Описание.
+  QString mDescription;
 };
 
 #endif // SXCHANNELDATA_H

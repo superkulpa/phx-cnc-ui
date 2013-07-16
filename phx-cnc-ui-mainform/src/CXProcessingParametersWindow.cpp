@@ -11,91 +11,99 @@
 #include "CXSettingsXML.h"
 #include "CXUdpManager.h"
 
-CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) : QDialog(parent)
+CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) :
+    QDialog(parent)
 {
-	setupUi(this);
-	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
+  setupUi(this);
+  setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
-	mFtp = NULL;
-	mParametersView = new CXParametersView(this, CXParametersView::mDataMap.values(0));
+  mFtp = NULL;
+  mParametersView = new CXParametersView(this, CXParametersView::mDataMap.values(0));
 
-	mCentralLayout->insertWidget(0, mParametersView);
+  mCentralLayout->insertWidget(0, mParametersView);
 
-	connect(mCancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(mLoadButton, SIGNAL(clicked()), this, SLOT(onFileLoad()));
+  connect(mCancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(mLoadButton, SIGNAL(clicked()), this, SLOT(onFileLoad()));
 }
 
 CXProcessingParametersWindow::~CXProcessingParametersWindow()
 {
 }
 
-void CXProcessingParametersWindow::setFileName(const QString& aFileName, const QString& aFtpFileName)
+void
+CXProcessingParametersWindow::setFileName(const QString& aFileName, const QString& aFtpFileName)
 {
-	mFileName = aFileName;
-	mFtpFileName = aFtpFileName;
+  mFileName = aFileName;
+  mFtpFileName = aFtpFileName;
 }
 
-void CXProcessingParametersWindow::onFileLoad()
+void
+CXProcessingParametersWindow::onFileLoad()
 {
-	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
+  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
 
-	//QFile::rename(mFileName, mFtpFileName);
+  //QFile::rename(mFileName, mFtpFileName);
 
-	QFileInfo fileInfo(mFileName);
-	//QFileInfo fileFTPInfo(mFtpFileName);
+  QFileInfo fileInfo(mFileName);
+  //QFileInfo fileFTPInfo(mFtpFileName);
 
-	mFtp = new CXFtp(this);
+  mFtp = new CXFtp(this);
 
-	mFtp->setConnectData(host, 21, "ftp", "ftp");
-	mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath()
-	                      ,mFtpFileName);
+  mFtp->setConnectData(host, 21, "ftp", "ftp");
+  mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath(), CXFtp::remoteCatalog);
 
-	//записываем куда загрузится
-	mFtpFileName += "/" + fileInfo.fileName();
+  //записываем куда загрузится
+  //mFtpFileName = "pub/updates/jini/" + mFtpFileName;
 
-	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
-	connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
+  connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
+  connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
 
-	QStringList loadFiles;
-	loadFiles << fileInfo.fileName();
+  QStringList loadFiles;
+  loadFiles << fileInfo.fileName();
 
-	if (mParametersView->isModified())
-	{
-		mParametersView->resetIsModified();
+  if (mParametersView->isModified())
+  {
+    mParametersView->resetIsModified();
 
-		QMap <int, CXParameterData*>::iterator iter;
-		for (iter = CXParametersView::mDataMap.begin(); iter != CXParametersView::mDataMap.end(); ++iter)
-		{
-			iter.value()->save();
-		}
+    QMap<int, CXParameterData*>::iterator iter;
+    for (iter = CXParametersView::mDataMap.begin(); iter != CXParametersView::mDataMap.end();
+        ++iter)
+    {
+      iter.value()->save();
+    }
 
-		loadFiles << "*.ini";
-	}
+    loadFiles << "*.ini";
+  }
 
-	mFtp->onFtpUpload(loadFiles);
+  mFtp->onFtpUpload(loadFiles);
 }
 
-void CXProcessingParametersWindow::closeFtp()
+void
+CXProcessingParametersWindow::closeFtp()
 {
-	if (mFtp == NULL) return;
-	
-	QFile::rename(mFtpFileName, mFileName);
+  if (mFtp == NULL)
+    return;
 
-	disconnect(mFtp, 0, 0, 0);
+  QFile::rename(mFtpFileName, mFileName);
 
-	mFtp->close();
-	mFtp->deleteLater();
-	mFtp = NULL;
+  disconnect(mFtp, 0, 0, 0);
+
+  mFtp->close();
+  mFtp->deleteLater();
+  mFtp = NULL;
 }
 
-void CXProcessingParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
+void
+CXProcessingParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 {
-	Q_UNUSED(aIsUpload);
+  Q_UNUSED(aIsUpload);
 
-	closeFtp();
+  closeFtp();
 
-	AXBaseWindow::mManager->setCurrentGroup(4);
-	AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_REFRESH_PARAMS, "0");
-	AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_LOAD_CP, mFtpFileName.toStdString());
-	accept();
+  AXBaseWindow::mManager->setCurrentGroup(4);
+  AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS,
+      Commands::MSG_CMD_REFRESH_PARAMS, "0");
+  AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_LOAD_CP,
+      mFtpFileName.toStdString());
+  accept();
 }

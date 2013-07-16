@@ -2,22 +2,25 @@
 
 #include <QProcess>
 
-CXProcess::CXProcess(QObject* parent): QProcess(parent)
+CXProcess::CXProcess(QObject* parent) :
+    QProcess(parent)
 {
-	;
+  ;
 }
 
 CXProcess::~CXProcess()
 {
-	;
+  ;
 }
 
-void CXProcess::start(const QString& aProgram)
+void
+CXProcess::start(const QString& aProgram)
 {
-	QProcess::start(aProgram);
+  QProcess::start(aProgram);
 }
 
-int CXProcess::execute(const QString& aProgram)
+int
+CXProcess::execute(const QString& aProgram)
 {
-	return QProcess::execute(aProgram);
+  return QProcess::execute(aProgram);
 }

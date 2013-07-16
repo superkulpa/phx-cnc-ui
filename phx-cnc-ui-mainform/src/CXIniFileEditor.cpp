@@ -9,16 +9,17 @@
 #include "CXFtp.h"
 #include "CXSettingsXML.h"
 
-CXIniFileEditor::CXIniFileEditor() : AXBaseWindow()
+CXIniFileEditor::CXIniFileEditor() :
+    AXBaseWindow()
 {
-	setupUi(this);
+  setupUi(this);
 
-	mIsUpload = false;
-	mProgressBar = NULL;
+  mIsUpload = false;
+  mProgressBar = NULL;
 
-	mHighlighter = new CXIniSyntaxHighlighter(mIniFileEdit->document());
+  mHighlighter = new CXIniSyntaxHighlighter(mIniFileEdit->document());
 
-	registerManager();
+  registerManager();
 }
 
 CXIniFileEditor::~CXIniFileEditor()
@@ -26,108 +27,123 @@ CXIniFileEditor::~CXIniFileEditor()
 
 }
 
-void CXIniFileEditor::onOpenFile(const QString& aFileName)
+void
+CXIniFileEditor::onOpenFile(const QString& aFileName)
 {
-	mFileName = aFileName;
+  mFileName = aFileName;
 
-	QFile file(mFileName);
-	file.open(QIODevice::ReadOnly);
+  QFile file(mFileName);
+  file.open(QIODevice::ReadOnly);
 
-	QTextStream in(&file);
-	in.setCodec("UTF-8");
+  QTextStream in(&file);
+  in.setCodec("UTF-8");
 
-	mIniFileEdit->setPlainText(in.readAll());
+  mIniFileEdit->setPlainText(in.readAll());
 
-	file.close();
+  file.close();
 
-	if (mIniFileEdit->toPlainText().at(0) == '<' && mHighlighter->metaObject()->className() != QString("CXXmlSyntaxHighlighter"))
-	{
-		delete mHighlighter;
-		mHighlighter = new CXXmlSyntaxHighlighter(mIniFileEdit->document());
-	}
-	else if (mHighlighter->metaObject()->className() != QString("CXXmlSyntaxHighlighter"))
-	{
-		delete mHighlighter;
-		mHighlighter = new CXIniSyntaxHighlighter(mIniFileEdit->document());
-	}
+  if (mIniFileEdit->toPlainText().at(0) == '<'
+      && mHighlighter->metaObject()->className()
+          != QString("CXXmlSyntaxHighlighter"))
+  {
+    delete mHighlighter;
+    mHighlighter = new CXXmlSyntaxHighlighter(mIniFileEdit->document());
+  }
+  else if (mHighlighter->metaObject()->className()
+      != QString("CXXmlSyntaxHighlighter"))
+  {
+    delete mHighlighter;
+    mHighlighter = new CXIniSyntaxHighlighter(mIniFileEdit->document());
+  }
 }
 
-void CXIniFileEditor::onSave()
+void
+CXIniFileEditor::onSave()
 {
-	if (!mFileName.isEmpty() && QFile::exists(mFileName))
-	{
+  if (!mFileName.isEmpty() && QFile::exists(mFileName))
+  {
 //		if (QMessageBox::question(this, trUtf8(""), trUtf8("Вы действительно хотите перезаписать файл?"), QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes) return;
 
-		QFile file(mFileName);
-		file.open(QIODevice::WriteOnly);
+    QFile file(mFileName);
+    file.open(QIODevice::WriteOnly);
 
-		QTextStream out(&file);
-		out.setCodec("UTF-8");
+    QTextStream out(&file);
+    out.setCodec("UTF-8");
 
-		out << mIniFileEdit->toPlainText();
+    out << mIniFileEdit->toPlainText();
 
-		file.close();
+    file.close();
 
-		loadFiles(true);
+    loadFiles(true);
 
 //		QMessageBox::information(this, trUtf8(""), trUtf8("Файл \"%1\" успешно записан.").arg(mFileName));
-	}
+  }
 }
 
-void CXIniFileEditor::loadFiles(bool aIsUpload)
+void
+CXIniFileEditor::loadFiles(bool aIsUpload)
 {
-	mIsUpload = aIsUpload;
+  mIsUpload = aIsUpload;
 
-	mProgressBar = new QProgressBar;
-	mProgressBar->setWindowFlags(Qt::FramelessWindowHint);
-	mProgressBar->setAlignment(Qt::AlignCenter);
-	mProgressBar->setWindowModality(Qt::ApplicationModal);
+  mProgressBar = new QProgressBar;
+  mProgressBar->setWindowFlags(Qt::FramelessWindowHint);
+  mProgressBar->setAlignment(Qt::AlignCenter);
+  mProgressBar->setWindowModality(Qt::ApplicationModal);
 
-	QSize size = QApplication::desktop()->availableGeometry().size();
-	mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
+  QSize size = QApplication::desktop()->availableGeometry().size();
+  mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
 
-	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
+  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
 
-	mFtp = new CXFtp(this);
-	mFtp->setConnectData(host, 21, "ftp", "ftp");
-	mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", "pub/updates/jini");
+  mFtp = new CXFtp(this);
+  mFtp->setConnectData(host, 21, "ftp", "ftp");
+  mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
 
-	connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
-	connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
-	connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
-	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
-	connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
+  connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
+  connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
+  connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this,
+      SLOT(setProgressText(const QString&)));
+  connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
+  connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
 
-	if (aIsUpload) mFtp->onFtpUpload(QStringList() << "*.ini" << "*.xml");
-	else mFtp->onFtpDownload(QStringList() << "ini" << "xml");
+  if (aIsUpload)
+    mFtp->onFtpUpload(QStringList() << "*.ini" << "*.xml");
+  else
+    mFtp->onFtpDownload(QStringList() << "ini" << "xml");
 
-	mProgressBar->show();
+  mProgressBar->show();
 }
 
-void CXIniFileEditor::setProgressText(const QString& aText)
+void
+CXIniFileEditor::setProgressText(const QString& aText)
 {
-	if (mIsUpload) mProgressBar->setFormat(trUtf8("Сохранение ") + aText + " (%p%)");
-	else mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
+  if (mIsUpload)
+    mProgressBar->setFormat(trUtf8("Сохранение ") + aText + " (%p%)");
+  else
+    mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
 }
 
-void CXIniFileEditor::closeFtp()
+void
+CXIniFileEditor::closeFtp()
 {
-	if (mProgressBar == NULL) return;
+  if (mProgressBar == NULL)
+    return;
 
-	mProgressBar->close();
-	delete mProgressBar;
-	mProgressBar = NULL;
+  mProgressBar->close();
+  delete mProgressBar;
+  mProgressBar = NULL;
 
-	disconnect(mFtp, 0, 0, 0);
+  disconnect(mFtp, 0, 0, 0);
 
-	mFtp->close();
-	mFtp->deleteLater();
-	mFtp = NULL;
+  mFtp->close();
+  mFtp->deleteLater();
+  mFtp = NULL;
 }
 
-void CXIniFileEditor::onAllFilesIsLoaded(bool aIsUpload)
+void
+CXIniFileEditor::onAllFilesIsLoaded(bool aIsUpload)
 {
-	Q_UNUSED(aIsUpload);
+  Q_UNUSED(aIsUpload);
 
-	closeFtp();
+  closeFtp();
 }

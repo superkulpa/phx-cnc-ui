@@ -6,38 +6,41 @@
 class CXPathView;
 
 /*!
-	Класс с отображением путя реза и функциональными кнопками.
-*/
+ Класс с отображением путя реза и функциональными кнопками.
+ */
 class CXPathWindow : public AXBaseWindow
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
-	CXPathWindow();
-	~CXPathWindow();
+  CXPathWindow();
+  virtual ~CXPathWindow();
 
 public slots:
-	/*!
-		Слот загрузки пути реза из файла.
+  /*!
+   Слот загрузки пути реза из файла.
 
-		\param aMainFile - Исходный контур.
-		\param aMainFile - Контур движения.
-	*/
-	void load(const QString& aMainFile, const QString& aMoveFile);
+   \param aMainFile - Исходный контур.
+   \param aMainFile - Контур движения.
+   */
+  void
+  load(const QString& aMainFile, const QString& aMoveFile);
 
-	/*!
-		Слот установки текущей позиции реза.
+  /*!
+   Слот установки текущей позиции реза.
 
-		\param aPos - координаты реза.
-		\param aIsAbsolute - абсолютное ли смещение.
-	*/
-	void setPosition(const QPointF& aPos, bool aIsAbsolute);
+   \param aPos - координаты реза.
+   \param aIsAbsolute - абсолютное ли смещение.
+   */
+  void
+  setPosition(const QPointF& aPos, bool aIsAbsolute);
 
-	//! Слот разворачивания на весь экран.
-	void onMaximize();
+  //! Слот разворачивания на весь экран.
+  void
+  onMaximize();
 
 private:
-	CXPathView* mPathView;
+  CXPathView* mPathView;
 };
 
 #endif // CXPATHWINDOW_H

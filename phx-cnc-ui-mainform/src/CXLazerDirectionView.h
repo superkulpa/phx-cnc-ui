@@ -7,74 +7,82 @@
 
 namespace LazerDirectionView
 {
-	//! Перечисление возможных значений направления реза.
-	enum eMoveDirection
-	{
-		E_Stop = 0,
-		E_Top,
-		E_TopLeft,
-		E_Left,
-		E_BottomLeft,
-		E_Bottom,
-		E_BottomRight,
-		E_Right,
-		E_TopRight
-	};
+  //! Перечисление возможных значений направления реза.
+  enum eMoveDirection
+  {
+    E_Stop = 0,
+    E_Top,
+    E_TopLeft,
+    E_Left,
+    E_BottomLeft,
+    E_Bottom,
+    E_BottomRight,
+    E_Right,
+    E_TopRight
+  };
 }
 
 /*!
-	Класс настройки направления реза.
-*/
+ Класс настройки направления реза.
+ */
 class CXLazerDirectionView : public QWidget
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
-	//! Конструктор.
-	CXLazerDirectionView(QWidget* parent = 0);
+  //! Конструктор.
+  CXLazerDirectionView(QWidget* parent = 0);
 
-	//! Деструктор.
-	~CXLazerDirectionView();
+  //! Деструктор.
+  virtual ~CXLazerDirectionView();
 
-	//! Функция установки направления реза.
-	void setDirection(LazerDirectionView::eMoveDirection aDirection);
+  //! Функция установки направления реза.
+  void
+  setDirection(LazerDirectionView::eMoveDirection aDirection);
 
 signals:
-	//! Сигнал на изменение направления.
-	void directionChanged(LazerDirectionView::eMoveDirection aDirection);
+  //! Сигнал на изменение направления.
+  void
+  directionChanged(LazerDirectionView::eMoveDirection aDirection);
 
 protected:
-	//! Переопределенная фукнция рисования.
-	virtual void paintEvent(QPaintEvent* e);
+  //! Переопределенная фукнция рисования.
+  virtual void
+  paintEvent(QPaintEvent* e);
 
-	//! Переопределенная функция событий таймера.
-	virtual void timerEvent(QTimerEvent* e);
+  //! Переопределенная функция событий таймера.
+  virtual void
+  timerEvent(QTimerEvent* e);
 
-	//! Переопределенная фукнция обработки нажатия кнопки мышки.
-	virtual void mousePressEvent(QMouseEvent* e);
+  //! Переопределенная фукнция обработки нажатия кнопки мышки.
+  virtual void
+  mousePressEvent(QMouseEvent* e);
 
-	//! Переопределенная фукнция обработки отпускания кнопки мышки.
-	virtual void mouseReleaseEvent(QMouseEvent* e);
+  //! Переопределенная фукнция обработки отпускания кнопки мышки.
+  virtual void
+  mouseReleaseEvent(QMouseEvent* e);
 
-	//! Переопределенная фукнция обработки движения мышки.
-	virtual void mouseMoveEvent(QMouseEvent* e);
-
-private:
-	/*!
-		Функция установки направления по координатам.
-
-		\param aPos - позиция курсора.
-	*/
-	void updateDirection(const QPointF& aPos);
+  //! Переопределенная фукнция обработки движения мышки.
+  virtual void
+  mouseMoveEvent(QMouseEvent* e);
 
 private:
-	static int mDelay;
-	int mDelayTimer;
+  /*!
+   Функция установки направления по координатам.
 
-	QList <QPainterPath> mPathList;
-	QPainterPath mDrawPath;
-	QPainterPath mArrowPath;
-	LazerDirectionView::eMoveDirection mDirection;
+   \param aPos - позиция курсора.
+   */
+  void
+  updateDirection(const QPointF& aPos);
+
+private:
+  static int mDelay;
+  int mDelayTimer;
+
+  QList<QPainterPath> mPathList;
+  QPainterPath mDrawPath;
+  QPainterPath mArrowPath;
+  LazerDirectionView::eMoveDirection mDirection;
 };
 
 #endif // CXLAZERDIRECTIONVIEW_H

@@ -23,342 +23,421 @@
 
 #include "CXSettingsXML.h"
 
-QWidget* getTestWindow(int aIndex, int aGroup)
+QWidget*
+createUIWindow(const char* aIndex, int aGroup, QMap<QString, QWidget*>& windows)
 {
-	AXBaseWindow* res = NULL;
+  AXBaseWindow* res = NULL;
+  do
+  {
+    if (aIndex == CXPathWindow::staticMetaObject.className())
+    {
+      res = new CXPathWindow();
 
-	switch (aIndex)
-	{
-		case 0:
-		{
-			res = new CXPathWindow();
+      break;
+    }
+    if (aIndex == CXFilesList::staticMetaObject.className())
+    {
+      res = new CXFilesList();
 
-			break;
-		}
-		case 1:
-		{
-			res = new CXFilesList();
+      break;
+    }
+    if (aIndex == CXEditPathFile::staticMetaObject.className())
+    {
+      res = new CXEditPathFile();
 
-			break;
-		}
-		case 2:
-		{
-			res = new CXEditPathFile();
+      break;
+    }
+    if (aIndex == CXCompileEdit::staticMetaObject.className())
+    {
+      res = new CXCompileEdit();
 
-			break;
-		}
-		case 3:
-		{
-			res = new CXCompileEdit();
+      break;
+    }
+    if (aIndex == CXParametersWindow::staticMetaObject.className())
+    {
+      res = new CXParametersWindow(false);
 
-			break;
-		}
-		case 4:
-		{
-			res = new CXParametersWindow(false);
+      break;
+    }
+    if (aIndex == CXIniFileEditor::staticMetaObject.className())
+    {
+      res = new CXIniFileEditor();
 
-			break;
-		}
-		case 5:
-		{
-			res = new CXIniFileEditor();
+      break;
+    }
+    if (aIndex == CXIniFileList::staticMetaObject.className())
+    {
+      res = new CXIniFileList();
 
-			break;
-		}
-		case 6:
-		{
-			res = new CXIniFileList();
+      break;
+    }
+    if (aIndex == CXLazerDirectionWindow::staticMetaObject.className())
+    {
+      res = new CXLazerDirectionWindow();
 
-			break;
-		}
-		case 7:
-		{
-			res = new CXLazerDirectionWindow();
+      break;
+    }
+    if (aIndex == CXLazerSettings::staticMetaObject.className())
+    {
+      res = new CXLazerSettings();
 
-			break;
-		}
-		case 8:
-		{
-			res = new CXLazerSettings();
+      break;
+    }
+    if (aIndex == CXPathWindow::staticMetaObject.className())
+    {
+      res = new CXPathWindow();
 
-			break;
-		}
-		case 9:
-		{
-			res = new CXPathWindow();
+      break;
+    }
+    if (aIndex == CXTextParameters::staticMetaObject.className())
+    {
+      res = new CXTextParameters();
 
-			break;
-		}
-		case 10:
-		{
-			res = new CXTextParameters();
+      break;
+    }
+  }
+  while (0);
 
-			break;
-		}
-	}
+  if (res == NULL)
+    return NULL;
 
-	if (res != NULL) res->setGroupNumber(aGroup);
+  res->setGroupNumber(aGroup);
+  windows.insertMulti(aIndex, res);
 
-	return res;
+  return res;
 }
 
-CXGroupPanel* addGroupPanel(int aGroup)
+CXGroupPanel*
+addGroupPanel(int aGroup)
 {
-	CXGroupPanel* panel = new CXGroupPanel();
-	panel->setGroupNumber(aGroup);
+  CXGroupPanel* panel = new CXGroupPanel();
+  panel->setGroupNumber(aGroup);
 
-    return panel;
+  return panel;
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
-	QApplication app(argc, argv);
-	app.setQuitOnLastWindowClosed(false);
+  QApplication app(argc, argv);
+  app.setQuitOnLastWindowClosed(false);
 
-	QString translate = CXSettingsXML::getValue("settings.xml", "translate");
-	
-	if (!translate.isEmpty())
-	{
-		QTranslator* translator = new QTranslator(&app);
-		translator->load(QApplication::applicationDirPath() + QDir::separator() + "translations" + QDir::separator() + translate);
-		app.installTranslator(translator);
-	}
+  QString translate = CXSettingsXML::getValue("settings.xml", "translate");
 
-	QString style = CXSettingsXML::getValue("settings.xml", "style");
+  if (!translate.isEmpty())
+  {
+    QTranslator* translator = new QTranslator(&app);
+    translator->load(
+        QApplication::applicationDirPath() + QDir::separator() + "translations" + QDir::separator()
+            + translate);
+    app.installTranslator(translator);
+  }
 
-	if (!style.isEmpty())
-	{
-		app.setStyleSheet(style);
-	}
+  QString style = CXSettingsXML::getValue("settings.xml", "style");
 
-	CXWindowsManager manager;
-	AXBaseWindow::mManager = &manager;
-	AXBaseWindow::mUdpManager = new CXUdpManager(NULL);
+  if (!style.isEmpty())
+  {
+    app.setStyleSheet(style);
+  }
 
-	QWidget* window = NULL;
+  CXWindowsManager manager;
+  AXBaseWindow::mManager = &manager;
+  AXBaseWindow::mUdpManager = new CXUdpManager(NULL);
 
-/**/
-	QMap <QString, QWidget*> windows;
+  /**/
+  QMap<QString, QWidget*> windows;
 
-	//Создание первой группы окон.
-	for (int i = 0; i < 4; ++i)
-	{
-		window = getTestWindow(i, 1);
-		windows.insertMulti(window->metaObject()->className(), window);
-	}
+  //Создание групп окон.
+  createUIWindow(CXPathWindow::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
+      windows);
 
-	//Создание второй группы окон.
-	for (int i = 0; i < 1; ++i)
-	{
-		window = getTestWindow(i + 4, 2);
-		windows.insertMulti(window->metaObject()->className(), window);
-	}
+  createUIWindow(CXFilesList::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
+      windows);
 
-	//Создание третьей группы окон.
-	for (int i = 0; i < 2; ++i)
-	{
-		window = getTestWindow(i + 5, 3);
-		windows.insertMulti(window->metaObject()->className(), window);
-	}
+  createUIWindow(CXEditPathFile::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
+      windows);
 
-	//Создание четвертой группы окон.
-	for (int i = 0; i < 4; ++i)
-	{
-		window = getTestWindow(i + 7, 4);
-		windows.insertMulti(window->metaObject()->className(), window);
-	}
+  createUIWindow(CXCompileEdit::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
+      windows);
 
-	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileManageCreated(const QString&, const QString&)),	windows.values("CXPathWindow").first(), SLOT(load(const QString&, const QString&)));
-	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileCreated(const QString&, const QString&)),	windows.values("CXPathWindow").at(1), SLOT(load(const QString&, const QString&)));
-	QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)),					windows.value("CXEditPathFile"), SLOT(openFile(const QString&)));
-	QObject::connect(windows.value("CXFilesList"), SIGNAL(compileTextChanged(const QString&)),			windows.value("CXCompileEdit"), SLOT(setText(const QString&)));
-	QObject::connect(windows.value("CXCompileEdit"), SIGNAL(error(const QString&, int)),				windows.value("CXEditPathFile"), SLOT(onError(const QString&, int)));
+//
+//  for (int i = 0; i < 4; ++i)
+//    {
+//      window = createUIWindow(i, 1);
+//      windows.insertMulti(window->metaObject()->className(), window);
+//    }
+  createUIWindow(CXParametersWindow::staticMetaObject.className(), CXWindowsManager::_wingroupParams,
+      windows);
+//  //Создание второй группы окон.
+//  for (int i = 0; i < 1; ++i)
+//    {
+//      window = createUIWindow(i + 4, 2);
+//      windows.insertMulti(window->metaObject()->className(), window);
+//    }
 
-	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(textChanged(bool)),						windows.value("CXFilesList"), SLOT(onTextChanged(bool)));
-	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(newFileCreated()),							windows.value("CXFilesList"), SLOT(onCreateNewFile()));
-	QObject::connect(windows.value("CXEditPathFile"), SIGNAL(statSaved()),								windows.value("CXFilesList"), SLOT(onStatSave()));
-	QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileOpened(const QString&)),				windows.value("CXIniFileEditor"), SLOT(onOpenFile(const QString&)));
-	QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileSaved()),								windows.value("CXIniFileEditor"), SLOT(onSave()));
-	QObject::connect(windows.value("CXLazerDirectionWindow"), SIGNAL(positionChanged(const QPointF&, bool)),	windows.values("CXPathWindow").at(0), SLOT(setPosition(const QPointF&, bool)));
+  createUIWindow(CXIniFileEditor::staticMetaObject.className(), CXWindowsManager::_wingroupCustom,
+      windows);
+  createUIWindow(CXIniFileList::staticMetaObject.className(), CXWindowsManager::_wingroupCustom,
+      windows);
 
-  CXGroupPanel* curGroupPanel = NULL;
+//  //Создание третьей группы окон.
+//  for (int i = 0; i < 2; ++i)
+//    {
+//      window = createUIWindow(i + 5, 3);
+//      windows.insertMulti(window->metaObject()->className(), window);
+//    }
 
-	//Создание функциональных панелей управления для каждой группы окон.
-	for (int i = 1; i < 6; ++i)
-	{
-        curGroupPanel = addGroupPanel(i);
+  createUIWindow(CXLazerDirectionWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
+      windows);
+  createUIWindow(CXLazerSettings::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
+      windows);
+  createUIWindow(CXPathWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
+      windows);
+  createUIWindow(CXTextParameters::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
+      windows);
 
-        switch (i)
-        {
-            case 1:
-            {
-                QStringList texts;
-                texts.append(QObject::trUtf8("Управление"));
-                texts.append(QObject::trUtf8("Параметры"));
-                texts.append(QString());
-                texts.append(QObject::trUtf8("Клавиатура"));
-                texts.append(QObject::trUtf8("Каталог"));
-                texts.append(QObject::trUtf8("Макро"));
-                texts.append(QObject::trUtf8("Загрузить"));
-                texts.append(QObject::trUtf8("Повернуть"));
-                texts.append(QString());
-                texts.append(QObject::trUtf8("Выключение"));
+//  //Создание четвертой группы окон.
+//  for (int i = 0; i < 4; ++i)
+//    {
+//      window = createUIWindow(i + 7, 4);
+//      windows.insertMulti(window->metaObject()->className(), window);
+//    }
 
-                curGroupPanel->setButtonsText(texts);
+  QObject::connect(windows.value("CXFilesList"),
+      SIGNAL(fileManageCreated(const QString&, const QString&)),
+      windows.values("CXPathWindow").first(), SLOT(load(const QString&, const QString&)));
+  QObject::connect(windows.value("CXFilesList"),
+      SIGNAL(fileCreated(const QString&, const QString&)),
+      windows.values("CXPathWindow").at(1), SLOT(load(const QString&, const QString&)));
+  QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)),
+      windows.value("CXEditPathFile"), SLOT(openFile(const QString&)));
+  QObject::connect(windows.value("CXFilesList"), SIGNAL(compileTextChanged(const QString&)),
+      windows.value("CXCompileEdit"), SLOT(setText(const QString&)));
+  QObject::connect(windows.value("CXCompileEdit"), SIGNAL(error(const QString&, int)),
+      windows.value("CXEditPathFile"), SLOT(onError(const QString&, int)));
 
-                curGroupPanel->getButton(0)->setProperty("groupName", 4);
-				curGroupPanel->getButton(1)->setProperty("groupName", 2);
-                QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
-				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+  QObject::connect(windows.value("CXEditPathFile"), SIGNAL(textChanged(bool)),
+      windows.value("CXFilesList"), SLOT(onTextChanged(bool)));
+  QObject::connect(windows.value("CXEditPathFile"), SIGNAL(newFileCreated()),
+      windows.value("CXFilesList"), SLOT(onCreateNewFile()));
+  QObject::connect(windows.value("CXEditPathFile"), SIGNAL(statSaved()),
+      windows.value("CXFilesList"), SLOT(onStatSave()));
+  QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileOpened(const QString&)),
+      windows.value("CXIniFileEditor"), SLOT(onOpenFile(const QString&)));
+  QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileSaved()),
+      windows.value("CXIniFileEditor"), SLOT(onSave()));
+  QObject::connect(windows.value("CXLazerDirectionWindow"),
+      SIGNAL(positionChanged(const QPointF&, bool)),
+      windows.values("CXPathWindow").at(0), SLOT(setPosition(const QPointF&, bool)));
 
-                QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()), &manager, SLOT(changeVisibleVirtualKeyboard()));
-                QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked()), curGroupPanel, SLOT(directoryCommand()));
-                QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), curGroupPanel, SLOT(macroCommand()));
-                QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()), windows.value("CXEditPathFile"), SLOT(onSave()));
-                QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXFilesList"), SLOT(onTurn()));
-                QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel, SLOT(onExit()));
 
+  //Создание функциональных панелей управления для каждой группы окон.
+  //for (int i = 1; i < 6; ++i)
+//  {
+    //curGroupPanel = addGroupPanel(i);
 
-                qobject_cast<CXFilesList*>(windows.value("CXFilesList"))->setButton(curGroupPanel->getButton(6));
+//    switch (i)
+  {
+    CXGroupPanel* curGroupPanel;
+    //    case 1:
 
-                break;
-            }
-            case 2:
-            {
-                QStringList texts;
-                texts.append(QObject::trUtf8("УП"));
-				texts.append(QObject::trUtf8("Управление"));
-				texts.append(QString());
-				texts.append(QString());
-                texts.append(QString());
-                texts.append(QString());
-                texts.append(QString());
-                texts.append(QObject::trUtf8("Наладка"));
-                texts.append(QObject::trUtf8("Загрузить"));
-                texts.append(QObject::trUtf8("Сохранить"));
+    curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupCP);
+    {
+      QStringList texts;
+      texts.append(QObject::trUtf8("Управление"));
+      texts.append(QObject::trUtf8("Параметры"));
+      texts.append(QString());
+      texts.append(QObject::trUtf8("Клавиатура"));
+      texts.append(QObject::trUtf8("Каталог"));
+      texts.append(QObject::trUtf8("Макро"));
+      texts.append(QObject::trUtf8("Загрузить"));
+      texts.append(QObject::trUtf8("Повернуть"));
+      texts.append(QString());
+      texts.append(QObject::trUtf8("Выключение"));
+      curGroupPanel->setButtonsText(texts);
 
-                curGroupPanel->getButton(0)->setProperty("groupName", 1);
-				curGroupPanel->getButton(1)->setProperty("groupName", 4);
-                QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
-                QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+      //настройка группы переключения
+      curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupOper);
+      curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupParams);
 
-                curGroupPanel->setButtonsText(texts);
+      QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
+          SLOT(setGroup()));
+      QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel,
+          SLOT(setGroup()));
 
-                CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
+      QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()), &manager,
+          SLOT(changeVisibleVirtualKeyboard()));
+      QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked()), curGroupPanel,
+          SLOT(directoryCommand()));
+      QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), curGroupPanel,
+          SLOT(macroCommand()));
+      QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
+          windows.value("CXEditPathFile"), SLOT(onSave()));
+      QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXFilesList"),
+          SLOT(onTurn()));
+      QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel,
+          SLOT(onExit()));
 
-                QList <QPushButton*> buttons;
-                for (int i = 2; i < 7; ++i) buttons.append(curGroupPanel->getButton(i));
+      qobject_cast<CXFilesList*>(windows.value("CXFilesList"))->setButton(
+          curGroupPanel->getButton(6));
 
-                parametersWindow->setButtons(buttons);
+    }
 
-                QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), parametersWindow, SLOT(showSettings()));
-                QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), parametersWindow, SLOT(loadParametersFromFtp()));
-                QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), parametersWindow, SLOT(saveParameters()));
+    curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupParams);
+    {
+      QStringList texts;
+      texts.append(QObject::trUtf8("УП"));
+      texts.append(QObject::trUtf8("Управление"));
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QObject::trUtf8("Наладка"));
+      texts.append(QObject::trUtf8("Загрузить"));
+      texts.append(QObject::trUtf8("Сохранить"));
+      curGroupPanel->setButtonsText(texts);
 
-                break;
-			}
-			case 3:
-			{
-				QStringList texts;
-				texts.append(QObject::trUtf8("Параметры"));
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QObject::trUtf8("Загрузить"));
-				texts.append(QObject::trUtf8("Сохранить"));
+      //настройка группы переключения
+      curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupCP);
+      curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupOper);
+      QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
+          SLOT(setGroup()));
+      QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel,
+          SLOT(setGroup()));
 
-				curGroupPanel->getButton(0)->setProperty("groupName", 2);
-				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
+      CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(
+          windows.value("CXParametersWindow"));
 
-				QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), windows.value("CXIniFileList"), SLOT(onOpenFile()));
-				QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), windows.value("CXIniFileEditor"), SLOT(onSave()));
+      QList<QPushButton*> buttons;
+      for (int i = 2; i < 7; ++i)
+        buttons.append(curGroupPanel->getButton(i));
 
-                curGroupPanel->setButtonsText(texts);
+      parametersWindow->setButtons(buttons);
 
-				break;
-			}
-			case 4:
-			{
-				QStringList texts;
-				texts.append(QObject::trUtf8("УП"));
-				texts.append(QObject::trUtf8("Параметры"));
-				texts.append(QObject::trUtf8("Наладка"));
-				texts.append(QString());
-				texts.append(QString());
-				texts.append(QObject::trUtf8("Утилиты"));
-				texts.append(QObject::trUtf8("Сбросить\nкоординаты"));
-				texts.append(QObject::trUtf8("Сброс\nаварий"));
-				texts.append(QString());
-				texts.append(QString());
+      QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), parametersWindow,
+          SLOT(showSettings()));
+      QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), parametersWindow,
+          SLOT(loadParametersFromFtp()));
+      QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), parametersWindow,
+          SLOT(saveParameters()));
+    }
 
-				curGroupPanel->getButton(0)->setProperty("groupName", 1);
-				curGroupPanel->getButton(1)->setProperty("groupName", 2);
-				curGroupPanel->getButton(2)->setProperty("groupName", 5);
-				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
-				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(setGroup()));
-				QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel, SLOT(onDeviceEditShow()));
+    curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupCustom);
+    {
+      QStringList texts;
+      texts.append(QObject::trUtf8("Параметры"));
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QObject::trUtf8("Загрузить"));
+      texts.append(QObject::trUtf8("Сохранить"));
+      curGroupPanel->setButtonsText(texts);
 
-				QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onUtils()));
-				QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()), windows.value("CXLazerDirectionWindow"), SLOT(onResetCoordinates()));
-				QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXTextParameters"), SLOT(onResetAlarms()));
+      curGroupPanel->getButton(0)->setProperty("groupName",CXWindowsManager::_wingroupParams);
+      QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
+          SLOT(setGroup()));
 
-				curGroupPanel->setButtonsText(texts);
+      QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()),
+          windows.value("CXIniFileList"), SLOT(onOpenFile()));
+      QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()),
+          windows.value("CXIniFileEditor"), SLOT(onSave()));
 
-				break;
-			}
-			case 5:
-			{
-				QList <QPushButton*> buttonsList;
-				buttonsList << curGroupPanel->getButton(2) << curGroupPanel->getButton(3) << curGroupPanel->getButton(4) << curGroupPanel->getButton(5) << curGroupPanel->getButton(6) << curGroupPanel->getButton(7);
+    }
 
-				CXDeviceView::loadDevices(5, buttonsList);
+    curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupOper);
+    {
+      QStringList texts;
+      texts.append(QObject::trUtf8("УП"));
+      texts.append(QObject::trUtf8("Параметры"));
+      texts.append(QObject::trUtf8("Наладка"));
+      texts.append(QString());
+      texts.append(QString());
+      texts.append(QObject::trUtf8("Утилиты"));
+      texts.append(QObject::trUtf8("Сбросить\nкоординаты"));
+      texts.append(QObject::trUtf8("Сброс\nаварий"));
+      texts.append(QString());
+      texts.append(QString());
+      curGroupPanel->setButtonsText(texts);
 
-				QStringList texts;
-				texts.append(QObject::trUtf8("УП"));
-				texts.append(QObject::trUtf8("Параметры"));
-				texts.append(QObject::trUtf8("+"));
-				texts.append(QObject::trUtf8("-"));
-				texts.append(QObject::trUtf8("0"));
-				texts.append(QObject::trUtf8("авто"));
-				texts.append(QObject::trUtf8("Канал"));
-				texts.append(QObject::trUtf8("Устройство"));
-				texts.append(QObject::trUtf8("Загрузить"));
-				texts.append(QObject::trUtf8("Сохранить"));
+      curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupCP);
+      curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupParams);
+      curGroupPanel->getButton(2)->setProperty("groupName", CXWindowsManager::_wingroupIO);
+      QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
+          SLOT(setGroup()));
+      QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel,
+          SLOT(setGroup()));
+      QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel,
+          SLOT(onDeviceEditShow()));
 
-				curGroupPanel->getButton(0)->setProperty("groupName", 1);
-				curGroupPanel->getButton(1)->setProperty("groupName", 2);
-				QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel, SLOT(onDeviceEditHide()));
-				QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel, SLOT(onDeviceEditHide()));
+      QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()),
+          windows.value("CXLazerDirectionWindow"), SLOT(onUtils()));
+      QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
+          windows.value("CXLazerDirectionWindow"), SLOT(onResetCoordinates()));
+      QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()),
+          windows.value("CXTextParameters"), SLOT(onResetAlarms()));
+    }
 
-				CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
-				QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), parametersWindow, SLOT(loadParametersFromFtp()));
-				QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), parametersWindow, SLOT(saveParametersAnyway()));
+    curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupIO);
+    {
+      QList<QPushButton*> buttonsList;
+      buttonsList << curGroupPanel->getButton(2) << curGroupPanel->getButton(3)
+              << curGroupPanel->getButton(4) << curGroupPanel->getButton(5)
+              << curGroupPanel->getButton(6) << curGroupPanel->getButton(7);
 
-				curGroupPanel->setButtonsText(texts);
+      CXDeviceView::loadDevices(5, buttonsList);
 
-				break;
-			}
-        }
-	}
+      QStringList texts;
+      texts.append(QObject::trUtf8("УП"));
+      texts.append(QObject::trUtf8("Параметры"));
+      texts.append(QObject::trUtf8("+"));
+      texts.append(QObject::trUtf8("-"));
+      texts.append(QObject::trUtf8("0"));
+      texts.append(QObject::trUtf8("авто"));
+      texts.append(QObject::trUtf8("Устройство"));
+      texts.append(QObject::trUtf8("Канал"));
+      texts.append(QObject::trUtf8("Загрузить"));
+      texts.append(QObject::trUtf8("Сохранить"));
+      curGroupPanel->setButtonsText(texts);
 
-/**/
-	//Общий заголовок
-	CXTitleWindow* title = new CXTitleWindow();
-	QObject::connect(windows.value("CXFilesList"),		SIGNAL(fileOpened(const QString&)),	title, SLOT(onFileOpen(const QString&)));
-	QObject::connect(windows.value("CXTextParameters"),	SIGNAL(errorReceived(const QString&)),	title, SLOT(onErrorReceive(const QString&)));
+      curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupCP);
+      curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupOper);
+      QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
+          SLOT(onDeviceEditHide()));
+      QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel,
+          SLOT(onDeviceEditHide()));
 
-	//Загрузка данных о геометрии окон (обязательно только после их создания!).
-	manager.load("settings.xml");
-	//Установка текущей группы.
-	manager.setCurrentGroup(1);
+      CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(
+          windows.value("CXParametersWindow"));
+      QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), parametersWindow,
+          SLOT(loadParametersFromFtp()));
+      QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), parametersWindow,
+          SLOT(saveParametersAnyway()));
+    }
+    //   }
+  }
 
-	AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_START, Commands::MSG_CMD_FORM_RESTART, "0");
-//	CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
-//	parametersWindow->loadParametersFromFtp();
+  /**/
+  //Общий заголовок
+  CXTitleWindow* title = new CXTitleWindow();
+  QObject::connect(windows.value("CXFilesList"), SIGNAL(fileOpened(const QString&)), title,
+      SLOT(onFileOpen(const QString&)));
+  QObject::connect(windows.value("CXTextParameters"), SIGNAL(errorReceived(const QString&)), title,
+      SLOT(onErrorReceive(const QString&)));
 
-	return app.exec();
+  //Загрузка данных о геометрии окон (обязательно только после их создания!).
+  manager.load("settings.xml");
+  //Установка текущей группы.
+  manager.setCurrentGroup(1);
+
+  AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_START,
+      Commands::MSG_CMD_FORM_RESTART, "0");
+  //	CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
+  //	parametersWindow->loadParametersFromFtp();
+
+  return app.exec();
 }

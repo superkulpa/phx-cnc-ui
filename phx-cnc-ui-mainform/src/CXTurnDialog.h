@@ -7,54 +7,63 @@
 #include "ui_CXTurnDialog.h"
 
 /*!
-	Класс настройки поворота и мастабирования УП.
-*/
+ Класс настройки поворота и мастабирования УП.
+ */
 class CXTurnDialog : public AXBaseWindow, public Ui::CXTurnDialog
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
-	//! Конструктор.
-	CXTurnDialog();
+  //! Конструктор.
+  CXTurnDialog();
 
-	//! Деструктор.
-	~CXTurnDialog();
+  //! Деструктор.
+  virtual ~CXTurnDialog();
 
 signals:
-	//! Сигнал, информирующий необходимость перекомпиляции УП.
-	void compileNeeded();
+  //! Сигнал, информирующий необходимость перекомпиляции УП.
+  void
+  compileNeeded();
 
 protected:
-	//! Переопределенная функция обработки нажатия клавиш.
-	virtual void keyPressEvent(QKeyEvent* e);
+  //! Переопределенная функция обработки нажатия клавиш.
+  virtual void
+  keyPressEvent(QKeyEvent* e);
 
 private slots:
-	//! Слот обработки нажатий на виртуальную клавиатуру.
-	void onButtonClicked();
+  //! Слот обработки нажатий на виртуальную клавиатуру.
+  void
+  onButtonClicked();
 
-	//! Слот на запись значения угла поворота.
-	void onWriteRotation();
+  //! Слот на запись значения угла поворота.
+  void
+  onWriteRotation();
 
-	//! Слот на расчет выражения в поле редактора поворота.
-	void onCalculateRotation();
+  //! Слот на расчет выражения в поле редактора поворота.
+  void
+  onCalculateRotation();
 
-	//! Слот на запись значения реверсии по X.
-	void onWriteFlipX();
+  //! Слот на запись значения реверсии по X.
+  void
+  onWriteFlipX();
 
-	//! Слот на запись значения реверсии по Y.
-	void onWriteFlipY();
+  //! Слот на запись значения реверсии по Y.
+  void
+  onWriteFlipY();
 
-	//! Слот на запись значения масштаба.
-	void onWriteScale();
+  //! Слот на запись значения масштаба.
+  void
+  onWriteScale();
 
 private:
-	/*!
-		Функция сохранения изменений в xml-файл.
+  /*!
+   Функция сохранения изменений в xml-файл.
 
-		\param aAttributeName - имя атрибута.
-		\param aAttributeValue - значение атрибута.
-	*/
-	void saveAttribute(const QString& aAttributeName, const QString& aAttributeValue);
+   \param aAttributeName - имя атрибута.
+   \param aAttributeValue - значение атрибута.
+   */
+  void
+  saveAttribute(const QString& aAttributeName, const QString& aAttributeValue);
 };
 
 #endif // CXTURNDIALOG_H
