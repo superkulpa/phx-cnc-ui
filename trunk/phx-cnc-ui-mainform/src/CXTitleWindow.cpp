@@ -6,32 +6,34 @@
 
 #include "CXUdpManager.h"
 
-CXTitleWindow::CXTitleWindow() : AXBaseWindow()
+CXTitleWindow::CXTitleWindow() :
+    AXBaseWindow()
 {
-	setGroupNumber(0);
+  setGroupNumber(0);
 
-	QHBoxLayout* centralLayout = new QHBoxLayout(this);
-	centralLayout->setMargin(7);
+  QHBoxLayout* centralLayout = new QHBoxLayout(this);
+  centralLayout->setMargin(7);
 
-	mControlButton = new QPushButton(trUtf8("Управление выкл."), this);
-	mControlButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-	mControlButton->setFocusPolicy(Qt::NoFocus);
-	centralLayout->addWidget(mControlButton);
+  mControlButton = new QPushButton(trUtf8("Управление выкл."), this);
+  mControlButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+  mControlButton->setFocusPolicy(Qt::NoFocus);
+  centralLayout->addWidget(mControlButton);
 
-	mCPStateLabel = new QLabel(trUtf8("Ручное упр."), this);
-	mCPStateLabel->setObjectName("mCPStateLabel");
-	mCPStateLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-	mCPStateLabel->setAlignment(Qt::AlignCenter);
-	centralLayout->addWidget(mCPStateLabel);
+  mCPStateLabel = new QLabel(trUtf8("Ручное упр."), this);
+  mCPStateLabel->setObjectName("mCPStateLabel");
+  mCPStateLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+  mCPStateLabel->setAlignment(Qt::AlignCenter);
+  centralLayout->addWidget(mCPStateLabel);
 
-	mFileLabel = new QLabel(this);
-	mFileLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-	centralLayout->addWidget(mFileLabel);
+  mFileLabel = new QLabel(this);
+  mFileLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+  centralLayout->addWidget(mFileLabel);
 
-	registerManager();
+  registerManager();
 
-	connect(mControlButton, SIGNAL(clicked()), this, SLOT(onControl()));
-	connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)), this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
+  connect(mControlButton, SIGNAL(clicked()), this, SLOT(onControl()));
+  connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
+      this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 }
 
 CXTitleWindow::~CXTitleWindow()
@@ -39,77 +41,86 @@ CXTitleWindow::~CXTitleWindow()
 
 }
 
-void CXTitleWindow::onFileOpen(const QString& aFileName)
+void
+CXTitleWindow::onFileOpen(const QString& aFileName)
 {
-	mFileName = QFontMetrics(font()).elidedText(aFileName, Qt::ElideLeft, width() - 10);
-	mFileLabel->setText(mFileName);
+  mFileName = QFontMetrics(font()).elidedText(aFileName, Qt::ElideLeft, width() - 10);
+  mFileLabel->setText(mFileName);
 }
 
-void CXTitleWindow::onErrorReceive(const QString& aError)
+void
+CXTitleWindow::onErrorReceive(const QString& aError)
 {
-	if (aError.isEmpty())
-	{
-		mFileLabel->setText(mFileName);
-		mFileLabel->setStyleSheet("");
-		mFileLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-	}
-	else
-	{
-		mFileLabel->setText(aError);
-		mFileLabel->setStyleSheet("color: red");
-		mFileLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-	}
+  if (aError.isEmpty())
+  {
+    mFileLabel->setText(mFileName);
+    mFileLabel->setStyleSheet("");
+    mFileLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+  }
+  else
+  {
+    mFileLabel->setText(aError);
+    mFileLabel->setStyleSheet("color: red");
+    mFileLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+  }
 }
 
-void CXTitleWindow::onControl()
+void
+CXTitleWindow::onControl()
 {
-	mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CONTROL, Commands::MSG_VALUE_INVERT);
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CONTROL,
+      Commands::MSG_VALUE_INVERT);
 }
 
-void CXTitleWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
+void
+CXTitleWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
-	if (aSection == QString::fromStdString(Commands::MSG_SECTION_OPERATOR))
-	{
-		if (aCommand == QString::fromStdString(Commands::MSG_STATE_CONTROL))
-		{
-			if (aValue == QString::fromStdString(Commands::MSG_VALUE_ON))
-			{
-				mControlButton->setStyleSheet("background-color: green;");
-				mControlButton->setText(trUtf8("Управление вкл."));
-			}
-			else
-			{
-				mControlButton->setStyleSheet("");
-				mControlButton->setText(trUtf8("Управление выкл."));
-			}
-		}
-		else if (aCommand == QString::fromStdString(Commands::MSG_STATE_STOP_CP))
-		{
-			mCPStateLabel->setText(trUtf8("Ручное упр."));
-		}
-		else if (aCommand == QString::fromStdString(Commands::MSG_STATE_RUN_CP))
-		{
-			if (aValue == QString::fromStdString(Commands::MSG_VALUE_HAND)) mCPStateLabel->setText(trUtf8("Ручное упр."));
-			else if (aValue == QString::fromStdString(Commands::MSG_VALUE_FORWARD)) mCPStateLabel->setText(trUtf8("Вперед"));
-			else if (aValue == QString::fromStdString(Commands::MSG_VALUE_BACKWARD)) mCPStateLabel->setText(trUtf8("Назад"));
-			else if (aValue == QString::fromStdString(Commands::MSG_VALUE_FIND_TRJ)) mCPStateLabel->setText(trUtf8("Поиск контура"));
-		}
-	}
+  if (aSection == QString::fromStdString(Commands::MSG_SECTION_OPERATOR))
+  {
+    if (aCommand == QString::fromStdString(Commands::MSG_STATE_CONTROL))
+    {
+      if (aValue == QString::fromStdString(Commands::MSG_VALUE_ON))
+      {
+        mControlButton->setStyleSheet("background-color: green;");
+        mControlButton->setText(trUtf8("Управление вкл."));
+      }
+      else
+      {
+        mControlButton->setStyleSheet("");
+        mControlButton->setText(trUtf8("Управление выкл."));
+      }
+    }
+    else if (aCommand == QString::fromStdString(Commands::MSG_STATE_STOP_CP))
+    {
+      mCPStateLabel->setText(trUtf8("Ручное упр."));
+    }
+    else if (aCommand == QString::fromStdString(Commands::MSG_STATE_RUN_CP))
+    {
+      if (aValue == QString::fromStdString(Commands::MSG_VALUE_HAND))
+        mCPStateLabel->setText(trUtf8("Ручное упр."));
+      else if (aValue == QString::fromStdString(Commands::MSG_VALUE_FORWARD))
+        mCPStateLabel->setText(trUtf8("Вперед"));
+      else if (aValue == QString::fromStdString(Commands::MSG_VALUE_BACKWARD))
+        mCPStateLabel->setText(trUtf8("Назад"));
+      else if (aValue == QString::fromStdString(Commands::MSG_VALUE_FIND_TRJ))
+        mCPStateLabel->setText(trUtf8("Поиск контура"));
+    }
+  }
 
-	if (aSection == QString::fromStdString(Commands::MSG_SECTION_ALARM))
-	{
-		if (aCommand == QString::fromStdString(Commands::MSG_STATE_INFO_ALARM))
-		{
-			if (aValue == "0")
-			{
-				mFileLabel->setText(mFileName);
-				mFileLabel->setStyleSheet("");
-			}
-			else
-			{
-				mFileLabel->setText(aValue);
-				mFileLabel->setStyleSheet("background-color: red;");
-			}
-		}
-	}
+  if (aSection == QString::fromStdString(Commands::MSG_SECTION_ALARM))
+  {
+    if (aCommand == QString::fromStdString(Commands::MSG_STATE_INFO_ALARM))
+    {
+      if (aValue == "0")
+      {
+        mFileLabel->setText(mFileName);
+        mFileLabel->setStyleSheet("");
+      }
+      else
+      {
+        mFileLabel->setText(aValue);
+        mFileLabel->setStyleSheet("background-color: red;");
+      }
+    }
+  }
 }

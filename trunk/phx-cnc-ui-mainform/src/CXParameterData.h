@@ -5,61 +5,64 @@
 #include <QList>
 
 /*!
-	Класс для полей параметров.
-*/
+ Класс для полей параметров.
+ */
 class CXParameterData
 {
 public:
-	CXParameterData();
-	~CXParameterData();
+  CXParameterData();
+    ~CXParameterData();
 
-	//! Функция установки значения параметра.
-	void setValue(int aValue);
+  //! Функция установки значения параметра.
+  void
+  setValue(int aValue);
 
-	//! Функция получения значения параметра.
-	int getValue();
+  //! Функция получения значения параметра.
+  int
+  getValue();
 
-	//! Функция сохранения данных.
-	void save();
+  //! Функция сохранения данных.
+  void
+  save();
 
 public:
-	//! Имя конфигурационного файла параметра.
-	QString mConfigFileName;
+  //! Имя конфигурационного файла параметра.
+  QString mConfigFileName;
 
-	//! Имя группы параметра.
-	QString mConfigGroup;
+  //! Имя группы параметра.
+  QString mConfigGroup;
 
-	//! Имя параметра.
-	QString mName;
+  //! Имя параметра.
+  QString mName;
 
-	//! Номера групп параметра.
-	QList <int> mGroups;
+  //! Номера групп параметра.
+  QList<int> mGroups;
 
-	//! Минимальная граница значений параметра.
-	int mMin;
+  //! Минимальная граница значений параметра.
+  int mMin;
 
-	//! Максимальная граница значений параметра.
-	int mMax;
+  //! Максимальная граница значений параметра.
+  int mMax;
 
 private:
-	int mValue;
+  int mValue;
 };
 
 /*!
-	Класс для полей группы.
-*/
+ Класс для полей группы.
+ */
 class CXGroupData
 {
 public:
-	CXGroupData();
-	~CXGroupData();
+  CXGroupData();
+    ~CXGroupData();
 
 public:
-	//! Имя группы.
-	QString mName;
+  //! Имя группы.
+  QString mName;
 
-	//! Видимость группы в основном менюю.
-	bool mIsVisible;
+  //! Видимость группы в основном менюю.
+  bool mIsVisible;
 };
 
 #endif // CXPARAMETERDATA_H

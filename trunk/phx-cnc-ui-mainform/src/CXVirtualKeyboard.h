@@ -7,26 +7,30 @@
 
 class CXVirtualKeyboard : public AXBaseWindow, public Ui::CXVirtualKeyboard
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
-	CXVirtualKeyboard();
-	~CXVirtualKeyboard();
+  CXVirtualKeyboard();
+  virtual ~CXVirtualKeyboard();
 
 protected:
-	virtual void mouseReleaseEvent(QMouseEvent* e);
+  virtual void
+  mouseReleaseEvent(QMouseEvent* e);
 
 private slots:
-	//! Слот смены фокуса приложения.
-	void onFocusChange(QWidget* old, QWidget* now);
+  //! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+  void
+  onFocusChange(QWidget* old, QWidget* now);
 
-	//! Слот обработки нажатий кнопок.
-	void onButtonClick();
+  //! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+  void
+  onButtonClick();
 
-	void onHide();
+  void
+  onHide();
 
 private:
-	QWidget* mFocusedWidget;
+  QWidget* mFocusedWidget;
 };
 
 #endif // CXVIRTUALKEYBOARD_H

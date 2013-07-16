@@ -14,89 +14,103 @@ class CXTouchButton;
 class CXUtilsWindow;
 
 /*!
-	Класс настройки направления и скорости реза с функциональными кнопками.
-*/
+ Класс настройки направления и скорости реза с функциональными кнопками.
+ */
 class CXLazerDirectionWindow : public AXBaseWindow
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
-	//! Конструктор.
-	CXLazerDirectionWindow();
+  //! Конструктор.
+  CXLazerDirectionWindow();
 
-	//! Деструктор.
-	~CXLazerDirectionWindow();
+  //! Деструктор.
+  virtual ~CXLazerDirectionWindow();
 
 public slots:
-	//! Слот показа утилит.
-	void onUtils();
+  //! Слот показа утилит.
+  void
+  onUtils();
 
-	//! Слот сброса координат.
-	void onResetCoordinates();
+  //! Слот сброса координат.
+  void
+  onResetCoordinates();
 
 signals:
-	/*!
-		Сигнал о изменении позиции реза.
+  /*!
+   Сигнал о изменении позиции реза.
 
-		\param aPos - координаты реза.
-		\param aIsAbsolute - абсолютное ли смещение.
-	*/
-	void positionChanged(const QPointF& aPos, bool aIsAbsolute);
+   \param aPos - координаты реза.
+   \param aIsAbsolute - абсолютное ли смещение.
+   */
+  void
+  positionChanged(const QPointF& aPos, bool aIsAbsolute);
 
 private slots:
-	//! Запуск процесса.
-	void onStart();
+  //! Запуск процесса.
+  void
+  onStart();
 
-	//! Остановка процесса.
-	void onStop();
+  //! Остановка процесса.
+  void
+  onStop();
 
-	//! Слот обработки клика по X и Y.
-	void onXYClick();
+  //! Слот обработки клика по X и Y.
+  void
+  onXYClick();
 
-	//! Слот на изменение направления.
-	void onDirectionChange(LazerDirectionView::eMoveDirection aDirection);
+  //! Слот на изменение направления.
+  void
+  onDirectionChange(LazerDirectionView::eMoveDirection aDirection);
 
-	//! Слот на изменение скорости.
-	void onVelocityChange(eVelocity aVelocity);
+  //! Слот на изменение скорости.
+  void
+  onVelocityChange(eVelocity aVelocity);
 
-	//! Слот увеличения скорости.
-	void onUpSpeed();
+  //! Слот увеличения скорости.
+  void
+  onUpSpeed();
 
-	//! Слот уменьшения скорости.
-	void onDownSpeed();
+  //! Слот уменьшения скорости.
+  void
+  onDownSpeed();
 
-	//! Изменение режима работы
-	void onModeChange();
+  //! Изменение режима работы
+  void
+  onModeChange();
 
-	//! Слот получения команды от ядра.
-	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
+  //! Слот получения команды от ядра.
+  void
+  onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
 
 private:
-	void StopCP();
-	void StartCP();
+  void
+  StopCP();
+  void
+  StartCP();
 
 private:
-	bool mIsRunning;
-	CXTouchButton* mForwardButton;
-	CXTouchButton* mBackwardButton;
-	CXTouchButton* mSearchButton;
-	CXTouchButton* mStopButton;
+  bool mIsRunning;
+  CXTouchButton* mForwardButton;
+  CXTouchButton* mBackwardButton;
+  CXTouchButton* mSearchButton;
+  CXTouchButton* mStopButton;
 
-	CXTouchButton* mXYButton;
-	QLineEdit* mXEdit;
-	QLineEdit* mYEdit;
-	QLabel* mFLabel;
-	QLineEdit* mFEdit;
+  CXTouchButton* mXYButton;
+  QLineEdit* mXEdit;
+  QLineEdit* mYEdit;
+  QLabel* mFLabel;
+  QLineEdit* mFEdit;
 
-	CXTouchButton* mCycleButton;
-	CXTouchButton* mStepButton;
-	CXTouchButton* mReservButton;
+  CXTouchButton* mCycleButton;
+  CXTouchButton* mStepButton;
+  CXTouchButton* mReservButton;
 
-	CXLazerDirectionView* mLazerDirectionView;
-	CXLazerVelocityView* mLazerVelocityView;
-	QLabel* mCurrentFrameLabel;
+  CXLazerDirectionView* mLazerDirectionView;
+  CXLazerVelocityView* mLazerVelocityView;
+  QLabel* mCurrentFrameLabel;
 
-	CXUtilsWindow* mUtils;
+  CXUtilsWindow* mUtils;
 };
 
 #endif // CXLAZERDIRECTIONWINDOW_H

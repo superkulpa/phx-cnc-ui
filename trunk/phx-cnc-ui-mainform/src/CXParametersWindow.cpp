@@ -15,343 +15,385 @@
 #include "CXUdpManager.h"
 #include "CXSettingsXML.h"
 
-CXParametersWindow::CXParametersWindow(bool aIsSystem) : AXBaseWindow()
+CXParametersWindow::CXParametersWindow(bool aIsSystem) :
+    AXBaseWindow()
 {
-	mWaitTimer = -1;
-	mIsUpload = false;
-	mProgressBar = NULL;
-	mIsSystem = aIsSystem;
+  mWaitTimer = -1;
+  mIsUpload = false;
+  mProgressBar = NULL;
+  mIsSystem = aIsSystem;
 
-	QVBoxLayout* centralLayout = new QVBoxLayout(this);
-	centralLayout->setMargin(7);
-	centralLayout->setSpacing(6);
+  QVBoxLayout* centralLayout = new QVBoxLayout(this);
+  centralLayout->setMargin(7);
+  centralLayout->setSpacing(6);
 
-	mTabWidget = new QTabWidget(this);
-	centralLayout->addWidget(mTabWidget);
+  mTabWidget = new QTabWidget(this);
+  centralLayout->addWidget(mTabWidget);
 
-	//загружаем параметры
-	loadFiles(false);
+  //загружаем параметры
+  loadFiles(false);
 
 //	loadParameters();
 
-	connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)), this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
+  connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
+      this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 
-	registerManager();
+  registerManager();
 }
 
 CXParametersWindow::~CXParametersWindow()
 {
 }
 
-void CXParametersWindow::setButtons(const QList <QPushButton*>& aButtons)
+void
+CXParametersWindow::setButtons(const QList<QPushButton*>& aButtons)
 {
-	mButtons = aButtons;
-	updateButtonsText();
+  mButtons = aButtons;
+  updateButtonsText();
 }
 
-void CXParametersWindow::loadParametersFromFtp()
+void
+CXParametersWindow::loadParametersFromFtp()
 {
-	mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "1");
-	int timerTimeout = CXSettingsXML::getValue("settings.xml", "parametersTimeout").toInt();
+  mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "1");
+  int timerTimeout = CXSettingsXML::getValue("settings.xml", "parametersTimeout").toInt();
 
-	if (timerTimeout <= 0) timerTimeout = 1000;
+  if (timerTimeout <= 0)
+    timerTimeout = 1000;
 
-	mWaitTimer = startTimer(timerTimeout);
+  mWaitTimer = startTimer(timerTimeout);
 }
 
-void CXParametersWindow::loadParameters()
+void
+CXParametersWindow::loadParameters()
 {
-	clearData();
+  clearData();
 
-	QDir configsDir(QApplication::applicationDirPath() + "/jini");
-	QStringList fileList = configsDir.entryList(QStringList() << "*.ini");
+  QDir configsDir(QApplication::applicationDirPath() + "/jini");
+  QStringList fileList = configsDir.entryList(QStringList() << "*.ini");
 
-	QString curFile;
-	QString curGroup;
-	QStringList curGroups;
-	QStringList groups;
-	QStringList allKeys;
-	QString curKey;
-	CXParameterData* curParameterData = NULL;
-	CXGroupData* curGroupData = NULL;
+  QString curFile;
+  QString curGroup;
+  QStringList curGroups;
+  QStringList groups;
+  QStringList allKeys;
+  QString curKey;
+  CXParameterData* curParameterData = NULL;
+  CXGroupData* curGroupData = NULL;
 
-	for (int i = 0; i < fileList.count(); ++i)
-	{
-		curFile = fileList.at(i);
-		curFile.prepend(configsDir.path() + QDir::separator());
-/**/
-		CIniFile iniFile(curFile.toStdString());
-		iniFile.ReadIniFile();
-		int keysNum = iniFile.NumKeys();
+  for (int i = 0; i < fileList.count(); ++i)
+  {
+    curFile = fileList.at(i);
+    curFile.prepend(configsDir.path() + QDir::separator());
+    /**/
+    CIniFile iniFile(curFile.toStdString());
+    iniFile.ReadIniFile();
+    int keysNum = iniFile.NumKeys();
 
-		for (int i = 0; i < keysNum; ++i)
-		{
-			curGroup = QString::fromStdString(iniFile.GetKeyName(i));
+    for (int i = 0; i < keysNum; ++i)
+    {
+      curGroup = QString::fromStdString(iniFile.GetKeyName(i));
 
-			if (curGroup.startsWith("Form"))
-			{
-				if (iniFile.FindValue(i, "value") >= 0)
-				{
-					curGroupData = new CXGroupData;
-					curGroupData->mName = QString::fromUtf8(QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "descr")).toAscii());
-					if (iniFile.GetValueI(curGroup.toStdString(), "visible") == 1) curGroupData->mIsVisible = true;
+      if (curGroup.startsWith("Form"))
+      {
+        if (iniFile.FindValue(i, "value") >= 0)
+        {
+          curGroupData = new CXGroupData;
+          curGroupData->mName =
+              QString::fromUtf8(
+                  QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "descr")).toAscii());
+          if (iniFile.GetValueI(curGroup.toStdString(), "visible") == 1)
+            curGroupData->mIsVisible = true;
 
-					CXParametersView::mGropusMap.insert(iniFile.GetValueI(curGroup.toStdString(), "value"), curGroupData);
-				}
+          CXParametersView::mGropusMap.insert(
+              iniFile.GetValueI(curGroup.toStdString(), "value"), curGroupData);
+        }
 
-				continue;
-			}
+        continue;
+      }
 
-			if (iniFile.FindValue(i, "group") >= 0)
-			{
-				curParameterData = new CXParameterData;
-				curParameterData->mConfigFileName = curFile;
-				curParameterData->mConfigGroup = curGroup;
-				curParameterData->mName = QString::fromUtf8(QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "descr")).toAscii());
-				curParameterData->setValue(iniFile.GetValueI(curGroup.toStdString(), "value"));
-				groups = QString::fromUtf8(QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "group")).toAscii()).split(",", QString::SkipEmptyParts);
+      if (iniFile.FindValue(i, "group") >= 0)
+      {
+        curParameterData = new CXParameterData;
+        curParameterData->mConfigFileName = curFile;
+        curParameterData->mConfigGroup = curGroup;
+        curParameterData->mName =
+            QString::fromUtf8(
+                QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "descr")).toAscii());
+        curParameterData->setValue(iniFile.GetValueI(curGroup.toStdString(), "value"));
+        groups =
+            QString::fromUtf8(
+                QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "group")).toAscii()).split(
+                ",", QString::SkipEmptyParts);
 //				if (groups.first().isEmpty()) groups.takeFirst();
 
-				if (iniFile.FindValue(i, "min") >= 0) curParameterData->mMin = iniFile.GetValueI(curGroup.toStdString(), "min");
-				if (iniFile.FindValue(i, "max") >= 0) curParameterData->mMax = iniFile.GetValueI(curGroup.toStdString(), "max");
+        if (iniFile.FindValue(i, "min") >= 0)
+          curParameterData->mMin = iniFile.GetValueI(curGroup.toStdString(), "min");
+        if (iniFile.FindValue(i, "max") >= 0)
+          curParameterData->mMax = iniFile.GetValueI(curGroup.toStdString(), "max");
 
-				for (int gr = 0; gr < groups.count(); ++gr)
-				{
-					curParameterData->mGroups.append(groups.at(gr).toInt());
+        for (int gr = 0; gr < groups.count(); ++gr)
+        {
+          curParameterData->mGroups.append(groups.at(gr).toInt());
 
-					CXParametersView::mDataMap.insertMulti(groups.at(gr).toInt(), curParameterData);
-				}
+          CXParametersView::mDataMap.insertMulti(groups.at(gr).toInt(), curParameterData);
+        }
 
-				if (groups.isEmpty())
-				{
-					CXParametersView::mDataMap.insertMulti(-1, curParameterData);
-				}
-			}
-		}
-	}
+        if (groups.isEmpty())
+        {
+          CXParametersView::mDataMap.insertMulti(-1, curParameterData);
+        }
+      }
+    }
+  }
 
-	makeTabs(mIsSystem);
+  makeTabs(mIsSystem);
 }
 
-void CXParametersWindow::saveParametersAnyway()
+void
+CXParametersWindow::saveParametersAnyway()
 {
-	loadFiles(true);
+  loadFiles(true);
 }
 
-void CXParametersWindow::saveParameters()
+void
+CXParametersWindow::saveParameters()
 {
-	bool isModified = false;
+  bool isModified = false;
 
-	for (int i = 0; i < mTabWidget->count(); i++)
-	{
-		CXParametersView* view = qobject_cast<CXParametersView*>(mTabWidget->widget(i));
-		if (view != NULL)
-		{
-			if (view->isModified())
-			{
-				isModified = true;
-				view->resetIsModified();
-			}
-		}
-	}
+  for (int i = 0; i < mTabWidget->count(); i++)
+  {
+    CXParametersView* view = qobject_cast<CXParametersView*>(mTabWidget->widget(i));
+    if (view != NULL)
+    {
+      if (view->isModified())
+      {
+        isModified = true;
+        view->resetIsModified();
+      }
+    }
+  }
 
-	if (!isModified) return;
+  if (!isModified)
+    return;
 
-	QMap <int, CXParameterData*>::iterator iter;
-	for (iter = CXParametersView::mDataMap.begin(); iter != CXParametersView::mDataMap.end(); ++iter)
-	{
-		iter.value()->save();
-	}
+  QMap<int, CXParameterData*>::iterator iter;
+  for (iter = CXParametersView::mDataMap.begin(); iter != CXParametersView::mDataMap.end(); ++iter)
+  {
+    iter.value()->save();
+  }
 
-	loadFiles(true);
+  loadFiles(true);
 }
 
-void CXParametersWindow::makeTabs(bool aIsSystem)
+void
+CXParametersWindow::makeTabs(bool aIsSystem)
 {
-	clearTables();
+  clearTables();
 
-	QList <CXParameterData*> parameters;
-	QList <int> groups = CXParametersView::mGropusMap.keys();
-	CXGroupData* curGroupData = NULL;
-	for (int i = 0; i < groups.count(); ++i)
-	{
-		parameters = CXParametersView::mDataMap.values(groups.at(i));
-		parameters.count();
+  QList<CXParameterData*> parameters;
+  QList<int> groups = CXParametersView::mGropusMap.keys();
+  CXGroupData* curGroupData = NULL;
+  for (int i = 0; i < groups.count(); ++i)
+  {
+    parameters = CXParametersView::mDataMap.values(groups.at(i));
+    parameters.count();
 
-		curGroupData = CXParametersView::mGropusMap.value(groups.at(i));
+    curGroupData = CXParametersView::mGropusMap.value(groups.at(i));
 
-		if (curGroupData->mIsVisible != aIsSystem) mTabWidget->addTab(new CXParametersView(this, parameters), curGroupData->mName);
-	}
+    if (curGroupData->mIsVisible != aIsSystem)
+      mTabWidget->addTab(new CXParametersView(this, parameters), curGroupData->mName);
+  }
 
-	updateButtonsText();
+  updateButtonsText();
 }
 
-void CXParametersWindow::setProgressText(const QString& aText)
+void
+CXParametersWindow::setProgressText(const QString& aText)
 {
-	if (mIsUpload) mProgressBar->setFormat(trUtf8("Сохранение ") + aText + " (%p%)");
-	else mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
+  if (mIsUpload)
+    mProgressBar->setFormat(trUtf8("Сохранение ") + aText + " (%p%)");
+  else
+    mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
 }
 
-void CXParametersWindow::closeFtp()
+void
+CXParametersWindow::closeFtp()
 {
-	if (mProgressBar == NULL) return;
+  if (mProgressBar == NULL)
+    return;
 
-	mProgressBar->close();
-	delete mProgressBar;
-	mProgressBar = NULL;
+  mProgressBar->close();
+  delete mProgressBar;
+  mProgressBar = NULL;
 
-	disconnect(mFtp, 0, 0, 0);
+  disconnect(mFtp, 0, 0, 0);
 
-	mFtp->close();
-	mFtp->deleteLater();
-	mFtp = NULL;
+  mFtp->close();
+  mFtp->deleteLater();
+  mFtp = NULL;
 }
 
-void CXParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
+void
+CXParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
 {
-	closeFtp();
+  closeFtp();
 
-	if (!aIsUpload) loadParameters();
-	else mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_REFRESH_PARAMS, "0");
+  if (!aIsUpload)
+    loadParameters();
+  else
+    mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_REFRESH_PARAMS, "0");
 }
 
-void CXParametersWindow::showSettings()
+void
+CXParametersWindow::showSettings()
 {
-	AXBaseWindow::mManager->setCurrentGroup(3);
+  AXBaseWindow::mManager->setCurrentGroup(3);
 }
 
-void CXParametersWindow::timerEvent(QTimerEvent* e)
+void
+CXParametersWindow::timerEvent(QTimerEvent* e)
 {
-	if (e->timerId() == mWaitTimer)
-	{
-		killTimer(mWaitTimer);
-		mWaitTimer = -1;
+  if (e->timerId() == mWaitTimer)
+  {
+    killTimer(mWaitTimer);
+    mWaitTimer = -1;
 
-		QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Нет ответа от ядра."));
-	}
+    QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Нет ответа от ядра."));
+  }
 }
 
-void CXParametersWindow::buttonClicked()
+void
+CXParametersWindow::buttonClicked()
 {
-	QPushButton* button = qobject_cast<QPushButton*>(sender());
+  QPushButton* button = qobject_cast<QPushButton*>(sender());
 
-	if (button != NULL)
-	{
-		mTabWidget->setCurrentIndex(mButtons.indexOf(button));
-	}
+  if (button != NULL)
+  {
+    mTabWidget->setCurrentIndex(mButtons.indexOf(button));
+  }
 }
 
-void CXParametersWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
+void
+CXParametersWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
-	Q_UNUSED(aValue)
+  Q_UNUSED(aValue)
 
-	if (aSection == QString::fromStdString(Commands::MSG_SECTION_PARAMS))
-	{
-		if (mWaitTimer != -1)
-		{
-			killTimer(mWaitTimer);
-			mWaitTimer = -1;
-		}
+  if (aSection == QString::fromStdString(Commands::MSG_SECTION_PARAMS))
+  {
+    if (mWaitTimer != -1)
+    {
+      killTimer(mWaitTimer);
+      mWaitTimer = -1;
+    }
 
-		if (aCommand == QString::fromStdString(Commands::MSG_STATE_RELOAD_PARAMS))
-		{
-			loadFiles(false);
-		}
-		else if (aCommand == QString::fromStdString(Commands::MSG_STATE_REFRESH_PARAMS))
-		{
+    if (aCommand == QString::fromStdString(Commands::MSG_STATE_RELOAD_PARAMS))
+    {
+      loadFiles(false);
+    }
+    else if (aCommand == QString::fromStdString(Commands::MSG_STATE_REFRESH_PARAMS))
+    {
 
-		}
-	}
+    }
+  }
 }
 
-void CXParametersWindow::loadFiles(bool aIsUpload)
+void
+CXParametersWindow::loadFiles(bool aIsUpload)
 {
-	mIsUpload = aIsUpload;
+  mIsUpload = aIsUpload;
 
-	mProgressBar = new QProgressBar;
-	mProgressBar->setWindowFlags(Qt::FramelessWindowHint);
-	mProgressBar->setAlignment(Qt::AlignCenter);
-	mProgressBar->setWindowModality(Qt::ApplicationModal);
+  mProgressBar = new QProgressBar;
+  mProgressBar->setWindowFlags(Qt::FramelessWindowHint);
+  mProgressBar->setAlignment(Qt::AlignCenter);
+  mProgressBar->setWindowModality(Qt::ApplicationModal);
 
-	QSize size = QApplication::desktop()->availableGeometry().size();
-	mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
+  QSize size = QApplication::desktop()->availableGeometry().size();
+  mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
 
-	QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
+  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
 
-	mFtp = new CXFtp(this);
-	mFtp->setConnectData(host, 21, "ftp", "ftp");
-	mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", "pub/updates/jini");
+  mFtp = new CXFtp(this);
+  mFtp->setConnectData(host, 21, "ftp", "ftp");
+  mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
 
-	connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
-	connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
-	connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
-	connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
-	connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
+  connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
+  connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
+  connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this,
+      SLOT(setProgressText(const QString&)));
+  connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
+  connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
 
-	if (aIsUpload) mFtp->onFtpUpload(QStringList() << "*.ini" << "*.xml");
-	else mFtp->onFtpDownload(QStringList() << "ini" << "xml");
+  if (aIsUpload)
+    mFtp->onFtpUpload(QStringList() << "*.ini" << "*.xml");
+  else
+    mFtp->onFtpDownload(QStringList() << "ini" << "xml");
 
-	mProgressBar->show();
+  mProgressBar->show();
 }
 
-void CXParametersWindow::clearData()
+void
+CXParametersWindow::clearData()
 {
-	clearTables();
+  clearTables();
 
-	CXParameterData* curParamData = NULL;
-	QList <CXParameterData*> parametersList = CXParametersView::mDataMap.values();
-	while (!parametersList.isEmpty())
-	{
-		curParamData = parametersList.takeFirst();
-		parametersList.removeAll(curParamData);
-		delete curParamData;
-	}
+  CXParameterData* curParamData = NULL;
+  QList<CXParameterData*> parametersList = CXParametersView::mDataMap.values();
+  while (!parametersList.isEmpty())
+  {
+    curParamData = parametersList.takeFirst();
+    parametersList.removeAll(curParamData);
+    delete curParamData;
+  }
 
-	CXParametersView::mDataMap.clear();
-	qDeleteAll(CXParametersView::mGropusMap.begin(), CXParametersView::mGropusMap.end());
-	CXParametersView::mGropusMap.clear();
+  CXParametersView::mDataMap.clear();
+  qDeleteAll(CXParametersView::mGropusMap.begin(), CXParametersView::mGropusMap.end());
+  CXParametersView::mGropusMap.clear();
 }
 
-void CXParametersWindow::clearTables()
+void
+CXParametersWindow::clearTables()
 {
-	QWidget* curWidget = NULL;
-	for (int i = 0; i < mTabWidget->count(); ++i)
-	{
-		curWidget = mTabWidget->widget(i);
-		mTabWidget->removeTab(i);
-		delete curWidget;
+  QWidget* curWidget = NULL;
+  for (int i = 0; i < mTabWidget->count(); ++i)
+  {
+    curWidget = mTabWidget->widget(i);
+    mTabWidget->removeTab(i);
+    delete curWidget;
 
-		i--;
-	}
+    i--;
+  }
 }
 
-void CXParametersWindow::updateButtonsText()
+void
+CXParametersWindow::updateButtonsText()
 {
-	int groupIndex = 0;
-	QList <CXGroupData*> groups = CXParametersView::mGropusMap.values();
+  int groupIndex = 0;
+  QList<CXGroupData*> groups = CXParametersView::mGropusMap.values();
 
-	QString text;
-	QPushButton* curButon = NULL;
-	QList <QPushButton*>::iterator iter;
-	for (iter = mButtons.begin(); iter != mButtons.end(); ++iter)
-	{
-		while (groupIndex < groups.count() && !groups.at(groupIndex)->mIsVisible) groupIndex++;
+  QString text;
+  QPushButton* curButon = NULL;
+  QList<QPushButton*>::iterator iter;
+  for (iter = mButtons.begin(); iter != mButtons.end(); ++iter)
+  {
+    while (groupIndex < groups.count() && !groups.at(groupIndex)->mIsVisible)
+      groupIndex++;
 
-		curButon = *iter;
-		text = curButon->text();
+    curButon = *iter;
+    text = curButon->text();
 
-		if (groupIndex < groups.count())
-		{
-			text = text.replace(QRegExp("\n.*"), "\n" + groups.at(groupIndex)->mName);
-			connect(curButon, SIGNAL(clicked()), this, SLOT(buttonClicked()));
-		}
-		else
-		{
-			text = text.replace(QRegExp("\n.*"), "\n");
-			disconnect(curButon, SIGNAL(clicked()), this, SLOT(buttonClicked()));
-		}
+    if (groupIndex < groups.count())
+    {
+      text = text.replace(QRegExp("\n.*"), "\n" + groups.at(groupIndex)->mName);
+      connect(curButon, SIGNAL(clicked()), this, SLOT(buttonClicked()));
+    }
+    else
+    {
+      text = text.replace(QRegExp("\n.*"), "\n");
+      disconnect(curButon, SIGNAL(clicked()), this, SLOT(buttonClicked()));
+    }
 
-		curButon->setText(text);
-		groupIndex++;
-	}
+    curButon->setText(text);
+    groupIndex++;
+  }
 }

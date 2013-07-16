@@ -7,48 +7,56 @@
 class CXUdpManager;
 
 /*!
-	Класс диалога указания типа смещения (абсолютное, относительное).
-*/
+ Класс диалога указания типа смещения (абсолютное, относительное).
+ */
 class CXLazerDirectionDialog : public QDialog, public Ui::CXLazerDirectionDialog
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
-	//! Конструктор.
-	CXLazerDirectionDialog(QWidget *parent = 0);
+  //! Конструктор.
+  CXLazerDirectionDialog(QWidget *parent = 0);
 
-	//! Деструктор.
-	~CXLazerDirectionDialog();
+  //! Деструктор.
+  virtual ~CXLazerDirectionDialog();
 
-	//! Получение координат.
-	QPointF getPosition();
+  //! Получение координат.
+  QPointF
+  getPosition();
 
 private slots:
-	//! Слот абсолютного смещение.
-	void onAbsolute();
+  //! Слот абсолютного смещение.
+  void
+  onAbsolute();
 
-	//! Слот относительного смещения.
-	void onRelative();
+  //! Слот относительного смещения.
+  void
+  onRelative();
 
-	/*!
-		Слот обработки нажатий на виртуальную клавиатуру.
-	*/
-	void onButtonClicked();
+  /*!
+   Слот обработки нажатий на виртуальную клавиатуру.
+   */
+  void
+  onButtonClicked();
 
-	//! Слот переезда в кадр.
-	void onStepMove();
+  //! Слот переезда в кадр.
+  void
+  onStepMove();
 
-	//! Слот установки в кадр.
-	void onStepSet();
+  //! Слот установки в кадр.
+  void
+  onStepSet();
 
-	//! Слот переезда в пробивку.
-	void onBurnMove();
+  //! Слот переезда в пробивку.
+  void
+  onBurnMove();
 
-	//! Слот установки в пробивку.
-	void onBurnSet();
+  //! Слот установки в пробивку.
+  void
+  onBurnSet();
 
 public:
-	CXUdpManager* mUdpManager;
+  CXUdpManager* mUdpManager;
 
 };
 

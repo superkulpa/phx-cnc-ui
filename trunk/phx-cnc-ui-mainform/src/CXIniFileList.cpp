@@ -1,20 +1,21 @@
 #include "CXIniFileList.h"
 
-CXIniFileList::CXIniFileList() : AXBaseWindow()
+CXIniFileList::CXIniFileList() :
+    AXBaseWindow()
 {
-	setupUi(this);
+  setupUi(this);
 
-	mModel = new QFileSystemModel(this);
-	mModel->setNameFilterDisables(false);
-	mModel->setFilter(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
+  mModel = new QFileSystemModel(this);
+  mModel->setNameFilterDisables(false);
+  mModel->setFilter(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
 
-	mIniFileView->setModel(mModel);
-	//mRootIndex = mModel->setRootPath(QApplication::applicationDirPath() + "/../cps");
-	mIniFileView->setRootIndex(mModel->setRootPath(QApplication::applicationDirPath() + "/jini"));
+  mIniFileView->setModel(mModel);
+  //mRootIndex = mModel->setRootPath(QApplication::applicationDirPath() + "/../cps");
+  mIniFileView->setRootIndex(mModel->setRootPath(QApplication::applicationDirPath() + "/jini"));
 
-	connect(mIniFileView, SIGNAL(activated(const QModelIndex&)), this, SLOT(onOpenFile()));
+  connect(mIniFileView, SIGNAL(activated(const QModelIndex&)), this, SLOT(onOpenFile()));
 
-	registerManager();
+  registerManager();
 }
 
 CXIniFileList::~CXIniFileList()
@@ -22,7 +23,9 @@ CXIniFileList::~CXIniFileList()
 
 }
 
-void CXIniFileList::onOpenFile()
+void
+CXIniFileList::onOpenFile()
 {
-	if (mIniFileView->currentIndex().isValid()) emit fileOpened(mModel->filePath(mIniFileView->currentIndex()));
+  if (mIniFileView->currentIndex().isValid())
+    emit fileOpened(mModel->filePath(mIniFileView->currentIndex()));
 }

@@ -10,20 +10,24 @@
 
 int CXTouchButton::mDelay = 0;
 
-CXTouchButton::CXTouchButton(QWidget* parent) : QPushButton(parent)
+CXTouchButton::CXTouchButton(QWidget* parent) :
+    QPushButton(parent)
 {
-	mTimer = -1;
-	setFocusPolicy(Qt::NoFocus);
+  mTimer = -1;
+  setFocusPolicy(Qt::NoFocus);
 
-	if (mDelay == 0) mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
+  if (mDelay == 0)
+    mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
 }
 
-CXTouchButton::CXTouchButton(const QString& text, QWidget* parent) : QPushButton(text, parent)
+CXTouchButton::CXTouchButton(const QString& text, QWidget* parent) :
+    QPushButton(text, parent)
 {
-	mTimer = -1;
-	setFocusPolicy(Qt::NoFocus);
+  mTimer = -1;
+  setFocusPolicy(Qt::NoFocus);
 
-	if (mDelay == 0) mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
+  if (mDelay == 0)
+    mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
 }
 
 CXTouchButton::~CXTouchButton()
@@ -31,65 +35,73 @@ CXTouchButton::~CXTouchButton()
 
 }
 
-void CXTouchButton::paintEvent(QPaintEvent* e)
+void
+CXTouchButton::paintEvent(QPaintEvent* e)
 {
-	QPushButton::paintEvent(e);
-/*
-	QStyleOption styleOption;
-	styleOption.init(this);
-	QPainter painter(this);
-	style()->drawPrimitive(QStyle::PE_Widget, &styleOption, &painter, this);
-*/
+  QPushButton::paintEvent(e);
+  /*
+   QStyleOption styleOption;
+   styleOption.init(this);
+   QPainter painter(this);
+   style()->drawPrimitive(QStyle::PE_Widget, &styleOption, &painter, this);
+   */
 }
 
-void CXTouchButton::mousePressEvent(QMouseEvent* e)
+void
+CXTouchButton::mousePressEvent(QMouseEvent* e)
 {
-	if (e->button() == Qt::LeftButton)
-	{
-		mTimer = startTimer(mDelay);
+  if (e->button() == Qt::LeftButton)
+  {
+    mTimer = startTimer(mDelay);
 
-		if (!isCheckable()) QPushButton::mousePressEvent(e);
-	}
+    if (!isCheckable())
+      QPushButton::mousePressEvent(e);
+  }
 }
 
-void CXTouchButton::mouseReleaseEvent(QMouseEvent* e)
+void
+CXTouchButton::mouseReleaseEvent(QMouseEvent* e)
 {
-	if (e->button() == Qt::LeftButton)
-	{
-		e->pos();
-		e->buttons();
-		e->modifiers();
+  if (e->button() == Qt::LeftButton)
+  {
+    e->pos();
+    e->buttons();
+    e->modifiers();
 
-		if (mTimer == -1) QPushButton::mouseReleaseEvent(e);
-		else
-		{
-			killTimer(mTimer);
-			mTimer = -1;
+    if (mTimer == -1)
+      QPushButton::mouseReleaseEvent(e);
+    else
+    {
+      killTimer(mTimer);
+      mTimer = -1;
 
-			blockSignals(true);
-			QPushButton::mouseReleaseEvent(e);
-			blockSignals(false);
-		}
-	}
-	else QPushButton::mouseReleaseEvent(e);
+      blockSignals(true);
+      QPushButton::mouseReleaseEvent(e);
+      blockSignals(false);
+    }
+  }
+  else
+    QPushButton::mouseReleaseEvent(e);
 }
 
-void CXTouchButton::timerEvent(QTimerEvent* e)
+void
+CXTouchButton::timerEvent(QTimerEvent* e)
 {
-	if (e->timerId() == mTimer)
-	{
-		killTimer(mTimer);
-		mTimer = -1;
+  if (e->timerId() == mTimer)
+  {
+    killTimer(mTimer);
+    mTimer = -1;
 
-		if (isCheckable())
-		{
-			setChecked(!isChecked());
-			emit clicked(isChecked());
-		}
-		else
-		{
-			QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonRelease, QPoint(1, 1), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
-			QApplication::postEvent(this, e);
-		}
-	}
+    if (isCheckable())
+    {
+      setChecked(!isChecked());
+      emit clicked(isChecked());
+    }
+    else
+    {
+      QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonRelease, QPoint(1, 1), Qt::LeftButton,
+          Qt::NoButton, Qt::NoModifier);
+      QApplication::postEvent(this, e);
+    }
+  }
 }

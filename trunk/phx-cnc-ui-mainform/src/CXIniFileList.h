@@ -7,32 +7,35 @@
 #include "ui_CXIniFileList.h"
 
 /*!
-	Класс списка ini-файлов.
-*/
+ Класс списка ini-файлов.
+ */
 class CXIniFileList : public AXBaseWindow, public Ui::CXIniFileList
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
-	//! Конструктор.
-	CXIniFileList();
+  //! Конструктор.
+  CXIniFileList();
 
-	//! Деструктор.
-	~CXIniFileList();
+  //! Деструктор.
+  virtual ~CXIniFileList();
 
 public slots:
-	//! Слот на открытие файла.
-	void onOpenFile();
+  //! Слот на открытие файла.
+  void
+  onOpenFile();
 
 signals:
-	//! Сигнал на открытие файла.
-	void fileOpened(const QString& aFileName);
+  //! Сигнал на открытие файла.
+  void
+  fileOpened(const QString& aFileName);
 
-	//! Сигнал на сохранение изменений в файле.
-	void fileSaved();
+  //! Сигнал на сохранение изменений в файле.
+  void
+  fileSaved();
 
 private:
-	QFileSystemModel* mModel;
+  QFileSystemModel* mModel;
 };
 
 #endif // CXINIFILELIST_H

@@ -1,12 +1,13 @@
 #include "CXExitDialog.h"
 
-CXExitDialog::CXExitDialog(QWidget* parent) : QDialog(parent)
+CXExitDialog::CXExitDialog(QWidget* parent) :
+    QDialog(parent)
 {
-	setupUi(this);
+  setupUi(this);
 
-	connect(mCancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(mTurnOffButton, SIGNAL(clicked()), this, SLOT(onTurnOff()));
-	connect(mExitButton, SIGNAL(clicked()), this, SLOT(onExit()));
+  connect(mCancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(mTurnOffButton, SIGNAL(clicked()), this, SLOT(onTurnOff()));
+  connect(mExitButton, SIGNAL(clicked()), this, SLOT(onExit()));
 }
 
 CXExitDialog::~CXExitDialog()
@@ -14,12 +15,14 @@ CXExitDialog::~CXExitDialog()
 
 }
 
-void CXExitDialog::onTurnOff()
+void
+CXExitDialog::onTurnOff()
 {
-	done(1);
+  done(1);
 }
 
-void CXExitDialog::onExit()
+void
+CXExitDialog::onExit()
 {
-	done(2);
+  done(2);
 }

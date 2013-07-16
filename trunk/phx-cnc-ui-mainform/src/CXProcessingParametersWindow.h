@@ -6,38 +6,42 @@ class CXParametersView;
 class CXFtp;
 
 /*!
-	Класс для настройки системных параметров.
-*/
+ Класс для настройки системных параметров.
+ */
 class CXProcessingParametersWindow : public QDialog, public Ui::CXProcessingParametersWindow
 {
-	Q_OBJECT
+Q_OBJECT
 
 public:
-	CXProcessingParametersWindow(QWidget* parent);
-	~CXProcessingParametersWindow();
+  CXProcessingParametersWindow(QWidget* parent);
+  virtual ~CXProcessingParametersWindow();
 
-	/*!
-		Установка имени откомпилированного файла.
-		\param aFileName - имя файла.
-		\param aFtpFileName - имя файла на FTP-сервере (в которое будет переименовано).
-	*/
-	void setFileName(const QString& aFileName, const QString& aFtpFileName);
+  /*!
+   Установка имени откомпилированного файла.
+   \param aFileName - имя файла.
+   \param aFtpFileName - имя файла на FTP-сервере (в которое будет переименовано).
+   */
+  void
+  setFileName(const QString& aFileName, const QString& aFtpFileName);
 
 private slots:
-	//! Слот на загрузку.
-	void onFileLoad();
+  //! Слот на загрузку.
+  void
+  onFileLoad();
 
-	//! Слот на закрытие FTP.
-	void closeFtp();
+  //! Слот на закрытие FTP.
+  void
+  closeFtp();
 
-	//! Слот, вызываемый по окончанию загрузки.
-	void onAllFilesIsLoaded(bool aIsUpload);
+  //! Слот, вызываемый по окончанию загрузки.
+  void
+  onAllFilesIsLoaded(bool aIsUpload);
 
 private:
-	QString mFileName;
-	QString mFtpFileName;
-	CXParametersView* mParametersView;
-	CXFtp* mFtp;
+  QString mFileName;
+  QString mFtpFileName;
+  CXParametersView* mParametersView;
+  CXFtp* mFtp;
 };
 
 #endif // CXPROCESSINGPARAMETERSWINDOW_H
