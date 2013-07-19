@@ -40,19 +40,7 @@ public slots:
 
   //! Функция загрузки данных на/с FTP-сервера.
   void
-  loadFiles(bool aIsUpload);
-
-  //! Слот установки текста в прогресс загрузки.
-  void
-  setProgressText(const QString& aText);
-
-  //! Слот на закрытие FTP.
-  void
-  closeFtp();
-
-  //! Слот, вызываемый по окончанию загрузки.
-  void
-  onAllFilesIsLoaded(bool aIsUpload);
+  reloadFiles();
 
 public slots:
   //! Слот на открытие файла.

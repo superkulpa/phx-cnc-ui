@@ -33,7 +33,7 @@ AXBaseWindow::AXBaseWindow() :
 
 //	if (mManager != NULL) mManager->addWindow(this);
 
-  setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+  setWindowFlags(Qt::SubWindow | Qt::FramelessWindowHint);
 
   setMouseTracking(true);
 }
