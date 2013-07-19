@@ -274,9 +274,7 @@ CXFtp::loadFiles()
 
   if (error() != QFtp::NoError)
   {
-    onFtpError(
-        trUtf8("Не удалось подключиться к FTP-серверу:\n%1").arg(
-            errorString()));
+    onFtpError(trUtf8("Не удалось подключиться к FTP-серверу:\n%1").arg(errorString()));
   }
 
   mWaitTimer = startTimer(1000);

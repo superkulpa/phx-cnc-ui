@@ -146,6 +146,8 @@ main(int argc, char *argv[])
 
   /**/
   QMap<QString, QWidget*> windows;
+  createUIWindow(CXParametersWindow::staticMetaObject.className(), CXWindowsManager::_wingroupParams,
+      windows);
 
   //Создание групп окон.
   createUIWindow(CXPathWindow::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
@@ -166,8 +168,7 @@ main(int argc, char *argv[])
 //      window = createUIWindow(i, 1);
 //      windows.insertMulti(window->metaObject()->className(), window);
 //    }
-  createUIWindow(CXParametersWindow::staticMetaObject.className(), CXWindowsManager::_wingroupParams,
-      windows);
+
 //  //Создание второй группы окон.
 //  for (int i = 0; i < 1; ++i)
 //    {
@@ -222,10 +223,7 @@ main(int argc, char *argv[])
       windows.value("CXFilesList"), SLOT(onCreateNewFile()));
   QObject::connect(windows.value("CXEditPathFile"), SIGNAL(statSaved()),
       windows.value("CXFilesList"), SLOT(onStatSave()));
-  QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileOpened(const QString&)),
-      windows.value("CXIniFileEditor"), SLOT(onOpenFile(const QString&)));
-  QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileSaved()),
-      windows.value("CXIniFileEditor"), SLOT(onSave()));
+
   QObject::connect(windows.value("CXOperDirectionWindow"),
       SIGNAL(positionChanged(const QPointF&, bool)),
       windows.values("CXPathWindow").at(0), SLOT(setPosition(const QPointF&, bool)));

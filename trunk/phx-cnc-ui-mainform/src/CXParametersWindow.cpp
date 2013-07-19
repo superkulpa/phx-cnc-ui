@@ -6,6 +6,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QMessageBox>
+#include <QTimer>
 
 #include "CXFtp.h"
 #include "CXParametersView.h"
@@ -32,16 +33,17 @@ CXParametersWindow::CXParametersWindow(bool aIsSystem) :
 
   mTabWidget = new QTabWidget(this);
   centralLayout->addWidget(mTabWidget);
-
-  //загружаем параметры
-  loadFiles(false);
+  fileEditor = new CXIniFileEditor();
 
 //	loadParameters();
-
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 
+  //загружаем параметры
+  loadFiles(false);
   registerManager();
+
+  QEventLoop loop; QTimer::singleShot(2000, &loop, SLOT(quit())); loop.exec();
 }
 
 CXParametersWindow::~CXParametersWindow()
@@ -70,6 +72,9 @@ CXParametersWindow::loadParametersFromFtp()
 void
 CXParametersWindow::loadParameters()
 {
+//  if(mTabWidget->count() == 0){
+//    //первый запуск
+//  }
   clearData();
 
   QDir configsDir(QApplication::applicationDirPath() + "/jini");
@@ -162,8 +167,8 @@ CXParametersWindow::saveParametersAnyway()
 void
 CXParametersWindow::saveParameters()
 {
-  curTab = mTabWidget?mTabWidget->currentIndex():0;
-  if(curTab == 0 || curTab == mTabWidget->count() - 1){
+  curTab = mTabWidget->currentIndex();
+  if(curTab == mTabWidget->count() - 1){
   //с последней вкладки сохранять из iniEditor
     fileEditor->onSave();
   }else{
@@ -218,8 +223,8 @@ CXParametersWindow::makeTabs(bool aIsSystem)
       mTabWidget->addTab(new CXParametersView(this, parameters), curGroupData->mName);
   }
 
-  fileEditor = new CXIniFileEditor();
   //if(curFName.size()>0)fileEditor->onOpenFile(curFName);
+  fileEditor->reloadFiles();
   mTabWidget->addTab(fileEditor, QString::fromUtf8("Все"));
   updateButtonsText();
   mTabWidget->setCurrentIndex(curTab);
@@ -285,6 +290,7 @@ CXParametersWindow::timerEvent(QTimerEvent* e)
     mWaitTimer = -1;
 
     QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Нет ответа от ядра."));
+    loadFiles(false);
   }
 }
 
@@ -379,13 +385,13 @@ CXParametersWindow::clearData()
 void
 CXParametersWindow::clearTables()
 {
-  fileEditor = NULL;
+  //fileEditor = NULL;
   QWidget* curWidget = NULL;
   for (int i = 0; i < mTabWidget->count(); ++i)
   {
     curWidget = mTabWidget->widget(i);
     mTabWidget->removeTab(i);
-    delete curWidget;
+    if(curWidget != fileEditor)delete curWidget;
 
     i--;
   }

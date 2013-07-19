@@ -31,6 +31,10 @@ CXIniFileEditor::CXIniFileEditor() //:
 //  connect(mIniFileView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onOpenFile()));
 //  connect(mIniFileView, SIGNAL(pressed(const QModelIndex&)), this, SLOT(onOpenFile()));
 
+//
+//  connect(mIniFileView, SIGNAL(fileOpened(const QString&)), this, SLOT(onOpenFile(const QString&)));
+//  connect(mIniFileView, SIGNAL(fileSaved()), this, SLOT(onSave()));
+
   connect(mIniFileView, SIGNAL(activated(const QModelIndex&)), this,
       SLOT(onItemActivate(const QModelIndex&)));
   //registerManager();
@@ -44,6 +48,7 @@ CXIniFileEditor::~CXIniFileEditor()
 void
 CXIniFileEditor::onOpenFile(const QString& aFileName)
 {
+  if(mFileName.size() == 0) return ;
   mFileName = aFileName;
 
   QFile file(mFileName);
@@ -101,76 +106,11 @@ CXIniFileEditor::onSave()
 }
 
 void
-CXIniFileEditor::loadFiles(bool aIsUpload)
+CXIniFileEditor::reloadFiles()
 {
-//  mIsUpload = aIsUpload;
-//
-//  mProgressBar = new QProgressBar;
-//  mProgressBar->setWindowFlags(Qt::FramelessWindowHint);
-//  mProgressBar->setAlignment(Qt::AlignCenter);
-//  mProgressBar->setWindowModality(Qt::ApplicationModal);
-//
-//  QSize size = QApplication::desktop()->availableGeometry().size();
-//  mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
-//
-//  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
-//
-//  mFtp = new CXFtp(this);
-//  mFtp->setConnectData(host, 21, "ftp", "ftp");
-//  mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
-//
-//  connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
-//  connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
-//  connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this,
-//      SLOT(setProgressText(const QString&)));
-//  connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
-//  connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
-//
-//  if (aIsUpload)
-//    mFtp->onFtpUpload(QStringList() << "*.ini" << "*.xml");
-//  else
-//    mFtp->onFtpDownload(QStringList() << "ini" << "xml");
-//
-//  mProgressBar->show();
+  onOpenFile(mFileName);
 }
 
-void
-CXIniFileEditor::setProgressText(const QString& aText)
-{
-//  if (mIsUpload)
-//    mProgressBar->setFormat(trUtf8("Сохранение ") + aText + " (%p%)");
-//  else
-//    mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
-}
-
-void
-CXIniFileEditor::closeFtp()
-{
-//  if (mProgressBar == NULL)
-//    return;
-//
-//  mProgressBar->close();
-//  delete mProgressBar;
-//  mProgressBar = NULL;
-//
-//  disconnect(mFtp, 0, 0, 0);
-//
-//  mFtp->close();
-//  mFtp->deleteLater();
-//  mFtp = NULL;
-}
-
-void
-CXIniFileEditor::onAllFilesIsLoaded(bool aIsUpload)
-{
-  //Q_UNUSED(aIsUpload);
- // closeFtp();
-  if (aIsUpload){
-    //mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_REFRESH_PARAMS, "0");
-    return ;
-  }
-  //loadParameters();
-}
 
 
 void
