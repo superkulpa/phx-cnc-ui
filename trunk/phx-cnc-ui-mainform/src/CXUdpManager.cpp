@@ -31,7 +31,7 @@ CXUdpManager::sendCommand(const String& aSection, const String& aCommand, const 
       QString::fromStdString(Commands::END_OF_MESSAGE));
   command = command.arg(QString::fromStdString(aSection)).arg(QString::fromStdString(aCommand)).arg(
       QString::fromStdString(aValue));
-
+  qDebug() << "net: out:"<< command;
   writeDatagram(QByteArray().append(command), host, port);
 }
 

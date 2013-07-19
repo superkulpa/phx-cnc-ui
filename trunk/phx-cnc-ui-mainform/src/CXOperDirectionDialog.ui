@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CXLazerDirectionDialog</class>
- <widget class="QDialog" name="CXLazerDirectionDialog">
+ <class>CXOperDirectionDialog</class>
+ <widget class="QDialog" name="CXOperDirectionDialog">
   <property name="geometry">
    <rect>
     <x>0</x>

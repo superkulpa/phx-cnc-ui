@@ -15,10 +15,13 @@
 #include "CXUdpManager.h"
 #include "CXSettingsXML.h"
 
+#include "CXIniFileEditor.h"
+
 CXParametersWindow::CXParametersWindow(bool aIsSystem) :
     AXBaseWindow()
 {
   mWaitTimer = -1;
+  curTab = 0;
   mIsUpload = false;
   mProgressBar = NULL;
   mIsSystem = aIsSystem;
@@ -55,7 +58,7 @@ CXParametersWindow::setButtons(const QList<QPushButton*>& aButtons)
 void
 CXParametersWindow::loadParametersFromFtp()
 {
-  mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "1");
+  //mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "1");
   int timerTimeout = CXSettingsXML::getValue("settings.xml", "parametersTimeout").toInt();
 
   if (timerTimeout <= 0)
@@ -159,28 +162,35 @@ CXParametersWindow::saveParametersAnyway()
 void
 CXParametersWindow::saveParameters()
 {
-  bool isModified = false;
+  curTab = mTabWidget?mTabWidget->currentIndex():0;
+  if(curTab == 0 || curTab == mTabWidget->count() - 1){
+  //с последней вкладки сохранять из iniEditor
+    fileEditor->onSave();
+  }else{
 
-  for (int i = 0; i < mTabWidget->count(); i++)
-  {
-    CXParametersView* view = qobject_cast<CXParametersView*>(mTabWidget->widget(i));
-    if (view != NULL)
+//  bool isModified = false;
+//
+//  for (int i = 0; i < mTabWidget->count(); i++)
+//  {
+//    CXParametersView* view = qobject_cast<CXParametersView*>(mTabWidget->widget(i));
+//    if (view != NULL)
+//    {
+//      if (view->isModified())
+//      {
+//        isModified = true;
+//        view->resetIsModified();
+//      }
+//    }
+//  }
+//
+//  if (!isModified)
+//    return;
+//
+    QMap<int, CXParameterData*>::iterator iter;
+    for (iter = CXParametersView::mDataMap.begin(); iter != CXParametersView::mDataMap.end(); ++iter)
     {
-      if (view->isModified())
-      {
-        isModified = true;
-        view->resetIsModified();
-      }
+      iter.value()->save();
     }
-  }
-
-  if (!isModified)
-    return;
-
-  QMap<int, CXParameterData*>::iterator iter;
-  for (iter = CXParametersView::mDataMap.begin(); iter != CXParametersView::mDataMap.end(); ++iter)
-  {
-    iter.value()->save();
   }
 
   loadFiles(true);
@@ -189,6 +199,9 @@ CXParametersWindow::saveParameters()
 void
 CXParametersWindow::makeTabs(bool aIsSystem)
 {
+  //int curTab = mTabWidget->property("currentIndex").toInt();//mTabWidget->currentIndex();//mTabWidget?mTabWidget->currentIndex():-1;
+  //const QString curFName = fileEditor?fileEditor->getFName():"";
+
   clearTables();
 
   QList<CXParameterData*> parameters;
@@ -205,7 +218,12 @@ CXParametersWindow::makeTabs(bool aIsSystem)
       mTabWidget->addTab(new CXParametersView(this, parameters), curGroupData->mName);
   }
 
+  fileEditor = new CXIniFileEditor();
+  //if(curFName.size()>0)fileEditor->onOpenFile(curFName);
+  mTabWidget->addTab(fileEditor, QString::fromUtf8("Все"));
   updateButtonsText();
+  mTabWidget->setCurrentIndex(curTab);
+  //setTabEnabled(curTab, true);
 }
 
 void
@@ -235,14 +253,21 @@ CXParametersWindow::closeFtp()
 }
 
 void
-CXParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
+CXParametersWindow::onFtpSuccess(bool aIsUpload)
 {
   closeFtp();
 
-  if (!aIsUpload)
-    loadParameters();
-  else
+  if (aIsUpload){
     mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_REFRESH_PARAMS, "0");
+  }
+  loadParameters();
+}
+
+void
+CXParametersWindow::onFtpError()
+{
+  closeFtp();
+  loadParameters();
 }
 
 void
@@ -321,8 +346,8 @@ CXParametersWindow::loadFiles(bool aIsUpload)
   connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
   connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this,
       SLOT(setProgressText(const QString&)));
-  connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onAllFilesIsLoaded(bool)));
-  connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
+  connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onFtpSuccess(bool)));
+  connect(mFtp, SIGNAL(errorReceived()), this, SLOT(onFtpError()));
 
   if (aIsUpload)
     mFtp->onFtpUpload(QStringList() << "*.ini" << "*.xml");
@@ -354,6 +379,7 @@ CXParametersWindow::clearData()
 void
 CXParametersWindow::clearTables()
 {
+  fileEditor = NULL;
   QWidget* curWidget = NULL;
   for (int i = 0; i < mTabWidget->count(); ++i)
   {

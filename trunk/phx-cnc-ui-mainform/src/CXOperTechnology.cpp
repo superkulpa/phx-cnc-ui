@@ -1,23 +1,23 @@
-#include "CXLazerSettings.h"
+#include "CXOperTechnology.h"
 
 #include <QRegExpValidator>
 
 #include "CXUdpManager.h"
 
-CXLazerSettings::CXLazerSettings() :
+CXOperTechnology::CXOperTechnology() :
     AXBaseWindow()
 {
   setupUi(this);
 
   mCheckButtonGroup = new QButtonGroup(this);
-  mCheckButtonGroup->addButton(pushButton_8, 0);
-  mCheckButtonGroup->addButton(pushButton_9, 0);
-  mCheckButtonGroup->addButton(pushButton_10, 0);
-  mCheckButtonGroup->addButton(pushButton_11, 0);
+  mCheckButtonGroup->addButton(mbStateZ1, 0);
+  //mCheckButtonGroup->addButton(mbStateSup2, 0);
+//  mCheckButtonGroup->addButton(pushButton_10, 0);
+//  mCheckButtonGroup->addButton(pushButton_11, 0);
   mCheckButtonGroup->setExclusive(false);
 
-  mLazerVelocity->setMode(E_SingleMode);
-  mLazerVelocity->setTexts(QList<QString>() << "" << trUtf8("стоп\n-\nавто") << "");
+  //mOperVelocity->setMode(E_SingleMode);
+  mOperVelocity->setTexts(QList<QString>() << "" << trUtf8("стоп\n-\nавто") << "");
 
   mStopButton->hide();
 
@@ -30,7 +30,7 @@ CXLazerSettings::CXLazerSettings() :
   connect(mCutModeButton, SIGNAL(clicked()), this, SLOT(onCutMode()));
   connect(mSVRButton, SIGNAL(clicked()), this, SLOT(onSVR()));
 
-  connect(mLazerVelocity, SIGNAL(velocityChanged(eVelocity)), this,
+  connect(mOperVelocity, SIGNAL(velocityChanged(eVelocity)), this,
       SLOT(onVelocityChange(eVelocity)));
 
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
@@ -44,21 +44,21 @@ CXLazerSettings::CXLazerSettings() :
 
   registerManager();
 
-  mVoltages.append(mSVR1ValueLabel);
-  mVoltages.append(mLabel2);
-  mVoltages.append(mLabel3);
-  mVoltages.append(mLabel4);
+  mVoltages.append(mSVRZ1);
+//  mVoltages.append(mSVRZ2);
+//  mVoltages.append(mLabel3);
+//  mVoltages.append(mLabel4);
 
   mCutModeButton->setText(trUtf8("Черчение"));
 }
 
-CXLazerSettings::~CXLazerSettings()
+CXOperTechnology::~CXOperTechnology()
 {
 
 }
 
 void
-CXLazerSettings::onTClick()
+CXOperTechnology::onTClick()
 {
   QList<QAbstractButton*> buttons = mNuberButtonGroup->buttons();
 
@@ -87,7 +87,7 @@ CXLazerSettings::onTClick()
 }
 
 void
-CXLazerSettings::onZHClick()
+CXOperTechnology::onZHClick()
 {
   QList<QAbstractButton*> buttons = mCheckButtonGroup->buttons();
 
@@ -100,7 +100,7 @@ CXLazerSettings::onZHClick()
 }
 
 void
-CXLazerSettings::onStart()
+CXOperTechnology::onStart()
 {
   if (sender() == mBurnButton)
   {
@@ -118,7 +118,7 @@ CXLazerSettings::onStart()
 }
 
 void
-CXLazerSettings::onStop()
+CXOperTechnology::onStop()
 {
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CUT2_OFF, "0");
 
@@ -128,21 +128,21 @@ CXLazerSettings::onStop()
 }
 
 void
-CXLazerSettings::onSVR()
+CXOperTechnology::onSVR()
 {
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_SVR,
       MSG_VALUE_INVERT);
 }
 
 void
-CXLazerSettings::onCutMode()
+CXOperTechnology::onCutMode()
 {
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_CUT,
       MSG_VALUE_INVERT);
 }
 
 void
-CXLazerSettings::onVelocityChange(eVelocity aVelocity)
+CXOperTechnology::onVelocityChange(eVelocity aVelocity)
 {
   QString value;
 
@@ -184,7 +184,7 @@ CXLazerSettings::onVelocityChange(eVelocity aVelocity)
 }
 
 void
-CXLazerSettings::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
+CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
   if (aSection == QString::fromStdString(Commands::MSG_SECTION_TECH))
   {
@@ -274,7 +274,7 @@ CXLazerSettings::onCommandReceive(const QString& aSection, const QString& aComma
 }
 
 void
-CXLazerSettings::onButtonCheck()
+CXOperTechnology::onButtonCheck()
 {
   QAbstractButton* button = qobject_cast<QAbstractButton*>(sender());
 
@@ -285,7 +285,7 @@ CXLazerSettings::onButtonCheck()
     int index = buttons.indexOf(button);
     QString res("%1=%2");
 
-    if (buttons[index]->text() == "")
+    if (! buttons[index]->isChecked())
       res = res.arg(index + 1).arg(QString::fromStdString(Commands::MSG_VALUE_TECH_READY));
     else
       res = res.arg(index + 1).arg(QString::fromStdString(Commands::MSG_VALUE_TECH_DISACT));

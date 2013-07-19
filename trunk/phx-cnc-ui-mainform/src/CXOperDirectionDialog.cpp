@@ -1,10 +1,10 @@
-#include "CXLazerDirectionDialog.h"
+#include "CXOperDirectionDialog.h"
 
 #include <QClipboard>
 
 #include "CXUdpManager.h"
 
-CXLazerDirectionDialog::CXLazerDirectionDialog(QWidget* parent) :
+CXOperDirectionDialog::CXOperDirectionDialog(QWidget* parent) :
     QDialog(parent)
 {
   setupUi(this);
@@ -43,19 +43,19 @@ CXLazerDirectionDialog::CXLazerDirectionDialog(QWidget* parent) :
   connect(mBurnSetButton, SIGNAL(clicked()), this, SLOT(onBurnSet()));
 }
 
-CXLazerDirectionDialog::~CXLazerDirectionDialog()
+CXOperDirectionDialog::~CXOperDirectionDialog()
 {
 
 }
 
 QPointF
-CXLazerDirectionDialog::getPosition()
+CXOperDirectionDialog::getPosition()
 {
   return QPointF(mXEdit->text().toDouble() * 100, mYEdit->text().toDouble() * 100);
 }
 
 void
-CXLazerDirectionDialog::onAbsolute()
+CXOperDirectionDialog::onAbsolute()
 {
   if (mUdpManager != NULL && !mXEdit->text().isEmpty() && !mYEdit->text().isEmpty())
   {
@@ -70,7 +70,7 @@ CXLazerDirectionDialog::onAbsolute()
 }
 
 void
-CXLazerDirectionDialog::onRelative()
+CXOperDirectionDialog::onRelative()
 {
   if (mUdpManager != NULL && !mXEdit->text().isEmpty() && !mYEdit->text().isEmpty())
   {
@@ -85,7 +85,7 @@ CXLazerDirectionDialog::onRelative()
 }
 
 void
-CXLazerDirectionDialog::onButtonClicked()
+CXOperDirectionDialog::onButtonClicked()
 {
   QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
   QLineEdit* lineEdit = qobject_cast<QLineEdit*>(focusWidget());
@@ -150,7 +150,7 @@ CXLazerDirectionDialog::onButtonClicked()
 }
 
 void
-CXLazerDirectionDialog::onStepMove()
+CXOperDirectionDialog::onStepMove()
 {
   if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_STEP,
@@ -158,7 +158,7 @@ CXLazerDirectionDialog::onStepMove()
 }
 
 void
-CXLazerDirectionDialog::onStepSet()
+CXOperDirectionDialog::onStepSet()
 {
   if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_STEP,
@@ -166,7 +166,7 @@ CXLazerDirectionDialog::onStepSet()
 }
 
 void
-CXLazerDirectionDialog::onBurnMove()
+CXOperDirectionDialog::onBurnMove()
 {
   if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_BURN,
@@ -174,7 +174,7 @@ CXLazerDirectionDialog::onBurnMove()
 }
 
 void
-CXLazerDirectionDialog::onBurnSet()
+CXOperDirectionDialog::onBurnSet()
 {
   if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_BURN,

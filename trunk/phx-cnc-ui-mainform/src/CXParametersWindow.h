@@ -8,6 +8,7 @@
 #include <QPushButton>
 
 class CXFtp;
+class CXIniFileEditor;
 
 /*!
  Класс для отображения и редактирования параметров.
@@ -49,23 +50,29 @@ public slots:
   void
   setProgressText(const QString& aText);
 
-  //! Слот на закрытие FTP.
-  void
-  closeFtp();
-
   //! Слот, вызываемый по окончанию загрузки.
   void
-  onAllFilesIsLoaded(bool aIsUpload);
+  onFtpSuccess(bool aIsUpload);
+
+  //! Слот, вызываемый по ошибке ftp.
+  void
+  onFtpError();
 
   //! Слот показа настроек.
   void
   showSettings();
+
+signals:
+  void saveParams();
 
 protected:
   //! Функция событий таймера.
   void
   timerEvent(QTimerEvent* e);
 
+  //! Закрыть FTP.
+  void
+  closeFtp();
 private slots:
   //! Слот на нажатие кнопки.
   void
@@ -96,10 +103,12 @@ private:
   QTabWidget* mTabWidget;
   QProgressBar* mProgressBar;
   CXFtp* mFtp;
+  CXIniFileEditor* fileEditor;
   bool mIsSystem;
   bool mIsUpload;
 
   int mWaitTimer;
+  int curTab;
 
   QList<QPushButton*> mButtons;
 };

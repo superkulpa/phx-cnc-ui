@@ -1,24 +1,24 @@
-#ifndef CXLAZERDIRECTIONDIALOG_H
-#define CXLAZERDIRECTIONDIALOG_H
+#ifndef CXOperDIRECTIONDIALOG_H
+#define CXOperDIRECTIONDIALOG_H
 
 #include <QDialog>
-#include "ui_CXLazerDirectionDialog.h"
+#include "ui_CXOperDirectionDialog.h"
 
 class CXUdpManager;
 
 /*!
  Класс диалога указания типа смещения (абсолютное, относительное).
  */
-class CXLazerDirectionDialog : public QDialog, public Ui::CXLazerDirectionDialog
+class CXOperDirectionDialog : public QDialog, public Ui::CXOperDirectionDialog
 {
 Q_OBJECT
 
 public:
   //! Конструктор.
-  CXLazerDirectionDialog(QWidget *parent = 0);
+  CXOperDirectionDialog(QWidget *parent = 0);
 
   //! Деструктор.
-  virtual ~CXLazerDirectionDialog();
+  virtual ~CXOperDirectionDialog();
 
   //! Получение координат.
   QPointF
@@ -60,4 +60,4 @@ public:
 
 };
 
-#endif // CXLAZERDIRECTIONDIALOG_H
+#endif // CXOperDIRECTIONDIALOG_H

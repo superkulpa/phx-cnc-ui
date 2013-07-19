@@ -1,25 +1,25 @@
-#ifndef CXLAZERSETTINGS_H
-#define CXLAZERSETTINGS_H
+#ifndef CXOperSETTINGS_H
+#define CXOperSETTINGS_H
 
 #include "AXBaseWindow.h"
 
 #include <QPushButton>
 
-#include "ui_CXLazerSettings.h"
+#include "ui_CXOperTechnology.h"
 
 /*!
  Класс настройки начальной позиции реза.
  */
-class CXLazerSettings : public AXBaseWindow, public Ui::CXLazerSettings
+class CXOperTechnology : public AXBaseWindow, public Ui::CXOperTechnology
 {
 Q_OBJECT
 
 public:
   //! Конструктор.
-  CXLazerSettings();
+  CXOperTechnology();
 
   //! Деструктор.
-  virtual ~CXLazerSettings();
+  virtual ~CXOperTechnology();
 
 private slots:
   //!
@@ -62,4 +62,4 @@ private:
   QList<QLabel*> mVoltages;
 };
 
-#endif // CXLAZERSETTINGS_H
+#endif // CXOperSETTINGS_H
