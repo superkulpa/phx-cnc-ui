@@ -7,6 +7,7 @@
 #include "CXLazerDirectionDialog.h"
 #include "CXUtilsWindow.h"
 #include "CXUdpManager.h"
+#include "math.h"
 
 CXLazerDirectionWindow::CXLazerDirectionWindow() :
     AXBaseWindow()

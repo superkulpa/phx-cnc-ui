@@ -59,8 +59,7 @@ AXBaseWindow::setNewGeometry(const QRect& aNewGeometry)
   setGeometry(aNewGeometry);
 }
 
-void
-AXBaseWindow::setGroupNumber(int aNumber)
+void AXBaseWindow::setGroupNumber(int aNumber)
 {
   mGroupNumber = aNumber;
 }
