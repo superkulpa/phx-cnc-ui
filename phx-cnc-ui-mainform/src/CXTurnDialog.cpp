@@ -41,7 +41,9 @@ CXTurnDialog::CXTurnDialog() :
   mRotateEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d+"), mRotateEdit));
   mScaleEdit->setValidator(new QRegExpValidator(QRegExp("(\\+|-)?\\d+"), mScaleEdit));
 
-  registerManager();
+	invValue = getAttribute("RSI.Inverse").toInt();
+
+	registerManager();
 }
 
 CXTurnDialog::~CXTurnDialog()
@@ -140,26 +142,62 @@ CXTurnDialog::onCalculateRotation()
 void
 CXTurnDialog::onWriteFlipX()
 {
-  saveAttribute("RSI.Inverse", "1");
-  emit compileNeeded();
+  if(invValue & 1) invValue = (invValue & ~1) & (invValue & 2);
+  else invValue |= 1;
+  QString value; value.setNum(invValue & 0xF);
+	saveAttribute("RSI.Inverse", value);
+	emit compileNeeded();
 }
 
 void
 CXTurnDialog::onWriteFlipY()
 {
-  saveAttribute("RSI.Inverse", "2");
-  emit compileNeeded();
+  if(invValue & 2) invValue = (invValue & ~2) & (invValue & 1);
+  else invValue |= 2;
+  QString value; value.setNum(invValue & 0xF);
+  saveAttribute("RSI.Inverse", value);
+	emit compileNeeded();
 }
 
 void
 CXTurnDialog::onWriteScale()
 {
-  saveAttribute("RSF.Scale", mScaleEdit->text());
-  emit compileNeeded();
+	saveAttribute("RSI.Scale", mScaleEdit->text());
+	emit compileNeeded();
 }
 
-void
-CXTurnDialog::saveAttribute(const QString& aAttributeName, const QString& aAttributeValue)
+QString CXTurnDialog::getAttribute(const QString& aAttributeName){
+  QFile configFile("./jini/compiler0.cfg");
+  configFile.open(QIODevice::ReadOnly);
+
+  QDomDocument doc;
+  doc.setContent(&configFile);
+  QString value = "";
+  QDomElement domElement = doc.documentElement();
+  domElement = domElement.firstChildElement("parameters");
+
+  if (!domElement.isNull())
+  {
+    domElement = domElement.firstChildElement("parameter");
+
+    while (!domElement.isNull())
+    {
+      if (domElement.attribute("name") == aAttributeName)
+      {
+        value = domElement.attribute("value", "0");
+
+        break;
+      }
+
+      domElement = domElement.nextSiblingElement("parameter");
+    }
+  }
+
+  configFile.close();
+  return value;
+}
+
+void CXTurnDialog::saveAttribute(const QString& aAttributeName, const QString& aAttributeValue)
 {
   QFile configFile("./jini/compiler0.cfg");
   configFile.open(QIODevice::ReadOnly);
