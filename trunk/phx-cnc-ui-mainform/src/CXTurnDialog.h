@@ -56,14 +56,21 @@ private slots:
   onWriteScale();
 
 private:
-  /*!
-   Функция сохранения изменений в xml-файл.
-
+	/*!
+	    Функция получения данных из xml-файла.
+	    \param aAttributeName - имя атрибута.
+	    \return значение атрибута
+	  */
+	QString getAttribute(const QString& aAttributeName);
+	/*!
+		Функция сохранения изменений в xml-файл.
    \param aAttributeName - имя атрибута.
    \param aAttributeValue - значение атрибута.
    */
   void
   saveAttribute(const QString& aAttributeName, const QString& aAttributeValue);
+private:
+	int invValue;
 };
 
 #endif // CXTURNDIALOG_H
