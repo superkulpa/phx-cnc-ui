@@ -3,6 +3,17 @@ INCLUDEPATH += ./src ./GeneratedFiles
 QT      += xml xmlpatterns network
 UI_DIR	+= ./GeneratedFiles
 
+CONFIG += debug_and_release
+
+_install.depends = $(SOURCES)
+_install.commands = cp ./phx-cnc-ui-mainform  ../install
+QMAKE_EXTRA_TARGETS += _install
+
+QMAKE_CXXFLAGS += -std=c++11
+
+QMAKE_CXXFLAGS += -pg
+
+QMAKE_LFLAGS += -pg
 
 # Input
 HEADERS	+=	src/AXBaseWindow.h \
@@ -24,24 +35,24 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/iniFile.h \
 			src/CXProcessingParametersWindow.h \
 			src/CXTurnDialog.h \
-			src/CXLazerDirectionWindow.h \
-			src/CXLazerDirectionView.h \
-			src/CXLazerVelocityView.h \
-			src/CXLazerSettings.h \
+			src/CXOperDirectionWindow.h \
+			src/CXOperDirectionView.h \
+			src/CXOperVelocityView.h \
+			src/CXOperTechnology.h \
 			src/CXTextParameters.h \
 			src/CXCompileEdit.h \
 			src/CXTouchButton.h \
-			src/CXLazerDirectionDialog.h \
+			src/CXOperDirectionDialog.h \
 			src/CXExitDialog.h \
 			src/CXVirtualKeyboard.h \
-			src/CXUtilsWindow.h \
-			src/CXUdpManager.h \
-			src/CXSettingsXML.h \
-			src/CXProcess.h \
-			src/SXChannelData.h \
-			src/CXDeviceView.h \
-			src/CXChannelEdit.h \
-			src/CXDeviceEdit.h
+                        src/CXUtilsWindow.h \
+                        src/CXUdpManager.h \
+                        src/CXSettingsXML.h \
+                        src/CXProcess.h \
+                        src/SXChannelData.h \
+                        src/CXDeviceView.h \
+                        src/CXChannelEdit.h \
+                        src/CXDeviceEdit.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
@@ -63,14 +74,14 @@ SOURCES +=	src/main.cpp \
 			src/iniFile.cpp \
 			src/CXProcessingParametersWindow.cpp \
 			src/CXTurnDialog.cpp \
-			src/CXLazerDirectionWindow.cpp \
-			src/CXLazerDirectionView.cpp \
-			src/CXLazerVelocityView.cpp \
-			src/CXLazerSettings.cpp \
+			src/CXOperDirectionWindow.cpp \
+			src/CXOperDirectionView.cpp \
+			src/CXOperVelocityView.cpp \
+			src/CXOperTechnology.cpp \
 			src/CXTextParameters.cpp \
 			src/CXCompileEdit.cpp \
 			src/CXTouchButton.cpp \
-			src/CXLazerDirectionDialog.cpp \
+			src/CXOperDirectionDialog.cpp \
 			src/CXExitDialog.cpp \
 			src/CXVirtualKeyboard.cpp \
 			src/CXUtilsWindow.cpp \
@@ -86,9 +97,9 @@ FORMS +=	src/CXFilesList.ui \
 			src/CXIniFileEditor.ui \
 			src/CXIniFileList.ui \
 			src/CXProcessingParametersWindow.ui \
-			src/CXLazerSettings.ui \
+			src/CXOperTechnology.ui \
 			src/CXTurnDialog.ui \
-			src/CXLazerDirectionDialog.ui \
+			src/CXOperDirectionDialog.ui \
 			src/CXExitDialog.ui \
 			src/CXVirtualKeyboard.ui \
 			src/CXDeviceView.ui \
