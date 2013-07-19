@@ -1,13 +1,13 @@
-#include "CXLazerVelocityView.h"
+#include "CXOperVelocityView.h"
 
 #include <QPainter>
 #include <QMouseEvent>
 
 #include "CXSettingsXML.h"
 
-int CXLazerVelocityView::mDelay = 0;
+int CXOperVelocityView::mDelay = 0;
 
-CXLazerVelocityView::CXLazerVelocityView(QWidget* parent) :
+CXOperVelocityView::CXOperVelocityView(QWidget* parent) :
     QWidget(parent)
 {
   mMode = E_Accumulate;
@@ -40,27 +40,27 @@ CXLazerVelocityView::CXLazerVelocityView(QWidget* parent) :
   mDrawPath.lineTo(width, 0);
 }
 
-CXLazerVelocityView::~CXLazerVelocityView()
+CXOperVelocityView::~CXOperVelocityView()
 {
 
 }
 
 void
-CXLazerVelocityView::setMode(eVelocityMode aMode)
+CXOperVelocityView::setMode(eVelocityMode aMode)
 {
   mMode = aMode;
   update();
 }
 
 void
-CXLazerVelocityView::setTexts(const QList<QString>& aTexts)
+CXOperVelocityView::setTexts(const QList<QString>& aTexts)
 {
   mTexts = aTexts;
   update();
 }
 
 void
-CXLazerVelocityView::setVelocity(eVelocity aVelocity)
+CXOperVelocityView::setVelocity(eVelocity aVelocity)
 {
   if (mVelocity != aVelocity)
   {
@@ -71,7 +71,7 @@ CXLazerVelocityView::setVelocity(eVelocity aVelocity)
 }
 
 void
-CXLazerVelocityView::paintEvent(QPaintEvent*)
+CXOperVelocityView::paintEvent(QPaintEvent*)
 {
   qreal scaleX = width() / mDrawPath.boundingRect().width();
   qreal scaleY = height() / mDrawPath.boundingRect().height();
@@ -120,7 +120,7 @@ CXLazerVelocityView::paintEvent(QPaintEvent*)
 }
 
 void
-CXLazerVelocityView::timerEvent(QTimerEvent* e)
+CXOperVelocityView::timerEvent(QTimerEvent* e)
 {
   if (e->timerId() == mDelayTimer)
   {
@@ -137,7 +137,7 @@ CXLazerVelocityView::timerEvent(QTimerEvent* e)
 }
 
 void
-CXLazerVelocityView::mousePressEvent(QMouseEvent* e)
+CXOperVelocityView::mousePressEvent(QMouseEvent* e)
 {
   if (e->button() == Qt::LeftButton)
   {
@@ -152,7 +152,7 @@ CXLazerVelocityView::mousePressEvent(QMouseEvent* e)
 }
 
 void
-CXLazerVelocityView::mouseReleaseEvent(QMouseEvent* e)
+CXOperVelocityView::mouseReleaseEvent(QMouseEvent* e)
 {
   if (mDelayTimer != -1)
   {
@@ -167,7 +167,7 @@ CXLazerVelocityView::mouseReleaseEvent(QMouseEvent* e)
 }
 
 void
-CXLazerVelocityView::mouseMoveEvent(QMouseEvent* e)
+CXOperVelocityView::mouseMoveEvent(QMouseEvent* e)
 {
   if (mDelayTimer == -1)
   {
@@ -181,7 +181,7 @@ CXLazerVelocityView::mouseMoveEvent(QMouseEvent* e)
 }
 
 void
-CXLazerVelocityView::updateVelocity(const QPointF& aPos)
+CXOperVelocityView::updateVelocity(const QPointF& aPos)
 {
   for (int i = 0; i < mPathList.count(); ++i)
   {
@@ -194,7 +194,7 @@ CXLazerVelocityView::updateVelocity(const QPointF& aPos)
 }
 
 void
-CXLazerVelocityView::setCurrentVelocity(eVelocity aVelocity)
+CXOperVelocityView::setCurrentVelocity(eVelocity aVelocity)
 {
   if (mVelocity != aVelocity)
   {

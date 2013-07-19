@@ -33,7 +33,7 @@ AXBaseWindow::AXBaseWindow() :
 
 //	if (mManager != NULL) mManager->addWindow(this);
 
-  setWindowFlags(Qt::SplashScreen);
+  setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
   setMouseTracking(true);
 }
@@ -59,7 +59,8 @@ AXBaseWindow::setNewGeometry(const QRect& aNewGeometry)
   setGeometry(aNewGeometry);
 }
 
-void AXBaseWindow::setGroupNumber(int aNumber)
+void
+AXBaseWindow::setGroupNumber(int aNumber)
 {
   mGroupNumber = aNumber;
 }

@@ -1,5 +1,5 @@
-#ifndef CXLAZERVELOCITYVIEW_H
-#define CXLAZERVELOCITYVIEW_H
+#ifndef CXOperVELOCITYVIEW_H
+#define CXOperVELOCITYVIEW_H
 
 #include <QWidget>
 #include <QPainterPath>
@@ -22,16 +22,16 @@ enum eVelocity
 /*!
  Класс настройки скорости перемещения реза.
  */
-class CXLazerVelocityView : public QWidget
+class CXOperVelocityView : public QWidget
 {
 Q_OBJECT
 
 public:
   //! Конструктор.
-  CXLazerVelocityView(QWidget* parent = 0);
+  CXOperVelocityView(QWidget* parent = 0);
 
   //! Деструктор.
-  virtual ~CXLazerVelocityView();
+  virtual ~CXOperVelocityView();
 
   //! Функция установки режима отображения.
   void
@@ -95,4 +95,4 @@ private:
   eVelocity mVelocity;
 };
 
-#endif // CXLAZERVELOCITYVIEW_H
+#endif // CXOperVELOCITYVIEW_H

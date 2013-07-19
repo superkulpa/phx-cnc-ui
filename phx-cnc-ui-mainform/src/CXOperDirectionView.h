@@ -1,11 +1,11 @@
-#ifndef CXLAZERDIRECTIONVIEW_H
-#define CXLAZERDIRECTIONVIEW_H
+#ifndef CXOperDIRECTIONVIEW_H
+#define CXOperDIRECTIONVIEW_H
 
 #include <QWidget>
 
 #include <QPainterPath>
 
-namespace LazerDirectionView
+namespace OperDirectionView
 {
   //! Перечисление возможных значений направления реза.
   enum eMoveDirection
@@ -25,25 +25,25 @@ namespace LazerDirectionView
 /*!
  Класс настройки направления реза.
  */
-class CXLazerDirectionView : public QWidget
+class CXOperDirectionView : public QWidget
 {
 Q_OBJECT
 
 public:
   //! Конструктор.
-  CXLazerDirectionView(QWidget* parent = 0);
+  CXOperDirectionView(QWidget* parent = 0);
 
   //! Деструктор.
-  virtual ~CXLazerDirectionView();
+  virtual ~CXOperDirectionView();
 
   //! Функция установки направления реза.
   void
-  setDirection(LazerDirectionView::eMoveDirection aDirection);
+  setDirection(OperDirectionView::eMoveDirection aDirection);
 
 signals:
   //! Сигнал на изменение направления.
   void
-  directionChanged(LazerDirectionView::eMoveDirection aDirection);
+  directionChanged(OperDirectionView::eMoveDirection aDirection);
 
 protected:
   //! Переопределенная фукнция рисования.
@@ -82,7 +82,7 @@ private:
   QList<QPainterPath> mPathList;
   QPainterPath mDrawPath;
   QPainterPath mArrowPath;
-  LazerDirectionView::eMoveDirection mDirection;
+  OperDirectionView::eMoveDirection mDirection;
 };
 
-#endif // CXLAZERDIRECTIONVIEW_H
+#endif // CXOperDIRECTIONVIEW_H

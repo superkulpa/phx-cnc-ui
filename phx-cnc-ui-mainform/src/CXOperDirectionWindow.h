@@ -1,5 +1,5 @@
-#ifndef CXLAZERDIRECTIONWINDOW_H
-#define CXLAZERDIRECTIONWINDOW_H
+#ifndef CXOperDIRECTIONWINDOW_H
+#define CXOperDIRECTIONWINDOW_H
 
 #include "AXBaseWindow.h"
 
@@ -7,8 +7,8 @@
 #include <QLineEdit>
 #include <QLabel>
 
-#include "CXLazerDirectionView.h"
-#include "CXLazerVelocityView.h"
+#include "CXOperDirectionView.h"
+#include "CXOperVelocityView.h"
 
 class CXTouchButton;
 class CXUtilsWindow;
@@ -16,16 +16,16 @@ class CXUtilsWindow;
 /*!
  Класс настройки направления и скорости реза с функциональными кнопками.
  */
-class CXLazerDirectionWindow : public AXBaseWindow
+class CXOperDirectionWindow : public AXBaseWindow
 {
 Q_OBJECT
 
 public:
   //! Конструктор.
-  CXLazerDirectionWindow();
+  CXOperDirectionWindow();
 
   //! Деструктор.
-  virtual ~CXLazerDirectionWindow();
+  virtual ~CXOperDirectionWindow();
 
 public slots:
   //! Слот показа утилит.
@@ -61,7 +61,7 @@ private slots:
 
   //! Слот на изменение направления.
   void
-  onDirectionChange(LazerDirectionView::eMoveDirection aDirection);
+  onDirectionChange(OperDirectionView::eMoveDirection aDirection);
 
   //! Слот на изменение скорости.
   void
@@ -106,11 +106,11 @@ private:
   CXTouchButton* mStepButton;
   CXTouchButton* mReservButton;
 
-  CXLazerDirectionView* mLazerDirectionView;
-  CXLazerVelocityView* mLazerVelocityView;
+  CXOperDirectionView* mOperDirectionView;
+  CXOperVelocityView* mOperVelocityView;
   QLabel* mCurrentFrameLabel;
 
   CXUtilsWindow* mUtils;
 };
 
-#endif // CXLAZERDIRECTIONWINDOW_H
+#endif // CXOperDIRECTIONWINDOW_H

@@ -371,8 +371,7 @@ CXFtp::onFtpError(const QString& aErrorText)
   clearCurrentFileData();
   close();
 
-  emit
-  errorReceived();
+  emit errorReceived();
 
   QMessageBox::information(NULL, trUtf8("Ошибка"), aErrorText);
 }

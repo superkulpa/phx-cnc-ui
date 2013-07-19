@@ -12,8 +12,8 @@
 #include "CXIniFileList.h"
 #include "CXTitleWindow.h"
 #include "CXParametersWindow.h"
-#include "CXLazerDirectionWindow.h"
-#include "CXLazerSettings.h"
+#include "CXOperDirectionWindow.h"
+#include "CXOperTechnology.h"
 #include "CXTextParameters.h"
 #include "CXDeviceView.h"
 #include "CXVirtualKeyboard.h"
@@ -59,27 +59,27 @@ createUIWindow(const char* aIndex, int aGroup, QMap<QString, QWidget*>& windows)
 
       break;
     }
-    if (aIndex == CXIniFileEditor::staticMetaObject.className())
+//    if (aIndex == CXIniFileEditor::staticMetaObject.className())
+//    {
+//      res = new CXIniFileEditor();
+//
+//      break;
+//    }
+//    if (aIndex == CXIniFileList::staticMetaObject.className())
+//    {
+//      res = new CXIniFileList();
+//
+//      break;
+//    }
+    if (aIndex == CXOperDirectionWindow::staticMetaObject.className())
     {
-      res = new CXIniFileEditor();
+      res = new CXOperDirectionWindow();
 
       break;
     }
-    if (aIndex == CXIniFileList::staticMetaObject.className())
+    if (aIndex == CXOperTechnology::staticMetaObject.className())
     {
-      res = new CXIniFileList();
-
-      break;
-    }
-    if (aIndex == CXLazerDirectionWindow::staticMetaObject.className())
-    {
-      res = new CXLazerDirectionWindow();
-
-      break;
-    }
-    if (aIndex == CXLazerSettings::staticMetaObject.className())
-    {
-      res = new CXLazerSettings();
+      res = new CXOperTechnology();
 
       break;
     }
@@ -175,10 +175,10 @@ main(int argc, char *argv[])
 //      windows.insertMulti(window->metaObject()->className(), window);
 //    }
 
-  createUIWindow(CXIniFileEditor::staticMetaObject.className(), CXWindowsManager::_wingroupCustom,
-      windows);
-  createUIWindow(CXIniFileList::staticMetaObject.className(), CXWindowsManager::_wingroupCustom,
-      windows);
+//  createUIWindow(CXIniFileEditor::staticMetaObject.className(), CXWindowsManager::_wingroupCustom,
+//      windows);
+//  createUIWindow(CXIniFileList::staticMetaObject.className(), CXWindowsManager::_wingroupCustom,
+//      windows);
 
 //  //Создание третьей группы окон.
 //  for (int i = 0; i < 2; ++i)
@@ -187,9 +187,9 @@ main(int argc, char *argv[])
 //      windows.insertMulti(window->metaObject()->className(), window);
 //    }
 
-  createUIWindow(CXLazerDirectionWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
+  createUIWindow(CXOperDirectionWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
-  createUIWindow(CXLazerSettings::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
+  createUIWindow(CXOperTechnology::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
   createUIWindow(CXPathWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
@@ -226,7 +226,7 @@ main(int argc, char *argv[])
       windows.value("CXIniFileEditor"), SLOT(onOpenFile(const QString&)));
   QObject::connect(windows.value("CXIniFileList"), SIGNAL(fileSaved()),
       windows.value("CXIniFileEditor"), SLOT(onSave()));
-  QObject::connect(windows.value("CXLazerDirectionWindow"),
+  QObject::connect(windows.value("CXOperDirectionWindow"),
       SIGNAL(positionChanged(const QPointF&, bool)),
       windows.values("CXPathWindow").at(0), SLOT(setPosition(const QPointF&, bool)));
 
@@ -325,27 +325,27 @@ main(int argc, char *argv[])
 
     curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupCustom);
     {
-      QStringList texts;
-      texts.append(QObject::trUtf8("Параметры"));
-      texts.append(QString());
-      texts.append(QString());
-      texts.append(QString());
-      texts.append(QString());
-      texts.append(QString());
-      texts.append(QString());
-      texts.append(QString());
-      texts.append(QObject::trUtf8("Загрузить"));
-      texts.append(QObject::trUtf8("Сохранить"));
-      curGroupPanel->setButtonsText(texts);
-
-      curGroupPanel->getButton(0)->setProperty("groupName",CXWindowsManager::_wingroupParams);
-      QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
-          SLOT(setGroup()));
-
-      QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()),
-          windows.value("CXIniFileList"), SLOT(onOpenFile()));
-      QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()),
-          windows.value("CXIniFileEditor"), SLOT(onSave()));
+//      QStringList texts;
+//      texts.append(QObject::trUtf8("Параметры"));
+//      texts.append(QString());
+//      texts.append(QString());
+//      texts.append(QString());
+//      texts.append(QString());
+//      texts.append(QString());
+//      texts.append(QString());
+//      texts.append(QString());
+//      texts.append(QObject::trUtf8("Загрузить"));
+//      texts.append(QObject::trUtf8("Сохранить"));
+//      curGroupPanel->setButtonsText(texts);
+//
+//      curGroupPanel->getButton(0)->setProperty("groupName",CXWindowsManager::_wingroupParams);
+//      QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
+//          SLOT(setGroup()));
+//
+//      QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()),
+//          windows.value("CXIniFileList"), SLOT(onOpenFile()));
+//      QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()),
+//          windows.value("CXIniFileEditor"), SLOT(onSave()));
 
     }
 
@@ -375,9 +375,9 @@ main(int argc, char *argv[])
           SLOT(onDeviceEditShow()));
 
       QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()),
-          windows.value("CXLazerDirectionWindow"), SLOT(onUtils()));
+          windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
-          windows.value("CXLazerDirectionWindow"), SLOT(onResetCoordinates()));
+          windows.value("CXOperDirectionWindow"), SLOT(onResetCoordinates()));
       QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()),
           windows.value("CXTextParameters"), SLOT(onResetAlarms()));
     }

@@ -1,4 +1,4 @@
-#include "CXLazerDirectionView.h"
+#include "CXOperDirectionView.h"
 
 #include <QPainter>
 #include <QMouseEvent>
@@ -8,12 +8,12 @@
 #include "CXSettingsXML.h"
 
 #define RADIUS 18.0
-int CXLazerDirectionView::mDelay = 0;
+int CXOperDirectionView::mDelay = 0;
 
-CXLazerDirectionView::CXLazerDirectionView(QWidget* parent) :
+CXOperDirectionView::CXOperDirectionView(QWidget* parent) :
     QWidget(parent)
 {
-  mDirection = LazerDirectionView::E_Stop;
+  mDirection = OperDirectionView::E_Stop;
 
   qreal x = 0;
   qreal y = 0;
@@ -69,13 +69,13 @@ CXLazerDirectionView::CXLazerDirectionView(QWidget* parent) :
   mArrowPath.lineTo(5 + 0, 15 - 50);
 }
 
-CXLazerDirectionView::~CXLazerDirectionView()
+CXOperDirectionView::~CXOperDirectionView()
 {
 
 }
 
 void
-CXLazerDirectionView::setDirection(LazerDirectionView::eMoveDirection aDirection)
+CXOperDirectionView::setDirection(OperDirectionView::eMoveDirection aDirection)
 {
   if (mDirection == aDirection)
     return;
@@ -88,7 +88,7 @@ CXLazerDirectionView::setDirection(LazerDirectionView::eMoveDirection aDirection
 }
 
 void
-CXLazerDirectionView::paintEvent(QPaintEvent*)
+CXOperDirectionView::paintEvent(QPaintEvent*)
 {
   qreal scale = qMin(width() / mDrawPath.boundingRect().width(),
       height() / mDrawPath.boundingRect().height());
@@ -105,7 +105,7 @@ CXLazerDirectionView::paintEvent(QPaintEvent*)
     painter.fillPath(mPathList.at(i * 2), QColor(0, 255, 0, 15));
   }
 
-//	if (mDirection != LazerDirectionView::E_Stop)
+//	if (mDirection != OperDirectionView::E_Stop)
   {
     QRadialGradient radialGradient(50, 50, 50);
     radialGradient.setColorAt(0, Qt::green);
@@ -142,7 +142,7 @@ CXLazerDirectionView::paintEvent(QPaintEvent*)
 }
 
 void
-CXLazerDirectionView::timerEvent(QTimerEvent* e)
+CXOperDirectionView::timerEvent(QTimerEvent* e)
 {
   if (e->timerId() == mDelayTimer)
   {
@@ -159,7 +159,7 @@ CXLazerDirectionView::timerEvent(QTimerEvent* e)
 }
 
 void
-CXLazerDirectionView::mousePressEvent(QMouseEvent* e)
+CXOperDirectionView::mousePressEvent(QMouseEvent* e)
 {
   if (e->button() == Qt::LeftButton)
   {
@@ -174,7 +174,7 @@ CXLazerDirectionView::mousePressEvent(QMouseEvent* e)
 }
 
 void
-CXLazerDirectionView::mouseReleaseEvent(QMouseEvent*)
+CXOperDirectionView::mouseReleaseEvent(QMouseEvent*)
 {
   if (mDelayTimer != -1)
   {
@@ -184,7 +184,7 @@ CXLazerDirectionView::mouseReleaseEvent(QMouseEvent*)
 }
 
 void
-CXLazerDirectionView::mouseMoveEvent(QMouseEvent* e)
+CXOperDirectionView::mouseMoveEvent(QMouseEvent* e)
 {
   if (mDelayTimer == -1)
   {
@@ -198,13 +198,13 @@ CXLazerDirectionView::mouseMoveEvent(QMouseEvent* e)
 }
 
 void
-CXLazerDirectionView::updateDirection(const QPointF& aPos)
+CXOperDirectionView::updateDirection(const QPointF& aPos)
 {
   for (int i = 0; i < mPathList.count(); ++i)
   {
     if (mPathList.at(i).contains(aPos))
     {
-      setDirection(LazerDirectionView::eMoveDirection(i));
+      setDirection(OperDirectionView::eMoveDirection(i));
       break;
     }
   }
