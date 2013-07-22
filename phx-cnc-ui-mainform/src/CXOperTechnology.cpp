@@ -9,6 +9,61 @@ CXOperTechnology::CXOperTechnology() :
 {
   setupUi(this);
 
+//  QHBoxLayout* horizontalLayout_4 = new QHBoxLayout();
+//
+//  horizontalLayout_4->setSpacing(6);
+////  horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+//
+//  mbStateSup.push_back( new CXTouchButton(mButtonWidget));
+//  mNuberButtonGroup = new QButtonGroup(CXOperTechnology);
+////  mNuberButtonGroup->setObjectName(QString::fromUtf8("mNuberButtonGroup"));
+//  mNuberButtonGroup->setExclusive(false);
+//  mNuberButtonGroup->addButton(mbStateSup1);
+//  mbStateSup1->setObjectName(QString::fromUtf8("mbStateSup1"));
+//  sizePolicy1.setHeightForWidth(mbStateSup1->sizePolicy().hasHeightForWidth());
+//  mbStateSup1->setSizePolicy(sizePolicy1);
+//  mbStateSup1->setCheckable(true);
+//
+//  horizontalLayout_4->addWidget(mbStateSup1);
+//
+//  mSVRZ1 = new QLabel(mButtonWidget);
+//  mSVRZ1->setObjectName(QString::fromUtf8("mSVRZ1"));
+//  QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Preferred);
+//  sizePolicy2.setHorizontalStretch(0);
+//  sizePolicy2.setVerticalStretch(0);
+//  sizePolicy2.setHeightForWidth(mSVRZ1->sizePolicy().hasHeightForWidth());
+//  mSVRZ1->setSizePolicy(sizePolicy2);
+//  mSVRZ1->setAlignment(Qt::AlignCenter);
+//
+//  horizontalLayout_4->addWidget(mSVRZ1);
+//
+//  mbStateZ1 = new CXTouchButton(mButtonWidget);
+//  mbStateZ1->setObjectName(QString::fromUtf8("mbStateZ1"));
+//  sizePolicy1.setHeightForWidth(mbStateZ1->sizePolicy().hasHeightForWidth());
+//  mbStateZ1->setSizePolicy(sizePolicy1);
+//  mbStateZ1->setCheckable(true);
+//
+//  horizontalLayout_4->addWidget(mbStateZ1);
+//
+//
+//  formLayout->setLayout(1, QFormLayout::LabelRole, horizontalLayout_4);
+//
+//
+//  horizontalLayout_2->addLayout(formLayout);
+//
+//  mOperVelocity = new CXOperVelocityView(mButtonWidget);
+//  mOperVelocity->setObjectName(QString::fromUtf8("mOperVelocity"));
+//  QSizePolicy sizePolicy3(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+//  sizePolicy3.setHorizontalStretch(0);
+//  sizePolicy3.setVerticalStretch(0);
+//  sizePolicy3.setHeightForWidth(mOperVelocity->sizePolicy().hasHeightForWidth());
+//  mOperVelocity->setSizePolicy(sizePolicy3);
+//  mOperVelocity->setMinimumSize(QSize(75, 0));
+//  mOperVelocity->setMaximumSize(QSize(130, 16777215));
+//
+//  horizontalLayout_2->addWidget(mOperVelocity);
+
+
   mCheckButtonGroup = new QButtonGroup(this);
   mCheckButtonGroup->addButton(mbStateZ1, 0);
   //mCheckButtonGroup->addButton(mbStateSup2, 0);
@@ -150,7 +205,7 @@ CXOperTechnology::onVelocityChange(eVelocity aVelocity)
   {
   case E_Slow:
     {
-    value = "-1";
+    value = "-2";
     break;
   }
   case E_Normal:
@@ -160,7 +215,7 @@ CXOperTechnology::onVelocityChange(eVelocity aVelocity)
   }
   case E_Boost:
     {
-    value = "+1";
+    value = "+2";
     break;
   }
   }
@@ -174,9 +229,9 @@ CXOperTechnology::onVelocityChange(eVelocity aVelocity)
       res.append(",");
 
     if (buttons.at(i)->isChecked())
-      res.append(QString("%1=%2").arg(i + 1).arg(value));
+      res.append(QString("%1=%2").arg(i).arg(value));
     else
-      res.append(QString("%1=0").arg(i + 1));
+      res.append(QString("%1=0").arg(i));
   }
 
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING_Z,
