@@ -15,7 +15,7 @@ CXTitleWindow::CXTitleWindow() :
   centralLayout->setMargin(7);
 
   mStopButton = new CXTouchButton(trUtf8("Стоп операций"), this);
-  mStopButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  mStopButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
   mStopButton->setFocusPolicy(Qt::NoFocus);
   centralLayout->addWidget(mStopButton);
 
@@ -37,6 +37,9 @@ CXTitleWindow::CXTitleWindow() :
   registerManager();
 
   connect(mControlButton, SIGNAL(clicked()), this, SLOT(onControl()));
+
+  connect(mStopButton, SIGNAL(clicked()), this, SLOT(onStopOperation()));
+
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 }
@@ -76,6 +79,13 @@ CXTitleWindow::onControl()
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CONTROL,
       Commands::MSG_VALUE_INVERT);
 }
+
+void
+CXTitleWindow::onStopOperation(){
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_STOP_OPERATION,
+      Commands::MSG_VALUE_ZERO);
+}
+
 
 void
 CXTitleWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)

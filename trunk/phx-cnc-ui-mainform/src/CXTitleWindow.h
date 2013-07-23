@@ -38,6 +38,10 @@ private slots:
   void
   onControl();
 
+  //! Стоп операций
+  void
+  onStopOperation();
+
   //! Слот получения команды от ядра.
   void
   onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
