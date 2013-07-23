@@ -14,16 +14,21 @@ CXTitleWindow::CXTitleWindow() :
   QHBoxLayout* centralLayout = new QHBoxLayout(this);
   centralLayout->setMargin(7);
 
-  mControlButton = new QPushButton(trUtf8("Управление выкл."), this);
-  mControlButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-  mControlButton->setFocusPolicy(Qt::NoFocus);
-  centralLayout->addWidget(mControlButton);
+  mStopButton = new CXTouchButton(trUtf8("Стоп операций"), this);
+  mStopButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+  mStopButton->setFocusPolicy(Qt::NoFocus);
+  centralLayout->addWidget(mStopButton);
 
   mCPStateLabel = new QLabel(trUtf8("Ручное упр."), this);
   mCPStateLabel->setObjectName("mCPStateLabel");
   mCPStateLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
   mCPStateLabel->setAlignment(Qt::AlignCenter);
   centralLayout->addWidget(mCPStateLabel);
+
+  mControlButton = new CXTouchButton(trUtf8("Управление выкл."), this);
+  mControlButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+  mControlButton->setFocusPolicy(Qt::NoFocus);
+  centralLayout->addWidget(mControlButton);
 
   mFileLabel = new QLabel(this);
   mFileLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);

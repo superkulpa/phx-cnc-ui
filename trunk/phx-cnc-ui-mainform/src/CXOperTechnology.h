@@ -4,6 +4,7 @@
 #include "AXBaseWindow.h"
 
 #include <QPushButton>
+#include <QLabel>
 
 #include "ui_CXOperTechnology.h"
 
@@ -58,8 +59,13 @@ private slots:
   onButtonCheck();
 
 private:
-  QButtonGroup* mCheckButtonGroup;
-  QList<QLabel*> mVoltages;
+  CXTouchButton *mTButton;
+  CXTouchButton *mZHButton;
+
+  QList<CXTouchButton*> mbStateSup;
+  QList<QLabel*> mSVRZ;
+  QList<CXTouchButton*> mbStateZ;
+
 };
 
 #endif // CXOperSETTINGS_H

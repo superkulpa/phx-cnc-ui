@@ -31,7 +31,7 @@ CXUdpManager::sendCommand(const String& aSection, const String& aCommand, const 
       QString::fromStdString(Commands::END_OF_MESSAGE));
   command = command.arg(QString::fromStdString(aSection)).arg(QString::fromStdString(aCommand)).arg(
       QString::fromStdString(aValue));
-  qDebug() << "net: out:"<< command;
+  qDebug() << "qform:out:"<< command.left(command.length()-2);
   writeDatagram(QByteArray().append(command), host, port);
 }
 
@@ -67,14 +67,15 @@ CXUdpManager::analyze()
   while (pos >= 0)
   {
     command = mCommands.left(pos);
-    mCommands = mCommands.mid(pos + 1);
 
     commands = command.split('#');
     if (commands.count() == 3)
     {
+      qDebug() << "qform:in:" << mCommands;
       emit commandReceived(commands.at(0), commands.at(1), commands.at(2));
     }
 
+    mCommands = mCommands.mid(pos + 1);
     pos = mCommands.indexOf(QString::fromStdString(Commands::DELIMITER));
   }
 }
