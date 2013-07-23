@@ -60,7 +60,7 @@ CXParametersWindow::setButtons(const QList<QPushButton*>& aButtons)
 void
 CXParametersWindow::loadParametersFromFtp()
 {
-  //mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "1");
+  mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "1");
   int timerTimeout = CXSettingsXML::getValue("settings.xml", "parametersTimeout").toInt();
 
   if (timerTimeout <= 0)

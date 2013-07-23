@@ -5,6 +5,7 @@
 
 #include <QLabel>
 #include <QPushButton>
+#include <CXTouchButton.h>
 
 /*!
  Класс заголовка окна.
@@ -44,7 +45,8 @@ private slots:
 private:
   QLabel* mFileLabel;
   QLabel* mCPStateLabel;
-  QPushButton* mControlButton;
+  CXTouchButton* mStopButton;
+  CXTouchButton* mControlButton;
   QString mFileName;
 };
 
