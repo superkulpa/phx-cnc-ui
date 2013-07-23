@@ -38,6 +38,8 @@ private slots:
   onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
 
 private:
+  void onEmptyAlarmsList();
+
   QTextEdit* mTextEdit;
   bool mIsError;
 };

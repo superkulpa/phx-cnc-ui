@@ -30,12 +30,19 @@ CXTextParameters::~CXTextParameters()
 
 }
 
+
+void CXTextParameters::onEmptyAlarmsList(){
+  mIsError = false;
+  mTextEdit->setPlainText(trUtf8("Нет аварий и предупреждений"));
+}
+
 void
 CXTextParameters::onResetAlarms()
 {
   mUdpManager->sendCommand(Commands::MSG_SECTION_ALARM, Commands::MSG_CMD_RESET_ALARMS, "0");
 
   mTextEdit->clear();
+  onEmptyAlarmsList();
 }
 
 void
@@ -60,7 +67,8 @@ CXTextParameters::onCommandReceive(const QString& aSection, const QString& aComm
       for (int i = 0; i < alarms.count(); i++)
       {
         buffer = alarms.at(i).trimmed();
-
+        qDebug() << buffer;
+        if (!buffer.contains(QString().fromUtf8("1.Блокировка операций")))
         if (!mTextEdit->toPlainText().contains(buffer))
         {
           mTextEdit->append(buffer);
@@ -82,25 +90,31 @@ CXTextParameters::onCommandReceive(const QString& aSection, const QString& aComm
           text.replace(buffer, "");
         }
       }
-
-      while (text.contains(QRegExp("^\n")))
-        text.replace(QRegExp("^\n"), "");
 //			if (text == "\n") text = "";
 
       mTextEdit->setPlainText(text);
     }
 
+    //чистим лишнее
     QString errorText = mTextEdit->toPlainText();
+    static const QRegExp regExp("^\n|^ \n");
+    while (errorText.contains(regExp))
+      errorText.replace(regExp, "");
 
-    if (errorText.indexOf("\n") >= 0)
-      errorText = errorText.mid(0, errorText.indexOf("\n"));
+    mTextEdit->setPlainText(errorText);
+
+    //errorText = mTextEdit->toPlainText();
+    //отослать верхнюю аварию
+    int indx = errorText.indexOf("\n");
+    if (indx >= 0) errorText = errorText.mid(0, indx );
 
     emit errorReceived(errorText);
 
     if (mTextEdit->toPlainText().isEmpty())
     {
-      mIsError = false;
-      mTextEdit->setPlainText(trUtf8("Нет аварий и предупреждений"));
+      onEmptyAlarmsList();
+//      mIsError = false;
+//      mTextEdit->setPlainText(trUtf8("Нет аварий и предупреждений"));
     }
   }
 }
