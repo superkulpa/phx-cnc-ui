@@ -275,7 +275,7 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
             curButton->setText(" ");
             curButton->setChecked(false);
           }else{
-            curButton->setText(QString::number(index));
+            curButton->setText(QString::number(index + 1));
             curButton->setChecked(true);
           }
 //if (value <= 3) curButton->setText(QString::number(index + 1));
