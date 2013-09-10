@@ -44,7 +44,7 @@ CXUtilsWindow::CXUtilsWindow() :
 
   registerManager();
 
-  load("utils.xml");
+  load("./utils.xml");
 }
 
 CXUtilsWindow::~CXUtilsWindow()

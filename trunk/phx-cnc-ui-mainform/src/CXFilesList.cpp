@@ -322,8 +322,7 @@ CXFilesList::onCompileFile()
 
   configFile.close();
 
-//	mProcess->start("bash ./cpc.sh");
-  mProcess->start("bash ./compile.cmd");
+  mProcess->start("bash ./cpc.sh");
 }
 
 void

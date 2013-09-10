@@ -139,7 +139,7 @@ CXDeviceView::load()
 
     setDescription(i, mChannelList.at(i).mDescription);
 
-    if (!mChannelList.at(i).mDescription.isEmpty())
+//    if (!mChannelList.at(i).mDescription.isEmpty())
       mChannelsTable->item(i, 1)->setText("0");
   }
 
@@ -167,6 +167,8 @@ CXDeviceView::loadDevices(int aGroupNumber, const QList<QPushButton*>& aButtonsL
       if (configFile.GetValue("Modules", devicesList.at(i).toStdString()).length() <= 0)
         continue;
       if (devicesList.at(i) == QString("INI"))
+        continue;
+      if (devicesList.at(i) == QString("CANOpen"))
         continue;
 
       curDeviceView = new CXDeviceView(devicesList.at(i));
@@ -244,7 +246,7 @@ CXDeviceView::eventFilter(QObject* watched, QEvent* e)
         break;
 
       mUdpManager->sendCommand(Commands::MSG_SECTION_IO,
-          Commands::MSG_CMD_SET_VALUE + mDeviceName.toStdString(), value.toStdString());
+          /*Commands::MSG_CMD_SET_VALUE + */mDeviceName.toStdString(), value.toStdString());
       if (mChannelsTable->currentRow() != index)
         mChannelsTable->setCurrentItem(mChannelsTable->item(index, 0));
 
@@ -291,8 +293,8 @@ CXDeviceView::setDescription(int aIndex, const QString& aDescription)
   {
     if (description.contains(";"))
       description = description.left(description.indexOf(";"));
-    description.prepend(QString("%1=").arg(aIndex));
   }
+  description.prepend(QString("%1:").arg(aIndex + 1));
 
   mChannelsTable->item(aIndex, 0)->setText(description);
 }
@@ -430,8 +432,15 @@ CXDeviceView::onSendCommand(const QString& aCommand)
   if (this != mLastView)
     return;
 
+  int index = mChannelsTable->currentRow();
+
+  if (index < 0 || index > mChannelList.count())
+    return;
+
+  QString aValue = QString("%1=").arg(index) + aCommand;
+
   mUdpManager->sendCommand(Commands::MSG_SECTION_IO,
-      Commands::MSG_CMD_SET_VALUE + mDeviceName.toStdString(), aCommand.toStdString());
+      /*Commands::MSG_CMD_SET_VALUE + */mDeviceName.toStdString(), aValue.toStdString());
 }
 
 void
@@ -439,7 +448,7 @@ CXDeviceView::onCommandReceive(const QString& aSection, const QString& aCommand,
 {
   if (aSection == QString::fromStdString(Commands::MSG_SECTION_IO))
   {
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_GET_VALUE) + mDeviceName)
+    if (aCommand == mDeviceName)
     {
       QStringList list = aValue.split(",");
 
