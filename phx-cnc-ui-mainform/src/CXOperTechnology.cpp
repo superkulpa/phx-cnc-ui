@@ -57,6 +57,7 @@ CXOperTechnology::CXOperTechnology() :
     mbStateZ.push_back( new CXTouchButton(frSuppList));
     mbStateZ.last()->setCheckable(true);
     mbStateZ.last()->setText("Z" + QString().setNum(i + 1));
+    mbStateZ.last()->setChecked(true);
     horizontalLayout_4->addWidget(mbStateZ.last());
 
     horizontalLayout_4->setAlignment(Qt::AlignCenter);
@@ -333,10 +334,12 @@ CXOperTechnology::onButtonCheck()
     int index = buttons.indexOf(button);
     QString res("%1=%2");
 
-    if ( buttons[index]->isChecked())
+    if ( buttons[index]->isChecked()){
       res = res.arg(index).arg(QString::fromStdString(Commands::MSG_VALUE_TECH_READY));
-    else
+    }
+    else{
       res = res.arg(index).arg(QString::fromStdString(Commands::MSG_VALUE_TECH_DISACT));
+    }
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_TS,
         res.toStdString());
   }

@@ -111,6 +111,7 @@ private:
   QLabel* mCurrentFrameLabel;
 
   CXUtilsWindow* mUtils;
+  int mRotateAxis;
 };
 
 #endif // CXOperDIRECTIONWINDOW_H

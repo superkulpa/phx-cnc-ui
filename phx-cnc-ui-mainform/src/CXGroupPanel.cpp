@@ -132,7 +132,7 @@ CXGroupPanel::onDeviceEditShow()
 
   mManager->setCurrentGroup(btn->property("groupName").toInt());
 
-  AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "cmd_star", "0");
+  AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "cmd_start", "0");
 }
 
 void

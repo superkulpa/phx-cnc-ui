@@ -51,7 +51,7 @@ CXOperDirectionDialog::~CXOperDirectionDialog()
 QPointF
 CXOperDirectionDialog::getPosition()
 {
-  return QPointF(mXEdit->text().toDouble() * 100, mYEdit->text().toDouble() * 100);
+  return QPointF(mXEdit->text().toInt() * 100, mYEdit->text().toInt() * 100);
 }
 
 void
@@ -60,7 +60,7 @@ CXOperDirectionDialog::onAbsolute()
   if (mUdpManager != NULL && !mXEdit->text().isEmpty() && !mYEdit->text().isEmpty())
   {
     QString res("0=%1,1=%2");
-    res = res.arg(mXEdit->text().toDouble() * 100).arg(mYEdit->text().toDouble() * 100);
+    res = res.arg(mXEdit->text().toInt() * 100).arg(mYEdit->text().toInt() * 100);
 
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_ABSOLUTE_MOVING,
         res.toStdString());
@@ -75,7 +75,7 @@ CXOperDirectionDialog::onRelative()
   if (mUdpManager != NULL && !mXEdit->text().isEmpty() && !mYEdit->text().isEmpty())
   {
     QString res("0=%1,1=%2");
-    res = res.arg(mXEdit->text().toDouble() * 100).arg(mYEdit->text().toDouble() * 100);
+    res = res.arg(mXEdit->text().toInt() * 100).arg(mYEdit->text().toInt() * 100);
 
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR,
         Commands::MSG_CMD_HAND_COMPARATIVE_MOVING, res.toStdString());

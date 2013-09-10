@@ -43,8 +43,8 @@ CXPathView::boundingRect()
   if (mRotateAxis)
   {
     QTransform transform;
-    transform.rotate(90.0);
-    transform.scale(1.0, -1.0);
+    transform.rotate(270.0);
+    transform.scale(1.0, 1.0);
 
     rect = transform.mapRect(rect);
   }
@@ -219,8 +219,8 @@ CXPathView::paintEvent(QPaintEvent* e)
     QTransform transform;
     transform.scale(mScale, mScale);
     transform.translate(-mCurPosition.x(), -mCurPosition.y());
-    transform.rotate(90.0);
-    transform.scale(1.0, -1.0);
+    transform.rotate(270.0);
+    transform.scale(1.0, 1.0);
 
     painter.setTransform(transform);
   }

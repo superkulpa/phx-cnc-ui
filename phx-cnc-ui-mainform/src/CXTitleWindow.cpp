@@ -14,7 +14,7 @@ CXTitleWindow::CXTitleWindow() :
   QHBoxLayout* centralLayout = new QHBoxLayout(this);
   centralLayout->setMargin(7);
 
-  mStopButton = new CXTouchButton(trUtf8("Стоп операций"), this);
+  mStopButton = new CXTouchButton(trUtf8("          Стоп операций          "), this);
   mStopButton->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
   mStopButton->setFocusPolicy(Qt::NoFocus);
   centralLayout->addWidget(mStopButton);

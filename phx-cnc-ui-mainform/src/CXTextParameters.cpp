@@ -33,7 +33,8 @@ CXTextParameters::~CXTextParameters()
 
 void CXTextParameters::onEmptyAlarmsList(){
   mIsError = false;
-  mTextEdit->setPlainText(trUtf8("Нет аварий и предупреждений"));
+  mTextEdit->setPlainText(trUtf8("Нет сообщений"));
+  emit errorReceived("");
 }
 
 void
@@ -107,14 +108,12 @@ CXTextParameters::onCommandReceive(const QString& aSection, const QString& aComm
     //отослать верхнюю аварию
     int indx = errorText.indexOf("\n");
     if (indx >= 0) errorText = errorText.mid(0, indx );
-
-    emit errorReceived(errorText);
-
     if (mTextEdit->toPlainText().isEmpty())
     {
       onEmptyAlarmsList();
 //      mIsError = false;
 //      mTextEdit->setPlainText(trUtf8("Нет аварий и предупреждений"));
-    }
+    }else
+      emit errorReceived(errorText);
   }
 }

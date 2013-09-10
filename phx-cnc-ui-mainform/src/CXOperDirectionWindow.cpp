@@ -7,12 +7,14 @@
 #include "CXOperDirectionDialog.h"
 #include "CXUtilsWindow.h"
 #include "CXUdpManager.h"
+#include "CXSettingsXML.h"
 
 CXOperDirectionWindow::CXOperDirectionWindow() :
     AXBaseWindow()
 {
   mIsRunning = false;
   mUtils = NULL;
+  mRotateAxis = CXSettingsXML::getValue("settings.xml", "rotateAxis").toInt();
 
   QVBoxLayout* centralLayout = new QVBoxLayout(this);
   centralLayout->setMargin(5);
@@ -222,11 +224,17 @@ CXOperDirectionWindow::onDirectionChange(OperDirectionView::eMoveDirection aDire
     if (aDirection == OperDirectionView::E_Top || aDirection == OperDirectionView::E_TopLeft
         || aDirection == OperDirectionView::E_TopRight)
     {
-      x = "-2";
+      if(mRotateAxis)
+        y = "+2";
+      else
+        x = "-2";
     }
     else
     {
-      x = "+2";
+      if(mRotateAxis)
+        y = "-2";
+      else
+        x = "+2";
     }
   }
 
@@ -235,19 +243,22 @@ CXOperDirectionWindow::onDirectionChange(OperDirectionView::eMoveDirection aDire
     if (aDirection == OperDirectionView::E_TopLeft || aDirection == OperDirectionView::E_Left
         || aDirection == OperDirectionView::E_BottomLeft)
     {
-      y = "-2";
+      if(mRotateAxis)
+        x = "-2";
+      else
+        y = "-2";
     }
     else
     {
-      y = "+2";
+      if(mRotateAxis)
+        x = "+2";
+      else
+        y = "+2";
     }
   }
 
   QString res;
-
-  res.append("0=" + x);
-  res.append(",");
-  res.append("1=" + y);
+  res.append("0=" + x).append(",1=" + y);
 
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING,
       res.toStdString());
