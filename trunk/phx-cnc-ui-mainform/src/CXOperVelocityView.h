@@ -16,7 +16,8 @@ enum eVelocity
 {
   E_Slow,
   E_Normal,
-  E_Boost
+  E_Boost,
+  E_NoVelocity = 100
 };
 
 /*!

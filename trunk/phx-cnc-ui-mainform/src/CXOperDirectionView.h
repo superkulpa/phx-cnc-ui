@@ -4,6 +4,7 @@
 #include <QWidget>
 
 #include <QPainterPath>
+#include "CXOperVelocityView.h"
 
 namespace OperDirectionView
 {
@@ -22,6 +23,13 @@ namespace OperDirectionView
   };
 }
 
+//! Перечисление типов для отображения направления.
+enum eDirectionViewTypes
+{
+	E_Circle,
+	E_Fingers
+};
+
 /*!
  Класс настройки направления реза.
  */
@@ -31,7 +39,7 @@ Q_OBJECT
 
 public:
   //! Конструктор.
-  CXOperDirectionView(QWidget* parent = 0);
+  CXOperDirectionView(QWidget* parent = 0, eDirectionViewTypes aType = E_Circle);
 
   //! Деструктор.
   virtual ~CXOperDirectionView();
@@ -40,10 +48,22 @@ public:
   void
   setDirection(OperDirectionView::eMoveDirection aDirection);
 
+  //! Функция установки скорости реза.
+  void
+  setVelocity(eVelocity aVelocity);
+
+  //! Функция установки направления и скорости реза.
+  void
+  setDirection(OperDirectionView::eMoveDirection aDirection, eVelocity aVelocity);
+
 signals:
   //! Сигнал на изменение направления.
   void
   directionChanged(OperDirectionView::eMoveDirection aDirection);
+
+  //! Сигнал на изменение направления и скорости.
+  void
+  directionChanged(OperDirectionView::eMoveDirection aDirection, eVelocity aVelocity);
 
 protected:
   //! Переопределенная фукнция рисования.
@@ -67,22 +87,48 @@ protected:
   mouseMoveEvent(QMouseEvent* e);
 
 private:
+  //! Создание вьювера в виде одного круга с секторами.
+  void createCircleType();
+
+  //! Создание вьювера в виде 4х точек для пальцев.
+  void createFingersType();
+
   /*!
    Функция установки направления по координатам.
 
    \param aPos - позиция курсора.
+   \param aIsMousePress - флаг, что функция была вызвана по нажатию мышки.
    */
   void
-  updateDirection(const QPointF& aPos);
+  updateDirection(const QPointF& aPos, bool aIsMousePress);
+
+  //! Функция обновления интерфейса по измененным направлению или скорости (установка нужной подсвеченной области).
+  void
+  updatePaintDirection();
 
 private:
   static int mDelay;
   int mDelayTimer;
 
+  eDirectionViewTypes mType;
+
   QList<QPainterPath> mPathList;
   QPainterPath mDrawPath;
   QPainterPath mArrowPath;
+
+  QList <QPainterPath> mFingersList;
+  QList <QPainterPath> mArrowList;
+  QList <QPainterPath> mDirectionPathList;
+  //Список направлений для каждого сектора.
+  QList <OperDirectionView::eMoveDirection> mDirectionList;
+  QList <QPainterPath> mDrawist;
+
+  QRectF mBound;
+
+  int mCurrentFinger;
+  int mCurrentDirection;
   OperDirectionView::eMoveDirection mDirection;
+  eVelocity mVelocity;
 };
 
 #endif // CXOperDIRECTIONVIEW_H

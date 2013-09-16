@@ -186,6 +186,10 @@ private:
 
   //! Позиция курсора при нажатии левой клавиши мышки.
   QPoint mPressPos;
+
+public:
+  //! Флаг видимости окна. Если равен false, то оно никогда не появится.
+  bool mIsVisible;
 };
 
 #endif // AXBASEWINDOW_H
