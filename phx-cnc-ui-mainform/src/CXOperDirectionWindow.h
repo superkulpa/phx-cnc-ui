@@ -59,9 +59,16 @@ private slots:
   void
   onXYClick();
 
+  //! Слот получения строки команды по направлению.
+  QString getDirectionCommand(OperDirectionView::eMoveDirection aDirection);
+
   //! Слот на изменение направления.
   void
   onDirectionChange(OperDirectionView::eMoveDirection aDirection);
+
+  //! Слот на изменение направления и скорости.
+  void
+  onDirectionChange(OperDirectionView::eMoveDirection aDirection, eVelocity aVelocity);
 
   //! Слот на изменение скорости.
   void

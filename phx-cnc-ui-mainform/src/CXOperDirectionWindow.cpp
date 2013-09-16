@@ -95,7 +95,10 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   QHBoxLayout* OperLayout = new QHBoxLayout;
   OperLayout->setSpacing(10);
 
+  int directionViewType = CXSettingsXML::getValue("settings.xml", "directionViewType").toInt();
+
   mOperVelocityView = new CXOperVelocityView(this);
+  if (directionViewType != E_Circle) mOperVelocityView->hide();
   mOperVelocityView->setTexts(
       QList<QString>() << trUtf8("у\nс\nк") << trUtf8("н\nо\nр\nм") << trUtf8("м\nе\nд\nл"));
   OperLayout->addWidget(mOperVelocityView, 1);
@@ -104,7 +107,7 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   OperDirectionLayout->setMargin(0);
   OperDirectionLayout->setSpacing(0);
 
-  mOperDirectionView = new CXOperDirectionView(this);
+  mOperDirectionView = new CXOperDirectionView(this, eDirectionViewTypes(directionViewType));
   OperLayout->addWidget(mOperDirectionView, 5);
 
   mCurrentFrameLabel = new QLabel(this);
@@ -132,6 +135,9 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   connect(mXYButton, SIGNAL(clicked()), this, SLOT(onXYClick()));
   connect(mOperDirectionView, SIGNAL(directionChanged(OperDirectionView::eMoveDirection)), this,
       SLOT(onDirectionChange(OperDirectionView::eMoveDirection)));
+  connect(mOperDirectionView, SIGNAL(directionChanged(OperDirectionView::eMoveDirection, eVelocity)), this,
+      SLOT(onDirectionChange(OperDirectionView::eMoveDirection, eVelocity)));
+
   connect(mOperVelocityView, SIGNAL(velocityChanged(eVelocity)), this,
       SLOT(onVelocityChange(eVelocity)));
   connect(plusButton, SIGNAL(clicked()), this, SLOT(onUpSpeed()));
@@ -207,13 +213,12 @@ CXOperDirectionWindow::onXYClick()
   dialog.exec();
 }
 
-void
-CXOperDirectionWindow::onDirectionChange(OperDirectionView::eMoveDirection aDirection)
+QString
+CXOperDirectionWindow::getDirectionCommand(OperDirectionView::eMoveDirection aDirection)
 {
   if (aDirection == OperDirectionView::E_Stop)
   {
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MOVE_STOP, "0");
-    return;
+    return "0";
   }
 
   QString x = "0";
@@ -259,9 +264,21 @@ CXOperDirectionWindow::onDirectionChange(OperDirectionView::eMoveDirection aDire
 
   QString res;
   res.append("0=" + x).append(",1=" + y);
+  return res;
+}
 
+void
+CXOperDirectionWindow::onDirectionChange(OperDirectionView::eMoveDirection aDirection)
+{
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING,
-      res.toStdString());
+      getDirectionCommand(aDirection).toStdString());
+}
+
+void
+CXOperDirectionWindow::onDirectionChange(OperDirectionView::eMoveDirection aDirection, eVelocity aVelocity)
+{
+  onDirectionChange(aDirection);
+  onVelocityChange(aVelocity);
 }
 
 void
@@ -452,6 +469,7 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
         value = E_Slow;
 
       mOperVelocityView->setVelocity(value);
+	  mOperDirectionView->setVelocity(value);
     }
   }
 }

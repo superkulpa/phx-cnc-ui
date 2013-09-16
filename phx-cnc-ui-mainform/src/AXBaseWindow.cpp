@@ -30,6 +30,7 @@ AXBaseWindow::AXBaseWindow() :
   mCursors.append(Qt::SizeVerCursor);
 
   mIsFreeze = false;
+  mIsVisible = true;
 
 //	if (mManager != NULL) mManager->addWindow(this);
 

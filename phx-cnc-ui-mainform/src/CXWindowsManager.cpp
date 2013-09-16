@@ -87,7 +87,7 @@ CXWindowsManager::setCurrentGroup(int aGroupNumber)
     {
       if (curWindow->groupNumber() > 0 && curWindow->groupNumber() != mGroupNumber)
         curWindow->hide();
-      else
+      else if (curWindow->mIsVisible)
         curWindow->show();
     }
   }
@@ -159,6 +159,7 @@ CXWindowsManager::save(const QString& aFileName)
         QDomElement newElement = document.createElement(QString("window_%1").arg(className));
         newElement.appendChild(
             document.createTextNode(curWindow->saveGeometry().toBase64().data()));
+		newElement.setAttribute("visible", curWindow->mIsVisible);
         if (saveElement.isNull())
         {
           root.appendChild(newElement);
@@ -219,6 +220,7 @@ CXWindowsManager::load(const QString& aFileName)
         if (mList.contains(className))
         {
           curWindow = qobject_cast<AXBaseWindow*>(mList.value(className));
+		  if (element.hasAttribute("visible")) curWindow->mIsVisible = element.attribute("visible").toInt();
 
           if (curWindow != NULL)
           {
