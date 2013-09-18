@@ -469,7 +469,6 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
         value = E_Slow;
 
       mOperVelocityView->setVelocity(value);
-	  mOperDirectionView->setVelocity(value);
     }
   }
 }

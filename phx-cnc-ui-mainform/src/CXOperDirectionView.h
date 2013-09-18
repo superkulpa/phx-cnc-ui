@@ -48,10 +48,6 @@ public:
   void
   setDirection(OperDirectionView::eMoveDirection aDirection);
 
-  //! Функция установки скорости реза.
-  void
-  setVelocity(eVelocity aVelocity);
-
   //! Функция установки направления и скорости реза.
   void
   setDirection(OperDirectionView::eMoveDirection aDirection, eVelocity aVelocity);
@@ -92,6 +88,12 @@ private:
 
   //! Создание вьювера в виде 4х точек для пальцев.
   void createFingersType();
+
+  //! Функция расчета направления по индексу сектора.
+  OperDirectionView::eMoveDirection getDirection(int index);
+
+  //! Функция расчета скорости по индексу сектора.
+  eVelocity getVelocity(int index);
 
   /*!
    Функция установки направления по координатам.
