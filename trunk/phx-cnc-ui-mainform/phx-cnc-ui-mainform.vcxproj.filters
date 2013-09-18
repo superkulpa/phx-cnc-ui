@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Form Files">
@@ -45,22 +45,21 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{4a2f855b-e5af-4de6-9216-cb1bb56fb922}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
-    <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{086d21bd-a881-4339-b11b-9a3a1cae5bbf}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AXBaseWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CXChannelEdit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\CXCompileEdit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXDeviceEdit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXDeviceView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CXEditPathFile.cpp">
@@ -84,19 +83,19 @@
     <ClCompile Include="src\CXIniFileList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CXLazerDirectionDialog.cpp">
+    <ClCompile Include="src\CXOperDirectionDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CXLazerDirectionView.cpp">
+    <ClCompile Include="src\CXOperDirectionView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CXLazerDirectionWindow.cpp">
+    <ClCompile Include="src\CXOperDirectionWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CXLazerSettings.cpp">
+    <ClCompile Include="src\CXOperTechnology.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CXLazerVelocityView.cpp">
+    <ClCompile Include="src\CXOperVelocityView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CXParameterData.cpp">
@@ -112,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CXPathWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXProcess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CXProcessingParametersWindow.cpp">
@@ -156,42 +158,21 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\CXProcess.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CXDeviceView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_CXDeviceView.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_CXDeviceView.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CXChannelEdit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_CXChannelEdit.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_CXChannelEdit.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CXDeviceEdit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_CXDeviceEdit.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_CXDeviceEdit.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\AXBaseWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="src\CXChannelEdit.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="src\CXCompileEdit.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXDeviceEdit.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXDeviceView.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXEditPathFile.h">
@@ -215,19 +196,19 @@
     <CustomBuild Include="src\CXIniFileList.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\CXLazerDirectionDialog.h">
+    <CustomBuild Include="src\CXOperDirectionDialog.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\CXLazerDirectionView.h">
+    <CustomBuild Include="src\CXOperDirectionView.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\CXLazerDirectionWindow.h">
+    <CustomBuild Include="src\CXOperDirectionWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\CXLazerSettings.h">
+    <CustomBuild Include="src\CXOperTechnology.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\CXLazerVelocityView.h">
+    <CustomBuild Include="src\CXOperVelocityView.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <ClInclude Include="src\CXParameterData.h">
@@ -245,6 +226,9 @@
     <CustomBuild Include="src\CXPathWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="src\CXProcess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <CustomBuild Include="src\CXProcessingParametersWindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -278,27 +262,15 @@
     <CustomBuild Include="src\CXWindowsManager.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="src\SXChannelData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\flowlayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\iniFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="src\CXDeviceView.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\CXDeviceView.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\CXChannelEdit.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\CXChannelEdit.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="src\CXDeviceEdit.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug\moc_AXBaseWindow.cpp">
@@ -307,10 +279,28 @@
     <ClCompile Include="release\moc_AXBaseWindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_CXChannelEdit.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_CXChannelEdit.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_CXCompileEdit.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_CXCompileEdit.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_CXDeviceEdit.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_CXDeviceEdit.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_CXDeviceView.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_CXDeviceView.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_CXEditPathFile.cpp">
@@ -355,34 +345,34 @@
     <ClCompile Include="release\moc_CXIniFileList.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="debug\moc_CXLazerDirectionDialog.cpp">
+    <ClCompile Include="debug\moc_CXOperDirectionDialog.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_CXLazerDirectionDialog.cpp">
+    <ClCompile Include="release\moc_CXOperDirectionDialog.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="debug\moc_CXLazerDirectionView.cpp">
+    <ClCompile Include="debug\moc_CXOperDirectionView.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_CXLazerDirectionView.cpp">
+    <ClCompile Include="release\moc_CXOperDirectionView.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="debug\moc_CXLazerDirectionWindow.cpp">
+    <ClCompile Include="debug\moc_CXOperDirectionWindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_CXLazerDirectionWindow.cpp">
+    <ClCompile Include="release\moc_CXOperDirectionWindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="debug\moc_CXLazerSettings.cpp">
+    <ClCompile Include="debug\moc_CXOperTechnology.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_CXLazerSettings.cpp">
+    <ClCompile Include="release\moc_CXOperTechnology.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="debug\moc_CXLazerVelocityView.cpp">
+    <ClCompile Include="debug\moc_CXOperVelocityView.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_CXLazerVelocityView.cpp">
+    <ClCompile Include="release\moc_CXOperVelocityView.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_CXParametersView.cpp">
@@ -469,6 +459,12 @@
     <ClCompile Include="release\qrc_resource.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClInclude Include="GeneratedFiles\ui_CXChannelEdit.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CXDeviceView.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CXEditPathFile.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -484,10 +480,10 @@
     <ClInclude Include="GeneratedFiles\ui_CXIniFileList.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_CXLazerDirectionDialog.h">
+    <ClInclude Include="GeneratedFiles\ui_CXOperDirectionDialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_CXLazerSettings.h">
+    <ClInclude Include="GeneratedFiles\ui_CXOperTechnology.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_CXProcessingParametersWindow.h">
@@ -501,6 +497,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="src\CXChannelEdit.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXDeviceView.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="src\CXEditPathFile.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
@@ -516,10 +518,10 @@
     <CustomBuild Include="src\CXIniFileList.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\CXLazerDirectionDialog.ui">
+    <CustomBuild Include="src\CXOperDirectionDialog.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\CXLazerSettings.ui">
+    <CustomBuild Include="src\CXOperTechnology.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXProcessingParametersWindow.ui">
@@ -545,19 +547,5 @@
     <None Include="images\up.png">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\CXProcess.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_CXDeviceView.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_CXChannelEdit.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SXChannelData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
