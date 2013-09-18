@@ -7,7 +7,7 @@
 
 #include "CXSettingsXML.h"
 
-#define FINGER_RADIUS 12.0
+#define FINGER_RADIUS 10.0
 #define RADIUS 18.0
 int CXOperDirectionView::mDelay = 0;
 
@@ -148,7 +148,8 @@ CXOperDirectionView::paintEvent(QPaintEvent*)
 /**/
 	  painter.setPen(Qt::DotLine);
 	  painter.setBrush(Qt::NoBrush);
-	  //if (mCurrentFinger >= 0) painter.drawPath(mDrawist.at(mCurrentFinger));
+	  if (mCurrentFinger >= 0) painter.drawPath(mDrawist.at(mCurrentFinger));
+/*
 	  for (int i = 0; i < mDirectionPathList.count(); i++)
 	  {
 		  if (i >= mCurrentFinger * 9 && i < (mCurrentFinger + 1) * 9) painter.drawPath(mDirectionPathList.at(i));
@@ -158,14 +159,14 @@ CXOperDirectionView::paintEvent(QPaintEvent*)
 	  painter.setBrush(Qt::gray);
 
 	  if (mCurrentFinger >= 0) painter.setOpacity(0.2);
-
+	  
 	  for (int i = 0; i < mFingersList.count(); i++)
 	  {
 		  if (i == mCurrentFinger) continue;
 
 		  painter.drawPath(mFingersList.at(i));
 	  }
-
+	  
 	  painter.setOpacity(1.0);
 
 	  if (mCurrentDirection >= 0)
@@ -174,6 +175,11 @@ CXOperDirectionView::paintEvent(QPaintEvent*)
 	  }
 
 	  if (mCurrentFinger >= 0) painter.drawPath(mFingersList.at(mCurrentFinger));
+
+	  for (int i = 0; i < mFingersArrowList.count(); i++)
+	  {
+		  if (i >= mCurrentFinger * 3 && i < (mCurrentFinger + 1) * 3) painter.fillPath(mFingersArrowList.at(i), QColor(0, 0, 0, 100));
+	  }
 
 	  break;
 	}
@@ -310,12 +316,12 @@ CXOperDirectionView::createFingersType()
   mBound = mFingerPath.boundingRect();
 
   //Формирование стрелки направления.
-  mArrowPath.moveTo(27,	45);
-  mArrowPath.lineTo(37,	50);
-  mArrowPath.lineTo(27,	55);
+  mArrowPath.moveTo(-5, -5);
+  mArrowPath.lineTo(5, 0);
+  mArrowPath.lineTo(-5, 5);
   mArrowPath.closeSubpath();
 
-  mArrowList << mArrowPath;
+  mArrowList << QTransform().translate(32, 50).map(mArrowPath);
 
   mFingerPath = QPainterPath();
 
@@ -324,39 +330,32 @@ CXOperDirectionView::createFingersType()
 					OperDirectionView::E_BottomRight << OperDirectionView::E_Bottom << OperDirectionView::E_BottomLeft <<
 					OperDirectionView::E_TopLeft << OperDirectionView::E_Top << OperDirectionView::E_TopRight;
 
-  QList <qreal> startAngles;
-  startAngles << -160.0 * M_PI / 180.0 << -90.0 * M_PI / 180.0 << 160.0 * M_PI / 180.0;
+  QSize cellSize(24, 30);
+  qreal startAngle = -55.0 * M_PI / 180.0;
   qreal inclination = -75 * M_PI / 180.0;
-
-  qreal height = qAbs(FINGER_RADIUS * 2.0 * qSin(startAngles.at(1)));
-  y = FINGER_RADIUS * (qSin(startAngles.at(0)) - qSin(startAngles.at(1)));
-
-  qreal inclLength = height;
-  if (y > 0) inclLength += y;
-
-  qreal inclWidth = height + inclLength * qCos(inclination) / 3.0;
+  qreal inclWidth = cellSize.height() * qTan(M_PI / 2.0 - qAbs(inclination));
 
   QPointF lastPoint;
-  QPointF startPoint;
-  QPointF splitPoint;
   QPainterPath drawPath;
 
   //Формирование сетки направления и скорости.
-  for (int r = 0; r < startAngles.count(); r++)
+  for (int r = 0; r < 3; r++)
   {
-	  qreal angle = startAngles.at(r);
 	  if (r == 2) inclination *= -1;
 
 	  for (int i = 0; i < 3; i++)
 	  {
 		  if (i == 0)
 		  {
-			  x = FINGER_RADIUS * qCos(angle) + center.x();
-			  y = FINGER_RADIUS * qSin(angle) + center.y();
+			  x = 2.0 * center.x();
+			  y = center.y() - (r == 2? -0.5 : 0.5) * cellSize.height();
 
-			  if (r == 0) startPoint = QPointF(x, y);
+			  QTransform transform;
+			  transform = transform.translate(x + ((r==1?0:inclWidth) + cellSize.width()) / 2.0, center.y() - cellSize.height() * (1.0 - r));
+			  if (r != 1) transform = transform.rotate(r == 0?-30.0:30.0);
 
 			  drawPath.moveTo(QPointF(x, y));
+			  mFingersArrowList << transform.map(mArrowPath);
 		  }
 		  else
 		  {
@@ -370,24 +369,23 @@ CXOperDirectionView::createFingersType()
 		  {
 			  if (i == 0)
 			  {
-				  drawPath.moveTo(startPoint);
-				  drawPath.lineTo(splitPoint);
-				  mFingerPath.moveTo(startPoint);
-				  mFingerPath.lineTo(splitPoint);
+				  drawPath.moveTo(QPointF(FINGER_RADIUS * qCos(startAngle), FINGER_RADIUS * qSin(startAngle)) + center);
+				  drawPath.lineTo(QPointF(x, y));
+				  mFingerPath.moveTo(QPointF(FINGER_RADIUS * qCos(startAngle), FINGER_RADIUS * qSin(startAngle)) + center);
+				  mFingerPath.lineTo(QPointF(x, y));
 			  }
 			  else
 			  {
-				  y -= height;
+				  y -= cellSize.height();
 				  mFingerPath.lineTo(QPointF(x, y));
 			  }
 
-			  if (i == 0) x += 2.0 * FINGER_RADIUS - x + height;
-			  else x += height;
+			  x += cellSize.width();
 
 			  drawPath.moveTo(QPointF(x, y));
 			  mFingerPath.lineTo(QPointF(x, y));
 
-			  y += height;
+			  y += cellSize.height();
 
 			  lastPoint = QPointF(x, y);
 			  drawPath.lineTo(lastPoint);
@@ -396,44 +394,38 @@ CXOperDirectionView::createFingersType()
 			  if (i == 0)
 			  {
 				  lastPoint = QPointF(x, y);
+				  
+				  x -= cellSize.width();
 
-				  x = splitPoint.x();
-				  y = splitPoint.y() + height;
 				  drawPath.moveTo(QPointF(x, y));
-				  mFingerPath.lineTo(QPointF(x, y));
+				  drawPath.lineTo(QPointF(FINGER_RADIUS * qCos(-startAngle), FINGER_RADIUS * qSin(-startAngle)) + center);
 
-				  x = startPoint.x();
-				  y = 2.0 * center.y() - startPoint.y();
-				  drawPath.lineTo(QPointF(x, y));
 				  mFingerPath.lineTo(QPointF(x, y));
+				  mFingerPath.lineTo(QPointF(FINGER_RADIUS * qCos(-startAngle), FINGER_RADIUS * qSin(-startAngle)) + center);
 			  }
 		  }
 		  else
 		  {
-			  qreal curHeight = height;
-			  if (i == 0) curHeight = inclLength;
-
-			  x = qAbs(curHeight / qSin(inclination)) * qCos(inclination) + x;
-			  y = qAbs(curHeight / qSin(inclination)) * qSin(inclination) + y;
+			  x = qAbs(cellSize.height() / qSin(inclination)) * qCos(inclination) + x;
+			  y = qAbs(cellSize.height() / qSin(inclination)) * qSin(inclination) + y;
 
 			  mFingerPath.lineTo(QPointF(x, y));
-			  if (i == 0) drawPath.lineTo(QPointF(x, y));
+			  if (i == 0)
+			  {
+				  drawPath.lineTo(QPointF(x, y));
+			  }
 
-			  x += inclWidth;
+			  x += cellSize.width();
 
 			  mFingerPath.lineTo(QPointF(x, y));
 			  drawPath.moveTo(QPointF(x, y));
 
-			  x -= height * qTan(M_PI / 2.0 - qAbs(inclination));
+			  x -= inclWidth;
 
-			  if (inclination > 0) y -= height;
-			  else y += height;
+			  if (inclination > 0) y -= cellSize.height();
+			  else y += cellSize.height();
 
 			  lastPoint = QPointF(x, y);
-			  if (i == 0)
-			  {
-				  splitPoint = lastPoint;
-			  }
 
 			  drawPath.lineTo(lastPoint);
 			  mFingerPath.lineTo(lastPoint);
@@ -469,6 +461,7 @@ CXOperDirectionView::createFingersType()
 
   int directionListCount = mDirectionPathList.count();
   int drawistCount = mDrawist.count();
+  int arrowCount = mFingersArrowList.count();
   for (int i = 0; i < 3; i++)
   {
 	  QTransform transform;
@@ -482,6 +475,7 @@ CXOperDirectionView::createFingersType()
 	  mArrowList << transform.map(mArrowList.at(0));
 	  for (int c = 0; c < directionListCount; c++) mDirectionPathList << transform.map(mDirectionPathList.at(c));
 	  for (int c = 0; c < drawistCount; c++) mDrawist << transform.map(mDrawist.at(c));
+	  for (int c = 0; c < arrowCount; c++) mFingersArrowList << transform.map(mFingersArrowList.at(c));
   }
 }
 

@@ -120,6 +120,7 @@ private:
 
   QList <QPainterPath> mFingersList;
   QList <QPainterPath> mArrowList;
+  QList <QPainterPath> mFingersArrowList;
   QList <QPainterPath> mDirectionPathList;
   //Список направлений для каждого сектора.
   QList <OperDirectionView::eMoveDirection> mDirectionList;
