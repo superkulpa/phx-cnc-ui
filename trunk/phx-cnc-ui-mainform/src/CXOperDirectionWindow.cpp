@@ -109,13 +109,66 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
 
   mOperDirectionView = new CXOperDirectionView(this, eDirectionViewTypes(directionViewType));
   OperLayout->addWidget(mOperDirectionView, 5);
-
+/*
   mCurrentFrameLabel = new QLabel(this);
   mCurrentFrameLabel->hide();
   OperLayout->addWidget(mCurrentFrameLabel, 5);
+*/
+/**/
+  mFrameWidget = new QWidget(this);
+  mFrameWidget->hide();
 
+  QGridLayout* frameWidgetLayout = new QGridLayout(mFrameWidget);
+  frameWidgetLayout->setMargin(0);
+  frameWidgetLayout->setSpacing(0);
+
+  mFPlusButton = new CXTouchButton(trUtf8("+"), mFrameWidget);
+  mFPlusButton->setObjectName("mFPlusButton");
+  mFPlusButton->setLongPress(true);
+  mFPlusButton->setFlat(true);
+  mFPlusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
+  mFMinusButton = new CXTouchButton(trUtf8("-"), mFrameWidget);
+  mFMinusButton->setObjectName("mFMinusButton");
+  mFMinusButton->setLongPress(true);
+  mFMinusButton->setFlat(true);
+  mFMinusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
+  frameWidgetLayout->addWidget(mFPlusButton, 0, 0);
+  frameWidgetLayout->addWidget(mFMinusButton, 1, 0);
+
+  QWidget* frameSpacerWidget = new QWidget(mFrameWidget);
+  frameSpacerWidget->setObjectName("frameSpacerWidget");
+  frameWidgetLayout->addWidget(frameSpacerWidget, 0, 1);
+
+  mVelocityView = new CXOperVelocityView(mFrameWidget);
+  mVelocityView->setObjectName("mVelocityView");
+  mVelocityView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  mVelocityView->setTexts(QList<QString>() << "^" << trUtf8("*") << "v");
+
+  frameWidgetLayout->addWidget(mVelocityView, 0, 2, 2, 1);
+
+  QGridLayout* dataLayout = new QGridLayout();
+  dataLayout->setMargin(5);
+  dataLayout->setSpacing(5);
+
+  QLabel* frameLabel = new QLabel(trUtf8("Кадр"), mFrameWidget);
+  QLabel* burnLabel = new QLabel(trUtf8("Пробивка"), mFrameWidget);
+  mFrameEdit = new QLineEdit(mFrameWidget);
+  mBurnEdit = new QLineEdit(mFrameWidget);
+  
+  dataLayout->addWidget(frameLabel, 0, 0);
+  dataLayout->addWidget(burnLabel, 1, 0);
+  dataLayout->addWidget(mFrameEdit, 0, 1);
+  dataLayout->addWidget(mBurnEdit, 1, 1);
+  dataLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 2, 0, 1, 2);
+
+  frameWidgetLayout->addLayout(dataLayout, 0, 3, 2, 1);
+
+  OperLayout->addWidget(mFrameWidget, 5);
+/**/
   centralLayout->addLayout(OperLayout);
-  /**/
+/**/
   QHBoxLayout* modeLayout = new QHBoxLayout;
 
   modeLayout->setSpacing(10);
@@ -348,10 +401,9 @@ CXOperDirectionWindow::StartCP()
   mOperDirectionView->hide();
 
   mStopButton->show();
-  mCurrentFrameLabel->show();
-
+//  mCurrentFrameLabel->show();
+  mFrameWidget->show();
 }
-;
 
 void
 CXOperDirectionWindow::StopCP()
@@ -365,7 +417,8 @@ CXOperDirectionWindow::StopCP()
   mOperDirectionView->show();
 
   mStopButton->hide();
-  mCurrentFrameLabel->hide();
+//  mCurrentFrameLabel->hide();
+  mFrameWidget->hide();
 }
 
 void
@@ -391,7 +444,7 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
     //Текущий кадр.
     if (aCommand == QString::fromStdString(Commands::MSG_STATE_CP_LINE))
     {
-      mCurrentFrameLabel->setText(trUtf8("Текущий кадр: %1").arg(aValue));
+      //mCurrentFrameLabel->setText(trUtf8("Текущий кадр: %1").arg(aValue));
     }
     //Режимы работы
     if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_LOOP))
