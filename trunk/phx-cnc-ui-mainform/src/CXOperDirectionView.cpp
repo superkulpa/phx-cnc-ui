@@ -72,9 +72,12 @@ CXOperDirectionView::setDirection(OperDirectionView::eMoveDirection aDirection, 
 
   mDirection = aDirection;
   mVelocity = aVelocity;
-  if (mDirection == OperDirectionView::E_Stop) mCurrentDirection = -1;
-
-  emit directionChanged(mDirection, mVelocity);
+  if (mDirection == OperDirectionView::E_Stop)
+  {
+	  mCurrentDirection = -1;
+	  emit directionChanged(mDirection, E_Normal);
+  }
+  else emit directionChanged(mDirection, mVelocity);
 
   updatePaintDirection();
   update();
@@ -231,7 +234,10 @@ CXOperDirectionView::mouseReleaseEvent(QMouseEvent*)
   else
   {
     mCurrentFinger = -1;
-    setDirection(OperDirectionView::E_Stop);
+
+	if (mType == E_Circle) setDirection(OperDirectionView::E_Stop);
+	else setDirection(OperDirectionView::E_Stop, E_NoVelocity);
+
 	update();
   }
 }

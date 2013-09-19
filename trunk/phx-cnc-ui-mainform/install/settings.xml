@@ -9,7 +9,7 @@
   <rotateAxis>1</rotateAxis>
   <parametersTimeout>1000</parametersTimeout>
   <virtual_keyboard>0</virtual_keyboard>
-  <directionViewType>1</directionViewType>
+  <directionViewType>0</directionViewType>
   <style>
 	QWidget { font-size: 11pt; }
 	QTabBar::tab { padding: 12px; }
@@ -42,10 +42,10 @@
 	QScrollBar:horizontal { height: 40px; }
 	QScrollBar:vertical { width: 40px; }
 	QScrollBar::sub-line:vertical { height: 30px; }
-	#mFPlusButton, #mFMinusButton { border: 1px dotted black; min-width: 80px; }
+	#mFPlusButton, #mFMinusButton { border: 1px dotted black; min-width: 100px; }
 	#mFPlusButton:pressed, #mFMinusButton:pressed { background-color: "#00ff00"; }
-	#frameSpacerWidget { min-width: 10px; }
-	#mVelocityView { max-width: 85px; }
+	#frameSpacerWidget { min-width: 20px; }
+	#mVelocityView { max-width: 100px; }
   </style>
   <window_AXBaseWindow>AdnQywABAAAAAAH9AAAAKwAAA4IAAACHAAAB/QAAACsAAAOCAAAAhwAAAAAAAA==</window_AXBaseWindow>
   <window_CXParametersWindow visible="1">AdnQywABAAAAAAA+AAAAKwAABOQAAAJ5AAAAPgAAACsAAATkAAACeQAAAAAAAA==</window_CXParametersWindow>

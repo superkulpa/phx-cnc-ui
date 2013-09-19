@@ -9,6 +9,7 @@
 namespace OperDirectionView
 {
   //! Перечисление возможных значений направления реза.
+/*
   enum eMoveDirection
   {
     E_Stop = 0,
@@ -19,7 +20,22 @@ namespace OperDirectionView
     E_Bottom,
     E_BottomRight,
     E_Right,
-    E_TopRight
+    E_TopRight,
+	E_NoDirection = 100
+  };
+*/
+  enum eMoveDirection
+  {
+    E_Stop = 0,
+    E_Top = 1,
+    E_Left = 2,
+    E_Bottom = 4,
+    E_Right = 8,
+    E_TopLeft = E_Top | E_Left,
+    E_BottomLeft = E_Bottom | E_Left,
+    E_BottomRight = E_Bottom | E_Right,
+    E_TopRight = E_Top | E_Right,
+	E_NoDirection = 100
   };
 }
 
