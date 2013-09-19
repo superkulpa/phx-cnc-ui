@@ -14,6 +14,7 @@ CXTouchButton::CXTouchButton(QWidget* parent) :
     QPushButton(parent)
 {
   mTimer = -1;
+  mIsLongPress = false;
   setFocusPolicy(Qt::NoFocus);
 
   if (mDelay == 0)
@@ -24,6 +25,7 @@ CXTouchButton::CXTouchButton(const QString& text, QWidget* parent) :
     QPushButton(text, parent)
 {
   mTimer = -1;
+  mIsLongPress = false;
   setFocusPolicy(Qt::NoFocus);
 
   if (mDelay == 0)
@@ -33,6 +35,12 @@ CXTouchButton::CXTouchButton(const QString& text, QWidget* parent) :
 CXTouchButton::~CXTouchButton()
 {
 
+}
+
+void
+CXTouchButton::setLongPress(bool aIsLongPress)
+{
+  mIsLongPress = aIsLongPress;
 }
 
 void
@@ -54,7 +62,7 @@ CXTouchButton::mousePressEvent(QMouseEvent* e)
   {
     mTimer = startTimer(mDelay);
 
-    if (!isCheckable())
+    if (!isCheckable() && !mIsLongPress)
       QPushButton::mousePressEvent(e);
   }
 }
@@ -64,10 +72,6 @@ CXTouchButton::mouseReleaseEvent(QMouseEvent* e)
 {
   if (e->button() == Qt::LeftButton)
   {
-    e->pos();
-    e->buttons();
-    e->modifiers();
-
     if (mTimer == -1)
       QPushButton::mouseReleaseEvent(e);
     else
@@ -97,11 +101,19 @@ CXTouchButton::timerEvent(QTimerEvent* e)
       setChecked(!isChecked());
       emit clicked(isChecked());
     }
+	if (mIsLongPress)
+	{
+      QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton,
+          Qt::NoButton, Qt::NoModifier);
+      QPushButton::mousePressEvent(e);
+	  delete e;
+	}
     else
     {
       QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonRelease, QPoint(1, 1), Qt::LeftButton,
           Qt::NoButton, Qt::NoModifier);
-      QApplication::postEvent(this, e);
+      QPushButton::mouseReleaseEvent(e);
+	  delete e;
     }
   }
 }

@@ -13,8 +13,11 @@ Q_OBJECT
 
 public:
   CXTouchButton(QWidget* parent);
-    CXTouchButton(const QString& text, QWidget* parent);
-    virtual ~CXTouchButton();
+  CXTouchButton(const QString& text, QWidget* parent);
+  virtual ~CXTouchButton();
+
+  //! Функция установки флага, использовать ли зажатие кнопки или сразу отжимать кнопку после нажатия.
+  void setLongPress(bool aIsLongPress);
 
 protected:
   //! Переопределенная фукнция рисования.
@@ -36,6 +39,7 @@ protected:
 private:
   QTime mTime;
   int mTimer;
+  bool mIsLongPress;
 
   static int mDelay;
 };

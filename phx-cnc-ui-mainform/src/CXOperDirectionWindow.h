@@ -115,7 +115,15 @@ private:
 
   CXOperDirectionView* mOperDirectionView;
   CXOperVelocityView* mOperVelocityView;
-  QLabel* mCurrentFrameLabel;
+  //QLabel* mCurrentFrameLabel;
+  QWidget* mFrameWidget;
+  CXTouchButton* mFPlusButton;
+  CXTouchButton* mFMinusButton;
+  CXOperVelocityView* mVelocityView;
+  //Номер кадра
+  QLineEdit* mFrameEdit;
+  //Пробивка
+  QLineEdit* mBurnEdit;
 
   CXUtilsWindow* mUtils;
   int mRotateAxis;

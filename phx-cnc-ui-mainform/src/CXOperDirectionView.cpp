@@ -352,7 +352,7 @@ CXOperDirectionView::createFingersType()
 
 			  QTransform transform;
 			  transform = transform.translate(x + ((r==1?0:inclWidth) + cellSize.width()) / 2.0, center.y() - cellSize.height() * (1.0 - r));
-			  if (r != 1) transform = transform.rotate(r == 0?-30.0:30.0);
+			  if (r != 1) transform = transform.rotate(r == 0?-35.0:35.0);
 
 			  drawPath.moveTo(QPointF(x, y));
 			  mFingersArrowList << transform.map(mArrowPath);

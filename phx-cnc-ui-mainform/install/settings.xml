@@ -42,6 +42,10 @@
 	QScrollBar:horizontal { height: 40px; }
 	QScrollBar:vertical { width: 40px; }
 	QScrollBar::sub-line:vertical { height: 30px; }
+	#mFPlusButton, #mFMinusButton { border: 1px dotted black; min-width: 80px; }
+	#mFPlusButton:pressed, #mFMinusButton:pressed { background-color: "#00ff00"; }
+	#frameSpacerWidget { min-width: 10px; }
+	#mVelocityView { max-width: 85px; }
   </style>
   <window_AXBaseWindow>AdnQywABAAAAAAH9AAAAKwAAA4IAAACHAAAB/QAAACsAAAOCAAAAhwAAAAAAAA==</window_AXBaseWindow>
   <window_CXParametersWindow visible="1">AdnQywABAAAAAAA+AAAAKwAABOQAAAJ5AAAAPgAAACsAAATkAAACeQAAAAAAAA==</window_CXParametersWindow>
