@@ -1,0 +1,19 @@
+
+<?xml version="1.0" ?>
+ <utils>
+  <util name="Раскрой" cmd="bash macro2.sh" modal="true" />
+  <util id="2" name="Газовая консоль" description="" icon="images/dummy48.bmp" cmd="bash gasconsole.sh" access="all" modal="true" />
+  <util id="3" name="Отчет об ошибке" description="" icon="images/dummy48.bmp" cmd="bash backup_log.sh" access="all" modal="true" />
+  <util id="4" name="Обновить ПО" description="" icon="images/dummy48.bmp" cmd="bash update.sh" access="0" modal="true" />
+  <util id="5" name="Откатить ПО" description="" icon="images/dummy48.bmp" cmd="bash restore.sh" access="0" modal="true" />
+  <util id="6" name="Резервировать параметры" description="" icon="images/dummy48.bmp" cmd="bash backup_ini.sh" modal="true" access="all" />
+  <util id="7" name="Восстановить параметры" description="" icon="images/dummy48.bmp" cmd="bash restore_ini.sh" modal="true" access="0" />
+  <util id="8" name="Консоль ввода/вывода(только просмотр)" description="" icon="images/dummy48.bmp" cmd="bash io2.sh" access="0" />
+  <util id="9" name="Консоль ввода/вывода(полный доступ)" description="" icon="images/dummy48.bmp" cmd="bash io.sh" access="0" />
+  <util id="10" name="Осциллограф перемещений" description="" icon="images/dummy48.bmp" cmd="bash oscil.sh" access="0" />
+  <util id="11" name="Стоп ядра управления" description="" icon="images/dummy48.bmp" type="sh" cmd="bash stop.sh" modal="true" access="0" />
+  <util id="12" name="Перезапуск ядра управления" description="" icon="images/dummy48.bmp" type="sh" cmd="bash restart.sh" modal="true" access="0" />
+  <util id="13" name="Очистить логи работы" description="" icon="images/dummy48.bmp" type="sh" cmd="bash clearlogs.sh" modal="true" access="0" />
+  <util id="14" name="Терминал УЧПУ" description="" icon="images/dummy48.bmp" type="sh" cmd="bash terminal.sh" access="0" />
+  <util id="15" name="Установить соединение" description="" icon="images/dummy48.bmp" cmd="bash connect.sh" access="0" />
+</utils>
