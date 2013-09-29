@@ -14,7 +14,7 @@ CXCompileEdit::CXCompileEdit() :
   mTreeWidget->setColumnCount(2);
   mTreeWidget->setHeaderHidden(true);
   mTreeWidget->setRootIsDecorated(false);
-  mTreeWidget->header()->setResizeMode(0, QHeaderView::ResizeToContents);
+  mTreeWidget->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
 
   mTreeWidget->setMinimumHeight(10);
   centralLayout->addWidget(mTreeWidget);

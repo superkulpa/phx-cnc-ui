@@ -1,6 +1,6 @@
 TEMPLATE = app
 INCLUDEPATH += ./src ./GeneratedFiles
-QT      += xml xmlpatterns network
+QT      += xml xmlpatterns network widgets multimedia multimediawidgets
 UI_DIR	+= ./GeneratedFiles
 
 CONFIG += debug_and_release
@@ -45,14 +45,17 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXOperDirectionDialog.h \
 			src/CXExitDialog.h \
 			src/CXVirtualKeyboard.h \
-                        src/CXUtilsWindow.h \
-                        src/CXUdpManager.h \
-                        src/CXSettingsXML.h \
-                        src/CXProcess.h \
-                        src/SXChannelData.h \
-                        src/CXDeviceView.h \
-                        src/CXChannelEdit.h \
-                        src/CXDeviceEdit.h
+			src/CXUtilsWindow.h \
+			src/CXUdpManager.h \
+			src/CXSettingsXML.h \
+			src/CXProcess.h \
+			src/SXChannelData.h \
+			src/CXDeviceView.h \
+			src/CXChannelEdit.h \
+			src/CXDeviceEdit.h \
+			src/CXCameraWidget.h \
+			src/QFtp/qftp.h \
+			src/QFtp/qurlinfo.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
@@ -90,7 +93,10 @@ SOURCES +=	src/main.cpp \
 			src/CXProcess.cpp \
 			src/CXDeviceView.cpp \
 			src/CXChannelEdit.cpp \
-			src/CXDeviceEdit.cpp
+			src/CXDeviceEdit.cpp \
+			src/CXCameraWidget.cpp \
+			src/QFtp/qftp.cpp \
+			src/QFtp/qurlinfo.cpp
 
 FORMS +=	src/CXFilesList.ui \
 			src/CXEditPathFile.ui \
@@ -103,6 +109,7 @@ FORMS +=	src/CXFilesList.ui \
 			src/CXExitDialog.ui \
 			src/CXVirtualKeyboard.ui \
 			src/CXDeviceView.ui \
-			src/CXChannelEdit.ui
+			src/CXChannelEdit.ui \
+			src/CXCameraWidget.ui
 
 RESOURCES += resource.qrc

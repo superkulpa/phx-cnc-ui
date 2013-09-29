@@ -230,20 +230,20 @@ CXPathView::paintEvent(QPaintEvent* e)
     painter.translate(-mCurPosition);
   }
 
-  painter.setPen(Qt::darkGreen);
+  painter.setPen(QPen(Qt::darkGreen, 0, Qt::SolidLine));
   painter.drawPath(mMainPath);
 
-  painter.setPen(Qt::red);
+  painter.setPen(QPen(Qt::red, 0, Qt::SolidLine));
   painter.drawPath(mBurnPath);
 
-  painter.setPen(Qt::blue);
+  painter.setPen(QPen(Qt::blue, 0, Qt::SolidLine));
   painter.drawPath(mMovePath);
 
   if (mIsPositionVisible)
   {
     painter.scale(1.0 / mScale, 1.0 / mScale);
     painter.setBrush(Qt::black);
-    painter.setPen(Qt::black);
+    painter.setPen(QPen(Qt::black, 0, Qt::SolidLine));
     painter.drawEllipse(mPos * mScale, 2, 2);
   }
 }
@@ -264,8 +264,8 @@ CXPathView::wheelEvent(QWheelEvent* e)
 
   setScale(mScale);
 
-  qreal dx = mCurPosition.x() - (e->pos().x() / mScale - e->pos().x() / oldScale);
-  qreal dy = mCurPosition.y() - (e->pos().y() / mScale - e->pos().y() / oldScale);
+  qreal dx = mCurPosition.x() - (qreal(e->pos().x()) / mScale - qreal(e->pos().x()) / oldScale);
+  qreal dy = mCurPosition.y() - (qreal(e->pos().y()) / mScale - qreal(e->pos().y()) / oldScale);
 
   setOffset(QPointF(dx, dy));
 

@@ -104,25 +104,17 @@ CXTurnDialog::onButtonClicked()
       return;
     }
 
-    switch (clickedButton->shortcut())
+    if (clickedButton->shortcut() == Qt::Key_Backspace)
     {
-    case Qt::Key_Backspace:
-      {
       lineEdit->backspace();
-
-      break;
     }
-    case Qt::Key_Delete:
-      {
+	else if (clickedButton->shortcut() == Qt::Key_Delete)
+	{
       lineEdit->del();
-
-      break;
     }
-    case Qt::Key_Enter:
-      {
+	else if (clickedButton->shortcut() == Qt::Key_Enter)
+	{
 
-      break;
-    }
     }
   }
 }

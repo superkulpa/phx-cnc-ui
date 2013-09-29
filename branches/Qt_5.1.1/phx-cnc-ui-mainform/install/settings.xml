@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <Settings>
-  <manager freeze="0"/>
+  <manager freeze="1"/>
   <delay>100</delay>
   <buttonDelay>100</buttonDelay>
   <translate>ru.qm</translate>
@@ -54,16 +54,16 @@
   <window_CXCompileEdit visible="1">AdnQywABAAAAAAA+AAACAAAAAUEAAAKwAAAAPgAAAgAAAAFBAAACsAAAAAAAAA==</window_CXCompileEdit>
   <window_CXEditPathFile visible="1">AdnQywABAAAAAAFCAAAAQwAAAwIAAAKwAAABQgAAAEMAAAMCAAACsAAAAAAAAA==</window_CXEditPathFile>
   <window_CXFilesList visible="1">AdnQywABAAAAAAA+AAAAQwAAAUEAAAH/AAAAPgAAAEMAAAFBAAAB/wAAAAAAAA==</window_CXFilesList>
-  <window_CXGroupPanel visible="1">AdnQywABAAAAAAA7AAACsQAABPEAAAMCAAAAOwAAArEAAATxAAADAgAAAAAAAA==</window_CXGroupPanel>
+  <window_CXGroupPanel visible="1">AdnQywABAAAAAAA+AAACsQAABPQAAAMCAAAAPgAAArEAAAT0AAADAgAAAAAAAA==</window_CXGroupPanel>
   <window_CXGroupPanel1 visible="1">AdnQywABAAAAAAA+AAACrQAABPEAAAMBAAAAPgAAAq0AAATxAAADAQAAAAAAAA==</window_CXGroupPanel1>
   <window_CXGroupPanel2 visible="1">AdnQywABAAAAAABfAAACegAABQUAAALcAAAAXwAAAnoAAAUFAAAC3AAAAAAAAA==</window_CXGroupPanel2>
   <window_CXGroupPanel3 visible="1">AdnQywABAAAAAAA+AAACsQAABPIAAAMBAAAAPgAAArEAAATyAAADAQAAAAAAAA==</window_CXGroupPanel3>
   <window_CXIniFileEditor>AdnQywABAAAAAAAAAAAAAAAABKEAAAIvAAAAAAAAAAAAAAShAAACLwAAAAAAAA==</window_CXIniFileEditor>
   <window_CXIniFileList>AdnQywABAAAAAAA+AAAAKwAAAZMAAAJ5AAAAPgAAACsAAAGTAAACeQAAAAAAAA==</window_CXIniFileList>
-  <window_CXOperDirectionWindow visible="1">AdnQywABAAAAAAA+AAAAKwAAAiEAAAKwAAAAPgAAACsAAAIhAAACsAAAAAAAAA==</window_CXOperDirectionWindow>
-  <window_CXOperTechnology visible="1">AdnQywABAAAAAAOSAAAAKwAABOkAAAKwAAADkgAAACsAAATpAAACsAAAAAAAAA==</window_CXOperTechnology>
+  <window_CXOperDirectionWindow visible="1">AdnQywABAAAAAAA+AAAAQwAAAfEAAAKwAAAAPgAAAEMAAAHxAAACsAAAAAAAAA==</window_CXOperDirectionWindow>
+  <window_CXOperTechnology visible="1">AdnQywABAAAAAAOSAAAAQwAABPEAAAKwAAADkgAAAEMAAATxAAACsAAAAAAAAA==</window_CXOperTechnology>
   <window_CXPathWindow visible="1">AdnQywABAAAAAAMDAAAAQwAABPEAAAKwAAADAwAAAEMAAATxAAACsAAAAAAAAA==</window_CXPathWindow>
-  <window_CXPathWindow1 visible="1">AdnQywABAAAAAAHyAAAAkwAAA5EAAAKwAAAB8gAAAJMAAAORAAACsAAAAAAAAA==</window_CXPathWindow1>
+  <window_CXPathWindow1 visible="1">AdnQywABAAAAAAHyAAAAtgAAA5EAAAKwAAAB8gAAALYAAAORAAACsAAAAAAAAA==</window_CXPathWindow1>
   <window_CXTitleWindow visible="1">AdnQywABAAAAAAA+AAAAGAAABPEAAABCAAAAPgAAABgAAATxAAAAQgAAAAAAAA==</window_CXTitleWindow>
   <window_CXVirtualKeyboard>AdnQywABAAAAAAA+AAAAGAAAAY8AAAJWAAAAPgAAABgAAAGPAAACVgAAAAAAAA==</window_CXVirtualKeyboard>
   <window_CXTurnDialog>AdnQywABAAAAAAA+AAAAKwAAAz8AAAKwAAAAPgAAACsAAAM/AAACsAAAAAAAAA==</window_CXTurnDialog>
@@ -79,6 +79,4 @@
   <window_CXDeviceView4>AdnQywABAAAAAAAAAAAAGAAAAY8AAAFDAAAAAAAAABgAAAGPAAABQwAAAAAAAA==</window_CXDeviceView4>
   <window_CXDeviceView5>AdnQywABAAAAAAAAAAAAGAAAAY8AAAFDAAAAAAAAABgAAAGPAAABQwAAAAAAAA==</window_CXDeviceView5>
   <window_CXDeviceView6>AdnQywABAAAAAAAAAAAAGAAAAY8AAAFDAAAAAAAAABgAAAGPAAABQwAAAAAAAA==</window_CXDeviceView6>
-  <window_CXOperDirectionWindow visible="1">AdnQywABAAAAAAA+AAAAKwAAAiEAAAKwAAAAPgAAACsAAAIhAAACsAAAAAAAAA==</window_CXOperDirectionWindow>
-  <window_CXOperTechnology visible="1">AdnQywABAAAAAAOSAAAAKwAABOkAAAKwAAADkgAAACsAAATpAAACsAAAAAAAAA==</window_CXOperTechnology>
 </Settings>

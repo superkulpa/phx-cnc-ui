@@ -18,6 +18,7 @@
 #include "CXDeviceView.h"
 #include "CXVirtualKeyboard.h"
 #include "CXUdpManager.h"
+#include "CXCameraWidget.h"
 
 #include "CXGroupPanel.h"
 
@@ -95,6 +96,12 @@ createUIWindow(const char* aIndex, int aGroup, QMap<QString, QWidget*>& windows)
 
       break;
     }
+    if (aIndex == CXCameraWidget::staticMetaObject.className())
+    {
+      res = new CXCameraWidget();
+
+      break;
+    }
   }
   while (0);
 
@@ -160,7 +167,10 @@ main(int argc, char *argv[])
       windows);
 
   createUIWindow(CXCompileEdit::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
-      windows);
+	  windows);
+
+  createUIWindow(CXCameraWidget::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
+	  windows);
 
 //
 //  for (int i = 0; i < 4; ++i)
