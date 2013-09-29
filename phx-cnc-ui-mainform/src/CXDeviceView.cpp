@@ -33,8 +33,8 @@ CXDeviceView::CXDeviceView(const QString& aDeviceName, QWidget*) :
   QHeaderView* horizontalHeader = mChannelsTable->horizontalHeader();
 
   horizontalHeader->setMinimumSectionSize(40);
-  horizontalHeader->setResizeMode(1, QHeaderView::ResizeToContents);
-  horizontalHeader->setResizeMode(0, QHeaderView::Stretch);
+  horizontalHeader->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+  horizontalHeader->setSectionResizeMode(0, QHeaderView::Stretch);
 
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
@@ -101,7 +101,7 @@ CXDeviceView::load()
     {
       valueName = channelsFile.GetValueName(keyName, j);
       curValue = QString::fromStdString(channelsFile.GetValue(keyName, valueName));
-      curValue = QString::fromUtf8(curValue.toAscii());
+      curValue = QString::fromUtf8(curValue.toLatin1());
 
       if (curValue.contains(mDeviceName))
       {

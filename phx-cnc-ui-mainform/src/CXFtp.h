@@ -1,7 +1,7 @@
 #ifndef CXFTP_H
 #define CXFTP_H
 
-#include <QFtp>
+#include "QFtp/qftp.h"
 #include <QFile>
 #include <QStringList>
 

@@ -126,26 +126,18 @@ CXOperDirectionDialog::onButtonClicked()
       return;
     }
 
-    switch (clickedButton->shortcut())
-    {
-    case Qt::Key_Backspace:
-      {
-      lineEdit->backspace();
+	if (clickedButton->shortcut() == Qt::Key_Backspace)
+	{
+		lineEdit->backspace();
+	}
+	else if (clickedButton->shortcut() == Qt::Key_Delete)
+	{
+		lineEdit->del();
+	}
+	else if (clickedButton->shortcut() == Qt::Key_Enter)
+	{
 
-      break;
-    }
-    case Qt::Key_Delete:
-      {
-      lineEdit->del();
-
-      break;
-    }
-    case Qt::Key_Enter:
-      {
-
-      break;
-    }
-    }
+	}
   }
 }
 

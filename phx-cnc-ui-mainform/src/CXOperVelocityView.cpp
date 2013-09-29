@@ -81,7 +81,7 @@ CXOperVelocityView::paintEvent(QPaintEvent*)
   painter.scale(scaleX, scaleY);
   painter.setRenderHint(QPainter::Antialiasing);
 
-  painter.setPen(Qt::DotLine);
+  painter.setPen(QPen(Qt::black, 0, Qt::DotLine));
 
   switch (mMode)
   {
@@ -171,7 +171,7 @@ CXOperVelocityView::mouseMoveEvent(QMouseEvent* e)
 {
   if (mDelayTimer == -1)
   {
-    QPointF pos = e->posF();
+    QPointF pos = e->pos();
 
     qreal scaleX = width() / mDrawPath.boundingRect().width();
     qreal scaleY = height() / mDrawPath.boundingRect().height();

@@ -98,7 +98,7 @@ CXOperDirectionView::paintEvent(QPaintEvent*)
   {
     case E_Circle:
 	{
-	  painter.setPen(Qt::DotLine);
+	  painter.setPen(QPen(Qt::black, 0, Qt::DotLine));
 
 	  for (int i = 1; i < 5; ++i)
 	  {
@@ -149,7 +149,7 @@ CXOperDirectionView::paintEvent(QPaintEvent*)
 		  painter.fillPath(tempPath, QColor(0, 0, 0, 100));
 	  }
 /**/
-	  painter.setPen(Qt::DotLine);
+	  painter.setPen(QPen(Qt::black, 0, Qt::DotLine));
 	  painter.setBrush(Qt::NoBrush);
 	  if (mCurrentFinger >= 0) painter.drawPath(mDrawist.at(mCurrentFinger));
 /*
@@ -158,7 +158,7 @@ CXOperDirectionView::paintEvent(QPaintEvent*)
 		  if (i >= mCurrentFinger * 9 && i < (mCurrentFinger + 1) * 9) painter.drawPath(mDirectionPathList.at(i));
 	  }
 /**/
-	  painter.setPen(Qt::black);
+	  painter.setPen(QPen(Qt::black, 0, Qt::SolidLine));
 	  painter.setBrush(Qt::gray);
 
 	  if (mCurrentFinger >= 0) painter.setOpacity(0.2);
@@ -247,7 +247,7 @@ CXOperDirectionView::mouseMoveEvent(QMouseEvent* e)
 {
   if (mDelayTimer == -1)
   {
-    QPointF pos = e->posF();
+    QPointF pos = e->pos();
 
     qreal scale = qMin(width() / mBound.width(),
         height() / mBound.height());

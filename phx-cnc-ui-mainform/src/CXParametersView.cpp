@@ -107,7 +107,7 @@ CXParameterItemDelegate::editorEvent(QEvent* e, QAbstractItemModel* model, const
         return true;
 
       QMouseEvent* mouse = dynamic_cast<QMouseEvent*>(e);
-      qreal value = mouse->posF().x() / option.rect.width();
+      qreal value = qreal(mouse->pos().x()) / option.rect.width();
 
       int min = index.data(Qt::UserRole + 100).toInt();
       int max = index.data(Qt::UserRole + 101).toInt();
@@ -145,7 +145,7 @@ CXParameterItemDelegate::editorEvent(QEvent* e, QAbstractItemModel* model, const
     if (index.column() == 0)
     {
       QMouseEvent* mouse = dynamic_cast<QMouseEvent*>(e);
-      qreal value = mouse->posF().x() / option.rect.width();
+      qreal value = qreal(mouse->pos().x()) / option.rect.width();
 
       int min = index.data(Qt::UserRole + 100).toInt();
       int max = index.data(Qt::UserRole + 101).toInt();
@@ -404,7 +404,7 @@ CXParametersView::CXParametersView(QWidget* parent, QList<CXParameterData*> aPar
   setColumnWidth(2, 70);
   setColumnWidth(3, 70);
 
-  horHeader->setResizeMode(0, QHeaderView::Stretch);
+  horHeader->setSectionResizeMode(0, QHeaderView::Stretch);
 
   connect(model, SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this,
       SLOT(onDataChange()));

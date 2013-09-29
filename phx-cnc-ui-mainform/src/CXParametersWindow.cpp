@@ -108,8 +108,7 @@ CXParametersWindow::loadParameters()
         {
           curGroupData = new CXGroupData;
           curGroupData->mName =
-              QString::fromUtf8(
-                  QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "descr")).toAscii());
+              QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "descr"));
           if (iniFile.GetValueI(curGroup.toStdString(), "visible") == 1)
             curGroupData->mIsVisible = true;
 
@@ -125,13 +124,11 @@ CXParametersWindow::loadParameters()
         curParameterData = new CXParameterData;
         curParameterData->mConfigFileName = curFile;
         curParameterData->mConfigGroup = curGroup;
-        curParameterData->mName =
-            QString::fromUtf8(
-                QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "descr")).toAscii());
+
+        curParameterData->mName = QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "descr"));
         curParameterData->setValue(iniFile.GetValueI(curGroup.toStdString(), "value"));
         groups =
-            QString::fromUtf8(
-                QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "group")).toAscii()).split(
+            QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "group")).split(
                 ",", QString::SkipEmptyParts);
 //				if (groups.first().isEmpty()) groups.takeFirst();
 

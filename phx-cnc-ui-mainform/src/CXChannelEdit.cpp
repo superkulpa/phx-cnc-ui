@@ -136,7 +136,7 @@ CXChannelEdit::onNameChange()
     QString valueName = mNamesList->currentItem()->text();
     QString value = QString::fromStdString(
         channelsFile.GetValue(sectionName.toStdString(), valueName.toStdString()));
-    value = QString::fromUtf8(value.toAscii());
+    value = QString::fromUtf8(value.toLatin1());
 
     QStringList dataList = value.split(",");
 
