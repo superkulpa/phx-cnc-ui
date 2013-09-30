@@ -137,7 +137,8 @@ namespace Commands
 
     const std::string MSG_CMD_MOVE_STOP = "cmd_move_stop"; //стоп перемещениям - кнопка внутри круга
 
-    const std::string MSG_STATE_HAND_DIR_MOVING = "state_hand_dir_moving";
+	//Команда от ядра об одновременном изменении скорости и направления
+	const std::string MSG_STATE_HAND_DIR_MOVING = "state_hand_dir_moving";
 	
 //Управление со стороны технологии(справа)
     //секция "управление технологией реза"
