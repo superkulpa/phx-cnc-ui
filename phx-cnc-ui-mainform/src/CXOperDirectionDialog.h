@@ -1,7 +1,8 @@
 #ifndef CXOperDIRECTIONDIALOG_H
 #define CXOperDIRECTIONDIALOG_H
 
-#include <QDialog>
+#include "AXBaseWindow.h"
+
 #include "ui_CXOperDirectionDialog.h"
 
 class CXUdpManager;
@@ -9,7 +10,7 @@ class CXUdpManager;
 /*!
  Класс диалога указания типа смещения (абсолютное, относительное).
  */
-class CXOperDirectionDialog : public QDialog, public Ui::CXOperDirectionDialog
+class CXOperDirectionDialog : public AXBaseWindow, public Ui::CXOperDirectionDialog
 {
 Q_OBJECT
 
@@ -54,9 +55,6 @@ private slots:
   //! Слот установки в пробивку.
   void
   onBurnSet();
-
-public:
-  CXUdpManager* mUdpManager;
 
 };
 

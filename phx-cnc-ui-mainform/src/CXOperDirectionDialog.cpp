@@ -5,19 +5,16 @@
 #include "CXUdpManager.h"
 
 CXOperDirectionDialog::CXOperDirectionDialog(QWidget* parent) :
-    QDialog(parent)
+    AXBaseWindow()
 {
   setupUi(this);
-  setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
-
-  mUdpManager = NULL;
 
   QRegExp regExp("(\\+|-)?\\d*\\.?\\d*");
   mXEdit->setValidator(new QRegExpValidator(regExp, mXEdit));
   mYEdit->setValidator(new QRegExpValidator(regExp, mYEdit));
   mFrameEdit->setValidator(new QRegExpValidator(regExp, mFrameEdit));
 
-  connect(mCancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(mCloseButton, SIGNAL(clicked()), this, SLOT(close()));
   connect(mAbsoluteButton, SIGNAL(clicked()), this, SLOT(onAbsolute()));
   connect(mRelativeButton, SIGNAL(clicked()), this, SLOT(onRelative()));
 
@@ -41,6 +38,8 @@ CXOperDirectionDialog::CXOperDirectionDialog(QWidget* parent) :
   connect(mStepSetButton, SIGNAL(clicked()), this, SLOT(onStepSet()));
   connect(mBurnMoveButton, SIGNAL(clicked()), this, SLOT(onBurnMove()));
   connect(mBurnSetButton, SIGNAL(clicked()), this, SLOT(onBurnSet()));
+
+  registerManager();
 }
 
 CXOperDirectionDialog::~CXOperDirectionDialog()
@@ -66,7 +65,7 @@ CXOperDirectionDialog::onAbsolute()
         res.toStdString());
   }
 
-  done(1);
+//  done(1);
 }
 
 void
@@ -81,7 +80,7 @@ CXOperDirectionDialog::onRelative()
         Commands::MSG_CMD_HAND_COMPARATIVE_MOVING, res.toStdString());
   }
 
-  done(2);
+//  done(2);
 }
 
 void

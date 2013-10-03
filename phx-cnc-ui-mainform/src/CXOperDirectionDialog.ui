@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>CXOperDirectionDialog</class>
- <widget class="QDialog" name="CXOperDirectionDialog">
+ <widget class="QWidget" name="CXOperDirectionDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -60,7 +60,16 @@
         <string/>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
-        <property name="margin">
+        <property name="leftMargin">
+         <number>7</number>
+        </property>
+        <property name="topMargin">
+         <number>7</number>
+        </property>
+        <property name="rightMargin">
+         <number>7</number>
+        </property>
+        <property name="bottomMargin">
          <number>7</number>
         </property>
         <item>
@@ -174,7 +183,16 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item row="3" column="2">
@@ -386,7 +404,7 @@
        </widget>
       </item>
       <item row="6" column="1" colspan="2">
-       <widget class="CXTouchButton" name="mCancelButton">
+       <widget class="CXTouchButton" name="mCloseButton">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>

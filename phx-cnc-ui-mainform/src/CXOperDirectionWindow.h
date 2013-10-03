@@ -12,6 +12,7 @@
 
 class CXTouchButton;
 class CXUtilsWindow;
+class CXOperDirectionDialog;
 
 /*!
  Класс настройки направления и скорости реза с функциональными кнопками.
@@ -36,6 +37,10 @@ public slots:
   void
   onResetCoordinates();
 
+  //! Слот обработки клика по X и Y.
+  void
+  onXYClick();
+
 signals:
   /*!
    Сигнал о изменении позиции реза.
@@ -54,10 +59,6 @@ private slots:
   //! Остановка процесса.
   void
   onStop();
-
-  //! Слот обработки клика по X и Y.
-  void
-  onXYClick();
 
   //! Слот получения строки команды по направлению.
   QString getDirectionCommand(OperDirectionView::eMoveDirection aDirection);
@@ -127,6 +128,8 @@ private:
 
   CXUtilsWindow* mUtils;
   int mRotateAxis;
+
+  CXOperDirectionDialog* mOperDirectionDialog;
 };
 
 #endif // CXOperDIRECTIONWINDOW_H
