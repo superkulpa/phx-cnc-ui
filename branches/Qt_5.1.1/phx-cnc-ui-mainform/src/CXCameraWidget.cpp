@@ -47,7 +47,6 @@ void CXCameraWidget::setCurrentCamera(int aIndex)
 {
   if (mCamera != NULL)
   {
-
 	  auto s = mCamera->service();
 
 	  auto enc = s->requestControl<QVideoRendererControl*>();
@@ -75,6 +74,7 @@ void CXCameraWidget::setCurrentCamera(int aIndex)
 	  }
 
 	  delete mCamera;
+	  mCamera = NULL;
   }
 
   QByteArray deviceName = mCameraDevices->itemData(aIndex).toByteArray();

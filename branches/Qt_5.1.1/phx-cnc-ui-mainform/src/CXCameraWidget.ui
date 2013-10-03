@@ -29,14 +29,17 @@
    <property name="spacing">
     <number>5</number>
    </property>
-   <item row="2" column="1">
-    <widget class="QPushButton" name="mRefreshButton">
+   <item row="1" column="1">
+    <widget class="CXTouchButton" name="mRefreshButton">
      <property name="text">
       <string>Обновить</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="0" column="0" colspan="2">
+    <widget class="QVideoWidget" name="mCameraView" native="true"/>
+   </item>
+   <item row="1" column="0">
     <widget class="QComboBox" name="mCameraDevices">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -46,25 +49,21 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0" colspan="2">
-    <widget class="QVideoWidget" name="mCameraView" native="true"/>
-   </item>
-   <item row="1" column="0" colspan="2">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
+   <item row="2" column="0" colspan="2">
+    <widget class="CXTouchButton" name="mCloseButton">
+     <property name="text">
+      <string>Закрыть</string>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
+    </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>CXTouchButton</class>
+   <extends>QPushButton</extends>
+   <header>CXTouchButton.h</header>
+  </customwidget>
   <customwidget>
    <class>QVideoWidget</class>
    <extends>QWidget</extends>
@@ -73,5 +72,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>mCloseButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CXCameraWidget</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>178</x>
+     <y>396</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>178</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

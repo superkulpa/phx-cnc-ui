@@ -96,12 +96,6 @@ createUIWindow(const char* aIndex, int aGroup, QMap<QString, QWidget*>& windows)
 
       break;
     }
-    if (aIndex == CXCameraWidget::staticMetaObject.className())
-    {
-      res = new CXCameraWidget();
-
-      break;
-    }
   }
   while (0);
 
@@ -167,9 +161,6 @@ main(int argc, char *argv[])
       windows);
 
   createUIWindow(CXCompileEdit::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
-	  windows);
-
-  createUIWindow(CXCameraWidget::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
 	  windows);
 
 //
@@ -362,9 +353,9 @@ main(int argc, char *argv[])
       QStringList texts;
       texts.append(QObject::trUtf8("УП"));
       texts.append(QObject::trUtf8("Параметры"));
-      texts.append(QObject::trUtf8("Наладка"));
-      texts.append(QString());
-      texts.append(QString());
+	  texts.append(QObject::trUtf8("Наладка"));
+	  texts.append(QObject::trUtf8("X/Y"));
+	  texts.append(QObject::trUtf8("Камеры"));
       texts.append(QObject::trUtf8("Утилиты"));
       texts.append(QObject::trUtf8("Сбросить\nкоординаты"));
       texts.append(QObject::trUtf8("Сброс\nаварий"));
@@ -382,8 +373,15 @@ main(int argc, char *argv[])
       QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel,
           SLOT(onDeviceEditShow()));
 
-      QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()),
-          windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
+	  CXCameraWidget* cameraWidget = new CXCameraWidget();
+	  cameraWidget->setWindowModality(Qt::ApplicationModal);
+
+	  QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()),
+		  windows.value("CXOperDirectionWindow"), SLOT(onXYClick()));
+	  QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked()),
+		  cameraWidget, SLOT(show()));
+	  QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()),
+		  windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
           windows.value("CXOperDirectionWindow"), SLOT(onResetCoordinates()));
       QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()),

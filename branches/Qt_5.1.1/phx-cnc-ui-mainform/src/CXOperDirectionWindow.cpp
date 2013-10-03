@@ -14,6 +14,7 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
 {
   mIsRunning = false;
   mUtils = NULL;
+  mOperDirectionDialog = NULL;
   mRotateAxis = CXSettingsXML::getValue("settings.xml", "rotateAxis").toInt();
 
   QVBoxLayout* centralLayout = new QVBoxLayout(this);
@@ -232,6 +233,21 @@ CXOperDirectionWindow::onResetCoordinates()
 }
 
 void
+CXOperDirectionWindow::onXYClick()
+{
+  if (mIsRunning)
+    return;
+
+  if (mOperDirectionDialog == NULL)
+  {
+	  mOperDirectionDialog = new CXOperDirectionDialog();
+	  mOperDirectionDialog->setWindowModality(Qt::ApplicationModal);
+  }
+
+  mOperDirectionDialog->show();
+}
+
+void
 CXOperDirectionWindow::onStart()
 {
   if (sender() == mForwardButton)
@@ -257,17 +273,6 @@ void
 CXOperDirectionWindow::onStop()
 {
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_STOP_OPERATION, "0");
-}
-
-void
-CXOperDirectionWindow::onXYClick()
-{
-  if (mIsRunning)
-    return;
-
-  CXOperDirectionDialog dialog(qobject_cast<QWidget*>(sender()));
-  dialog.mUdpManager = mUdpManager;
-  dialog.exec();
 }
 
 QString
