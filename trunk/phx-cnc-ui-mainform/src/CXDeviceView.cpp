@@ -153,7 +153,7 @@ CXDeviceView::loadDevices(int aGroupNumber, const QList<QPushButton*>& aButtonsL
   CIniFile configFile(path.toStdString());
   configFile.ReadIniFile();
 
-  QString devices = QString::fromStdString(configFile.GetValue("IO", "start"));
+  QString devices = QString::fromStdString(configFile.GetValue("IO", "connect2"));
 
   QSignalMapper* signalMapper = NULL;
 
@@ -263,10 +263,13 @@ CXDeviceView::eventFilter(QObject* watched, QEvent* e)
 void
 CXDeviceView::keyPressEvent(QKeyEvent* e)
 {
-  switch (e->key())
+  int k = e->key();
+  switch (k)
   {
-  case Qt::Key_Q:
+  case Qt::Key_Enter:
+  case Qt::Key_Return:
     {
+      onSendCommand("invert");
     break;
   }
   }
