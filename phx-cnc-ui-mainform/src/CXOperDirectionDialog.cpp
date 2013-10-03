@@ -169,7 +169,7 @@ void
 CXOperDirectionDialog::onBurnMove()
 {
   if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_BURN,
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_BURN,
         mFrameEdit->text().toStdString());
 }
 
@@ -177,6 +177,6 @@ void
 CXOperDirectionDialog::onBurnSet()
 {
   if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_BURN,
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_BURN,
         mFrameEdit->text().toStdString());
 }

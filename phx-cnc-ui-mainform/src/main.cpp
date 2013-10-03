@@ -390,7 +390,7 @@ main(int argc, char *argv[])
       CXDeviceView::loadDevices(5, buttonsList);
 
       QStringList texts;
-      texts.append(QObject::trUtf8("УП"));
+      texts.append(QObject::trUtf8("Управление"));
       texts.append(QObject::trUtf8("Параметры"));
       texts.append(QObject::trUtf8("+"));
       texts.append(QObject::trUtf8("-"));
@@ -402,8 +402,8 @@ main(int argc, char *argv[])
       texts.append(QObject::trUtf8("Сохранить"));
       curGroupPanel->setButtonsText(texts);
 
-      curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupCP);
-      curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupOper);
+      curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupOper);
+      curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupParams);
       QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
           SLOT(onDeviceEditHide()));
       QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel,
