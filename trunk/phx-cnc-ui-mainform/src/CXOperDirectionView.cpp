@@ -157,7 +157,7 @@ CXOperDirectionView::paintEvent(QPaintEvent*)
 	  {
 		  if (i >= mCurrentFinger * 9 && i < (mCurrentFinger + 1) * 9) painter.drawPath(mDirectionPathList.at(i));
 	  }
-/**/
+/* */
 	  painter.setPen(Qt::black);
 	  painter.setBrush(Qt::gray);
 

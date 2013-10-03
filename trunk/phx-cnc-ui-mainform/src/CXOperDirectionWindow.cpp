@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "CXOperDirectionWindow.h"
 
 #include <QHBoxLayout>
@@ -206,6 +208,8 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 
   registerManager();
+
+//  StartCP();
 }
 
 CXOperDirectionWindow::~CXOperDirectionWindow()
@@ -599,7 +603,9 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
       if (aValue == QString::fromStdString(Commands::MSG_VALUE_SLOW))
         value = E_Slow;
 
+      std::cout << "onCommandReceive: value " << value << std::endl;
       mOperVelocityView->setVelocity(value);
+      mVelocityView->setVelocity(value);
     }
   }
 }
