@@ -81,6 +81,7 @@ CXOperTechnology::CXOperTechnology() :
   connect(mStopButton, SIGNAL(clicked()), this, SLOT(onStop()));
   connect(mCutModeButton, SIGNAL(clicked()), this, SLOT(onCutMode()));
   connect(mSVRButton, SIGNAL(clicked()), this, SLOT(onSVR()));
+  connect(mMarkerButton, SIGNAL(clicked()), this, SLOT(onMarkerMode()));
 
   connect(mOperVelocity, SIGNAL(velocityChanged(eVelocity)), this,
       SLOT(onVelocityChange(eVelocity)));
@@ -100,6 +101,8 @@ CXOperTechnology::CXOperTechnology() :
 //  mVoltages.append(mSVRZ2);
 //  mVoltages.append(mLabel3);
 //  mVoltages.append(mLabel4);
+
+  mMarkerButton->setText(trUtf8("Указатель"));
 
   mCutModeButton->setText(trUtf8("Черчение"));
 }
@@ -174,6 +177,15 @@ CXOperTechnology::onSVR()
 {
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_SVR,
       MSG_VALUE_INVERT);
+}
+
+void
+CXOperTechnology::onMarkerMode(){
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_POINTER,
+      MSG_VALUE_INVERT);
+  mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "IOn7",
+      "10=invert");
+//TODO: qForm: сделать по уму
 }
 
 void

@@ -157,7 +157,9 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   QLabel* frameLabel = new QLabel(trUtf8("Кадр"), mFrameWidget);
   QLabel* burnLabel = new QLabel(trUtf8("Пробивка"), mFrameWidget);
   mFrameEdit = new QLineEdit(mFrameWidget);
+  mFrameEdit->setObjectName("mFrameEdit");
   mBurnEdit = new QLineEdit(mFrameWidget);
+  mBurnEdit->setObjectName("mBurnEdit");
   
   dataLayout->addWidget(frameLabel, 0, 0);
   dataLayout->addWidget(burnLabel, 1, 0);
@@ -176,8 +178,8 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   modeLayout->setSpacing(10);
   mCycleButton = new CXTouchButton(trUtf8("Зацикленно"), NULL);
   modeLayout->addWidget(mCycleButton);
-  mReservButton = new CXTouchButton(trUtf8(""), NULL);
-  modeLayout->addWidget(mReservButton);
+  mFastButton = new CXTouchButton(trUtf8("Ускоренно"), NULL);
+  modeLayout->addWidget(mFastButton);
   mStepButton = new CXTouchButton(trUtf8("Покадрово"), NULL);
   modeLayout->addWidget(mStepButton);
 
@@ -203,13 +205,14 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   connect(mFMinusButton, SIGNAL(clicked()), this, SLOT(onDownSpeed()));
   connect(mCycleButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
   connect(mStepButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
+  connect(mFastButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
 
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 
   registerManager();
 
-//  StartCP();
+  //StartCP();
 }
 
 CXOperDirectionWindow::~CXOperDirectionWindow()
@@ -362,6 +365,8 @@ CXOperDirectionWindow::onVelocityChange(eVelocity aVelocity)
     value = Commands::MSG_VALUE_FAST;
     break;
   }
+  default:
+    break;
   }
 
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_FEED, value);
@@ -392,6 +397,11 @@ CXOperDirectionWindow::onModeChange()
   else if (sender() == mStepButton)
   {
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_BY_STEP,
+        Commands::MSG_VALUE_INVERT);
+  }
+  if (sender() == mFastButton)
+  {
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_FEED,
         Commands::MSG_VALUE_INVERT);
   }
 }
@@ -468,6 +478,19 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
       else
         mStepButton->setStyleSheet("");
     }
+    else if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_FEED))
+    {
+      if (aValue == QString::fromStdString(Commands::MSG_VALUE_FAST)){
+        mFastButton->setStyleSheet("background-color: green;");
+      }else
+      if (aValue == QString::fromStdString(Commands::MSG_VALUE_SLOW)){
+        mFastButton->setStyleSheet("background-color: yellow;");
+      }else{
+        mFastButton->setStyleSheet("");
+
+      }
+    }
+
 
 	//Изменение скорости и направления.
 	if (aCommand == QString::fromStdString(Commands::MSG_STATE_HAND_DIR_MOVING))

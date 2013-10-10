@@ -464,6 +464,9 @@ CXDeviceView::onCommandReceive(const QString& aSection, const QString& aCommand,
         if (channelNumber < 0)
           continue;
 
+        if (channelNumber >= mChannelCount)
+          continue;
+
         if (mChannelsTable->item(channelNumber, 1) == NULL)
         {
           mChannelsTable->setItem(channelNumber, 1, new QTableWidgetItem);

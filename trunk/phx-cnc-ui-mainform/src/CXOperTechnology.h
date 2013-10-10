@@ -43,6 +43,8 @@ private slots:
   void
   onSVR();
 
+  void onMarkerMode();
+
   void
   onCutMode();
 
