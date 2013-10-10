@@ -111,7 +111,7 @@ private:
 
   CXTouchButton* mCycleButton;
   CXTouchButton* mStepButton;
-  CXTouchButton* mReservButton;
+  CXTouchButton* mFastButton;
 
   CXOperDirectionView* mOperDirectionView;
   CXOperVelocityView* mOperVelocityView;
