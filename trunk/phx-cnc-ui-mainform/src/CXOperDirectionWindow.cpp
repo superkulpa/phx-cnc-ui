@@ -293,16 +293,16 @@ CXOperDirectionWindow::getDirectionCommand(OperDirectionView::eMoveDirection aDi
     if (aDirection & OperDirectionView::E_Top)
     {
       if(mRotateAxis)
-        y = "+2";
+        y = "+1";
       else
-        x = "-2";
+        x = "-1";
     }
     else
     {
       if(mRotateAxis)
-        y = "-2";
+        y = "-1";
       else
-        x = "+2";
+        x = "+1";
     }
   }
 
@@ -311,16 +311,16 @@ CXOperDirectionWindow::getDirectionCommand(OperDirectionView::eMoveDirection aDi
     if (aDirection & OperDirectionView::E_Left)
     {
       if(mRotateAxis)
-        x = "-2";
+        x = "-1";
       else
-        y = "-2";
+        y = "-1";
     }
     else
     {
       if(mRotateAxis)
-        x = "+2";
+        x = "+1";
       else
-        y = "+2";
+        y = "+1";
     }
   }
 
@@ -440,6 +440,13 @@ CXOperDirectionWindow::StopCP()
 void
 CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
+
+  if (aSection == QString::fromStdString(Commands::MSG_SECTION_TECH))
+  {
+    if (aCommand == QString::fromStdString(Commands::MSG_STATE_COUNT_BURN)){
+      mBurnEdit->setText(trUtf8("%1").arg(aValue));
+    };
+  }
   if (aSection == QString::fromStdString(Commands::MSG_SECTION_OPERATOR))
   {
     //Стоп
@@ -460,7 +467,7 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
     //Текущий кадр.
     if (aCommand == QString::fromStdString(Commands::MSG_STATE_CP_LINE))
     {
-      //mCurrentFrameLabel->setText(trUtf8("Текущий кадр: %1").arg(aValue));
+      mFrameEdit->setText(trUtf8("%1").arg(aValue));
     }
 
     //Режимы работы
