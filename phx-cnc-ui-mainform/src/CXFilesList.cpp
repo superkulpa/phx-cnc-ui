@@ -10,6 +10,7 @@
 #include "CXProcessingParametersWindow.h"
 #include "CXTurnDialog.h"
 #include "CXUdpManager.h"
+#include "utils/CXMLReader.h"
 
 CXFilesList::CXFilesList(bool aIsSaveDialog) :
     AXBaseWindow()
@@ -176,7 +177,7 @@ CXFilesList::onItemActivate(const QModelIndex& aIndex)
 
     emit fileOpened(mFileName);
 
-    onCompileFile();
+    onCompileFile(true);
   }
 }
 
@@ -270,7 +271,7 @@ CXFilesList::setCurrentItemToFirst()
 }
 
 void
-CXFilesList::onCompileFile()
+CXFilesList::onCompileFile(int _clear)
 {
   if (mFileName.isEmpty())
     return;
@@ -286,41 +287,52 @@ CXFilesList::onCompileFile()
   connect(mProcess, SIGNAL(error(QProcess::ProcessError)), this,
   SLOT(onProcessError(QProcess::ProcessError)));
 
-  QFile configFile(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
-  configFile.open(QIODevice::ReadOnly);
+  CXMLReader xmlReader(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
+  xmlReader.SetAttribute("compiler/parameters/parameter/Common.CpName"
+                        ,"value",mFileName);
+  if(_clear){
+    xmlReader.SetAttribute("compiler/parameters/parameter/RSI.Scale"
+                          ,"value","100");
+    xmlReader.SetAttribute("compiler/parameters/parameter/RSI.Inverse"
+                          ,"value", "0");
+    xmlReader.SetAttribute("compiler/parameters/parameter/RSI.RotationAngle"
+                          ,"value", "0");
+  };
+//  QFile configFile(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
+//  configFile.open(QIODevice::ReadOnly);
 
-  QDomDocument doc;
-  doc.setContent(&configFile);
+//  QDomDocument doc;
+//  doc.setContent(&configFile);
 
-  QDomElement domElement = doc.documentElement();
-  domElement = domElement.firstChildElement("parameters");
-
-  if (!domElement.isNull())
-  {
-    domElement = domElement.firstChildElement("parameter");
-
-    while (!domElement.isNull())
-    {
-      if (domElement.attribute("name") == QString("Common.CpName"))
-      {
-        domElement.setAttribute("value", mFileName);
-
-        break;
-      }
-
-      domElement = domElement.nextSiblingElement("parameter");
-    }
-  }
-
-  configFile.close();
-
-  configFile.open(QIODevice::WriteOnly);
-  QTextStream out(&configFile);
-  out.setCodec("UTF-8");
-
-  doc.save(out, 2);
-
-  configFile.close();
+//  QDomElement domElement = doc.documentElement();
+//  domElement = domElement.firstChildElement("parameters");
+//
+//  if (!domElement.isNull())
+//  {
+//    domElement = domElement.firstChildElement("parameter");
+//
+//    while (!domElement.isNull())
+//    {
+//      if (domElement.attribute("name") == QString("Common.CpName"))
+//      {
+//        domElement.setAttribute("value", mFileName);
+//
+//        break;
+//      }
+//
+//      domElement = domElement.nextSiblingElement("parameter");
+//    }
+//  }
+//
+//  configFile.close();
+//
+//  configFile.open(QIODevice::WriteOnly);
+//  QTextStream out(&configFile);
+//  out.setCodec("UTF-8");
+//
+//  doc.save(out, 2);
+//
+//  configFile.close();
 
   mProcess->start("bash ./cpc.sh");
 }
@@ -336,7 +348,7 @@ CXFilesList::onLoadCheckFile()
   if (mIsCompileNeed)
   {
     mIsCompileNeed = false;
-    onCompileFile();
+    onCompileFile();//здесь поворачивать не надо, так как корректировали программу
 
     if (mButton != NULL)
       mButton->setText(
