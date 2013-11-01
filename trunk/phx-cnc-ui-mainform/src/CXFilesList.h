@@ -116,7 +116,7 @@ private slots:
 
   //! Слот запуска компиляции файла.
   void
-  onCompileFile();
+  onCompileFile(int _clear = false);
 
   //! Слот проверки/загрузки файла.
   void
