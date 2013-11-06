@@ -297,7 +297,7 @@ CXDeviceView::setDescription(int aIndex, const QString& aDescription)
     if (description.contains(";"))
       description = description.left(description.indexOf(";"));
   }
-  description.prepend(QString("%1:").arg(aIndex + 1));
+  description.prepend(QString("%1:").arg(aIndex/* + 1*/));
 
   mChannelsTable->item(aIndex, 0)->setText(description);
 }
