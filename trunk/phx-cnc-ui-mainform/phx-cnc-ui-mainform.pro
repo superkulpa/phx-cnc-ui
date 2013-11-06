@@ -6,14 +6,15 @@ UI_DIR	+= ./GeneratedFiles
 CONFIG += debug_and_release
 
 _install.depends = $(SOURCES)
-_install.commands = cp ./phx-cnc-ui-mainform  ../install
+_install.commands = cp ./debug/phx-cnc-ui-mainform.exe  ../install
 QMAKE_EXTRA_TARGETS += _install
 
-QMAKE_CXXFLAGS += -std=c++11
+#QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++0x
 
-QMAKE_CXXFLAGS += -pg
+#QMAKE_CXXFLAGS += -pg
 
-QMAKE_LFLAGS += -pg
+#QMAKE_LFLAGS += -pg
 
 # Input
 HEADERS	+=	src/AXBaseWindow.h \
@@ -45,14 +46,15 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXOperDirectionDialog.h \
 			src/CXExitDialog.h \
 			src/CXVirtualKeyboard.h \
-                        src/CXUtilsWindow.h \
-                        src/CXUdpManager.h \
-                        src/CXSettingsXML.h \
-                        src/CXProcess.h \
-                        src/SXChannelData.h \
-                        src/CXDeviceView.h \
-                        src/CXChannelEdit.h \
-                        src/CXDeviceEdit.h
+            src/CXUtilsWindow.h \
+            src/CXUdpManager.h \
+            src/CXSettingsXML.h \
+            src/CXProcess.h \
+            src/SXChannelData.h \
+            src/CXDeviceView.h \
+            src/CXChannelEdit.h \
+            src/CXDeviceEdit.h \
+            src/utils/CXMLReader.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
@@ -90,7 +92,8 @@ SOURCES +=	src/main.cpp \
 			src/CXProcess.cpp \
 			src/CXDeviceView.cpp \
 			src/CXChannelEdit.cpp \
-			src/CXDeviceEdit.cpp
+			src/CXDeviceEdit.cpp \
+			src/utils/CXMLReader.cpp
 
 FORMS +=	src/CXFilesList.ui \
 			src/CXEditPathFile.ui \
