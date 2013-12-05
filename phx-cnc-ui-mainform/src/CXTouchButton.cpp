@@ -72,9 +72,14 @@ CXTouchButton::mouseReleaseEvent(QMouseEvent* e)
 {
   if (e->button() == Qt::LeftButton)
   {
-    if (mTimer == -1)
+    if (mTimer == -1){
       QPushButton::mouseReleaseEvent(e);
-    else
+      if (isCheckable())
+      {
+        setChecked(!isChecked());
+        emit clicked(isChecked());
+      }
+    }else
     {
       killTimer(mTimer);
       mTimer = -1;
@@ -96,24 +101,24 @@ CXTouchButton::timerEvent(QTimerEvent* e)
     killTimer(mTimer);
     mTimer = -1;
 
-    if (isCheckable())
-    {
-      setChecked(!isChecked());
-      emit clicked(isChecked());
-    }
-	if (mIsLongPress)
-	{
-      QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton,
-          Qt::NoButton, Qt::NoModifier);
-      QPushButton::mousePressEvent(e);
-	  delete e;
-	}
-    else
-    {
-      QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonRelease, QPoint(1, 1), Qt::LeftButton,
-          Qt::NoButton, Qt::NoModifier);
-      QPushButton::mouseReleaseEvent(e);
-	  delete e;
-    }
+//    if (isCheckable())
+//    {
+//      setChecked(!isChecked());
+//      emit clicked(isChecked());
+//    }
+//    if (mIsLongPress)
+//    {
+//      QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton,
+//          Qt::NoButton, Qt::NoModifier);
+//      QPushButton::mousePressEvent(e);
+//      delete e;
+//    }
+//    else
+//    {
+//      QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonRelease, QPoint(1, 1), Qt::LeftButton,
+//          Qt::NoButton, Qt::NoModifier);
+//      QPushButton::mouseReleaseEvent(e);
+//      delete e;
+//    }
   }
 }

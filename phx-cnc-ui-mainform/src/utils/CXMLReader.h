@@ -7,8 +7,8 @@
 
 #ifndef CXMLREADER_H_
 #define CXMLREADER_H_
-#include <QtXML/QtXml>
-#include <QtGUI/QListWidget>
+#include <QtXml>
+#include <QListWidget>
 #include <string.h>
 #include <stdio.h>
 
