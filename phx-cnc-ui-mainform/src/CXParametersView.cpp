@@ -8,6 +8,7 @@
 #include <QMouseEvent>
 
 #include "CXSettingsXML.h"
+#include <QPushButton>
 
 int CXParameterItemDelegate::mDelay = 0;
 QMap<int, CXGroupData*> CXParametersView::mGropusMap;
@@ -72,7 +73,7 @@ CXParameterItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
     break;
   }
   case 2:
-    case 3:
+  case 3:
     {
     QStyleOptionButton buttonOption;
     buttonOption.rect = option.rect;
@@ -80,9 +81,15 @@ CXParameterItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
       buttonOption.text = "+";
     else
       buttonOption.text = "-";
+
+    //if(-1 == mClickTimer)
     buttonOption.state = QStyle::State_Enabled | QStyle::State_Active;
 
-    QApplication::style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter);
+    if((-1 != mClickTimer)&&(option.state & QStyle::State_HasFocus))
+        buttonOption.state |= QStyle::State_Sunken;
+
+    QPushButton btn(static_cast<QWidget*>(parent()));
+    QApplication::style()->drawControl(QStyle::CE_PushButton, &buttonOption, painter, &btn);
 
     break;
   }
@@ -208,7 +215,7 @@ CXParameterItemDelegate::timerEvent(QTimerEvent* e)
       else if (mTimerInterval == 1000)
       {
         killTimer(mClickTimer);
-        mTimerInterval = 50;
+        mTimerInterval = 20;
         mClickTimer = startTimer(mTimerInterval);
       }
       break;

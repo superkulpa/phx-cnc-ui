@@ -3,13 +3,19 @@
 #include <QRegExpValidator>
 
 #include "CXUdpManager.h"
+#include "CXSettingsXML.h"
 
-const int countOfSupp = 1;
+#include "CXWarmingUpDlg.h"
+
 
 CXOperTechnology::CXOperTechnology() :
     AXBaseWindow()
 {
   setupUi(this);
+
+  //QVBoxLayout* vLayout_1 = new QVBoxLayout();
+//  mTechnology= new CXTouchButton(vLayout_1);
+  mTechnology->setText(QString().fromUtf8("Т: Газокислород"));
 
   //QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Preferred);
   QHBoxLayout* horizontalLayout_2 = new QHBoxLayout();
@@ -38,6 +44,8 @@ CXOperTechnology::CXOperTechnology() :
 
    verticalLayout_2->addItem(horizontalLayout_2);
    verticalLayout_2->addStretch();
+
+  int countOfSupp =  CXSettingsXML::getValue("settings.xml", "countOfSupp").toInt();
 
   for(int i = 0; i<countOfSupp; i++){
     QHBoxLayout* horizontalLayout_4 = new QHBoxLayout();
@@ -82,12 +90,14 @@ CXOperTechnology::CXOperTechnology() :
   connect(mCutModeButton, SIGNAL(clicked()), this, SLOT(onCutMode()));
   connect(mSVRButton, SIGNAL(clicked()), this, SLOT(onSVR()));
   connect(mMarkerButton, SIGNAL(clicked()), this, SLOT(onMarkerMode()));
+  connect(mTechnology, SIGNAL(clicked()), this, SLOT(onTechnology()));
 
   connect(mOperVelocity, SIGNAL(velocityChanged(eVelocity)), this,
       SLOT(onVelocityChange(eVelocity)));
 
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
+
 
 //  QList<QAbstractButton*> buttons = mNuberButtonGroup->buttons();
 //  for (int i = 0; i < buttons.count(); ++i)
@@ -160,7 +170,6 @@ CXOperTechnology::onStart()
   //mRBurnButton->hide();
   mStopButton->show();
 }
-
 
 void
 CXOperTechnology::onStop()
@@ -255,7 +264,7 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
         currentValue = list.at(i);
         int index = QString(currentValue.at(0)).toInt();
 
-        if (index >= 0 && index < countOfSupp)
+        if (index >= 0 && index < mSVRZ.count())
         {
           mSVRZ.at(index)->setText(QString("V:")
               + currentValue.mid(currentValue.indexOf("=") + 1).left(3));
@@ -355,4 +364,20 @@ CXOperTechnology::onButtonCheck()
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_TS,
         res.toStdString());
   }
+}
+
+void
+CXOperTechnology::onTechnology()
+{
+  static CXWarmingUpDlg* warmDlg = NULL;
+  if (warmDlg == NULL)
+  {
+    warmDlg = new CXWarmingUpDlg(this);
+//    warmDlg->setAttribute(Qt::WA_DeleteOnClose);
+    warmDlg->setWindowFlags(Qt::Dialog);
+//    mTurnDialog->setWindowModality(Qt::ApplicationModal);
+//    connect(warmDlg, SIGNAL(compileNeeded()), this, SLOT(onCompileFile()));
+  }
+
+  warmDlg->show();
 }

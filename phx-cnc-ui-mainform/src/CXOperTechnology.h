@@ -60,6 +60,8 @@ private slots:
   void
   onButtonCheck();
 
+  void
+  onTechnology();
 private:
   CXTouchButton *mTButton;
   CXTouchButton *mZHButton;
@@ -67,7 +69,6 @@ private:
   QList<CXTouchButton*> mbStateSup;
   QList<QLabel*> mSVRZ;
   QList<CXTouchButton*> mbStateZ;
-
 };
 
 #endif // CXOperSETTINGS_H
