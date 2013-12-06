@@ -55,7 +55,13 @@
        </layout>
       </item>
      </layout>
-     <zorder></zorder>
+    </widget>
+   </item>
+   <item>
+    <widget class="CXTouchButton" name="mTechnology">
+     <property name="text">
+      <string>Технология:</string>
+     </property>
     </widget>
    </item>
    <item>

@@ -6,7 +6,7 @@ UI_DIR	+= ./GeneratedFiles
 CONFIG += debug_and_release
 
 _install.depends = $(SOURCES)
-_install.commands = cp ./debug/phx-cnc-ui-mainform.exe  ../install
+_install.commands = cp ./phx-cnc-ui-mainform*  ../install
 QMAKE_EXTRA_TARGETS += _install
 
 #QMAKE_CXXFLAGS += -std=c++11
@@ -54,6 +54,7 @@ HEADERS	+=	src/AXBaseWindow.h \
             src/CXDeviceView.h \
             src/CXChannelEdit.h \
             src/CXDeviceEdit.h \
+            src/CXWarmingUpDlg.h \            
             src/utils/CXMLReader.h
 
 SOURCES +=	src/main.cpp \
@@ -93,6 +94,7 @@ SOURCES +=	src/main.cpp \
 			src/CXDeviceView.cpp \
 			src/CXChannelEdit.cpp \
 			src/CXDeviceEdit.cpp \
+            src/CXWarmingUpDlg.cpp \  			
 			src/utils/CXMLReader.cpp
 
 FORMS +=	src/CXFilesList.ui \
@@ -106,6 +108,7 @@ FORMS +=	src/CXFilesList.ui \
 			src/CXExitDialog.ui \
 			src/CXVirtualKeyboard.ui \
 			src/CXDeviceView.ui \
+            src/CXWarmingUpDlg.ui \			
 			src/CXChannelEdit.ui
 
 RESOURCES += resource.qrc
