@@ -13,24 +13,34 @@
 class CXWarmingUpDlg : public QDialog, public Ui::WarmingUp
 {
 Q_OBJECT
-
+public:
+enum EStages{
+  _ticTac
+ ,_continue
+ ,_break
+};
 public:
   //! Конструктор.
   CXWarmingUpDlg(QObject* _master);
-
+protected:
   //! Деструктор.
   virtual ~CXWarmingUpDlg();
+
+public:
+  //interface methods
+  void setStateWaiting(const QString &_aValue);
+  void registerContinueBreak(QObject* _receiver, const char* _member);
 
 private slots:
   void onButtonClicked();
 
-  void onWarmProcess(int _procent);
+  void onWarmProcess(int _percent);
+signals:
+  void postStateWaiting(int _percent);
+  void postCmdWaiting(int _action);
 
 private:
-  enum EStages{
-    _ticTac
-   ,_continue
-  };
+
   EStages stage;
 };
 

@@ -11,6 +11,7 @@
 #include "CXTurnDialog.h"
 #include "CXUdpManager.h"
 #include "utils/CXMLReader.h"
+#include <QResizeEvent>
 
 CXFilesList::CXFilesList(bool aIsSaveDialog) :
     AXBaseWindow()
@@ -63,6 +64,10 @@ CXFilesList::CXFilesList(bool aIsSaveDialog) :
       SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)), this,
       SLOT(onCurrentChanged(const QModelIndex&, const QModelIndex&)));
 
+  setAcceptDrops(true);
+//  setSelectionMode(QAbstractItemView::SingleSelection);
+//  setDropIndicatorShown(true);
+
   registerManager();
 }
 
@@ -100,8 +105,7 @@ CXFilesList::onTurn()
 //		mTurnDialog->setWindowFlags(Qt::Dialog);
     mTurnDialog->setWindowModality(Qt::ApplicationModal);
 
-    connect(mTurnDialog, SIGNAL(compileNeeded()), this,
-    SLOT(onCompileFile()));
+    connect(mTurnDialog, SIGNAL(compileNeeded()), this, SLOT(onCompileFile()));
   }
 
   mTurnDialog->show();
@@ -482,4 +486,23 @@ CXFilesList::onSave()
   QString rootPath = mModel->filePath(mFileView->rootIndex());
   emit fileSaved(rootPath + QDir::separator() + mFileNameEdit->text());
   close();
+}
+
+void
+CXFilesList::dropEvent(QDropEvent *ev)
+{
+  QList<QUrl> urls = ev->mimeData()->urls();
+  foreach(QUrl url, urls)
+  {
+//    qDebug()<<QString("drop:")<<url.toString();
+//    qDebug()<<newname;
+    QString newname = mModel->filePath(mFileView->rootIndex()) + QDir::separator()
+                      + QFileInfo(url.toLocalFile()).fileName();
+    QFile::copy(url.toLocalFile(), newname);
+  }
+}
+
+void CXFilesList::dragEnterEvent(QDragEnterEvent *ev)
+{
+   ev->accept();
 }

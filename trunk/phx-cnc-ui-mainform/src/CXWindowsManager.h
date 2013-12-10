@@ -6,6 +6,7 @@
 #include "AXBaseWindow.h"
 
 class CXVirtualKeyboard;
+class CXVirtualKeyboardNum;
 
 /*!
  Класс оконного менеджера.
@@ -29,6 +30,7 @@ public:
   CXWindowsManager();
   virtual ~CXWindowsManager();
 
+  void createKeyboards();
   /*!
    Функия добавления нового окна в менеджер.
    \param aWindow - указатель на новое окно.
@@ -95,6 +97,9 @@ public slots:
   //! Функция показа/скрытия виртуальной клавиатуры.
   void
   changeVisibleVirtualKeyboard();
+  //! Функция показа/скрытия виртуальной клавиатуры.
+  void
+  changeVisibleVirtualKeyboardNum0();
 
 protected:
   virtual bool
@@ -135,6 +140,7 @@ private:
 //	QVector <QString> mKeyboardWindows;
 
   CXVirtualKeyboard* mVirtualKeyboard;
+  QVector<CXVirtualKeyboardNum*> mVirtualKeyboardsNum;
   bool IsVirtualKeyboardEnabled;
 };
 

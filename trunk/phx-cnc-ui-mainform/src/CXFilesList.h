@@ -141,6 +141,11 @@ private slots:
   //! Слот на сохранение файла.
   void
   onSave();
+protected:
+  //
+  void dropEvent(QDropEvent *ev);
+  //
+  void dragEnterEvent(QDragEnterEvent *ev);
 
 private:
   bool mIsShow;

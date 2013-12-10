@@ -11,6 +11,7 @@
 #include "CXGroupPanel.h"
 #include "CXVirtualKeyboard.h"
 #include "CXSettingsXML.h"
+#include "CXVirtualKeyboardNum.h"
 
 CXWindowsManager::CXWindowsManager()
 {
@@ -26,7 +27,7 @@ CXWindowsManager::CXWindowsManager()
 
   mIsFreeze = false;
   mGroupNumber = 0;
-  mVirtualKeyboard = NULL;
+
   IsVirtualKeyboardEnabled = true;
   QString virtualKeyboardEnabled = CXSettingsXML::getValue("settings.xml", "virtual_keyboard");
   if (!virtualKeyboardEnabled.isEmpty() && virtualKeyboardEnabled.toInt() == 0)
@@ -371,13 +372,19 @@ CXWindowsManager::setFreeze(bool aIsFreeze)
 void
 CXWindowsManager::changeVisibleVirtualKeyboard()
 {
-  if (mVirtualKeyboard == NULL)
-    mVirtualKeyboard = new CXVirtualKeyboard;
+//  if (mVirtualKeyboard == NULL)
+//    mVirtualKeyboard = new CXVirtualKeyboard;
 
   if (mVirtualKeyboard->isVisible())
     mVirtualKeyboard->hide();
   else
     mVirtualKeyboard->show();
+  return ;
+}
+
+void
+CXWindowsManager::changeVisibleVirtualKeyboardNum0(){
+  mVirtualKeyboardsNum[0]->show();
 }
 
 bool
@@ -566,6 +573,15 @@ CXWindowsManager::absoluteMin(int value1, int value2)
     return value1;
 
   return value2;
+}
+
+void
+CXWindowsManager::createKeyboards()
+{
+  mVirtualKeyboard = new CXVirtualKeyboard;
+mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(0));
+mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(1));
+mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(2));
 }
 
 bool

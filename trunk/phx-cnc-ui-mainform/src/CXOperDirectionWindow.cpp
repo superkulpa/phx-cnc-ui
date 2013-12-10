@@ -5,11 +5,13 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 
+
 #include "CXTouchButton.h"
 #include "CXOperDirectionDialog.h"
 #include "CXUtilsWindow.h"
 #include "CXUdpManager.h"
 #include "CXSettingsXML.h"
+#include "CXVirtualKeyboardNum.h"
 
 CXOperDirectionWindow::CXOperDirectionWindow() :
     AXBaseWindow()
@@ -70,9 +72,9 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
 
   QHBoxLayout* velocityLayout = new QHBoxLayout;
 
-  mFLabel = new QLabel("F", groupBox);
+  mFLabel = new CXTouchButton("F", groupBox);
   mFLabel->setObjectName("mFLabel");
-  mFLabel->setAlignment(Qt::AlignCenter);
+//  mFLabel->setAlignment(Qt::AlignCenter);
   mFLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   velocityLayout->addWidget(mFLabel);
 
@@ -190,6 +192,7 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   connect(mSearchButton, SIGNAL(clicked()), this, SLOT(onStart()));
   connect(mStopButton, SIGNAL(clicked()), this, SLOT(onStop()));
   connect(mXYButton, SIGNAL(clicked()), this, SLOT(onXYClick()));
+  connect(mFLabel, SIGNAL(clicked()), this, SLOT(onFClick()));
   connect(mOperDirectionView, SIGNAL(directionChanged(OperDirectionView::eMoveDirection)), this,
       SLOT(onDirectionChange(OperDirectionView::eMoveDirection)));
   connect(mOperDirectionView, SIGNAL(directionChanged(OperDirectionView::eMoveDirection, eVelocity)), this,
@@ -275,6 +278,16 @@ CXOperDirectionWindow::onXYClick()
   CXOperDirectionDialog dialog(qobject_cast<QWidget*>(sender()));
   dialog.mUdpManager = mUdpManager;
   dialog.exec();
+}
+
+void
+CXOperDirectionWindow::onFClick()
+{
+  if (mIsRunning)
+    return;
+  static CXVirtualKeyboardNum* keyb = new CXVirtualKeyboardNum;
+  keyb->show();
+  //dialog.mUdpManager = mUdpManager;
 }
 
 QString

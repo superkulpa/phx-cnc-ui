@@ -1,14 +1,13 @@
-#include "CXVirtualKeyboard.h"
+#include "CXVirtualKeyboardNum.h"
 
 #include <QKeyEvent>
-#include <QtCore/QtCore>
 
-CXVirtualKeyboard::CXVirtualKeyboard() :
+CXVirtualKeyboardNum::CXVirtualKeyboardNum(int _index) :
     AXBaseWindow()
 {
   setupUi(this);
   setGroupNumber(-1);
-
+  index = _index;
   mFocusedWidget = NULL;
 
   setFocusPolicy(Qt::NoFocus);
@@ -31,37 +30,33 @@ CXVirtualKeyboard::CXVirtualKeyboard() :
   registerManager();
 }
 
-CXVirtualKeyboard::~CXVirtualKeyboard()
+CXVirtualKeyboardNum::~CXVirtualKeyboardNum()
 {
 
 }
 
 void
-CXVirtualKeyboard::mouseReleaseEvent(QMouseEvent* e)
+CXVirtualKeyboardNum::mouseReleaseEvent(QMouseEvent* e)
 {
   AXBaseWindow::mouseReleaseEvent(e);
 }
 
 void
-CXVirtualKeyboard::onFocusChange(QWidget* old, QWidget* now)
+CXVirtualKeyboardNum::onFocusChange(QWidget* old, QWidget* now)
 {
   Q_UNUSED(old)
+    if(index != 2) return; //TODO: костыль конечно
 
   if (now != 0 && !isAncestorOf(now))
   {
     mFocusedWidget = now;
-
     if (now->property("readOnly").isValid() && now->property("readOnly").toBool() == false)
     {
       QObject* w = now;
       while (w->parent() != NULL)
         w = w->parent();
 
-      //qDebug() << w->metaObject()->className();
-
-      if (w->metaObject()->className() == QString("CXEditPathFile")
-          || w->metaObject()->className() == QString("CXParametersWindow")
-          || w->metaObject()->className() == QString("CXIniFileEditor"))
+      if (w->metaObject()->className() == QString("CXParametersWindow"))
       {
         show();
       }
@@ -74,7 +69,7 @@ CXVirtualKeyboard::onFocusChange(QWidget* old, QWidget* now)
 }
 
 void
-CXVirtualKeyboard::onButtonClick()
+CXVirtualKeyboardNum::onButtonClick()
 {
   QAbstractButton* button = qobject_cast<QAbstractButton*>(sender());
 
@@ -83,7 +78,7 @@ CXVirtualKeyboard::onButtonClick()
     if (mFocusedWidget == NULL)
       return;
 
-    mFocusedWidget->activateWindow();
+    //mFocusedWidget->activateWindow();
 
     int keyCode = button->shortcut()[0];
 
@@ -99,7 +94,7 @@ CXVirtualKeyboard::onButtonClick()
 }
 
 void
-CXVirtualKeyboard::onHide()
+CXVirtualKeyboardNum::onHide()
 {
   disconnect(qApp, SIGNAL(focusChanged(QWidget*, QWidget*)), this,
       SLOT(onFocusChange(QWidget*, QWidget*)));

@@ -19,6 +19,8 @@
 #include "CXVirtualKeyboard.h"
 #include "CXUdpManager.h"
 
+#include "terminalCtrl.h"
+//
 #include "CXGroupPanel.h"
 
 #include "CXSettingsXML.h"
@@ -378,6 +380,9 @@ main(int argc, char *argv[])
           windows.value("CXOperDirectionWindow"), SLOT(onResetCoordinates()));
       QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()),
           windows.value("CXTextParameters"), SLOT(onResetAlarms()));
+
+      QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()),
+          &manager, SLOT(changeVisibleVirtualKeyboardNum0()));
     }
 
     curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupIO);
@@ -426,7 +431,7 @@ main(int argc, char *argv[])
       SLOT(onFileOpen(const QString&)));
   QObject::connect(windows.value("CXTextParameters"), SIGNAL(errorReceived(const QString&)), title,
       SLOT(onErrorReceive(const QString&)));
-
+  manager.createKeyboards();
   //Загрузка данных о геометрии окон (обязательно только после их создания!).
   manager.load("settings.xml");
   //Установка текущей группы.
@@ -436,6 +441,9 @@ main(int argc, char *argv[])
       Commands::MSG_CMD_FORM_RESTART, "0");
   //	CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(windows.value("CXParametersWindow"));
   //	parametersWindow->loadParametersFromFtp();
+
+  //
+  CTerminalCntrl::startTerminal(AXBaseWindow::mUdpManager);
 
   return app.exec();
 }

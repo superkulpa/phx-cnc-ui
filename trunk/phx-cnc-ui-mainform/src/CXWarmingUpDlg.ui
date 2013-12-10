@@ -27,7 +27,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>GroupBox</string>
+      <string>Прервать/продолжить прогрев</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
