@@ -14,6 +14,8 @@ typedef std::string String;
 class CXUdpManager : public QUdpSocket
 {
 Q_OBJECT
+public:
+  void postEchoCmd(const QString& _cmd);
 
 protected:
   QHostAddress host;
@@ -38,6 +40,9 @@ private slots:
   //! Слот на получение порции данных.
   void
   onReadyRead();
+  ///
+  void
+  onEchoCmd(const QString& _cmd);
 
 private:
   //! Функция анализа комманд строки.

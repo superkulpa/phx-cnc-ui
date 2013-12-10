@@ -59,6 +59,9 @@ private slots:
   void
   onXYClick();
 
+  void
+  onFClick();
+
   //! Слот получения строки команды по направлению.
   QString getDirectionCommand(OperDirectionView::eMoveDirection aDirection);
 
@@ -106,7 +109,7 @@ private:
   CXTouchButton* mXYButton;
   QLineEdit* mXEdit;
   QLineEdit* mYEdit;
-  QLabel* mFLabel;
+  CXTouchButton* mFLabel;
   QLineEdit* mFEdit;
 
   CXTouchButton* mCycleButton;

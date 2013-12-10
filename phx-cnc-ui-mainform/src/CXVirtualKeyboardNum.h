@@ -1,17 +1,17 @@
-#ifndef CXVIRTUALKEYBOARD_H
-#define CXVIRTUALKEYBOARD_H
+#ifndef CXVIRTUALKEYBOARDNUM_H
+#define CXVIRTUALKEYBOARDNUM_H
 
 #include "AXBaseWindow.h"
 
-#include "ui_CXVirtualKeyboard.h"
+#include "ui_CXVirtualKeyboardNum.h"
 
-class CXVirtualKeyboard : public AXBaseWindow, public Ui::CXVirtualKeyboard
+class CXVirtualKeyboardNum : public AXBaseWindow, public Ui::CXVirtualKeyboardNum
 {
 Q_OBJECT
-
+int index;
 public:
-  CXVirtualKeyboard();
-  virtual ~CXVirtualKeyboard();
+  CXVirtualKeyboardNum(int index = 0);
+  virtual ~CXVirtualKeyboardNum();
 
 protected:
   virtual void

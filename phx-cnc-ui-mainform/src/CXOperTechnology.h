@@ -8,6 +8,8 @@
 
 #include "ui_CXOperTechnology.h"
 
+#include "CXWarmingUpDlg.h"
+
 /*!
  Класс настройки начальной позиции реза.
  */
@@ -60,8 +62,13 @@ private slots:
   void
   onButtonCheck();
 
+  ///Смена технологий
   void
   onTechnology();
+
+  ///Реакция на продолжить-прервать прогрев
+  void onWarmUpConinueBreak(int _continueBreak);
+
 private:
   CXTouchButton *mTButton;
   CXTouchButton *mZHButton;
@@ -69,6 +76,8 @@ private:
   QList<CXTouchButton*> mbStateSup;
   QList<QLabel*> mSVRZ;
   QList<CXTouchButton*> mbStateZ;
+
+  CXWarmingUpDlg* warmDlg;
 };
 
 #endif // CXOperSETTINGS_H

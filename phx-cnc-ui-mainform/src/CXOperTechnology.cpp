@@ -5,11 +5,8 @@
 #include "CXUdpManager.h"
 #include "CXSettingsXML.h"
 
-#include "CXWarmingUpDlg.h"
-
-
 CXOperTechnology::CXOperTechnology() :
-    AXBaseWindow()
+    AXBaseWindow(), warmDlg(NULL)
 {
   setupUi(this);
 
@@ -115,6 +112,10 @@ CXOperTechnology::CXOperTechnology() :
   mMarkerButton->setText(trUtf8("Указатель"));
 
   mCutModeButton->setText(trUtf8("Черчение"));
+//
+  warmDlg = new CXWarmingUpDlg(this);
+  warmDlg->setWindowFlags(Qt::Dialog);
+  warmDlg->registerContinueBreak(this, SLOT(onWarmUpConinueBreak(int)));
 }
 
 CXOperTechnology::~CXOperTechnology()
@@ -252,7 +253,7 @@ void
 CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
   if (aSection == QString::fromStdString(Commands::MSG_SECTION_TECH))
-  {
+  do{
     //Напряжение
     if (aCommand == QString::fromStdString(Commands::MSG_STATE_SVR_VOLTAGE))
     {
@@ -270,6 +271,7 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
               + currentValue.mid(currentValue.indexOf("=") + 1).left(3));
         }
       }
+      break;
     }
 
     if (aCommand == QString::fromStdString(Commands::MSG_STATE_TECH))
@@ -317,6 +319,7 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
           curButton->blockSignals(false);
         }
       }
+      break;
     }
 
     if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_SVR))
@@ -325,6 +328,7 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
         mSVRButton->setStyleSheet("background-color: green;");
       else
         mSVRButton->setStyleSheet("");
+      break;
     }
 
     if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_CUT))
@@ -339,8 +343,15 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
         mCutModeButton->setStyleSheet("");
         mCutModeButton->setText(trUtf8("Черчение"));
       }
+      break;
     }
-  }
+    if((aCommand == QString::fromStdString(Commands::MSG_STATE_WAITING) ) )
+    {
+      warmDlg->setStateWaiting(aValue);
+      break;
+    }
+
+  }while(0);
 }
 
 void
@@ -361,23 +372,33 @@ CXOperTechnology::onButtonCheck()
     else{
       res = res.arg(index).arg(QString::fromStdString(Commands::MSG_VALUE_TECH_DISACT));
     }
+    //
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_TS,
         res.toStdString());
   }
 }
 
+
+//Реакция на продолжить-прервать прогрев
+void CXOperTechnology::onWarmUpConinueBreak(int _continueBreak){
+//
+  if(_continueBreak == CXWarmingUpDlg::_continue)
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_WAITING_CONTINUE, "0");
+  else
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_WAITING_BREAK, "0");
+}
+
+//
 void
 CXOperTechnology::onTechnology()
 {
-  static CXWarmingUpDlg* warmDlg = NULL;
-  if (warmDlg == NULL)
-  {
-    warmDlg = new CXWarmingUpDlg(this);
-//    warmDlg->setAttribute(Qt::WA_DeleteOnClose);
-    warmDlg->setWindowFlags(Qt::Dialog);
-//    mTurnDialog->setWindowModality(Qt::ApplicationModal);
-//    connect(warmDlg, SIGNAL(compileNeeded()), this, SLOT(onCompileFile()));
-  }
-
+//  if (warmDlg == NULL)
+//  {
+//    warmDlg = new CXWarmingUpDlg(this);
+////    warmDlg->setAttribute(Qt::WA_DeleteOnClose);
+//    warmDlg->setWindowFlags(Qt::Dialog);
+////    mTurnDialog->setWindowModality(Qt::ApplicationModal);
+////    connect(warmDlg, SIGNAL(compileNeeded()), this, SLOT(onCompileFile()));
+//  }
   warmDlg->show();
 }

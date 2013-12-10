@@ -22,6 +22,14 @@ CXUdpManager::~CXUdpManager()
 
 }
 
+
+void
+CXUdpManager::onEchoCmd(const QString& _cmd){
+  mCommands.append(_cmd);
+
+  analyze();
+}
+
 void
 CXUdpManager::sendCommand(const String& aSection, const String& aCommand, const String& aValue)
 {
@@ -55,6 +63,13 @@ CXUdpManager::onReadyRead()
       analyze();
     }
   }
+}
+
+void
+CXUdpManager::postEchoCmd(const QString& _cmd)
+{
+  QGenericReturnArgument ret;
+  QMetaObject::invokeMethod(this, "onEchoCmd", Qt::QueuedConnection, ret, Q_ARG(QString, _cmd));
 }
 
 void
