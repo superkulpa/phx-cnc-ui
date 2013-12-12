@@ -39,6 +39,7 @@ CXParameterItemDelegate::createEditor(QWidget* parent, const QStyleOptionViewIte
     QSpinBox* spinBox = new QSpinBox(parent);
 
     spinBox->setAccelerated(true);
+	spinBox->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
     spinBox->setValue(index.data(Qt::EditRole).toInt());
     spinBox->setRange(index.data(Qt::UserRole + 100).toInt(),
         index.data(Qt::UserRole + 101).toInt());
@@ -84,6 +85,7 @@ CXParameterItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& op
 
     //if(-1 == mClickTimer)
     buttonOption.state = QStyle::State_Enabled | QStyle::State_Active;
+	if (option.state & QStyle::State_HasFocus && mClickIndex == index) buttonOption.state |= QStyle::State_Sunken;
 
     if((-1 != mClickTimer)&&(option.state & QStyle::State_HasFocus))
         buttonOption.state |= QStyle::State_Sunken;
@@ -133,6 +135,7 @@ CXParameterItemDelegate::editorEvent(QEvent* e, QAbstractItemModel* model, const
   }
   case QEvent::MouseButtonRelease:
     {
+		mClickIndex = QModelIndex();
     if (mClickTimer != -1)
     {
       killTimer(mClickTimer);
@@ -437,6 +440,16 @@ CXParametersView::resetIsModified()
 void
 CXParametersView::closeEditor(QWidget* editor, QAbstractItemDelegate::EndEditHint hint)
 {
+  QWidget* focus = QApplication::focusWidget();
+
+  while (focus->parentWidget() != NULL)
+    focus = focus->parentWidget();
+
+  if (focus->metaObject()->className() == QString("CXVirtualKeyboard"))
+  {
+	  return;
+  }
+
   QTableView::closeEditor(editor, hint);
 }
 

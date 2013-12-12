@@ -55,7 +55,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>"c:\Qt\4.8.2\include\QtCore";"c:\Qt\4.8.2\include\QtNetwork";"c:\Qt\4.8.2\include\QtGui";"c:\Qt\4.8.2\include\QtXml";"c:\Qt\4.8.2\include\QtXmlPatterns";"c:\Qt\4.8.2\include";"src";"GeneratedFiles";"c:\Qt\4.8.2\include\ActiveQt";"debug";"GeneratedFiles";c:\Qt\4.8.2\mkspecs\default;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Zm200 -std=c++11 -pg -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm200 -std=c++0x -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -76,7 +76,7 @@
     <Link>
       <AdditionalDependencies>c:\Qt\4.8.2\lib\qtmaind.lib;c:\Qt\4.8.2\lib\QtXmlPatternsd4.lib;c:\Qt\4.8.2\lib\QtXmld4.lib;c:\Qt\4.8.2\lib\QtGuid4.lib;c:\Qt\4.8.2\lib\QtNetworkd4.lib;c:\Qt\4.8.2\lib\QtCored4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>c:\Qt\4.8.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>-pg "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -97,7 +97,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>"c:\Qt\4.8.2\include\QtCore";"c:\Qt\4.8.2\include\QtNetwork";"c:\Qt\4.8.2\include\QtGui";"c:\Qt\4.8.2\include\QtXml";"c:\Qt\4.8.2\include\QtXmlPatterns";"c:\Qt\4.8.2\include";"src";"GeneratedFiles";"c:\Qt\4.8.2\include\ActiveQt";"release";"GeneratedFiles";c:\Qt\4.8.2\mkspecs\default;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Zm200 -std=c++11 -pg -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Zm200 -std=c++0x -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -117,7 +117,7 @@
     <Link>
       <AdditionalDependencies>c:\Qt\4.8.2\lib\qtmain.lib;c:\Qt\4.8.2\lib\QtXmlPatterns4.lib;c:\Qt\4.8.2\lib\QtXml4.lib;c:\Qt\4.8.2\lib\QtGui4.lib;c:\Qt\4.8.2\lib\QtNetwork4.lib;c:\Qt\4.8.2\lib\QtCore4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>c:\Qt\4.8.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>-pg "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -149,6 +149,7 @@
     <ClCompile Include="src\CXGroupPanel.cpp" />
     <ClCompile Include="src\CXIniFileEditor.cpp" />
     <ClCompile Include="src\CXIniFileList.cpp" />
+    <ClCompile Include="src\utils\CXMLReader.cpp" />
     <ClCompile Include="src\CXOperDirectionDialog.cpp" />
     <ClCompile Include="src\CXOperDirectionView.cpp" />
     <ClCompile Include="src\CXOperDirectionWindow.cpp" />
@@ -170,10 +171,13 @@
     <ClCompile Include="src\CXUdpManager.cpp" />
     <ClCompile Include="src\CXUtilsWindow.cpp" />
     <ClCompile Include="src\CXVirtualKeyboard.cpp" />
+    <ClCompile Include="src\CXVirtualKeyboardNum.cpp" />
+    <ClCompile Include="src\CXWarmingUpDlg.cpp" />
     <ClCompile Include="src\CXWindowsManager.cpp" />
     <ClCompile Include="src\flowlayout.cpp" />
     <ClCompile Include="src\iniFile.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\terminalCtrl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\AXBaseWindow.h">
@@ -296,6 +300,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXIniFileList.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXIniFileList.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <ClInclude Include="src\utils\CXMLReader.h" />
     <CustomBuild Include="src\CXOperDirectionDialog.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXOperDirectionDialog.h;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXOperDirectionDialog.h -o debug\moc_CXOperDirectionDialog.cpp</Command>
@@ -470,6 +475,26 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXVirtualKeyboard.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXVirtualKeyboard.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <CustomBuild Include="src\CXVirtualKeyboardNum.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXVirtualKeyboardNum.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXVirtualKeyboardNum.h -o debug\moc_CXVirtualKeyboardNum.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXVirtualKeyboardNum.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXVirtualKeyboardNum.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXVirtualKeyboardNum.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXVirtualKeyboardNum.h -o release\moc_CXVirtualKeyboardNum.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXVirtualKeyboardNum.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXVirtualKeyboardNum.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="src\CXWarmingUpDlg.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXWarmingUpDlg.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXWarmingUpDlg.h -o debug\moc_CXWarmingUpDlg.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\CXWarmingUpDlg.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_CXWarmingUpDlg.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXWarmingUpDlg.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXWarmingUpDlg.h -o release\moc_CXWarmingUpDlg.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\CXWarmingUpDlg.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_CXWarmingUpDlg.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
     <CustomBuild Include="src\CXWindowsManager.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\CXWindowsManager.h;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\CXWindowsManager.h -o debug\moc_CXWindowsManager.cpp</Command>
@@ -483,6 +508,16 @@
     <ClInclude Include="src\SXChannelData.h" />
     <ClInclude Include="src\flowlayout.h" />
     <ClInclude Include="src\iniFile.h" />
+    <CustomBuild Include="src\terminalCtrl.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\terminalCtrl.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"debug" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\terminalCtrl.h -o debug\moc_terminalCtrl.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC src\terminalCtrl.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_terminalCtrl.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe;src\terminalCtrl.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\moc.exe  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_XMLPATTERNS_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"c:\Qt\4.8.2\include\QtCore" -I"c:\Qt\4.8.2\include\QtNetwork" -I"c:\Qt\4.8.2\include\QtGui" -I"c:\Qt\4.8.2\include\QtXml" -I"c:\Qt\4.8.2\include\QtXmlPatterns" -I"c:\Qt\4.8.2\include" -I"src" -I"GeneratedFiles" -I"c:\Qt\4.8.2\include\ActiveQt" -I"release" -I"GeneratedFiles" -Ic:\Qt\4.8.2\mkspecs\default -D_MSC_VER=1600 -DWIN32 src\terminalCtrl.h -o release\moc_terminalCtrl.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC src\terminalCtrl.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_terminalCtrl.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug\moc_AXBaseWindow.cpp">
@@ -659,10 +694,28 @@
     <ClCompile Include="release\moc_CXVirtualKeyboard.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="debug\moc_CXVirtualKeyboardNum.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_CXVirtualKeyboardNum.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_CXWarmingUpDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_CXWarmingUpDlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="debug\moc_CXWindowsManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="release\moc_CXWindowsManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_terminalCtrl.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_terminalCtrl.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="debug\qrc_resource.cpp">
@@ -683,6 +736,8 @@
     <ClInclude Include="GeneratedFiles\ui_CXProcessingParametersWindow.h" />
     <ClInclude Include="GeneratedFiles\ui_CXTurnDialog.h" />
     <ClInclude Include="GeneratedFiles\ui_CXVirtualKeyboard.h" />
+    <ClInclude Include="GeneratedFiles\ui_CXVirtualKeyboardNum.h" />
+    <ClInclude Include="GeneratedFiles\ui_CXWarmingUpDlg.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\CXChannelEdit.ui">
@@ -816,6 +871,28 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXVirtualKeyboard.ui -o GeneratedFiles\ui_CXVirtualKeyboard.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXVirtualKeyboard.ui</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXVirtualKeyboard.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="src\CXVirtualKeyboardNum.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXVirtualKeyboardNum.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXVirtualKeyboardNum.ui -o GeneratedFiles\ui_CXVirtualKeyboardNum.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXVirtualKeyboardNum.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXVirtualKeyboardNum.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;CXTouchButton.h;src\CXVirtualKeyboardNum.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXVirtualKeyboardNum.ui -o GeneratedFiles\ui_CXVirtualKeyboardNum.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXVirtualKeyboardNum.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXVirtualKeyboardNum.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="src\CXWarmingUpDlg.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe;src\CXWarmingUpDlg.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXWarmingUpDlg.ui -o GeneratedFiles\ui_CXWarmingUpDlg.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC src\CXWarmingUpDlg.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_CXWarmingUpDlg.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe;src\CXWarmingUpDlg.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Qt\4.8.2\bin\uic.exe src\CXWarmingUpDlg.ui -o GeneratedFiles\ui_CXWarmingUpDlg.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC src\CXWarmingUpDlg.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_CXWarmingUpDlg.h;%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
