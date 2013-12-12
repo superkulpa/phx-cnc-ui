@@ -83,6 +83,9 @@
     <ClCompile Include="src\CXIniFileList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\utils\CXMLReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\CXOperDirectionDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -146,6 +149,12 @@
     <ClCompile Include="src\CXVirtualKeyboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CXVirtualKeyboardNum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CXWarmingUpDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\CXWindowsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -156,6 +165,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\terminalCtrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -196,6 +208,9 @@
     <CustomBuild Include="src\CXIniFileList.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="src\utils\CXMLReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <CustomBuild Include="src\CXOperDirectionDialog.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -259,6 +274,12 @@
     <CustomBuild Include="src\CXVirtualKeyboard.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="src\CXVirtualKeyboardNum.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXWarmingUpDlg.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="src\CXWindowsManager.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -271,6 +292,9 @@
     <ClInclude Include="src\iniFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="src\terminalCtrl.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug\moc_AXBaseWindow.cpp">
@@ -447,10 +471,28 @@
     <ClCompile Include="release\moc_CXVirtualKeyboard.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_CXVirtualKeyboardNum.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_CXVirtualKeyboardNum.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_CXWarmingUpDlg.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_CXWarmingUpDlg.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_CXWindowsManager.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_CXWindowsManager.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_terminalCtrl.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_terminalCtrl.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\qrc_resource.cpp">
@@ -495,6 +537,12 @@
     <ClInclude Include="GeneratedFiles\ui_CXVirtualKeyboard.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CXVirtualKeyboardNum.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_CXWarmingUpDlg.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\CXChannelEdit.ui">
@@ -531,6 +579,12 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\CXVirtualKeyboard.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXVirtualKeyboardNum.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CXWarmingUpDlg.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -14,6 +14,7 @@ CXVirtualKeyboard::CXVirtualKeyboard() :
   setFocusPolicy(Qt::NoFocus);
   setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
   setAttribute(Qt::WA_GroupLeader);
+  setAttribute(Qt::WA_ShowWithoutActivating);
 
   installEventFilter(this);
 
@@ -49,13 +50,15 @@ CXVirtualKeyboard::onFocusChange(QWidget* old, QWidget* now)
 
   if (now != 0 && !isAncestorOf(now))
   {
+    if (mFocusedWidget != NULL) disconnect(mFocusedWidget, SIGNAL(destroyed()), this, SLOT(onDelete()));
     mFocusedWidget = now;
+	connect(mFocusedWidget, SIGNAL(destroyed()), this, SLOT(onDelete()));
 
     if (now->property("readOnly").isValid() && now->property("readOnly").toBool() == false)
     {
-      QObject* w = now;
-      while (w->parent() != NULL)
-        w = w->parent();
+      QWidget* w = now;
+      while (w->parentWidget() != NULL)
+        w = w->parentWidget();
 
       //qDebug() << w->metaObject()->className();
 
@@ -107,4 +110,10 @@ CXVirtualKeyboard::onHide()
   QApplication::processEvents();
   connect(qApp, SIGNAL(focusChanged(QWidget*, QWidget*)), this,
       SLOT(onFocusChange(QWidget*, QWidget*)));
+}
+
+void
+CXVirtualKeyboard::onDelete()
+{
+	mFocusedWidget = NULL;
 }

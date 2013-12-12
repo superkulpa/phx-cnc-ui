@@ -29,6 +29,9 @@ private slots:
   void
   onHide();
 
+  void
+  onDelete();
+
 private:
   QWidget* mFocusedWidget;
 };
