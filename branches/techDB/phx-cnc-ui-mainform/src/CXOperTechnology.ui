@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CXOperTechnology</class>
+ <widget class="QWidget" name="CXOperTechnology">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>335</width>
+    <height>679</height>
+   </rect>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
+  <property name="windowTitle">
+   <string>CXOperTechnology</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="CXTouchButton" name="mBurnButton">
+          <property name="text">
+           <string>Пробивка</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="CXTouchButton" name="mRBurnButton">
+          <property name="text">
+           <string>Врезка</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="CXTouchButton" name="mStopButton">
+          <property name="text">
+           <string>Стоп реза</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="CXTouchButton" name="mTechnology">
+     <property name="text">
+      <string>Технология:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="mButtonWidget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QFrame" name="frSuppList">
+        <layout class="QVBoxLayout" name="verticalLayout_2"/>
+       </widget>
+      </item>
+      <item>
+       <widget class="CXOperVelocityView" name="mOperVelocity" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>130</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetNoConstraint</enum>
+     </property>
+     <item>
+      <widget class="CXTouchButton" name="mCutModeButton">
+       <property name="text">
+        <string>Черчение</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="CXTouchButton" name="mMarkerButton">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="CXTouchButton" name="mSVRButton">
+       <property name="text">
+        <string>СВР</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>CXTouchButton</class>
+   <extends>QPushButton</extends>
+   <header>CXTouchButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CXOperVelocityView</class>
+   <extends>QWidget</extends>
+   <header>CXOperVelocityView.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
