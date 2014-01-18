@@ -18,7 +18,7 @@
 	CXGroupPanel QAbstractButton { min-width: 35px; min-height: 55px; }
 	CXPathView { font-size: 10pt; }
     CXPathWindow QAbstractButton { min-width: 30px; min-height: 20px; padding: 15px; }
-	CXProcessingParametersWindow QAbstractButton, CXChannelEdit QAbstractButton, CXDeviceEdit QAbstractButton { min-height: 30px; padding: 15px; }
+	CXProcessingParametersWindow QAbstractButton, CXChannelEdit QAbstractButton, CXDeviceEdit QAbstractButton, CXParamUi QAbstractButton { min-height: 30px; padding: 15px; }
 	CXEditPathFile QAbstractButton { min-width: 30px;min-height: 20px; padding: 15px; }
 	CXFilesList QAbstractButton { padding: 10px 15px; }
 	CXFilesList QLineEdit, CXOperDirectionWindow QLineEdit, CXChannelEdit QLineEdit, CXDeviceEdit QLineEdit { font-size: 14pt; padding: 5px; }
@@ -44,6 +44,8 @@
 	QScrollBar:horizontal { height: 40px; }
 	QScrollBar:vertical { width: 40px; }
 	QScrollBar::sub-line:vertical { height: 30px; }
+	CXParamUi QAbstractButton { min-width: 35px; }
+	CXParamUi QComboBox { padding: 15px 15px 15px 15px; }
 	#mFPlusButton, #mFMinusButton { border: 1px dotted black; min-width: 80px; max-width: 120px;}
 	#mFPlusButton:pressed, #mFMinusButton:pressed { background-color: "#00ff00"; }
 	#frameSpacerWidget { min-width: 60px; }
@@ -57,7 +59,7 @@
   <window_CXGroupPanel visible="1">AdnQywABAAAAAAA7AAACsQAABPEAAAMCAAAAOwAAArEAAATxAAADAgAAAAAAAA==</window_CXGroupPanel>
   <window_CXGroupPanel1 visible="1">AdnQywABAAAAAAA+AAACrQAABPEAAAMBAAAAPgAAAq0AAATxAAADAQAAAAAAAA==</window_CXGroupPanel1>
   <window_CXGroupPanel2 visible="1">AdnQywABAAAAAABfAAACegAABQUAAALcAAAAXwAAAnoAAAUFAAAC3AAAAAAAAA==</window_CXGroupPanel2>
-  <window_CXGroupPanel3 visible="1">AdnQywABAAAAAAA+AAACsQAABPIAAAMBAAAAPgAAArEAAATyAAADAQAAAAAAAA==</window_CXGroupPanel3>
+  <window_CXGroupPanel3 visible="1">AdnQywABAAAAAAA1AAACsQAABOkAAAMBAAAANQAAArEAAATpAAADAQAAAAAAAA==</window_CXGroupPanel3>
   <window_CXIniFileEditor>AdnQywABAAAAAAAAAAAAAAAABKEAAAIvAAAAAAAAAAAAAAShAAACLwAAAAAAAA==</window_CXIniFileEditor>
   <window_CXIniFileList>AdnQywABAAAAAAA+AAAAKwAAAZMAAAJ5AAAAPgAAACsAAAGTAAACeQAAAAAAAA==</window_CXIniFileList>
   <window_CXOperDirectionWindow visible="1">AdnQywABAAAAAAA+AAAAKwAAAiEAAAKwAAAAPgAAACsAAAIhAAACsAAAAAAAAA==</window_CXOperDirectionWindow>
@@ -65,12 +67,12 @@
   <window_CXPathWindow visible="1">AdnQywABAAAAAAMDAAAAQwAABPEAAAKwAAADAwAAAEMAAATxAAACsAAAAAAAAA==</window_CXPathWindow>
   <window_CXPathWindow1 visible="1">AdnQywABAAAAAAHyAAAAkwAAA5EAAAKwAAAB8gAAAJMAAAORAAACsAAAAAAAAA==</window_CXPathWindow1>
   <window_CXTitleWindow visible="1">AdnQywABAAAAAAA+AAAAGAAABPEAAABCAAAAPgAAABgAAATxAAAAQgAAAAAAAA==</window_CXTitleWindow>
-  <window_CXVirtualKeyboard>AdnQywABAAAAAAA+AAAAGAAAAY8AAAJWAAAAPgAAABgAAAGPAAACVgAAAAAAAA==</window_CXVirtualKeyboard>
+  <window_CXVirtualKeyboard visible="1">AdnQywABAAAAAAA+AAAAGAAAAY8AAAJWAAAAPgAAABgAAAGPAAACVgAAAAAAAA==</window_CXVirtualKeyboard>
   <window_CXTurnDialog>AdnQywABAAAAAAA+AAAAKwAAAz8AAAKwAAAAPgAAACsAAAM/AAACsAAAAAAAAA==</window_CXTurnDialog>
-  <window_CXUtilsWindow>AdnQywABAAAAAAAxAAAAKwAABRUAAAJ5AAAAMQAAACsAAAUVAAACeQAAAAAAAA==</window_CXUtilsWindow>
+  <window_CXUtilsWindow visible="1">AdnQywABAAAAAAAwAAAAKwAABRQAAAJ5AAAAMAAAACsAAAUUAAACeQAAAAAAAA==</window_CXUtilsWindow>
   <window_CXFilesList1>AdnQywABAAAAAAGiAAAAKwAAA14AAAJ5AAABogAAACsAAANeAAACeQAAAAAAAA==</window_CXFilesList1>
   <window_CXTextParameters visible="1">AdnQywABAAAAAAHyAAAAQwAAA5EAAAC1AAAB8gAAAEMAAAORAAAAtQAAAAAAAA==</window_CXTextParameters>
-  <window_CXGroupPanel4 visible="1">AdnQywABAAAAAAA+AAACsQAABOQAAAL/AAAAPgAAArEAAATkAAAC/wAAAAAAAA==</window_CXGroupPanel4>
+  <window_CXGroupPanel4 visible="1">AdnQywABAAAAAABLAAACsQAABPEAAAL/AAAASwAAArEAAATxAAAC/wAAAAAAAA==</window_CXGroupPanel4>
   <window_CXDeviceView visible="1">AdnQywABAAAAAAA+AAAAQwAAAWYAAAKwAAAAPgAAAEMAAAFmAAACsAAAAAAAAA==</window_CXDeviceView>
   <window_CXDeviceView1 visible="1">AdnQywABAAAAAAFnAAAAQwAAAo8AAAKwAAABZwAAAEMAAAKPAAACsAAAAAAAAA==</window_CXDeviceView1>
   <window_CXDeviceView2 visible="1">AdnQywABAAAAAAKQAAAAQwAAA7sAAAKwAAACkAAAAEMAAAO7AAACsAAAAAAAAA==</window_CXDeviceView2>
@@ -81,4 +83,147 @@
   <window_CXDeviceView6>AdnQywABAAAAAAAAAAAAGAAAAY8AAAFDAAAAAAAAABgAAAGPAAABQwAAAAAAAA==</window_CXDeviceView6>
   <window_CXOperDirectionWindow visible="1">AdnQywABAAAAAAA+AAAAKwAAAiEAAAKwAAAAPgAAACsAAAIhAAACsAAAAAAAAA==</window_CXOperDirectionWindow>
   <window_CXOperTechnology visible="1">AdnQywABAAAAAAOSAAAAKwAABOkAAAKwAAADkgAAACsAAATpAAACsAAAAAAAAA==</window_CXOperTechnology>
+  <window_CXVirtualKeyboardNum visible="1">AdnQywABAAAAAAAAAAAAAAAAAWoAAADEAAAAAAAAAAAAAAFqAAAAxAAAAAAAAA==</window_CXVirtualKeyboardNum>
+  <window_CXVirtualKeyboardNum1 visible="1">AdnQywABAAAAAAAAAAAAAAAAAWoAAADEAAAAAAAAAAAAAAFqAAAAxAAAAAAAAA==</window_CXVirtualKeyboardNum1>
+  <window_CXVirtualKeyboardNum2 visible="1">AdnQywABAAAAAAAAAAAAAAAAAWoAAADEAAAAAAAAAAAAAAFqAAAAxAAAAAAAAA==</window_CXVirtualKeyboardNum2>
+  <window_CXParamUi visible="1">AdnQywABAAAAAAA+AAAAQwAABPEAAAMFAAAAPgAAAEMAAATxAAADBQAAAAAAAA==</window_CXParamUi>
+  <ui-TechParams>
+    <plasma>
+      <!-- Порядок имеет значения, на форме отражаются в том же порядке -->
+      <Caption descr="Режим реза: Плазма"/>
+      <CuttingFeed column="1" descr="Скорость реза"/>
+      <Kerf descr="Ширина реза"/>
+      <MinThickness column="1" descr="Мин толщина"/>
+      <MaxThickness descr="Макс толщина"/>
+      <Power descr="Ток дуги"/>
+      <ArcVoltage descr="Напряжение дуги"/>
+      <CuttingZDistance descr="Высота реза"/>
+      <BurningZDistance descr="Высота пробивки"/>
+      <IgnitionDistance descr="Высота поджига"/>
+      <BurningFeed descr="Скорость пробивки"/>
+      <BurningTime descr="Время пробивки"/>
+      <ShieldCutflowRate descr="Расход защ. газа"/>
+      <PlasmaCutflowRate descr="Расход пл газа"/>
+      <ShieldCutflowPressure descr="Давление  защ. газа"/>
+      <PlasmaCutflowPressure descr="Давление пл. газа"/>
+      <ShieldPreflowRate descr="Расход защ газа2"/>
+      <PlasmaPreflowRate descr="Расход пл. газа2"/>
+      <ShieldPreflowPressure descr="Давление защ. газа2"/>
+      <PlasmaPreflowPressure descr="Давление пл. газа2"/>
+      <UnderWater descr="Под водой"/>
+      <Mixes descr="Микс газов" pos="21"/>
+      <Mixes1 visible="0" descr="Микс газов1"/>
+      <!-- unvisible -->
+      <Mixes2 visible="0" descr="Микс газов2"/>
+      <!-- unvisible -->
+      <assembly descr="Сборка резака">
+        <item path="Plasma/Image1"/>
+        <item path="Plasma/Image2"/>
+        <item path="Plasma/Image3"/>
+        <item path="Plasma/Image4"/>
+        <item path="Plasma/Image5"/>
+      </assembly>
+      <!--fixed>
+		<Manufactor value="Hypertherm"/>
+		<MetallType value="Mild Steel"/>
+	</fixed-->
+    </plasma>
+    <writer>
+      <!-- Порядок имеет значения, на форме отражаются в том же порядке -->
+      <Caption descr="Режим реза: Разметка"/>
+      <CuttingFeed descr="Скорость разметки"/>
+      <Kerf visible="0" descr="Ширина реза"/>
+      <MinThickness visible="0" descr="Мин толщина"/>
+      <MaxThickness visible="0" descr="Макс толщина"/>
+      <Power descr="Ток дуги"/>
+      <ArcVoltage descr="Напряжение дуги"/>
+      <CuttingZDistance descr="Высота реза"/>
+      <BurningZDistance visible="0" descr="Высота пробивки"/>
+      <IgnitionDistance visible="0" descr="Высота поджига"/>
+      <BurningFeed visible="0" descr="Скорость пробивки"/>
+      <BurningTime visible="0" descr="Время пробивки"/>
+      <ShieldCutflowRate descr="Расход защ. газа"/>
+      <PlasmaCutflowRate descr="Расход пл газа"/>
+      <ShieldCutflowPressure descr="Давление  защ. газа"/>
+      <PlasmaCutflowPressure descr="Давление пл. газа"/>
+      <ShieldPreflowRate visible="0" descr="Расход защ газа2"/>
+      <PlasmaPreflowRate visible="0" descr="Расход пл. газа2"/>
+      <ShieldPreflowPressure visible="0" descr="Давление защ. газа2"/>
+      <PlasmaPreflowPressure visible="0" descr="Давление пл. газа2"/>
+      <UnderWater visible="0" descr="Под водой"/>
+      <Mixes visible="0" descr="Микс газов" pos="21"/>
+      <Mixes1 visible="0" descr="Микс газов1"/>
+      <!-- unvisible -->
+      <Mixes2 visible="0" descr="Микс газов2"/>
+      <!-- unvisible -->
+      <assembly descr="Сборка резака">
+        <item path="Writer/Image1"/>
+        <item path="Writer/Image2"/>
+        <item path="Writer/Image3"/>
+        <item path="Writer/Image4"/>
+        <item path="Writer/Image5"/>
+      </assembly>
+    </writer>
+    <oxy>
+      <Caption descr="Режим реза: Кислород"/>
+      <CuttingFeed descr="Скорость реза"/>
+      <Kerf descr="Ширина реза"/>
+      <MinThickness descr="Мин толщина"/>
+      <MaxThickness descr="Макс толщина"/>
+      <Power descr="Сопло,№"/>
+      <SVRVoltage descr="Напряжение СВР"/>
+      <CuttingZDistance descr="Высота реза"/>
+      <BurningZDistance descr="Высота пробивки"/>
+      <IgnitionDistance descr="Высота поджига"/>
+      <BurningFeed descr="Скорость пробивки"/>
+      <BurningTime descr="Время пробивки"/>
+      <Gas1Cutflow1Rate visible="0" descr=" "/>
+      <Gas2Cutflow1Rate visible="0" descr=" "/>
+      <Gas2Cutflow1Pressure descr="Давление КП газа"/>
+      <Gas1Cutflow1Pressure descr="Давление ГГ газа"/>
+      <Gas2Preflow2Rate visible="0" descr=" "/>
+      <Gas1Preflow2Rate visible="0" descr=" "/>
+      <Gas2Preflow2Pressure descr="Давление ГГ"/>
+      <Gas1Preflow2Pressure visible="0" descr=" "/>
+      <UnderWater visible="0" descr="Под водой"/>
+      <Mixes1 visible="0" descr="Микс газов1"/>
+      <Mixes2 visible="0" descr="Микс газов2"/>
+      <Mixes visible="0" descr="Микс газов"/>
+      <assembly descr="Сборка резака">
+        <item path="Oxy/Image1"/>
+        <item path="Oxy/Image2"/>
+        <item path="Oxy/Image3"/>
+      </assembly>
+    </oxy>
+    <laser>
+      <Caption descr="Режим реза: Лазер"/>
+      <CuttingFeed descr="Скорость реза"/>
+      <Kerf descr="Ширина реза"/>
+      <MinThickness descr="Мин толщина"/>
+      <MaxThickness descr="Макс толщина"/>
+      <Power descr="Мощность"/>
+      <SVRVoltage descr="Напряжение СВР"/>
+      <CuttingZDistance descr="Высота реза"/>
+      <BurningZDistance descr="Высота пробивки"/>
+      <IgnitionDistance descr="Высота поджига"/>
+      <BurningFeed descr="Скорость пробивки"/>
+      <BurningTime descr="Время пробивки"/>
+      <Gas1Cutflow1Rate visible="0" descr=" "/>
+      <Gas2Cutflow1Rate visible="0" descr=" "/>
+      <Gas2Cutflow1Pressure descr="Давление реж. газа"/>
+      <Gas1Cutflow1Pressure descr="Давление защ. газа"/>
+      <Gas2Preflow2Rate visible="0" descr=" "/>
+      <Gas1Preflow2Rate visible="0" descr=" "/>
+      <Gas2Preflow2Pressure visible="0" descr=" "/>
+      <Gas1Preflow2Pressure visible="0" descr=" "/>
+      <UnderWater visible="0" descr="Под водой"/>
+      <Mixes1 visible="0" descr="Микс газов1"/>
+      <Mixes2 visible="0" descr="Микс газов2"/>
+      <Mixes visible="0" descr="Микс газов"/>
+      <assembly descr="Сборка резака">
+        <item path="Oxy/Image1"/>
+        <item path="Oxy/Image2"/>
+      </assembly>
+    </laser>
+  </ui-TechParams>
 </Settings>

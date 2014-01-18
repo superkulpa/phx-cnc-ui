@@ -18,6 +18,7 @@
 #include "CXDeviceView.h"
 #include "CXVirtualKeyboard.h"
 #include "CXUdpManager.h"
+#include "cxparamui.h"
 
 #include "terminalCtrl.h"
 //
@@ -48,13 +49,19 @@ createUIWindow(const char* aIndex, int aGroup, QMap<QString, QWidget*>& windows)
       res = new CXEditPathFile();
 
       break;
-    }
-    if (aIndex == CXCompileEdit::staticMetaObject.className())
-    {
-      res = new CXCompileEdit();
+	}
+	if (aIndex == CXCompileEdit::staticMetaObject.className())
+	{
+		res = new CXCompileEdit();
 
-      break;
-    }
+		break;
+	}
+	if (aIndex == CXParamUi::staticMetaObject.className())
+	{
+		res = new CXParamUi();
+
+		break;
+	}
     if (aIndex == CXParametersWindow::staticMetaObject.className())
     {
       res = new CXParametersWindow(false);
@@ -162,7 +169,10 @@ main(int argc, char *argv[])
       windows);
 
   createUIWindow(CXCompileEdit::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
-      windows);
+	  windows);
+
+  createUIWindow(CXParamUi::staticMetaObject.className(), 1000,
+	  windows);
 
 //
 //  for (int i = 0; i < 4; ++i)
@@ -252,18 +262,18 @@ main(int argc, char *argv[])
       texts.append(QObject::trUtf8("Макро"));
       texts.append(QObject::trUtf8("Загрузить"));
       texts.append(QObject::trUtf8("Повернуть"));
-      texts.append(QString());
+      texts.append(QObject::trUtf8("Тест"));
       texts.append(QObject::trUtf8("Выключение"));
       curGroupPanel->setButtonsText(texts);
 
       //настройка группы переключения
       curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupOper);
-      curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupParams);
+	  curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupParams);
 
       QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
           SLOT(setGroup()));
       QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel,
-          SLOT(setGroup()));
+		  SLOT(setGroup()));
 
       QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()), &manager,
           SLOT(changeVisibleVirtualKeyboard()));
@@ -274,9 +284,11 @@ main(int argc, char *argv[])
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
           windows.value("CXEditPathFile"), SLOT(onSave()));
       QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXFilesList"),
-          SLOT(onTurn()));
-      QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel,
-          SLOT(onExit()));
+		  SLOT(setGroup()));
+	  QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), windows.value("CXParamUi"),
+		  SLOT(show()));
+	  QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel,
+		  SLOT(onExit()));
 
       qobject_cast<CXFilesList*>(windows.value("CXFilesList"))->setButton(
           curGroupPanel->getButton(6));
