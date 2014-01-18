@@ -55,7 +55,9 @@ HEADERS	+=	src/AXBaseWindow.h \
             src/CXChannelEdit.h \
             src/CXDeviceEdit.h \
             src/CXWarmingUpDlg.h \            
-            src/CXVirtualKeyboardNum.h \            
+            src/CXVirtualKeyboardNum.h \     
+            src/cxparamui.h \
+            src/CXParamData.h \
             src/terminalCtrl.h \            
             src/utils/CXMLReader.h
 
@@ -97,7 +99,9 @@ SOURCES +=	src/main.cpp \
 			src/CXChannelEdit.cpp \
 			src/CXDeviceEdit.cpp \
             src/CXWarmingUpDlg.cpp \  			
-            src/CXVirtualKeyboardNum.cpp \  			
+            src/CXVirtualKeyboardNum.cpp \  
+            src/cxparamui.cpp \
+            src/CXParamData.cpp \
             src/terminalCtrl.cpp \  			
 			src/utils/CXMLReader.cpp
 
@@ -114,6 +118,7 @@ FORMS +=	src/CXFilesList.ui \
 			src/CXDeviceView.ui \
             src/CXWarmingUpDlg.ui \			
             src/CXVirtualKeyboardNum.ui \			
-			src/CXChannelEdit.ui
+			src/CXChannelEdit.ui \
+			src/cxparamui.ui
 
 RESOURCES += resource.qrc
