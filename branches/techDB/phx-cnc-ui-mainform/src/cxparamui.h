@@ -23,6 +23,9 @@ private slots:
 	void save();
 	void onButtonClicked();
 
+signals:
+  void iniSaved();
+
 private:
 	Ui::CXParamUiClass ui;
 	QString mType;

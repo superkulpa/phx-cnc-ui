@@ -268,7 +268,7 @@ main(int argc, char *argv[])
 
       //настройка группы переключения
       curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupOper);
-	  curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupParams);
+      curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupParams);
 
       QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
           SLOT(setGroup()));
@@ -285,9 +285,9 @@ main(int argc, char *argv[])
           windows.value("CXEditPathFile"), SLOT(onSave()));
       QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXFilesList"),
 		  SLOT(setGroup()));
-	  QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), windows.value("CXParamUi"),
+      QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), windows.value("CXParamUi"),
 		  SLOT(show()));
-	  QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel,
+      QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel,
 		  SLOT(onExit()));
 
       qobject_cast<CXFilesList*>(windows.value("CXFilesList"))->setButton(
@@ -435,6 +435,9 @@ main(int argc, char *argv[])
     }
     //   }
   }
+
+  QObject::connect(windows.value("CXParamUi"), SIGNAL(iniSaved()),
+        windows.value("CXParametersWindow"), SLOT(saveParameters()));
 
   /**/
   //Общий заголовок
