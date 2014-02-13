@@ -1,9 +1,16 @@
+#include <iostream>
+#include <stdexcept>
+#include <bitset>
+#include "version.h"
+
 #include "CXOperTechnology.h"
 
 #include <QRegExpValidator>
 
 #include "CXUdpManager.h"
-#include "CXSettingsXML.h"
+#include "utils/CXSettingsXML.h"
+#include "CXTechDlg.h"
+#include "utils/iniFile.h"
 
 CXOperTechnology::CXOperTechnology() :
     AXBaseWindow(), warmDlg(NULL)
@@ -12,74 +19,32 @@ CXOperTechnology::CXOperTechnology() :
 
   //QVBoxLayout* vLayout_1 = new QVBoxLayout();
 //  mTechnology= new CXTouchButton(vLayout_1);
-  mTechnology->setText(QString().fromUtf8("Т: Газокислород"));
+  mTechnology->setLongPress(true);
+  mTechnology->setText(QString().fromUtf8("Газокислород"));
 
-  //QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Preferred);
-  QHBoxLayout* horizontalLayout_2 = new QHBoxLayout();
-  horizontalLayout_2->setSpacing(10);
-//   horizontalLayout_2->setContentsMargins(3, 3, 3, 3);
-   //horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-   horizontalLayout_2->setSizeConstraint(QLayout::SetMinimumSize);
-   mTButton = new CXTouchButton(frSuppList);
-//   mTButton->setObjectName(QString::fromUtf8("mTButton"));
-//   QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
-//   sizePolicy1.setHorizontalStretch(0);
-//   sizePolicy1.setVerticalStretch(0);
-//   sizePolicy1.setHeightForWidth(mTButton->sizePolicy().hasHeightForWidth());
-//   mTButton->setSizePolicy(sizePolicy1);
-   mTButton->setText("T");
-   mTButton->setCheckable(true);
-   horizontalLayout_2->addWidget(mTButton);
-
-   mZHButton = new CXTouchButton(frSuppList);
-//   mZHButton->setObjectName(QString::fromUtf8("mZHButton"));
-//   sizePolicy1.setHeightForWidth(mZHButton->sizePolicy().hasHeightForWidth());
-//   mZHButton->setSizePolicy(sizePolicy1);
-   mZHButton->setCheckable(true);
-   horizontalLayout_2->addWidget(mZHButton);
-   mZHButton->setText("Z");
-
-   verticalLayout_2->addItem(horizontalLayout_2);
+//  QHBoxLayout* horizontalLayout_2 = new QHBoxLayout();
+//  horizontalLayout_2->setSpacing(10);
+//   horizontalLayout_2->setSizeConstraint(QLayout::SetMinimumSize);
+//   mTButton = new CXTouchButton(frSuppList);
+//   mTButton->setText("T");
+//   mTButton->setCheckable(true);
+//   horizontalLayout_2->addWidget(mTButton);
+//
+//   mZHButton = new CXTouchButton(frSuppList);
+//   mZHButton->setCheckable(true);
+//   horizontalLayout_2->addWidget(mZHButton);
+//   mZHButton->setText("Z");
+//
+//   verticalLayout_2->addItem(horizontalLayout_2);
    verticalLayout_2->addStretch();
-
-  int countOfSupp =  CXSettingsXML::getValue("settings.xml", "countOfSupp").toInt();
-
-  for(int i = 0; i<countOfSupp; i++){
-    QHBoxLayout* horizontalLayout_4 = new QHBoxLayout();
-    horizontalLayout_4->setSpacing(2);
-    mbStateSup.push_back( new CXTouchButton(frSuppList));
-    mbStateSup.last()->setCheckable(true);
-    mbStateSup.last()->setText(QString().setNum(i + 1));
-    connect(mbStateSup.last(), SIGNAL(toggled(bool)), this, SLOT(onButtonCheck()));
-
-    horizontalLayout_4->addWidget(mbStateSup.last());
-
-    mSVRZ.push_back( new QLabel(frSuppList));
-    //  mSVRZ.last()->setAlignment(Qt::AlignCenter);
-    mSVRZ.last()->setText("V:125");
-    horizontalLayout_4->addWidget(mSVRZ.last());
-
-    mbStateZ.push_back( new CXTouchButton(frSuppList));
-    mbStateZ.last()->setCheckable(true);
-    mbStateZ.last()->setText("Z" + QString().setNum(i + 1));
-    mbStateZ.last()->setChecked(true);
-    horizontalLayout_4->addWidget(mbStateZ.last());
-
-    horizontalLayout_4->setAlignment(Qt::AlignCenter);
-    //  verticalLayout_2->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum));
-    verticalLayout_2->addItem(horizontalLayout_4);
-    //  verticalLayout_2->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding));
-    verticalLayout_2->addStretch();
-  }
-  verticalLayout_2->addStretch();
 
   mOperVelocity->setMode(E_SingleMode);
   mOperVelocity->setTexts(QList<QString>() << "^" << trUtf8("стоп\n-\nавто") << "v");
 
   //mStopButton->hide();
 
-  connect(mTButton, SIGNAL(clicked()), this, SLOT(onTClick()));
-  connect(mZHButton, SIGNAL(clicked()), this, SLOT(onZHClick()));
+//  connect(mTButton, SIGNAL(clicked()), this, SLOT(onTClick()));
+//  connect(mZHButton, SIGNAL(clicked()), this, SLOT(onZHClick()));
 
   connect(mBurnButton, SIGNAL(clicked()), this, SLOT(onStart()));
   connect(mRBurnButton, SIGNAL(clicked()), this, SLOT(onStart()));
@@ -87,7 +52,7 @@ CXOperTechnology::CXOperTechnology() :
   connect(mCutModeButton, SIGNAL(clicked()), this, SLOT(onCutMode()));
   connect(mSVRButton, SIGNAL(clicked()), this, SLOT(onSVR()));
   connect(mMarkerButton, SIGNAL(clicked()), this, SLOT(onMarkerMode()));
-  connect(mTechnology, SIGNAL(clicked()), this, SLOT(onTechnology()));
+  connect(mTechnology, SIGNAL(clicked()), this, SLOT(onTechnologyButton()));
 
   connect(mOperVelocity, SIGNAL(velocityChanged(eVelocity)), this,
       SLOT(onVelocityChange(eVelocity)));
@@ -116,6 +81,106 @@ CXOperTechnology::CXOperTechnology() :
   warmDlg = new CXWarmingUpDlg(this);
   warmDlg->setWindowFlags(Qt::Dialog);
   warmDlg->registerContinueBreak(this, SLOT(onWarmUpConinueBreak(int)));
+//заполнение списка технологий
+  {
+  CIniFile iniFile("jini/config.ini");
+  iniFile.ReadIniFile();
+  int key = iniFile.FindKey("Form/Technologies");//MPlasma=Микроплазма
+  uint32_t i = 0;
+  do try{
+//    QString nameOfTech = QString::fromStdString(iniFile.ValueName(key, i));//MPlasma
+//    if(nameOfTech.isEmpty())
+//      throw std::runtime_error("valueName is empty");
+
+//    QStringList values = QString::fromUtf8(iniFile.GetValue(key, i, "0,empty").c_str()).split(",");
+//    int nSup = values[0].toInt();
+//    if(nSup == 0) {// нет числа суппорт
+//      continue;
+//    }
+//    QString descr = values[1];
+
+    //Oxy=type=TM:Oxy,name=Support2,tag=1,zCtrl=zCtrl2,gc=oxyGC,vl=1,ishead,mngr=Oxy2,mngr=Oxy3
+
+    int maskSup = 0;
+
+    std::string entryName = iniFile.ValueName(key, i);
+    if(entryName.empty())
+      throw std::runtime_error("entryName is empty");
+
+    QString descr = QString::fromUtf8(iniFile.GetValue(key, i, "empty").c_str());
+    if(descr.isEmpty()) continue;
+
+    QString nameOfTech = QString::fromStdString(entryName);
+    listOfTechs[nameOfTech] = descr;
+
+    QString entry = QString::fromStdString(iniFile.GetValue("Modules", entryName, ""));
+
+    struct calcMask{ int operator ()(const QString& entry){
+        bool isOk = false;
+        int tag =  entry.split(",").filter("tag=").value(0).split("=").value(1).toInt(&isOk);
+        if(isOk)return (1<<tag);
+        return 0;}
+    };
+
+    maskSup += calcMask()(entry);
+
+    QStringList ql = entry.split(",").filter("mngr=");
+    for(auto &ql_item: ql){
+      entryName = (ql_item).split("=").value(1).toStdString();
+
+      entry = QString::fromStdString(iniFile.GetValue("Modules", entryName, ""));
+      maskSup += calcMask()(entry);
+    }
+
+    listOfSupps[nameOfTech] = maskSup;
+  }catch(std::exception& e){
+    LOG_E(ERROR);
+  }while(++i < iniFile.NumValues(key));
+  }
+
+  {
+
+    int countOfSupp = 0;// CXSettingsXML::getValue("settings.xml", "countOfSupp").toInt();
+    for(auto it = listOfSupps.begin(); it != listOfSupps.end(); ++it){
+      countOfSupp += std::bitset<32>(it->second).count();
+    }
+
+    for(int i = 0; i<countOfSupp; i++){
+      QHBoxLayout* horizontalLayout_4 = new QHBoxLayout();
+      horizontalLayout_4->setSpacing(2);
+      mbStateSup.push_back( new CXTouchButton(frSuppList));
+      mbStateSup.last()->setCheckable(true);
+      mbStateSup.last()->setText(QString().setNum(i + 1));
+      mbStateSup.last()->setProperty("indx", (QString().setNum(i)));
+      connect(mbStateSup.last(), SIGNAL(toggled(bool)), this, SLOT(onButtonCheck()));
+
+      horizontalLayout_4->addWidget(mbStateSup.last());
+
+      mSVRZ.push_back( new QLabel(frSuppList));
+      //  mSVRZ.last()->setAlignment(Qt::AlignCenter);
+      mSVRZ.last()->setText("V:125");
+      horizontalLayout_4->addWidget(mSVRZ.last());
+
+      mbStateZ.push_back( new CXTouchButton(frSuppList));
+      mbStateZ.last()->setCheckable(true);
+      mbStateZ.last()->setText("Z" + QString().setNum(i + 1));
+      mbStateZ.last()->setChecked(true);
+      horizontalLayout_4->addWidget(mbStateZ.last());
+
+      horizontalLayout_4->setAlignment(Qt::AlignCenter);
+      //  verticalLayout_2->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum));
+      verticalLayout_2->addItem(horizontalLayout_4);
+      //  verticalLayout_2->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding));
+      verticalLayout_2->addStretch();
+    }
+    verticalLayout_2->addStretch();
+  }
+  currTech = listOfTechs.begin();
+  mTechnology->setText(currTech->second);
+  CXTechDlg::create(this, listOfTechs,  SLOT(onTechDlgClose(const QString&)) );
+
+  //QTimer::singleShot(0, this, );
+  onCommandReceive( Commands::MSG_SECTION_TECH, Commands::MSG_STATE_TECHNOLOGY , currTech->first);
 }
 
 CXOperTechnology::~CXOperTechnology()
@@ -193,8 +258,8 @@ void
 CXOperTechnology::onMarkerMode(){
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_POINTER,
       MSG_VALUE_INVERT);
-  mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "IOn7",
-      "10=invert");
+//  mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "IOn7",
+//      "10=invert");
 //TODO: qForm: сделать по уму
 }
 
@@ -227,6 +292,7 @@ CXOperTechnology::onVelocityChange(eVelocity aVelocity)
     value = "-2";
     break;
   }
+  default:;
   }
 
   QString res;
@@ -243,8 +309,7 @@ CXOperTechnology::onVelocityChange(eVelocity aVelocity)
       res.append(QString("%1=0").arg(i));
   }
 
-  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING_Z,
-      res.toStdString());
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING_Z, res);
 
   mOperVelocity->setVelocity(aVelocity);
 }
@@ -252,10 +317,10 @@ CXOperTechnology::onVelocityChange(eVelocity aVelocity)
 void
 CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
-  if (aSection == QString::fromStdString(Commands::MSG_SECTION_TECH))
+  if (aSection ==  (Commands::MSG_SECTION_TECH))
   do{
     //Напряжение
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_SVR_VOLTAGE))
+    if (aCommand ==  (Commands::MSG_STATE_SVR_VOLTAGE))
     {
       QString currentValue;
       QStringList list = aValue.split(",");
@@ -274,7 +339,7 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
       break;
     }
 
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_TECH))
+    if (aCommand ==  (Commands::MSG_STATE_TECH))
     {
       QString currentValue;
       QStringList list = aValue.split(",");
@@ -286,17 +351,18 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
         currentValue = list.at(i);
         if (currentValue.length() < 3)
           continue;
-
+        //0=disact
         int index = QString(currentValue.at(0)).toInt();
-        int value = QString(currentValue.at(2)).toInt();
+        QStringRef value = currentValue.rightRef(currentValue.length() - 2);
 
         if (index >= 0 && index < buttons.count())
         {
           curButton = buttons.at(index);
 
           curButton->blockSignals(true);
-          if (value == 0){
+          if (value == MSG_VALUE_TECH_DISACT){
             curButton->setText(" ");
+            curButton->setStyleSheet("");
             curButton->setChecked(false);
           }else{
             curButton->setText(QString::number(index + 1));
@@ -308,13 +374,15 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
 //
 //if (value == 0 || value == 4) curButton->setChecked(false);
 //if ((value >= 1 && value <= 3) || value == 5) curButton->setChecked(true);
-          QString styleSheet = curButton->styleSheet();
-          if (value <= 1 || value == 4 || value == 5)
-            curButton->setStyleSheet("");
-          if (value == 2)
+//          QString styleSheet = curButton->styleSheet();
+//          if (value <= 1 || value == 4 || value == 5)
+//            curButton->setStyleSheet("");
+          if (value == MSG_VALUE_TECH_FIRE)
             curButton->setStyleSheet("background-color: yellow;");
-          if (value == 3)
+          else if (value == MSG_VALUE_TECH_CUT)
             curButton->setStyleSheet("background-color: red;");
+          else if (value == MSG_VALUE_TECH_READY)
+            curButton->setStyleSheet("background-color: ;");
 
           curButton->blockSignals(false);
         }
@@ -322,18 +390,25 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
       break;
     }
 
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_SVR))
+    if (aCommand ==  (Commands::MSG_STATE_MODE_POINTER))
     {
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_ON))
+      if (aValue ==  (Commands::MSG_VALUE_ON))
+        mMarkerButton->setStyleSheet("background-color: green;");
+      else
+        mMarkerButton->setStyleSheet("");
+      break;
+    }
+    if (aCommand ==  (Commands::MSG_STATE_MODE_SVR))
+    {
+      if (aValue ==  (Commands::MSG_VALUE_ON))
         mSVRButton->setStyleSheet("background-color: green;");
       else
         mSVRButton->setStyleSheet("");
       break;
     }
-
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_CUT))
+    if (aCommand ==  (Commands::MSG_STATE_MODE_CUT))
     {
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_ON))
+      if (aValue ==  (Commands::MSG_VALUE_ON))
       {
         mCutModeButton->setStyleSheet("background-color: green;");
         mCutModeButton->setText(trUtf8("Резка"));
@@ -345,10 +420,48 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
       }
       break;
     }
-    if((aCommand == QString::fromStdString(Commands::MSG_STATE_WAITING) ) )
+
+    if (aCommand ==  (Commands::MSG_STATE_MODE_CUT))
+    {
+      if (aValue ==  (Commands::MSG_VALUE_ON))
+      {
+        mCutModeButton->setStyleSheet("background-color: green;");
+        mCutModeButton->setText(trUtf8("Резка"));
+      }
+      else
+      {
+        mCutModeButton->setStyleSheet("");
+        mCutModeButton->setText(trUtf8("Черчение"));
+      }
+      break;
+    }
+    if((aCommand ==  (Commands::MSG_STATE_WAITING) ) )
     {
       warmDlg->setStateWaiting(aValue);
       break;
+    }
+    if((aCommand ==  (Commands::MSG_STATE_TECHNOLOGY) ) )
+    {
+    try{
+      //QStringList values = aValue.split("=");//Oxy=4,Кислород
+
+      currTech = listOfTechs.find(aValue);
+      if(currTech == listOfTechs.end()) throw std::runtime_error(QString("Unknown tech: %1").arg(aValue).toUtf8().begin());
+
+      mTechnology->setText(currTech->second);
+      int suppMask = listOfSupps[aValue];
+      for(int i=0; i<mbStateSup.size(); i++){
+        bool visi = (1<<i) & suppMask;
+        mbStateSup[i]->setVisible(visi);
+        mSVRZ[i]     ->setVisible(visi);
+        mbStateZ[i]  ->setVisible(visi);
+        mbStateZ[i]  ->setChecked(visi);
+      }
+
+      emit eventTechnologyChanged(currTech->first);
+    }catch(std::exception& e){
+      LOG_E(ERROR);
+    }
     }
 
   }while(0);
@@ -361,20 +474,19 @@ CXOperTechnology::onButtonCheck()
 
   if (button != NULL)
   {
-    auto &buttons = mbStateSup;
+    //auto &buttons = mbStateSup;
 
-    int index = buttons.indexOf(button);
+    int index = button->property("indx").toInt();
     QString res("%1=%2");
 
-    if ( buttons[index]->isChecked()){
-      res = res.arg(index).arg(QString::fromStdString(Commands::MSG_VALUE_TECH_READY));
+    if ( button->isChecked()){
+      res = res.arg(index).arg( (Commands::MSG_VALUE_TECH_READY));
     }
     else{
-      res = res.arg(index).arg(QString::fromStdString(Commands::MSG_VALUE_TECH_DISACT));
+      res = res.arg(index).arg( (Commands::MSG_VALUE_TECH_DISACT));
     }
     //
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_TS,
-        res.toStdString());
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_TS, res);
   }
 }
 
@@ -390,15 +502,15 @@ void CXOperTechnology::onWarmUpConinueBreak(int _continueBreak){
 
 //
 void
-CXOperTechnology::onTechnology()
+CXOperTechnology::onTechnologyButton()
 {
-//  if (warmDlg == NULL)
-//  {
-//    warmDlg = new CXWarmingUpDlg(this);
-////    warmDlg->setAttribute(Qt::WA_DeleteOnClose);
-//    warmDlg->setWindowFlags(Qt::Dialog);
-////    mTurnDialog->setWindowModality(Qt::ApplicationModal);
-////    connect(warmDlg, SIGNAL(compileNeeded()), this, SLOT(onCompileFile()));
-//  }
-  warmDlg->show();
+  CXTechDlg::getInstance()->show();
+}
+
+void
+CXOperTechnology::onTechDlgClose(const QString& _tech)
+{
+  if(_tech.isEmpty())return;
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_TECHNOLOGY, _tech);
+//  onCommandReceive( (Commands::MSG_SECTION_TECH),  (Commands::MSG_STATE_TECHNOLOGY), _tech);
 }

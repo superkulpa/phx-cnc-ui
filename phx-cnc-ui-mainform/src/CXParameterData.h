@@ -54,7 +54,7 @@ private:
 class CXGroupData
 {
 public:
-  CXGroupData();
+  CXGroupData(const QString& _mName);
     ~CXGroupData();
 
 public:

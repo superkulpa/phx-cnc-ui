@@ -3,7 +3,7 @@
 #include <QPainter>
 #include <QMouseEvent>
 
-#include "CXSettingsXML.h"
+#include "utils/CXSettingsXML.h"
 
 int CXOperVelocityView::mDelay = 0;
 

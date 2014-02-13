@@ -5,7 +5,7 @@
 
 #include "ui_CXFilesList.h"
 #include "AXBaseWindow.h"
-#include "CXProcess.h"
+#include "utils/CXProcess.h"
 
 class CXTurnDialog;
 

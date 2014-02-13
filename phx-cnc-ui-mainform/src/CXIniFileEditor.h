@@ -45,15 +45,19 @@ public slots:
 public slots:
   //! Слот на открытие файла.
   void
-  onOpenFile();
-
-  void
   onItemActivate(const QModelIndex&);
+
+  void onOpenFile();
+
+  void onDownList();
+
+  void onUpList();
+
 
 signals:
   //! Сигнал на открытие файла.
   void
-  fileOpened(const QString& aFileName);
+  fileOpened(const QModelIndex&);
 
   //! Сигнал на сохранение изменений в файле.
   void
@@ -64,6 +68,8 @@ public:
   const QString getFName(){return mFileName;}
 
 private:
+  QModelIndex setCurrentItemToFirst();
+
   QFileSystemModel* mModel;
 
 private:

@@ -5,7 +5,7 @@
 #include <QRadialGradient>
 #include <qmath.h>
 
-#include "CXSettingsXML.h"
+#include "utils/CXSettingsXML.h"
 
 #define FINGER_RADIUS 10.0
 #define RADIUS 18.0

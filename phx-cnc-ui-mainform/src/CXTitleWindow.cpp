@@ -90,11 +90,11 @@ CXTitleWindow::onStopOperation(){
 void
 CXTitleWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
-  if (aSection == QString::fromStdString(Commands::MSG_SECTION_OPERATOR))
+  if (aSection ==  (Commands::MSG_SECTION_OPERATOR))
   {
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_CONTROL))
+    if (aCommand ==  (Commands::MSG_STATE_CONTROL))
     {
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_ON))
+      if (aValue ==  (Commands::MSG_VALUE_ON))
       {
         mControlButton->setStyleSheet("background-color: green;");
         mControlButton->setText(trUtf8("Управление вкл."));
@@ -105,26 +105,26 @@ CXTitleWindow::onCommandReceive(const QString& aSection, const QString& aCommand
         mControlButton->setText(trUtf8("Управление выкл."));
       }
     }
-    else if (aCommand == QString::fromStdString(Commands::MSG_STATE_STOP_CP))
+    else if (aCommand ==  (Commands::MSG_STATE_STOP_CP))
     {
       mCPStateLabel->setText(trUtf8("Ручное упр."));
     }
-    else if (aCommand == QString::fromStdString(Commands::MSG_STATE_RUN_CP))
+    else if (aCommand ==  (Commands::MSG_STATE_RUN_CP))
     {
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_HAND))
+      if (aValue ==  (Commands::MSG_VALUE_HAND))
         mCPStateLabel->setText(trUtf8("Ручное упр."));
-      else if (aValue == QString::fromStdString(Commands::MSG_VALUE_FORWARD))
+      else if (aValue ==  (Commands::MSG_VALUE_FORWARD))
         mCPStateLabel->setText(trUtf8("Вперед"));
-      else if (aValue == QString::fromStdString(Commands::MSG_VALUE_BACKWARD))
+      else if (aValue ==  (Commands::MSG_VALUE_BACKWARD))
         mCPStateLabel->setText(trUtf8("Назад"));
-      else if (aValue == QString::fromStdString(Commands::MSG_VALUE_FIND_TRJ))
+      else if (aValue ==  (Commands::MSG_VALUE_FIND_TRJ))
         mCPStateLabel->setText(trUtf8("Поиск контура"));
     }
   }
 
-  if (aSection == QString::fromStdString(Commands::MSG_SECTION_ALARM))
+  if (aSection ==  (Commands::MSG_SECTION_ALARM))
   {
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_INFO_ALARM))
+    if (aCommand ==  (Commands::MSG_STATE_INFO_ALARM))
     {
       if (aValue == "0")
       {

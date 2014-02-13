@@ -6,9 +6,9 @@
 #include <QSpinBox>
 #include <QApplication>
 #include <QMouseEvent>
-
-#include "CXSettingsXML.h"
 #include <QPushButton>
+
+#include "utils/CXSettingsXML.h"
 
 int CXParameterItemDelegate::mDelay = 0;
 QMap<int, CXGroupData*> CXParametersView::mGropusMap;
@@ -442,14 +442,15 @@ CXParametersView::closeEditor(QWidget* editor, QAbstractItemDelegate::EndEditHin
 {
   QWidget* focus = QApplication::focusWidget();
 
-  while (focus->parentWidget() != NULL)
-    focus = focus->parentWidget();
+  if(focus != NULL){
+    while (focus->parentWidget() != NULL)
+      focus = focus->parentWidget();
 
-  if (focus->metaObject()->className() == QString("CXVirtualKeyboard"))
-  {
-	  return;
+    if (focus->metaObject()->className() == QString("CXVirtualKeyboard"))
+    {
+            return;
+    }
   }
-
   QTableView::closeEditor(editor, hint);
 }
 

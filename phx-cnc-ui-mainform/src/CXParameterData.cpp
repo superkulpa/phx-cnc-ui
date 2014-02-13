@@ -1,6 +1,6 @@
 #include "CXParameterData.h"
 
-#include "iniFile.h"
+#include "utils/iniFile.h"
 
 CXParameterData::CXParameterData()
 {
@@ -42,9 +42,10 @@ CXParameterData::save()
 
 /**/
 
-CXGroupData::CXGroupData()
+CXGroupData::CXGroupData(const QString& _mName)
+  :mName(_mName)
 {
-  mIsVisible = false;
+  mIsVisible = true;
 }
 
 CXGroupData::~CXGroupData()

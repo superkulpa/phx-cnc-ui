@@ -8,9 +8,9 @@
 #include "CXTouchButton.h"
 #include "CXWindowsManager.h"
 #include "CXExitDialog.h"
-#include "flowlayout.h"
+#include "utils/flowlayout.h"
 #include "CXUdpManager.h"
-#include "CXProcess.h"
+#include "utils/CXProcess.h"
 
 CXGroupPanel::CXGroupPanel() :
     AXBaseWindow()

@@ -4,7 +4,7 @@
 #include <QXmlQuery>
 
 QString
-CXSettingsXML::getValue(const QString& aFileName, const QString& aName)
+CXSettingsXML::getValue(const QString& aFileName, const QString& aName, const  QString& def)
 {
   QString result;
   QFile xmlFile(aFileName);
@@ -19,14 +19,14 @@ CXSettingsXML::getValue(const QString& aFileName, const QString& aName)
 
     xmlFile.close();
   }
-  if(result == 0) result = 1;
+  if(result == 0) result = def;
   return result;
 }
 
 int
 CXSettingsXML::getDelay(const QString& aFileName, const QString& aName)
 {
-  QString value = CXSettingsXML::getValue(aFileName, aName);
+  QString value = CXSettingsXML::getValue(aFileName, aName, "100");
   if (value.isEmpty())
     return 200;
 

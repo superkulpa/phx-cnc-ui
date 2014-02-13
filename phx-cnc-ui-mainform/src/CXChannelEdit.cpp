@@ -3,7 +3,7 @@
 #include <QDialog>
 #include <QMessageBox>
 
-#include "iniFile.h"
+#include "utils/iniFile.h"
 
 CXChannelEdit::CXChannelEdit(QWidget* parent) :
     QDialog(parent)

@@ -1,5 +1,5 @@
-#ifndef CXOperSETTINGS_H
-#define CXOperSETTINGS_H
+#ifndef CXOperTechnology_H
+#define CXOperTechnology_H
 
 #include "AXBaseWindow.h"
 
@@ -9,6 +9,7 @@
 #include "ui_CXOperTechnology.h"
 
 #include "CXWarmingUpDlg.h"
+#include "CXTechDlg.h"
 
 /*!
  Класс настройки начальной позиции реза.
@@ -16,13 +17,15 @@
 class CXOperTechnology : public AXBaseWindow, public Ui::CXOperTechnology
 {
 Q_OBJECT
-
 public:
   //! Конструктор.
   CXOperTechnology();
 
   //! Деструктор.
   virtual ~CXOperTechnology();
+
+signals:
+  void eventTechnologyChanged(const QString& _tech);
 
 private slots:
   //!
@@ -64,10 +67,13 @@ private slots:
 
   ///Смена технологий
   void
-  onTechnology();
+  onTechnologyButton();
 
   ///Реакция на продолжить-прервать прогрев
   void onWarmUpConinueBreak(int _continueBreak);
+
+  ///Смена технологии
+  void onTechDlgClose(const QString& _tech);
 
 private:
   CXTouchButton *mTButton;
@@ -78,6 +84,10 @@ private:
   QList<CXTouchButton*> mbStateZ;
 
   CXWarmingUpDlg* warmDlg;
+  //
+  CXTechDlg::MSupps listOfSupps;
+  CXTechDlg::MTechs listOfTechs;
+  CXTechDlg::MTechs::iterator currTech;
 };
 
 #endif // CXOperSETTINGS_H

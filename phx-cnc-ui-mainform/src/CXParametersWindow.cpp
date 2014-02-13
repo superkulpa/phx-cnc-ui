@@ -1,4 +1,5 @@
-#include "CXParametersWindow.h"
+#include <iostream>
+#include <stdexcept>
 
 #include <QVBoxLayout>
 #include <QDir>
@@ -7,14 +8,17 @@
 #include <QDesktopWidget>
 #include <QMessageBox>
 #include <QTimer>
+#include <QDomDocument>
+#include <QtXml>
 
-#include "CXFtp.h"
+#include "CXParametersWindow.h"
+#include "utils/CXFtp.h"
 #include "CXParametersView.h"
-#include "iniFile.h"
+#include "utils/iniFile.h"
 #include "AXBaseWindow.h"
 #include "CXWindowsManager.h"
 #include "CXUdpManager.h"
-#include "CXSettingsXML.h"
+#include "utils/CXSettingsXML.h"
 
 #include "CXIniFileEditor.h"
 
@@ -27,6 +31,8 @@ CXParametersWindow::CXParametersWindow(bool aIsSystem) :
   mProgressBar = NULL;
   mIsSystem = aIsSystem;
 
+  currTech = "MPlasma";
+
   QVBoxLayout* centralLayout = new QVBoxLayout(this);
   centralLayout->setMargin(7);
   centralLayout->setSpacing(6);
@@ -36,12 +42,13 @@ CXParametersWindow::CXParametersWindow(bool aIsSystem) :
   fileEditor = new CXIniFileEditor();
 
 //	loadParameters();
-  connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
+  QObject::connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 
   //загружаем параметры
   loadFiles(false);
   registerManager();
+
 
   QEventLoop loop; QTimer::singleShot(2000, &loop, SLOT(quit())); loop.exec();
 }
@@ -61,7 +68,7 @@ void
 CXParametersWindow::loadParametersFromFtp()
 {
   mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "1");
-  int timerTimeout = CXSettingsXML::getValue("settings.xml", "parametersTimeout").toInt();
+  int timerTimeout = CXSettingsXML::getValue("settings.xml", "parametersTimeout", "5000").toInt();
 
   if (timerTimeout <= 0)
     timerTimeout = 1000;
@@ -69,6 +76,58 @@ CXParametersWindow::loadParametersFromFtp()
   mWaitTimer = startTimer(timerTimeout);
 }
 
+//
+void CXParametersWindow::loadGroups(){
+  try{
+     QFile xmlFile("settings.xml");
+
+     if (!xmlFile.open(QIODevice::ReadOnly))
+       throw std::runtime_error("unable to open settings.xml");
+
+     QDomDocument document("");
+     if (!document.setContent(&xmlFile))
+       throw std::runtime_error("unable to set content");;
+
+     QDomElement element = document.documentElement();
+     if (element.isNull())
+       throw std::runtime_error("no root");;
+
+     element = element.firstChildElement();
+     while (!element.isNull() && element.tagName() != "ParamGroups")
+       element = element.nextSiblingElement();
+
+     if (element.tagName() != "ParamGroups")
+       throw std::runtime_error("no ParamGroups element");;
+
+     element = element.firstChildElement();
+     while (!element.isNull())
+     {
+       if(!element.hasAttribute("value") || !element.hasAttribute("descr"))
+         throw std::runtime_error(QString("no expected attrs:" + element.nodeName()).toUtf8().begin() );
+
+       CXGroupData* curGroupData = new CXGroupData(element.attribute("descr"));
+       CXParametersView::mGropusMap.insert(element.attribute("value").toInt(), curGroupData);
+       element = element.nextSiblingElement();
+     }
+
+   }catch(std::exception& e){
+     std::cerr << "qForm:" << "CXParametersWindow::loadGroups:" << e.what() << std::endl;
+//     throw e;
+   }
+}
+
+//
+bool checkFileName(const QString& _curFile, const QString& _curTech){
+  if(_curFile == "params.ini") return true;
+
+  if(_curFile == QString("params")+_curTech+".ini") return true;
+
+  if(_curFile.contains("paramsSupport")) return true;
+
+  return false;
+}
+
+//
 void
 CXParametersWindow::loadParameters()
 {
@@ -76,6 +135,8 @@ CXParametersWindow::loadParameters()
 //    //первый запуск
 //  }
   clearData();
+//
+  loadGroups();
 
   QDir configsDir(QApplication::applicationDirPath() + "/jini");
   QStringList fileList = configsDir.entryList(QStringList() << "*.ini");
@@ -87,11 +148,12 @@ CXParametersWindow::loadParameters()
   QStringList allKeys;
   QString curKey;
   CXParameterData* curParameterData = NULL;
-  CXGroupData* curGroupData = NULL;
-
   for (int i = 0; i < fileList.count(); ++i)
   {
     curFile = fileList.at(i);
+    if(! checkFileName(curFile, currTech))  continue;
+//    std::cout << "qForm:CXParametersWindow::loadParameters():load file:"<<curFile.toStdString() << std::endl;
+//    LOG(INFO, "load file:", curFile.toStdString());
     curFile.prepend(configsDir.path() + QDir::separator());
     /**/
     CIniFile iniFile(curFile.toStdString());
@@ -101,24 +163,6 @@ CXParametersWindow::loadParameters()
     for (int i = 0; i < keysNum; ++i)
     {
       curGroup = QString::fromStdString(iniFile.GetKeyName(i));
-
-      if (curGroup.startsWith("Form"))
-      {
-        if (iniFile.FindValue(i, "value") >= 0)
-        {
-          curGroupData = new CXGroupData;
-          curGroupData->mName =
-              QString::fromUtf8(
-                  QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "descr")).toAscii());
-          if (iniFile.GetValueI(curGroup.toStdString(), "visible") == 1)
-            curGroupData->mIsVisible = true;
-
-          CXParametersView::mGropusMap.insert(
-              iniFile.GetValueI(curGroup.toStdString(), "value"), curGroupData);
-        }
-
-        continue;
-      }
 
       if (iniFile.FindValue(i, "group") >= 0)
       {
@@ -133,7 +177,6 @@ CXParametersWindow::loadParameters()
             QString::fromUtf8(
                 QString::fromStdString(iniFile.GetValue(curGroup.toStdString(), "group")).toAscii()).split(
                 ",", QString::SkipEmptyParts);
-//				if (groups.first().isEmpty()) groups.takeFirst();
 
         if (iniFile.FindValue(i, "min") >= 0)
           curParameterData->mMin = iniFile.GetValueI(curGroup.toStdString(), "min");
@@ -243,14 +286,13 @@ CXParametersWindow::setProgressText(const QString& aText)
 void
 CXParametersWindow::closeFtp()
 {
-  if (mProgressBar == NULL)
-    return;
+  if (mProgressBar != NULL){
+    mProgressBar->close();
+    delete mProgressBar;
+    mProgressBar = NULL;
+  }
 
-  mProgressBar->close();
-  delete mProgressBar;
-  mProgressBar = NULL;
-
-  disconnect(mFtp, 0, 0, 0);
+  QObject::disconnect(mFtp, 0, 0, 0);
 
   mFtp->close();
   mFtp->deleteLater();
@@ -310,7 +352,7 @@ CXParametersWindow::onCommandReceive(const QString& aSection, const QString& aCo
 {
   Q_UNUSED(aValue)
 
-  if (aSection == QString::fromStdString(Commands::MSG_SECTION_PARAMS))
+  if (aSection ==  (Commands::MSG_SECTION_PARAMS))
   {
     if (mWaitTimer != -1)
     {
@@ -318,11 +360,11 @@ CXParametersWindow::onCommandReceive(const QString& aSection, const QString& aCo
       mWaitTimer = -1;
     }
 
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_RELOAD_PARAMS))
+    if (aCommand ==  (Commands::MSG_STATE_RELOAD_PARAMS))
     {
       loadFiles(false);
     }
-    else if (aCommand == QString::fromStdString(Commands::MSG_STATE_REFRESH_PARAMS))
+    else if (aCommand ==  (Commands::MSG_STATE_REFRESH_PARAMS))
     {
 
     }
@@ -342,25 +384,44 @@ CXParametersWindow::loadFiles(bool aIsUpload)
   QSize size = QApplication::desktop()->availableGeometry().size();
   mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
 
-  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
+  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.0.125");
+  QString pswrd = CXSettingsXML::getValue("settings.xml", "ftp", "ftp");
 
   mFtp = new CXFtp(this);
-  mFtp->setConnectData(host, 21, "ftp", "ftp");
+  mFtp->setConnectData(host, 21, "ftp", pswrd);
   mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
 
   connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
   connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
-  connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this,
-      SLOT(setProgressText(const QString&)));
+  connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
   connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onFtpSuccess(bool)));
   connect(mFtp, SIGNAL(errorReceived()), this, SLOT(onFtpError()));
 
   if (aIsUpload)
-    mFtp->onFtpUpload(QStringList() << "*.ini" << "*.xml");
+    mFtp->onFtpUpload(QStringList() << "*.ini");
   else
-    mFtp->onFtpDownload(QStringList() << "ini" << "xml");
+    mFtp->onFtpDownload(QStringList() << "ini");
 
   mProgressBar->show();
+}
+
+void CXParametersWindow::loadFiles(bool aIsUpload, const QStringList& files){
+  mIsUpload = aIsUpload;
+
+  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.0.125");
+  QString pswrd = CXSettingsXML::getValue("settings.xml", "ftp", "ftp");
+
+  mFtp = new CXFtp(this);
+  mFtp->setConnectData(host, 21, "ftp", pswrd);
+  mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
+  connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onFtpSuccess(bool)));
+  connect(mFtp, SIGNAL(errorReceived()), this, SLOT(onFtpError()));
+
+  if (aIsUpload)
+    mFtp->onFtpUpload(files);
+  else
+    mFtp->onFtpDownload(files);
+
 }
 
 void
@@ -428,4 +489,11 @@ CXParametersWindow::updateButtonsText()
     curButon->setText(text);
     groupIndex++;
   }
+}
+
+void
+CXParametersWindow::setTechnology(const QString& _tech)
+{
+  currTech = _tech;
+  loadParameters();
 }

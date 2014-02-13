@@ -5,9 +5,9 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
-#include "CXSyntaxHighlighter.h"
-#include "CXFtp.h"
-#include "CXSettingsXML.h"
+#include "utils/CXSyntaxHighlighter.h"
+#include "utils/CXFtp.h"
+#include "utils/CXSettingsXML.h"
 #include "CXUdpManager.h"
 
 CXIniFileEditor::CXIniFileEditor() //:
@@ -27,16 +27,28 @@ CXIniFileEditor::CXIniFileEditor() //:
   //mRootIndex = mModel->setRootPath(QApplication::applicationDirPath() + "/../cps");
   mIniFileView->setRootIndex(mModel->setRootPath(QApplication::applicationDirPath() + "/jini"));
 
-//  connect(mIniFileView, SIGNAL(activated(const QModelIndex&)), this, SLOT(onOpenFile()));
-//  connect(mIniFileView, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onOpenFile()));
-//  connect(mIniFileView, SIGNAL(pressed(const QModelIndex&)), this, SLOT(onOpenFile()));
+  //QIcon icon; icon.addFile(QString::fromUtf8(":/images/down.png"), QSize(), QIcon::Normal, QIcon::Off);
+  btnDown->setIcon(QIcon(":/images/down.png"));
+  btnDown->setIconSize(QSize(24, 24));
+  btnDown->setAutoRepeat(true);
+  btnDown->setAutoRepeatInterval(100);
+  btnUp->setIcon(QIcon(":/images/up.png"));
+  btnUp->setIconSize(QSize(24, 24));
+  btnUp->setAutoRepeat(true);
+  btnUp->setAutoRepeatInterval(100);
+  btnLoad->setIcon(QIcon(":/images/open_folder.png"));
+  btnLoad->setIconSize(QSize(24, 24));
+  btnLoad->setAutoRepeat(true);
+  btnLoad->setAutoRepeatInterval(100);
 
-//
-//  connect(mIniFileView, SIGNAL(fileOpened(const QString&)), this, SLOT(onOpenFile(const QString&)));
-//  connect(mIniFileView, SIGNAL(fileSaved()), this, SLOT(onSave()));
+  connect(btnDown, SIGNAL(clicked()), this, SLOT(onDownList()));
+  connect(btnUp, SIGNAL(clicked()), this, SLOT(onUpList()));
+  connect(btnLoad, SIGNAL(clicked()), this, SLOT(onOpenFile()));
 
-  connect(mIniFileView, SIGNAL(activated(const QModelIndex&)), this,
-      SLOT(onItemActivate(const QModelIndex&)));
+  connect(mIniFileView, SIGNAL(activated(const QModelIndex&)), this, SLOT(onItemActivate(const QModelIndex&)));
+  connect(this, SIGNAL(fileOpened(const QModelIndex&)), this, SLOT(onItemActivate(const QModelIndex&)));
+
+
   //registerManager();
 }
 
@@ -44,6 +56,73 @@ CXIniFileEditor::~CXIniFileEditor()
 {
 
 }
+
+QModelIndex
+CXIniFileEditor::setCurrentItemToFirst()
+{
+  if (!mIniFileView->currentIndex().isValid()
+      || mIniFileView->selectionModel()->selectedIndexes().isEmpty()
+      || !mIniFileView->hasFocus())
+  {
+    QModelIndex newIndex = mModel->index(0, 0, mIniFileView->rootIndex());
+
+    mIniFileView->setCurrentIndex(newIndex);
+
+    return newIndex;
+  }
+
+  return mIniFileView->currentIndex();
+}
+
+
+void
+CXIniFileEditor::onOpenFile()
+{
+  if (mIniFileView->currentIndex().isValid())
+    emit fileOpened(mIniFileView->currentIndex());
+//    onOpenFile(mModel->filePath(mIniFileView->currentIndex()));
+}
+
+void
+CXIniFileEditor::onDownList()
+{
+  QModelIndex curIndex = mIniFileView->currentIndex();
+  if (!curIndex.isValid())
+  {
+    setCurrentItemToFirst();
+    return;
+  }
+
+  QModelIndex newIndex = mModel->index(curIndex.row() + 1, curIndex.column(),  mIniFileView->rootIndex());
+
+  mIniFileView->setFocus();
+
+  if (newIndex.isValid())
+    mIniFileView->setCurrentIndex(newIndex);
+  else
+    mIniFileView->setCurrentIndex(curIndex);
+}
+
+void
+CXIniFileEditor::onUpList()
+{
+  QModelIndex curIndex = mIniFileView->currentIndex();
+  if (!curIndex.isValid())
+  {
+    setCurrentItemToFirst();
+    return;
+  }
+
+  QModelIndex newIndex = mModel->index(curIndex.row() - 1, curIndex.column(),  mIniFileView->rootIndex());
+
+  mIniFileView->setFocus();
+
+  if (newIndex.isValid())
+    mIniFileView->setCurrentIndex(newIndex);
+  else
+    mIniFileView->setCurrentIndex(curIndex);
+}
+
 
 void
 CXIniFileEditor::onOpenFile(const QString& aFileName)
@@ -99,7 +178,7 @@ CXIniFileEditor::onSave()
 
     file.close();
 
-//    loadFiles(true);
+    //loadFiles(true);
 
 //		QMessageBox::information(this, trUtf8(""), trUtf8("Файл \"%1\" успешно записан.").arg(mFileName));
   }
@@ -110,13 +189,3 @@ CXIniFileEditor::reloadFiles()
 {
   onOpenFile(mFileName);
 }
-
-
-
-void
-CXIniFileEditor::onOpenFile()
-{
-  if (mIniFileView->currentIndex().isValid())
-    emit fileOpened(mModel->filePath(mIniFileView->currentIndex()));
-}
-

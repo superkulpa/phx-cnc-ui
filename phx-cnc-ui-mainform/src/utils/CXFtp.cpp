@@ -1,9 +1,13 @@
+#include <iostream>
+
 #include "CXFtp.h"
 
 #include <QMessageBox>
 //#include <QApplication>
 #include <QTimerEvent>
 #include <QDir>
+#include "version.h"
+#include "utils/CXSettingsXML.h"
 
 #define PROGRESS_MAXIMUM 10000
 
@@ -36,10 +40,10 @@ void
 CXFtp::setConnectData(const QString& aHost, quint16 aPort, const QString& aUser,
     const QString& aPassword)
 {
-  mHost = aHost;
+  mHost = aHost.trimmed();
   mPort = aPort;
-  mUser = aUser;
-  mPassword = aPassword;
+  mUser = aUser.trimmed();
+  mPassword = aPassword.trimmed();
 }
 
 void
@@ -137,13 +141,15 @@ CXFtp::onFtpCommandFinish(int id, bool aIsError)
       mWaitTimer = -1;
 
       login(mUser, mPassword);
+      VLOG(D4) << LOGS<< LOGP(aIsError) << ",login" <<LOGPqs(mUser) << LOGPqs(mPassword) << LOGN;
+
       if (error() != QFtp::NoError)
       {
         onFtpError(trUtf8("Не удалось подключиться к FTP-серверу:\n[%1]").arg(errorString()));
         return;
       }
-
-      mWaitTimer = startTimer(10000);
+      int timerTimeout = CXSettingsXML::getValue("settings.xml", "ftpTimeout", "5000").toInt();
+      mWaitTimer = startTimer(timerTimeout);
     }
     break;
   }
@@ -162,6 +168,7 @@ CXFtp::onFtpCommandFinish(int id, bool aIsError)
 
     if (!mRemoteDir.isEmpty())
     {
+      VLOG(D4) << LOGS << LOGP(aIsError)  << ",cd" << LOGPqs(mRemoteDir) << LOGN;
       cd(mRemoteDir);
       if (error() != QFtp::NoError)
         onFtpError(trUtf8("Не удалось подключиться к FTP-серверу:\n%1").arg(errorString()));
@@ -173,7 +180,7 @@ CXFtp::onFtpCommandFinish(int id, bool aIsError)
     {
     if (aIsError)
     {
-      onFtpError(trUtf8("Не удалось подключиться к FTP-серверу.\n[%1]").arg(errorString()));
+      onFtpError(trUtf8("Не удалось выполнить команду CD.\n[%1]").arg(errorString()));
       break;
     }
 
@@ -182,13 +189,15 @@ CXFtp::onFtpCommandFinish(int id, bool aIsError)
       calculateProgressSize();
       loadNextFile();
     }
-    else
+    else{
       list();
-
+      VLOG(D4) << LOGS << LOGP(aIsError)  << ",list" << LOGN;
+    }
     break;
   }
   case QFtp::List:
-    {
+  {
+
     if (aIsError)
     {
       onFtpError(trUtf8("Не удалось выполнить команду LIST.\n[%1]").arg(errorString()));
@@ -200,7 +209,7 @@ CXFtp::onFtpCommandFinish(int id, bool aIsError)
 
     break;
   }
-  case QFtp::Put:
+    case QFtp::Put:
     //    {
 //      QString fileName = mFilesList.first().mFileName;
 //      fileName = QFileInfo(fileName).fileName();
@@ -211,12 +220,13 @@ CXFtp::onFtpCommandFinish(int id, bool aIsError)
 //    loadNextFile();
 //    break;
 //  }
-  case QFtp::Get:
+    case QFtp::Get:
     case QFtp::RawCommand:
     {
-    clearCurrentFileData();
-    mFilesList.takeFirst();
-    loadNextFile();
+      VLOG(D4) << LOGS << LOGP(aIsError)  << ",put/get/raw" << LOGN;
+      clearCurrentFileData();
+      mFilesList.takeFirst();
+      loadNextFile();
     break;
   }
 
@@ -235,6 +245,7 @@ CXFtp::onListInfo(const QUrlInfo& aInfo)
     if (mFileFilters.isEmpty()
         || mFileFilters.contains(QFileInfo(aInfo.name()).completeSuffix()))
     {
+      VLOG(D4) << LOGS << LOGPqs(aInfo.name()) << LOGN;
       mFilesList.append(CXFtpFileInfo(aInfo.name(), aInfo.size()));
     }
   }
@@ -289,7 +300,7 @@ CXFtp::calculateProgressSize()
   {
     mProgressMaximum += iter->mFileSize;
   }
-
+  VLOG(D4) << LOGS<<LOGP(mProgressMaximum) << LOGN;
   emit progressMaximumChanged(PROGRESS_MAXIMUM);
 }
 
@@ -310,6 +321,7 @@ CXFtp::loadNextFile()
       mLoadFile = new QFile(fileName);
       mLoadFile->open(QIODevice::ReadOnly);
 
+      VLOG(D4) << LOGS<< ", put" <<LOGPqs(QFileInfo(fileName).fileName()) << LOGN;
       put(mLoadFile, QFileInfo(fileName).fileName());
     }
     else
@@ -331,7 +343,7 @@ CXFtp::loadNextFile()
 //              onFtpError(
 //                  trUtf8("Не удалось изменить права доступа файла:\n%1").arg(mLoadFile->fileName()));
 //            }
-
+      VLOG(D4) << LOGS<< ", get" <<LOGPqs(fileName) << LOGN;
       get(fileName);
     }
 

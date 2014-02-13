@@ -2,6 +2,7 @@
 
 #include <QVBoxLayout>
 #include <QTranslator>
+#include "version.h"
 
 #include "CXWindowsManager.h"
 #include "CXPathWindow.h"
@@ -23,7 +24,7 @@
 //
 #include "CXGroupPanel.h"
 
-#include "CXSettingsXML.h"
+#include "utils/CXSettingsXML.h"
 
 QWidget*
 createUIWindow(const char* aIndex, int aGroup, QMap<QString, QWidget*>& windows)
@@ -121,10 +122,15 @@ addGroupPanel(int aGroup)
 int
 main(int argc, char *argv[])
 {
+  fLB::FLAGS_logtostderr = 1;
+  fLI::FLAGS_v = 4;
+  google::InitGoogleLogging(argv[0]);
+  LOG(INFO) << "Start cnc-ui\n";
+
   QApplication app(argc, argv);
   app.setQuitOnLastWindowClosed(false);
 
-  QString translate = CXSettingsXML::getValue("settings.xml", "translate");
+  QString translate = CXSettingsXML::getValue("settings.xml", "translate", "0");
 
   if (!translate.isEmpty())
   {
@@ -135,12 +141,15 @@ main(int argc, char *argv[])
     app.installTranslator(translator);
   }
 
-  QString style = CXSettingsXML::getValue("settings.xml", "style");
+  QString style = CXSettingsXML::getValue("settings.xml", "style", "");
 
   if (!style.isEmpty())
   {
     app.setStyleSheet(style);
   }
+  CXTouchButton::mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
+  CXTouchButton::mDelayLong = CXSettingsXML::getDelay("settings.xml", "buttonDelayLong");
+
 
   CXWindowsManager manager;
   AXBaseWindow::mManager = &manager;
@@ -164,32 +173,6 @@ main(int argc, char *argv[])
   createUIWindow(CXCompileEdit::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
       windows);
 
-//
-//  for (int i = 0; i < 4; ++i)
-//    {
-//      window = createUIWindow(i, 1);
-//      windows.insertMulti(window->metaObject()->className(), window);
-//    }
-
-//  //Создание второй группы окон.
-//  for (int i = 0; i < 1; ++i)
-//    {
-//      window = createUIWindow(i + 4, 2);
-//      windows.insertMulti(window->metaObject()->className(), window);
-//    }
-
-//  createUIWindow(CXIniFileEditor::staticMetaObject.className(), CXWindowsManager::_wingroupCustom,
-//      windows);
-//  createUIWindow(CXIniFileList::staticMetaObject.className(), CXWindowsManager::_wingroupCustom,
-//      windows);
-
-//  //Создание третьей группы окон.
-//  for (int i = 0; i < 2; ++i)
-//    {
-//      window = createUIWindow(i + 5, 3);
-//      windows.insertMulti(window->metaObject()->className(), window);
-//    }
-
   createUIWindow(CXOperDirectionWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
   createUIWindow(CXOperTechnology::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
@@ -198,13 +181,6 @@ main(int argc, char *argv[])
       windows);
   createUIWindow(CXTextParameters::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
-
-//  //Создание четвертой группы окон.
-//  for (int i = 0; i < 4; ++i)
-//    {
-//      window = createUIWindow(i + 7, 4);
-//      windows.insertMulti(window->metaObject()->className(), window);
-//    }
 
   QObject::connect(windows.value("CXFilesList"),
       SIGNAL(fileManageCreated(const QString&, const QString&)),
@@ -230,18 +206,16 @@ main(int argc, char *argv[])
       SIGNAL(positionChanged(const QPointF&, bool)),
       windows.values("CXPathWindow").at(0), SLOT(setPosition(const QPointF&, bool)));
 
+  QObject::connect(windows.value("CXOperTechnology"), SIGNAL(eventTechnologyChanged(const QString&)),
+      windows.value("CXParametersWindow"), SLOT(setTechnology(const QString&)));
+
 
   //Создание функциональных панелей управления для каждой группы окон.
-  //for (int i = 1; i < 6; ++i)
-//  {
-    //curGroupPanel = addGroupPanel(i);
-
-//    switch (i)
   {
     CXGroupPanel* curGroupPanel;
     //    case 1:
 
-    curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupCP);
+    if(NULL != (curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupCP)))
     {
       QStringList texts;
       texts.append(QObject::trUtf8("Управление"));
@@ -283,7 +257,7 @@ main(int argc, char *argv[])
 
     }
 
-    curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupParams);
+    if(NULL != (curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupParams)))
     {
       QStringList texts;
       texts.append(QObject::trUtf8("УП"));
@@ -293,7 +267,7 @@ main(int argc, char *argv[])
       texts.append(QString());
       texts.append(QString());
       texts.append(QString());
-      texts.append(QObject::trUtf8("Наладка"));
+      texts.append(QString());
       texts.append(QObject::trUtf8("Загрузить"));
       texts.append(QObject::trUtf8("Сохранить"));
       curGroupPanel->setButtonsText(texts);
@@ -310,21 +284,21 @@ main(int argc, char *argv[])
           windows.value("CXParametersWindow"));
 
       QList<QPushButton*> buttons;
-      for (int i = 2; i < 7; ++i)
+      for (int i = 2; i < 8; ++i)
         buttons.append(curGroupPanel->getButton(i));
 
       parametersWindow->setButtons(buttons);
 
-      QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), parametersWindow,
-          SLOT(showSettings()));
+//      QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), parametersWindow,
+//          SLOT(showSettings()));
       QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), parametersWindow,
           SLOT(loadParametersFromFtp()));
       QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), parametersWindow,
           SLOT(saveParameters()));
     }
 
-    curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupCustom);
-    {
+//    if(NULL != (curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupCustom)))
+//    {
 //      QStringList texts;
 //      texts.append(QObject::trUtf8("Параметры"));
 //      texts.append(QString());
@@ -346,22 +320,22 @@ main(int argc, char *argv[])
 //          windows.value("CXIniFileList"), SLOT(onOpenFile()));
 //      QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()),
 //          windows.value("CXIniFileEditor"), SLOT(onSave()));
+//
+//    }
 
-    }
-
-    curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupOper);
+    if(NULL != (curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupOper)))
     {
       QStringList texts;
       texts.append(QObject::trUtf8("УП"));
       texts.append(QObject::trUtf8("Параметры"));
       texts.append(QObject::trUtf8("Наладка"));
-      texts.append(QString());
-      texts.append(QString());
       texts.append(QObject::trUtf8("Утилиты"));
+      texts.append(QString());
+      texts.append(QString());
       texts.append(QObject::trUtf8("Сбросить\nкоординаты"));
+      texts.append(QString());
+      texts.append(QString());
       texts.append(QObject::trUtf8("Сброс\nаварий"));
-      texts.append(QString());
-      texts.append(QString());
       curGroupPanel->setButtonsText(texts);
 
       curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupCP);
@@ -373,19 +347,19 @@ main(int argc, char *argv[])
           SLOT(setGroup()));
       QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel,
           SLOT(onDeviceEditShow()));
-
-      QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked()),
+      QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()),
           windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
+
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
           windows.value("CXOperDirectionWindow"), SLOT(onResetCoordinates()));
-      QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()),
+      QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()),
           windows.value("CXTextParameters"), SLOT(onResetAlarms()));
 
-      QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()),
-          &manager, SLOT(changeVisibleVirtualKeyboardNum0()));
+//      QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()),
+//          &manager, SLOT(changeVisibleVirtualKeyboardNum0()));
     }
 
-    curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupIO);
+    if(NULL != (curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupIO)))
     {
       QList<QPushButton*> buttonsList;
       buttonsList << curGroupPanel->getButton(2) << curGroupPanel->getButton(3)
@@ -431,6 +405,11 @@ main(int argc, char *argv[])
       SLOT(onFileOpen(const QString&)));
   QObject::connect(windows.value("CXTextParameters"), SIGNAL(errorReceived(const QString&)), title,
       SLOT(onErrorReceive(const QString&)));
+
+  //
+  QObject::connect(windows.value("CXOperDirectionWindow"), SIGNAL(paramsChanged(bool , const QStringList& ))
+      , windows.value("CXParametersWindow"),  SLOT(loadFiles(bool , const QStringList& )));
+
   manager.createKeyboards();
   //Загрузка данных о геометрии окон (обязательно только после их создания!).
   manager.load("settings.xml");
@@ -445,5 +424,7 @@ main(int argc, char *argv[])
   //
   CTerminalCntrl::startTerminal(AXBaseWindow::mUdpManager);
 
-  return app.exec();
+  int ret = app.exec();
+  google::ShutdownGoogleLogging();
+  return  ret;
 }

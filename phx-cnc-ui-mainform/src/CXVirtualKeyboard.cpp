@@ -63,7 +63,7 @@ CXVirtualKeyboard::onFocusChange(QWidget* old, QWidget* now)
       //qDebug() << w->metaObject()->className();
 
       if (w->metaObject()->className() == QString("CXEditPathFile")
-          || w->metaObject()->className() == QString("CXParametersWindow")
+//          || w->metaObject()->className() == QString("CXParametersWindow")
           || w->metaObject()->className() == QString("CXIniFileEditor"))
       {
         show();

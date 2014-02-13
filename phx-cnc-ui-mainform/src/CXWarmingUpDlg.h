@@ -27,6 +27,8 @@ protected:
   virtual ~CXWarmingUpDlg();
 
 public:
+  virtual void setVisible(bool visible);
+public:
   //interface methods
   void setStateWaiting(const QString &_aValue);
   void registerContinueBreak(QObject* _receiver, const char* _member);

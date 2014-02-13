@@ -4,9 +4,9 @@
 #include <QKeyEvent>
 #include <QSignalMapper>
 
-#include "CXSettingsXML.h"
+#include "utils/CXSettingsXML.h"
 #include "CXUdpManager.h"
-#include "iniFile.h"
+#include "utils/iniFile.h"
 
 CXDeviceView* CXDeviceView::mLastView = NULL;
 CXDeviceEdit* CXDeviceView::mDeviceEdit = NULL;
@@ -227,17 +227,17 @@ CXDeviceView::eventFilter(QObject* watched, QEvent* e)
       if (incKeys.contains(ev->key()))
       {
         index = incKeys.indexOf(ev->key());
-        value = QString("%1=").arg(index) + QString::fromStdString(Commands::MSG_VALUE_INC);
+        value = QString("%1=").arg(index) +  (Commands::MSG_VALUE_INC);
       }
       else if (invKeys.contains(ev->key()))
       {
         index = invKeys.indexOf(ev->key());
-        value = QString("%1=").arg(index) + QString::fromStdString(Commands::MSG_VALUE_INVERT);
+        value = QString("%1=").arg(index) +  (Commands::MSG_VALUE_INVERT);
       }
       else if (decKeys.contains(ev->key()))
       {
         index = decKeys.indexOf(ev->key());
-        value = QString("%1=").arg(index) + QString::fromStdString(Commands::MSG_VALUE_DEC);
+        value = QString("%1=").arg(index) +  (Commands::MSG_VALUE_DEC);
       }
       else
         break;
@@ -245,8 +245,7 @@ CXDeviceView::eventFilter(QObject* watched, QEvent* e)
       if (index >= mChannelCount)
         break;
 
-      mUdpManager->sendCommand(Commands::MSG_SECTION_IO,
-          /*Commands::MSG_CMD_SET_VALUE + */mDeviceName.toStdString(), value.toStdString());
+      mUdpManager->sendCommand(Commands::MSG_SECTION_IO, mDeviceName, value);
       if (mChannelsTable->currentRow() != index)
         mChannelsTable->setCurrentItem(mChannelsTable->item(index, 0));
 
@@ -442,14 +441,13 @@ CXDeviceView::onSendCommand(const QString& aCommand)
 
   QString aValue = QString("%1=").arg(index) + aCommand;
 
-  mUdpManager->sendCommand(Commands::MSG_SECTION_IO,
-      /*Commands::MSG_CMD_SET_VALUE + */mDeviceName.toStdString(), aValue.toStdString());
+  mUdpManager->sendCommand(Commands::MSG_SECTION_IO, mDeviceName, aValue);
 }
 
 void
 CXDeviceView::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
-  if (aSection == QString::fromStdString(Commands::MSG_SECTION_IO))
+  if (aSection ==  (Commands::MSG_SECTION_IO))
   {
     if (aCommand == mDeviceName)
     {

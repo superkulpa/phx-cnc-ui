@@ -25,6 +25,9 @@ public slots:
   void
   onOpenFile();
 
+  void onDownList();
+
+  void onUpList();
 signals:
   //! Сигнал на открытие файла.
   void
@@ -35,6 +38,8 @@ signals:
   fileSaved();
 
 private:
+  QModelIndex setCurrentItemToFirst();
+
   QFileSystemModel* mModel;
 };
 
