@@ -6,9 +6,18 @@
 #include <QTextStream>
 #include <QTextCodec>
 #include <QSqlQuery>
+#include <qdebug.h>
+
+#include "math.h"
 
 #include "CXBaseClient.h"
-#include "CXParamData.h"
+#include "../src/CXParamData.h"
+#define MAX_SUPP_COUNT 8
+CIniFile iniFileParams;
+CIniFile iniParamsTech;
+CIniFile iniParamsSup[MAX_SUPP_COUNT];
+int supp_count;
+int supp_mask;
 
 bool contains(const QString& aKey, KeyValueMap& aKeys, const KeyValueList& aAvailableKeys, const QString& aType)
 {
@@ -61,10 +70,202 @@ int check(const KeyValueList& aAvailableKeys, const QString& aCurKey, KeyValueMa
 	return 1;
 }
 
+int SetZHuntValue(int _supp_count, double _zHunt, double _preZHunt = .0){
+  for(int i = 0; i < _supp_count; i++){
+      iniParamsSup[i].SetValueF("Support/THC/ZHunt","value",_zHunt);
+      if(_preZHunt != 0)
+        iniParamsSup[i].SetValueF("Support/THC/preZHunt","value",_preZHunt);
+      if(!iniParamsSup[i].WriteIniFile()) return 1;
+  };
+  return 0;
+};
+
+
+//при необходимости раскидываем параметры плазмы
+int ReloadPlasmaCuttingParams(CIniFile& _cutIni, CIniFile& _techIni, QString _name){
+  string name = "Plasma/Common";
+
+  int _listFeed = _cutIni.GetValueI(name, "CuttingFeed", 1000);
+  iniFileParams.SetValueI("Move/ListFeed", "value",  _listFeed);
+  iniFileParams.SetValueI("General/Offset", "value", round(_cutIni.GetValueF(name, "Kerf", 0) * 10 / 2));
+
+  int burn_feed = _cutIni.GetValueI(name, "BurningFeed",0);
+
+  double zTouchUp = 0;
+  double zUpAfterArc = 0;
+  double zCutDistance = 0;
+  double motionDelay = round(_cutIni.GetValueF(name,"BurningTime",0) * 10);
+  string paramName = "Technology/" + _name.toStdString() + "/MotionDelay";
+  _techIni.SetValueI(paramName,"value",(motionDelay >= 0) ? motionDelay : 0);
+  paramName = "Technology/" + _name.toStdString() + "/Burn/FeedDivisor";
+  _techIni.SetValueI(paramName,"value",(int)burn_feed * 100/_listFeed);
+
+  zTouchUp = _cutIni.GetValueF(name,"IgnitionDistance",0) * 10;
+  paramName = "Technology/" + _name.toStdString() + "/TouchUp";
+  _techIni.SetValueI(paramName,"value", zTouchUp);
+
+  zUpAfterArc = _cutIni.GetValueF(name,"BurningZDistance",0) * 10;
+
+  paramName = "Technology/" + _name.toStdString() + "/Burn/ZUp";
+  if(zUpAfterArc - zTouchUp > 0 )
+   _techIni.SetValueI(paramName,"value", (zUpAfterArc - zTouchUp));
+  else
+   _techIni.SetValueI(paramName,"value", 0);
+
+
+  zCutDistance = _cutIni.GetValueF(name,"CuttingZDistance",0) * 10;
+
+  //высота реза
+  paramName = "Technology/" + _name.toStdString() + "/BurnZDistance";
+  _techIni.SetValueI(paramName,"value", zCutDistance);
+
+  if(SetZHuntValue(supp_count, _cutIni.GetValueF(name, "SVRVoltage", 0)) != 0)
+    return 1;
+
+  if(!_techIni.WriteIniFile()){
+    printf("ERROR: fault to write Ini file\n");
+    _techIni.ReadIniFile();
+    return 1;
+  };//else SendReloadIniFile(_techIni->Path());
+  return 0;
+};
+
+
+//раскидываем параметры разметчика
+int ReloadWriterCuttingParams(CIniFile& _cutIni){
+  int _listFeed = _cutIni.GetValueI("Writer/Common", "CuttingFeed", 1000);
+  iniFileParams.SetValueI("Move/ListFeed", "value", _listFeed);
+
+  double zTouchUp = _cutIni.GetValueF("Writer/Common","CuttingZDistance",0) * 10;
+  iniParamsTech.SetValueI("Technology/Writer/TouchUp","value", zTouchUp);
+
+
+  if(SetZHuntValue(3, _cutIni.GetValueF("Writer/Common","ArcVoltage",0)) != 0)
+    return 1;
+
+  if(!iniParamsTech.WriteIniFile()){
+    printf("ERROR: fault to write Ini file\n");
+    iniParamsTech.ReadIniFile();
+    return 1;
+  };//else SendReloadIniFile(iniParamsWriter.Path());
+  return 0;
+
+};
+
+//при необходимости раскидываем параметры кислорода
+int ReloadOxyCuttingParams(CIniFile& _cutIni){
+  ///скидываем параметры с временного файла в файл инициализации
+  int _listFeed = _cutIni.GetValueI("Oxy/Common", "CuttingFeed", 1000);
+  iniFileParams.SetValueI("Move/ListFeed", "value", _listFeed );
+  iniFileParams.SetValueI("General/Offset", "value", (round)(_cutIni.GetValueF("Oxy/Common", "Kerf", 0) * 10 / 2));
+
+  //файл для передачи параметров кислородной газовой консоли
+  CIniFile iniParamsGC("./jini/paramsGC.ini", 1000);
+  iniParamsGC.ReadFile("./jini/paramsGC.ini");
+  ///настройка газовой консоли
+  QString n_sup = "";
+  for(int i = 0; i < MAX_SUPP_COUNT; i++){
+    if((1 << i) & supp_mask){
+      n_sup = "Oxy/Support" + QString::number(i + 1);
+      string n_sup_std = n_sup.toStdString();
+      iniParamsGC.SetValueF(n_sup_std, "KP", _cutIni.GetValueF(n_sup_std,"KP",0));
+      iniParamsGC.SetValueF(n_sup_std, "KPV", _cutIni.GetValueF(n_sup_std,"KPV",0));
+      iniParamsGC.SetValueF(n_sup_std, "GG", _cutIni.GetValueF(n_sup_std,"GG",0));
+      iniParamsGC.SetValueF(n_sup_std, "GGV", _cutIni.GetValueF(n_sup_std,"GGV",0));
+    };
+  };
+
+  iniParamsGC.SetValueF("Oxy/MOxy_Pressure","value", _cutIni.GetValueF("Oxy/MOxy_Pressure","value",10));
+  iniParamsGC.SetValueF("Oxy/MOxy_Pressure_Hi","value", _cutIni.GetValueF("Oxy/MOxy_Pressure_Hi","value",10));
+
+  //iniParamsGC.SetValueF("Oxy/AccTimeMOxy", "value", iniParamsOxy.GetValueF("Technology/Oxy/WaitKr2","value", 10) );
+
+  if(!iniParamsGC.WriteIniFile()){
+    printf("ERROR: fault to write Ini file\n");
+    iniParamsGC.ReadIniFile();
+    return 1;
+  };//else SendReloadIniFile(iniParamsGC.Path());
+
+  ///настройкм технологических параметров
+  iniParamsTech.SetValueI("Technology/Oxy/WarmTime","value",_cutIni.GetValueF("Oxy/Common","WarmingTime",60) * 10);
+
+  iniParamsTech.SetValueI("Technology/Oxy/Burn/Time","value",_cutIni.GetValueF("Oxy/Common","BurningTime",2) * 10);
+
+  int burn_feed = _cutIni.GetValueI("Oxy/Common","BurningFeed",0);
+  iniParamsTech.SetValueI("Technology/Oxy/Burn/FeedDivisor","value",(int)burn_feed * 100/_listFeed);
+
+  if(!iniParamsTech.WriteIniFile()){
+    printf("ERROR: fault to write Ini file\n");
+    iniParamsTech.ReadIniFile();
+    return 1;
+  };//else SendReloadIniFile(iniParamsOxy.Path());
+
+//  if(SetZHuntValue(supp_count, _cutIni.GetValueF(name, "SVRVoltage", 0)) != 0)
+//      return 1;
+  return 0;
+};
+
+
+//перегружаем параметры реза
+int ReloadCuttingParams(QString _type, int _supp_mask){
+  CIniFile cutIni("./techparams.ini", -1);
+  if(!cutIni.ReadFile("./techparams.ini")){
+    fprintf(stdout,"%s\n","Unable read ini file 'techparams.ini'");
+    return 1;
+  };
+  string path = "./jini/params.ini";
+  iniFileParams.SetPath(path);
+  if(!iniFileParams.ReadFile(path)){
+    fprintf(stdout,"%s\n", "Unable read ini file './jini/params.ini'");
+    return 1;
+  };
+  path = "./jini/params" + _type.toStdString() + ".ini";
+  iniParamsTech.SetPath(path);
+  if(!iniParamsTech.ReadFile(path)){
+    string warn = "Unable read ini file " + iniParamsTech.Path();
+    fprintf(stdout,"%s\n", warn.c_str());
+    return 1;
+  };
+  //нечего инициализировать
+  if(_supp_mask == 0) return 1;
+  supp_mask = _supp_mask;
+
+  for(int i = 0; i < MAX_SUPP_COUNT; i ++){
+    if(_supp_mask & (1 << i)){
+      QString suppName = "./jini/paramsSupport" + QString::number(i + 1) + ".ini";
+      iniParamsSup[supp_count] = CIniFile(suppName.toStdString(), -1);
+      if(!iniParamsSup[supp_count].ReadFile(suppName.toStdString())){
+        string warn = "Unable read ini file " + suppName.toStdString();
+        fprintf(stdout,"%s\n", warn.c_str());
+        return 1;
+      };
+      supp_count ++;
+    };
+  };
+  //обновляем нужную технологию
+  int res = 0;
+  if((_type == "MPlasma") || (_type == "Plasma"))
+      res = ReloadPlasmaCuttingParams(cutIni, iniParamsTech,_type);
+  else if(_type == "Oxy")
+      res = ReloadOxyCuttingParams(cutIni);
+  else
+      res = ReloadWriterCuttingParams(cutIni);
+  if(res != 0) return res;
+  if(!iniFileParams.WriteIniFile()){
+    printf("ERROR: fault to write Ini file\n");
+    iniFileParams.ReadIniFile();
+    return 1;
+  };//else SendReloadIniFile(iniFileParams.Path());
+  return 0;
+};
+
 int main(int argc, char *argv[])
 {
-//	QCoreApplication a(argc, argv);
-
+//  QCoreApplication a(argc, argv);
+  if(argc == 3){
+    //передали 2 параметра, нужно разбить тек. технологию по файлам
+    return ReloadCuttingParams((QString)argv[1],QString(argv[2]).toInt());
+  };
 	QString fileName;
 	QString type;
 
@@ -194,7 +395,7 @@ int main(int argc, char *argv[])
 		return res;
 	}
 
-/* �������� �������� ����� */
+/* �������� �������� ����� */
 	w += QString(" AND gases=%1").arg(keys.value("GasTypes"));
 
 	KeyValueMap columnValuesMap;
@@ -264,7 +465,7 @@ int main(int argc, char *argv[])
 		b = b;
 	}
 */
-/* �������� �������� */
+/* �������� �������� */
 	bool isBreak = false;
 	int imageIndex = 1;
 	KeyValueMap imageParts = client.getValues("tbl_parts_groups", "part_1,part_2,part_3,part_4,part_5,part_6,part_7,part_8,part_9,part_10", QString("id=%1").arg(values.value("out_parts_group")));
