@@ -5,7 +5,7 @@
 //#include <QMessageBox>
 #include <QFileDialog>
 
-#include "CXSyntaxHighlighter.h"
+#include "utils/CXSyntaxHighlighter.h"
 #include "CXFilesList.h"
 
 CXEditPathFile::CXEditPathFile() :

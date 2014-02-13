@@ -25,6 +25,9 @@ public:
   void
   setButtons(const QList<QPushButton*>& aButtons);
 
+private:
+  void
+  loadGroups();
 public slots:
   //! Слот загрузки файлов с данным по FTP.
   void
@@ -62,6 +65,8 @@ public slots:
   void
   showSettings();
 
+  void setTechnology(const QString& _tech);
+
 signals:
   void saveParams();
 
@@ -82,11 +87,12 @@ private slots:
   void
   onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
 
+  void loadFiles(bool aIsUpload, const QStringList& files);
+
 private:
   //! Функция загрузки данных на/с FTP-сервера.
   void
   loadFiles(bool aIsUpload);
-
   //! Функция очистки данных.
   void
   clearData();
@@ -109,7 +115,7 @@ private:
 
   int mWaitTimer;
   int curTab;
-
+  QString currTech;
   QList<QPushButton*> mButtons;
 };
 

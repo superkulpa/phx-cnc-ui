@@ -2,7 +2,8 @@
 
 #include <QApplication>
 
-#include "CXSettingsXML.h"
+#include "debug.h"
+#include "utils/CXSettingsXML.h"
 
 CXUdpManager::CXUdpManager(QObject* parent) :
     QUdpSocket(parent)
@@ -11,8 +12,8 @@ CXUdpManager::CXUdpManager(QObject* parent) :
 
   connect(this, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 
-  host = QHostAddress(CXSettingsXML::getValue("settings.xml", "kernel_ip"));
-  port = CXSettingsXML::getValue("settings.xml", "kernel_port").toInt();
+  host = QHostAddress(CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.0.125"));
+  port = CXSettingsXML::getValue("settings.xml", "kernel_port", "50001").toInt();
 
   bind(QHostAddress::Any, port);
 }
@@ -31,17 +32,31 @@ CXUdpManager::onEchoCmd(const QString& _cmd){
 }
 
 void
-CXUdpManager::sendCommand(const String& aSection, const String& aCommand, const String& aValue)
+CXUdpManager::sendCommand(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
   QString command("%4%1%5%1%6%2%3");
-  command = command.arg(QString::fromStdString(Commands::SIMPLE_DELIMITER)).arg(
-      QString::fromStdString(Commands::DELIMITER)).arg(
-      QString::fromStdString(Commands::END_OF_MESSAGE));
-  command = command.arg(QString::fromStdString(aSection)).arg(QString::fromStdString(aCommand)).arg(
-      QString::fromStdString(aValue));
-  qDebug() << "qform:out:"<< command.left(command.length()-2);
+  command = command.arg( (Commands::SIMPLE_DELIMITER)).arg(
+       (Commands::DELIMITER)).arg(
+       (Commands::END_OF_MESSAGE));
+  command = command.arg(aSection)
+                   .arg(aCommand)
+                   .arg(aValue);
+  VLOG(D3) << "udp:out:" << qPrintable(command.left(command.length()-2)) << LOGN;
   writeDatagram(QByteArray().append(command), host, port);
 }
+
+//void
+//CXUdpManager::sendCommand(const QString& aSection, const QString& aCommand, const QString& aValue = "")
+//{
+//  QString command("%4%1%5%1%6%2%3");
+//  command = command.arg( (Commands::SIMPLE_DELIMITER)).arg(
+//       (Commands::DELIMITER)).arg(
+//       (Commands::END_OF_MESSAGE));
+//  command = command.arg(QString::fromStdString(aSection)).arg(QString::fromStdString(aCommand)).arg(
+//      QString::fromStdString(aValue));
+//  qDebug() << "qform:out:"<< command.left(command.length()-2);
+//  writeDatagram(QByteArray().append(command), host, port);
+//}
 
 void
 CXUdpManager::onReadyRead()
@@ -57,9 +72,9 @@ CXUdpManager::onReadyRead()
 
     mCommands.append(mCodec->toUnicode(datagram));
 
-    if (mCommands.contains(QString::fromStdString(Commands::END_OF_MESSAGE)))
+    if (mCommands.contains( (Commands::END_OF_MESSAGE)))
     {
-      mCommands.replace(QString::fromStdString(Commands::END_OF_MESSAGE), "");
+      mCommands.replace( (Commands::END_OF_MESSAGE), "");
       analyze();
     }
   }
@@ -77,7 +92,7 @@ CXUdpManager::analyze()
 {
   QString command;
   QStringList commands;
-  int pos = mCommands.indexOf(QString::fromStdString(Commands::DELIMITER));
+  int pos = mCommands.indexOf( (Commands::DELIMITER));
 
   while (pos >= 0)
   {
@@ -86,11 +101,11 @@ CXUdpManager::analyze()
     commands = command.split('#');
     if (commands.count() == 3)
     {
-      qDebug() << "qform:in:" << mCommands;
+      VLOG(D3) << "udp:in :" << qPrintable(mCommands) << LOGN;
       emit commandReceived(commands.at(0), commands.at(1), commands.at(2));
     }
 
     mCommands = mCommands.mid(pos + 1);
-    pos = mCommands.indexOf(QString::fromStdString(Commands::DELIMITER));
+    pos = mCommands.indexOf( (Commands::DELIMITER));
   }
 }

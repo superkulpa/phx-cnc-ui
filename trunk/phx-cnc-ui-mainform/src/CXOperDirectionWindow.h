@@ -46,6 +46,7 @@ signals:
   void
   positionChanged(const QPointF& aPos, bool aIsAbsolute);
 
+  void paramsChanged(bool , const QStringList& );
 private slots:
   //! Запуск процесса.
   void

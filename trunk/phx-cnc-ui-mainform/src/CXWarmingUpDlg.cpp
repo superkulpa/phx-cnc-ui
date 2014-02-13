@@ -37,19 +37,30 @@ CXWarmingUpDlg::onButtonClicked()
   case _continue:
     emit postCmdWaiting(_break);
     hide();//close();
-    btContinueBreak->setText(QString().fromUtf8("Продолжить"));
     break;
   default:
     break;
   }
 }
 
+void
+CXWarmingUpDlg::setVisible(bool visible)
+{
+  if(visible == false){
+    stage = _ticTac;
+    progressBar->setValue(0);
+    btContinueBreak->setText(QString().fromUtf8("Продолжить"));
+  }
+  QDialog::setVisible(visible);
+}
+
 void CXWarmingUpDlg::onWarmProcess(int _percent){
   //
   progressBar->setValue(_percent);
-  if(_percent >= 100){
-    stage = _continue;
-    onButtonClicked();
+  if(_percent == 0 || _percent >= 100){
+//    stage = _continue;
+//    onButtonClicked();
+    hide();
   }else
   if(isHidden()) show();
 }
@@ -58,7 +69,10 @@ void
 CXWarmingUpDlg::setStateWaiting(const QString& _aValue)
 {
   int _percent = _aValue.toInt();
-  emit postStateWaiting(_percent);
+  if(_percent == 0)
+    hide();
+  else
+    emit postStateWaiting(_percent);
 }
 
 void

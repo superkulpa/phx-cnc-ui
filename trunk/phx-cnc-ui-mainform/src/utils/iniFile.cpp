@@ -38,7 +38,7 @@ using namespace std;
 #if defined(WIN32)
 #define iniEOL endl
 #else
-#define iniEOL '\r' << endl
+#define iniEOL endl
 #endif
 
 int

@@ -5,7 +5,7 @@
 
 #include <QTreeWidget>
 
-#include "CXProcess.h"
+#include "utils/CXProcess.h"
 
 /*!
  Класс окна для утилит.

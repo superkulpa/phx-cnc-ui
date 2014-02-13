@@ -7,8 +7,8 @@
 
 #include "CXParametersView.h"
 #include "CXWindowsManager.h"
-#include "CXFtp.h"
-#include "CXSettingsXML.h"
+#include "utils/CXFtp.h"
+#include "utils/CXSettingsXML.h"
 #include "CXUdpManager.h"
 
 CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) :
@@ -40,16 +40,16 @@ CXProcessingParametersWindow::setFileName(const QString& aFileName, const QStrin
 void
 CXProcessingParametersWindow::onFileLoad()
 {
-  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip");
+  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.0.125");
 
   //QFile::rename(mFileName, mFtpFileName);
 
   QFileInfo fileInfo(mFileName);
   //QFileInfo fileFTPInfo(mFtpFileName);
+  QString pswrd = "ftp";//CXSettingsXML::getValue("settings.xml", "ftp", "ftp");
 
   mFtp = new CXFtp(this);
-
-  mFtp->setConnectData(host, 21, "ftp", "ftp");
+  mFtp->setConnectData(host, 21, "ftp", pswrd);
   mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath(), CXFtp::remoteCatalog);
 
   //записываем куда загрузится
@@ -104,6 +104,6 @@ CXProcessingParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
   AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS,
       Commands::MSG_CMD_REFRESH_PARAMS, "0");
   AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_LOAD_CP,
-      mFtpFileName.toStdString());
+      mFtpFileName);
   accept();
 }

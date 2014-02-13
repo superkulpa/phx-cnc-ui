@@ -14,7 +14,7 @@ public:
    \param aName - имя настройки.
    */
   static QString
-  getValue(const QString& aFileName, const QString& aName);
+  getValue(const QString& aFileName, const QString& aName, const  QString& def);
 
   //! Функция получения задержки.
   static int

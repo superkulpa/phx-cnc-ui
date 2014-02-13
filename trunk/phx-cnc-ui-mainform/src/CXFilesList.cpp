@@ -1,17 +1,17 @@
 #include "CXFilesList.h"
 
 #include <QFile>
-#include <QApplication>
+#include <QtGui/QApplication>
 #include <QDomDocument>
 #include <QTextStream>
-#include <QMessageBox>
+#include <QtGui/QMessageBox>
 
 #include "CXParametersView.h"
 #include "CXProcessingParametersWindow.h"
 #include "CXTurnDialog.h"
 #include "CXUdpManager.h"
 #include "utils/CXMLReader.h"
-#include <QResizeEvent>
+#include <QtGui/QResizeEvent>
 
 CXFilesList::CXFilesList(bool aIsSaveDialog) :
     AXBaseWindow()
@@ -53,6 +53,7 @@ CXFilesList::CXFilesList(bool aIsSaveDialog) :
 
   connect(mFileView, SIGNAL(activated(const QModelIndex&)), this,
       SLOT(onItemActivate(const QModelIndex&)));
+
   connect(mDownButton, SIGNAL(clicked()), this, SLOT(onDownList()));
   connect(mUpButton, SIGNAL(clicked()), this, SLOT(onUpList()));
   connect(mOpenButton, SIGNAL(clicked()), this, SLOT(onOpen()));

@@ -6,7 +6,7 @@
 #include <QTextCodec>
 
 #include "../../CNC/IMessageConstants.h"
-typedef std::string String;
+//typedef std::string String;
 
 /*!
  Класс для работы с UDP-протоколом.
@@ -29,7 +29,10 @@ protected:
 
   //! Функция отправки команды.
   void
-  sendCommand(const String& aSection, const String& aCommand, const String& aValue = "");
+  sendCommand(const QString& aSection, const QString& aCommand, const QString& aValue = "");
+
+//  void
+//  sendCommand(const QString& aSection, const QString& aCommand, const QString& aValue = "");
 
 signals:
   //! Сигнал на получение команды от ядра.

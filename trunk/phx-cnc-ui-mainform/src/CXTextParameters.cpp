@@ -49,9 +49,9 @@ CXTextParameters::onResetAlarms()
 void
 CXTextParameters::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
-  if (aSection == QString::fromStdString(Commands::MSG_SECTION_ALARM))
+  if (aSection ==  (Commands::MSG_SECTION_ALARM))
   {
-    if (!mIsError || aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM))
+    if (!mIsError || aCommand ==  (Commands::MSG_STATE_MULTI_ALARM))
     {
       mTextEdit->clear();
     }
@@ -60,8 +60,8 @@ CXTextParameters::onCommandReceive(const QString& aSection, const QString& aComm
 
     QStringList alarms = aValue.split(";", QString::SkipEmptyParts);
 
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM)
-        || aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM_ADD))
+    if (aCommand ==  (Commands::MSG_STATE_MULTI_ALARM)
+        || aCommand ==  (Commands::MSG_STATE_MULTI_ALARM_ADD))
     {
       QString buffer;
 
@@ -77,7 +77,7 @@ CXTextParameters::onCommandReceive(const QString& aSection, const QString& aComm
       }
     }
 
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_MULTI_ALARM_REMOVE))
+    if (aCommand ==  (Commands::MSG_STATE_MULTI_ALARM_REMOVE))
     {
       QString text = mTextEdit->toPlainText();
       QString buffer;

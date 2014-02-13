@@ -4,7 +4,7 @@
 #include <QWheelEvent>
 #include <qmath.h>
 
-#include "CXSettingsXML.h"
+#include "utils/CXSettingsXML.h"
 
 #define MARGIN 10
 
@@ -26,7 +26,7 @@ CXPathView::CXPathView(QWidget* parent) :
   mIsFirstStart = false;
   mIsPositionVisible = false;
 
-  mRotateAxis = CXSettingsXML::getValue("settings.xml", "rotateAxis").toInt();
+  mRotateAxis = CXSettingsXML::getValue("settings.xml", "rotateAxis", "0").toInt();
 }
 
 CXPathView::~CXPathView()

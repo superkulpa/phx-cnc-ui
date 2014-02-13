@@ -10,7 +10,7 @@
 
 #include "CXGroupPanel.h"
 #include "CXVirtualKeyboard.h"
-#include "CXSettingsXML.h"
+#include "utils/CXSettingsXML.h"
 #include "CXVirtualKeyboardNum.h"
 
 CXWindowsManager::CXWindowsManager()
@@ -29,7 +29,7 @@ CXWindowsManager::CXWindowsManager()
   mGroupNumber = 0;
 
   IsVirtualKeyboardEnabled = true;
-  QString virtualKeyboardEnabled = CXSettingsXML::getValue("settings.xml", "virtual_keyboard");
+  QString virtualKeyboardEnabled = CXSettingsXML::getValue("settings.xml", "virtual_keyboard", "0");
   if (!virtualKeyboardEnabled.isEmpty() && virtualKeyboardEnabled.toInt() == 0)
     IsVirtualKeyboardEnabled = false;
 }
@@ -580,8 +580,8 @@ CXWindowsManager::createKeyboards()
 {
   mVirtualKeyboard = new CXVirtualKeyboard;
 mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(0));
-mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(1));
-mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(2));
+//mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(1));
+//mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(2));
 }
 
 bool

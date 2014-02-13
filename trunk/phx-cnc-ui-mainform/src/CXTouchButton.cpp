@@ -6,9 +6,10 @@
 #include <QStyleOption>
 #include <QPainter>
 
-#include "CXSettingsXML.h"
+#include "utils/CXSettingsXML.h"
 
-int CXTouchButton::mDelay = 0;
+int CXTouchButton::mDelay = 100;
+int CXTouchButton::mDelayLong = 1000;
 
 CXTouchButton::CXTouchButton(QWidget* parent) :
     QPushButton(parent)
@@ -17,8 +18,8 @@ CXTouchButton::CXTouchButton(QWidget* parent) :
   mIsLongPress = false;
   setFocusPolicy(Qt::NoFocus);
 
-  if (mDelay == 0)
-    mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
+//  if (mDelay == 0)
+//    mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
 }
 
 CXTouchButton::CXTouchButton(const QString& text, QWidget* parent) :
@@ -28,8 +29,10 @@ CXTouchButton::CXTouchButton(const QString& text, QWidget* parent) :
   mIsLongPress = false;
   setFocusPolicy(Qt::NoFocus);
 
-  if (mDelay == 0)
-    mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
+//  if (mDelay == 0)
+//    mDelay = CXSettingsXML::getDelay("settings.xml", "buttonDelay");
+//  if (mDelayLong == 0)
+//    mDelayLong = CXSettingsXML::getDelay("settings.xml", "buttonDelayLong");
 }
 
 CXTouchButton::~CXTouchButton()
@@ -60,9 +63,9 @@ CXTouchButton::mousePressEvent(QMouseEvent* e)
 {
   if (e->button() == Qt::LeftButton)
   {
-    mTimer = startTimer(mDelay);
+    mTimer = startTimer(mIsLongPress?mDelayLong:mDelay);
 
-    if (!isCheckable() && !mIsLongPress)
+    if (!isCheckable()/* && !mIsLongPress*/)
       QPushButton::mousePressEvent(e);
   }
 }
@@ -106,13 +109,13 @@ CXTouchButton::timerEvent(QTimerEvent* e)
 //      setChecked(!isChecked());
 //      emit clicked(isChecked());
 //    }
-//    if (mIsLongPress)
-//    {
-//      QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonPress, QPoint(1, 1), Qt::LeftButton,
-//          Qt::NoButton, Qt::NoModifier);
-//      QPushButton::mousePressEvent(e);
-//      delete e;
-//    }
+    if (mIsLongPress)
+    {
+      QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonRelease, QPoint(1, 1), Qt::LeftButton,
+          Qt::NoButton, Qt::NoModifier);
+      QPushButton::mouseReleaseEvent(e);
+      delete e;
+    }
 //    else
 //    {
 //      QMouseEvent* e = new QMouseEvent(QEvent::MouseButtonRelease, QPoint(1, 1), Qt::LeftButton,

@@ -23,4 +23,6 @@
  *  - подчистить код.
 */
 
+#include "debug.h"
+
 #endif /* VERSION_H_ */

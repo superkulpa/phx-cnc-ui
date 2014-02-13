@@ -40,8 +40,9 @@ private:
   QTime mTime;
   int mTimer;
   bool mIsLongPress;
-
+public:
   static int mDelay;
+  static int mDelayLong;
 };
 
 #endif // CXTOUCHBUTTON_H

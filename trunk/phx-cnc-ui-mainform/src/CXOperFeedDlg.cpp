@@ -1,25 +1,44 @@
-#include "CXOperDirectionDialog.h"
-
 #include <QClipboard>
 
-#include "CXUdpManager.h"
+#include "CXOperFeedDlg.h"
+#include "utils/iniFile.h"
 
-CXOperDirectionDialog::CXOperDirectionDialog(QWidget* parent) :
+int CXOperFeedDlg::createAndGetFeedDlg(QWidget *parent){
+  CXOperFeedDlg dlg(parent);
+
+  int res = dlg.exec();
+  if(! res) return res;
+  return 1;
+}
+
+CXOperFeedDlg::CXOperFeedDlg(QWidget *parent) :
     QDialog(parent)
 {
   setupUi(this);
   setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
-  mUdpManager = NULL;
+//  std::string s = QApplication::applicationDirPath().toStdString() + "/jini/params.ini";
+  iniFile = CIniFile("jini/params.ini");
+  iniFile.ReadIniFile();
+  int feeds[3];
+  feeds[0] = QString::fromStdString(iniFile.GetValue("Move/ListFeed", "value", "1000")).toInt();
+  feeds[1] = QString::fromStdString(iniFile.GetValue("Move/FastFeed", "value", "10000")).toInt();
+  feeds[2] = QString::fromStdString(iniFile.GetValue("Move/LowFeed", "value", "100")).toInt();
+
 
   QRegExp regExp("(\\+|-)?\\d*\\.?\\d*");
-  mXEdit->setValidator(new QRegExpValidator(regExp, mXEdit));
-  mYEdit->setValidator(new QRegExpValidator(regExp, mYEdit));
-  mFrameEdit->setValidator(new QRegExpValidator(regExp, mFrameEdit));
+  mFRegularEdit->setValidator(new QRegExpValidator(regExp, mFRegularEdit));
+  mFRegularEdit->setText(QString::number(feeds[0]));
 
+  mFFastEdit->setValidator(new QRegExpValidator(regExp, mFFastEdit));
+  mFFastEdit->setText(QString::number(feeds[1]));
+
+  mFSlowEdit->setValidator(new QRegExpValidator(regExp, mFSlowEdit));
+  mFSlowEdit->setText(QString::number(feeds[2]));
+
+  //
   connect(mCancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-  connect(mAbsoluteButton, SIGNAL(clicked()), this, SLOT(onAbsolute()));
-  connect(mRelativeButton, SIGNAL(clicked()), this, SLOT(onRelative()));
+  connect(apply, SIGNAL(clicked()), this, SLOT(accept()));
 
   connect(mButton0, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(mButton1, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
@@ -37,53 +56,17 @@ CXOperDirectionDialog::CXOperDirectionDialog(QWidget* parent) :
   connect(mButtonDel, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(mButtonEnter, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
 
-  connect(mStepMoveButton, SIGNAL(clicked()), this, SLOT(onStepMove()));
-  connect(mStepSetButton, SIGNAL(clicked()), this, SLOT(onStepSet()));
-  connect(mBurnMoveButton, SIGNAL(clicked()), this, SLOT(onBurnMove()));
-  connect(mBurnSetButton, SIGNAL(clicked()), this, SLOT(onBurnSet()));
 }
 
-CXOperDirectionDialog::~CXOperDirectionDialog()
+//
+CXOperFeedDlg::~CXOperFeedDlg()
 {
 
 }
 
-QPointF
-CXOperDirectionDialog::getPosition()
-{
-  return QPointF(mXEdit->text().toInt() * 100, mYEdit->text().toInt() * 100);
-}
+//
 
-void
-CXOperDirectionDialog::onAbsolute()
-{
-  if (mUdpManager != NULL && !mXEdit->text().isEmpty() && !mYEdit->text().isEmpty())
-  {
-    QString res("0=%1,1=%2");
-    res = res.arg(mXEdit->text().toInt() * 100).arg(mYEdit->text().toInt() * 100);
-
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_ABSOLUTE_MOVING, res);
-  }
-
-  done(1);
-}
-
-void
-CXOperDirectionDialog::onRelative()
-{
-  if (mUdpManager != NULL && !mXEdit->text().isEmpty() && !mYEdit->text().isEmpty())
-  {
-    QString res("0=%1,1=%2");
-    res = res.arg(mXEdit->text().toInt() * 100).arg(mYEdit->text().toInt() * 100);
-
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_COMPARATIVE_MOVING, res);
-  }
-
-  done(2);
-}
-
-void
-CXOperDirectionDialog::onButtonClicked()
+void CXOperFeedDlg::onButtonClicked()
 {
   QPushButton* clickedButton = qobject_cast<QPushButton*>(sender());
   QLineEdit* lineEdit = qobject_cast<QLineEdit*>(focusWidget());
@@ -140,41 +123,26 @@ CXOperDirectionDialog::onButtonClicked()
     }
     case Qt::Key_Enter:
       {
-
+        accept();
       break;
     }
     }
   }
 }
 
+//
 void
-CXOperDirectionDialog::onStepMove()
+CXOperFeedDlg::accept()
 {
-  if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_STEP,
-        mFrameEdit->text());
-}
+  int feeds[3];
+  feeds[0] = mFRegularEdit->text().toInt();
+  feeds[1] = mFFastEdit->text().toInt();
+  feeds[2] = mFSlowEdit->text().toInt();
 
-void
-CXOperDirectionDialog::onStepSet()
-{
-  if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_STEP,
-        mFrameEdit->text());
-}
+  iniFile.SetValue("Move/ListFeed", "value", QString::number(feeds[0]).toStdString());
+  iniFile.SetValue("Move/FastFeed", "value", QString::number(feeds[1]).toStdString());
+  iniFile.SetValue("Move/LowFeed", "value", QString::number(feeds[2]).toStdString());
+  iniFile.WriteIniFile();
 
-void
-CXOperDirectionDialog::onBurnMove()
-{
-  if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_BURN,
-        mFrameEdit->text());
-}
-
-void
-CXOperDirectionDialog::onBurnSet()
-{
-  if (mUdpManager != NULL && !mFrameEdit->text().isEmpty())
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_BURN,
-        mFrameEdit->text());
+  QDialog::accept();
 }

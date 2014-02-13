@@ -10,15 +10,16 @@
 #include "CXOperDirectionDialog.h"
 #include "CXUtilsWindow.h"
 #include "CXUdpManager.h"
-#include "CXSettingsXML.h"
+#include "utils/CXSettingsXML.h"
 #include "CXVirtualKeyboardNum.h"
+#include "CXOperFeedDlg.h"
 
 CXOperDirectionWindow::CXOperDirectionWindow() :
-    AXBaseWindow()
+AXBaseWindow()
 {
   mIsRunning = false;
   mUtils = NULL;
-  mRotateAxis = CXSettingsXML::getValue("settings.xml", "rotateAxis").toInt();
+  mRotateAxis = CXSettingsXML::getValue("settings.xml", "rotateAxis", "0").toInt();
 
   QVBoxLayout* centralLayout = new QVBoxLayout(this);
   centralLayout->setMargin(5);
@@ -61,11 +62,14 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   mXEdit = new QLineEdit(groupBox);
   mXEdit->setReadOnly(true);
   mXEdit->setValidator(new QRegExpValidator(regExp, mXEdit));
+  mXEdit->setAlignment(Qt::AlignRight);
+
   positionLayout->addWidget(mXEdit);
 
   mYEdit = new QLineEdit(groupBox);
   mYEdit->setReadOnly(true);
   mYEdit->setValidator(new QRegExpValidator(regExp, mYEdit));
+  mYEdit->setAlignment(Qt::AlignRight);
   positionLayout->addWidget(mYEdit);
 
   groupBoxLayout->addLayout(positionLayout);
@@ -74,13 +78,14 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
 
   mFLabel = new CXTouchButton("F", groupBox);
   mFLabel->setObjectName("mFLabel");
-//  mFLabel->setAlignment(Qt::AlignCenter);
+  //  mFLabel->setAlignment(Qt::AlignCenter);
   mFLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   velocityLayout->addWidget(mFLabel);
 
   mFEdit = new QLineEdit(groupBox);
   mFEdit->setReadOnly(true);
   mFEdit->setValidator(new QRegExpValidator(regExp, mFEdit));
+  mFEdit->setAlignment(Qt::AlignLeft);
   velocityLayout->addWidget(mFEdit);
 
   CXTouchButton* plusButton = new CXTouchButton("+", groupBox);
@@ -99,7 +104,7 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   QHBoxLayout* OperLayout = new QHBoxLayout;
   OperLayout->setSpacing(10);
 
-  int directionViewType = CXSettingsXML::getValue("settings.xml", "directionViewType").toInt();
+  int directionViewType = CXSettingsXML::getValue("settings.xml", "directionViewType", "0").toInt();
 
   mOperVelocityView = new CXOperVelocityView(this);
   if (directionViewType != E_Circle) mOperVelocityView->hide();
@@ -113,12 +118,12 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
 
   mOperDirectionView = new CXOperDirectionView(this, eDirectionViewTypes(directionViewType));
   OperLayout->addWidget(mOperDirectionView, 5);
-/*
+  /*
   mCurrentFrameLabel = new QLabel(this);
   mCurrentFrameLabel->hide();
   OperLayout->addWidget(mCurrentFrameLabel, 5);
-*/
-/**/
+   */
+  /**/
   mFrameWidget = new QWidget(this);
   mFrameWidget->hide();
 
@@ -128,13 +133,13 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
 
   mFPlusButton = new CXTouchButton(trUtf8("+"), mFrameWidget);
   mFPlusButton->setObjectName("mFPlusButton");
-  mFPlusButton->setLongPress(true);
+  //  mFPlusButton->setLongPress(true);
   mFPlusButton->setFlat(true);
   mFPlusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
   mFMinusButton = new CXTouchButton(trUtf8("-"), mFrameWidget);
   mFMinusButton->setObjectName("mFMinusButton");
-  mFMinusButton->setLongPress(true);
+  //  mFMinusButton->setLongPress(true);
   mFMinusButton->setFlat(true);
   mFMinusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
@@ -162,7 +167,7 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   mFrameEdit->setObjectName("mFrameEdit");
   mBurnEdit = new QLineEdit(mFrameWidget);
   mBurnEdit->setObjectName("mBurnEdit");
-  
+
   dataLayout->addWidget(frameLabel, 0, 0);
   dataLayout->addWidget(burnLabel, 1, 0);
   dataLayout->addWidget(mFrameEdit, 0, 1);
@@ -172,9 +177,9 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
   frameWidgetLayout->addLayout(dataLayout, 0, 3, 2, 1);
 
   OperLayout->addWidget(mFrameWidget, 5);
-/**/
+  /**/
   centralLayout->addLayout(OperLayout);
-/**/
+  /**/
   QHBoxLayout* modeLayout = new QHBoxLayout;
 
   modeLayout->setSpacing(10);
@@ -283,11 +288,9 @@ CXOperDirectionWindow::onXYClick()
 void
 CXOperDirectionWindow::onFClick()
 {
-  if (mIsRunning)
-    return;
-  static CXVirtualKeyboardNum* keyb = new CXVirtualKeyboardNum;
-  keyb->show();
-  //dialog.mUdpManager = mUdpManager;
+  if(CXOperFeedDlg::createAndGetFeedDlg(this)){
+    emit paramsChanged(true, QStringList() << "params.ini");
+  }
 }
 
 QString
@@ -346,14 +349,14 @@ void
 CXOperDirectionWindow::onDirectionChange(OperDirectionView::eMoveDirection aDirection)
 {
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING,
-      getDirectionCommand(aDirection).toStdString());
+      getDirectionCommand(aDirection));
 }
 
 void
 CXOperDirectionWindow::onDirectionChange(OperDirectionView::eMoveDirection aDirection, eVelocity aVelocity)
 {
-  onDirectionChange(aDirection);
   onVelocityChange(aVelocity);
+  onDirectionChange(aDirection);
 }
 
 void
@@ -364,17 +367,17 @@ CXOperDirectionWindow::onVelocityChange(eVelocity aVelocity)
   switch (aVelocity)
   {
   case E_Slow:
-    {
+  {
     value = Commands::MSG_VALUE_SLOW;
     break;
   }
   case E_Normal:
-    {
+  {
     value = Commands::MSG_VALUE_NORMAL;
     break;
   }
   case E_Boost:
-    {
+  {
     value = Commands::MSG_VALUE_FAST;
     break;
   }
@@ -430,7 +433,7 @@ CXOperDirectionWindow::StartCP()
   mOperDirectionView->hide();
 
   mStopButton->show();
-//  mCurrentFrameLabel->show();
+  //  mCurrentFrameLabel->show();
   mFrameWidget->show();
 }
 
@@ -446,7 +449,7 @@ CXOperDirectionWindow::StopCP()
   mOperDirectionView->show();
 
   mStopButton->hide();
-//  mCurrentFrameLabel->hide();
+  //  mCurrentFrameLabel->hide();
   mFrameWidget->hide();
 }
 
@@ -454,144 +457,57 @@ void
 CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
 
-  if (aSection == QString::fromStdString(Commands::MSG_SECTION_TECH))
+  if (aSection ==  (Commands::MSG_SECTION_TECH))
   {
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_COUNT_BURN)){
+    if (aCommand ==  (Commands::MSG_STATE_COUNT_BURN)){
       mBurnEdit->setText(trUtf8("%1").arg(aValue));
-    };
+    }
   }
-  if (aSection == QString::fromStdString(Commands::MSG_SECTION_OPERATOR))
+
+  if (aSection ==  (Commands::MSG_SECTION_OPERATOR))
   {
     //Стоп
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_STOP_CP))
+    if (aCommand ==  (Commands::MSG_STATE_STOP_CP))
     {
       StopCP();
     }
 
     //Запуск
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_RUN_CP))
+    if (aCommand ==  (Commands::MSG_STATE_RUN_CP))
     {
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_HAND))
+      if (aValue ==  (Commands::MSG_VALUE_HAND))
         StopCP();
       else
         StartCP();
     }
 
     //Текущий кадр.
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_CP_LINE))
+    if (aCommand ==  (Commands::MSG_STATE_CP_LINE))
     {
       mFrameEdit->setText(trUtf8("%1").arg(aValue));
     }
 
     //Режимы работы
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_LOOP))
+    if (aCommand ==  (Commands::MSG_STATE_MODE_LOOP))
     {
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_ON))
+      if (aValue ==  (Commands::MSG_VALUE_ON))
         mCycleButton->setStyleSheet("background-color: green;");
       else
         mCycleButton->setStyleSheet("");
     }
-    else if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_BY_STEP))
+    else if (aCommand ==  (Commands::MSG_STATE_MODE_BY_STEP))
     {
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_ON))
+      if (aValue ==  (Commands::MSG_VALUE_ON))
         mStepButton->setStyleSheet("background-color: green;");
       else
         mStepButton->setStyleSheet("");
     }
-    else if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_FEED))
-    {
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_FAST)){
-        mFastButton->setStyleSheet("background-color: green;");
-      }else
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_SLOW)){
-        mFastButton->setStyleSheet("background-color: yellow;");
-      }else{
-        mFastButton->setStyleSheet("");
-
-      }
-    }
-
-
-	//Изменение скорости и направления.
-	if (aCommand == QString::fromStdString(Commands::MSG_STATE_HAND_DIR_MOVING))
-	{
-      QStringList values = aValue.split(",");
-	  eVelocity velocity = E_NoVelocity;
-	  OperDirectionView::eMoveDirection direction = OperDirectionView::E_NoDirection;
-
-	  if (values.count() == 3)
-	  {
-		  if (values.first().length() == 3 && values.first().at(0) == 'F')
-		  {
-			  QString value = values.first().at(2);
-
-			  if (value == QString::fromStdString(Commands::MSG_VALUE_NORMAL))
-				  velocity = E_Normal;
-			  if (value == QString::fromStdString(Commands::MSG_VALUE_FAST))
-				  velocity = E_Boost;
-			  if (value == QString::fromStdString(Commands::MSG_VALUE_SLOW))
-				  velocity = E_Slow;
-		  }
-
-		  if (values.at(1).length() >= 3 && values.at(2).length() >= 3)
-		  {
-			  QString value1 = values.at(1);
-			  QString value2 = values.at(2);
-			  OperDirectionView::eMoveDirection xDirection = OperDirectionView::E_NoDirection;
-			  OperDirectionView::eMoveDirection yDirection = OperDirectionView::E_NoDirection;
-
-			  QMap <QString, OperDirectionView::eMoveDirection> xDirections;
-			  xDirections.insert("-2", OperDirectionView::E_Top);
-			  xDirections.insert("+2", OperDirectionView::E_Bottom);
-			  xDirections.insert("0", OperDirectionView::E_Stop);
-
-			  QMap <QString, OperDirectionView::eMoveDirection> yDirections;
-			  yDirections.insert("-2", OperDirectionView::E_Left);
-			  yDirections.insert("+2", OperDirectionView::E_Right);
-			  yDirections.insert("0", OperDirectionView::E_Stop);
-
-			  if (value1.at(0) == '0' || value2.at(0) == '0') value1 = (value1.at(0) == '0'? value1.mid(2) : value2.mid(2));
-			  else value1 == " ";
-			 
-			  if (value2.at(0) == '1' || value1.at(0) == '1') value2 = (value2.at(0) == '1'? value2.mid(2) : value1.mid(2));
-			  else value2 == " ";
-
-			  if (mRotateAxis)
-			  {
-				  if (yDirections.contains(value1)) yDirection = yDirections.value(value1);
-				  if (xDirections.contains(value2)) xDirection = xDirections.value(value2);
-			  }
-			  else
-			  {
-				  if (xDirections.contains(value1)) xDirection = xDirections.value(value1);
-				  if (yDirections.contains(value2)) yDirection = yDirections.value(value2);
-			  }
-
-			  if (xDirection == OperDirectionView::E_NoDirection || yDirection == OperDirectionView::E_NoDirection)
-			  {
-				  direction = OperDirectionView::E_NoDirection;
-			  }
-			  else if (xDirection == OperDirectionView::E_Stop || yDirection == OperDirectionView::E_Stop)
-			  {
-				  direction = OperDirectionView::E_Stop;
-			  }
-			  else direction = OperDirectionView::eMoveDirection(xDirection | yDirection);
-		  }
-	  }
-
-	  if (velocity != E_NoVelocity && direction != OperDirectionView::E_NoDirection)
-	  {
-		  mOperDirectionView->blockSignals(true);
-		  mOperDirectionView->setDirection(direction, velocity);
-		  mOperDirectionView->blockSignals(false);
-	  }
-	}
   }
 
-  if (aSection == QString::fromStdString(Commands::MSG_SECTION_MOVE))
+  if (aSection ==  (Commands::MSG_SECTION_MOVE))
   {
     //Позиция осей.
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_POS_AXIS))
+    if (aCommand ==  (Commands::MSG_STATE_POS_AXIS))
     {
       //TODO реализовать красиво отображеие координат может прихолить по одной
       QStringList list = aValue.split(",");
@@ -605,13 +521,15 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
         switch (axisIndx)
         {
         case 0:
-          {
+        {
           mXEdit->setText(trUtf8("%1 мм").arg(axisPos, 0, 'f', 2));
+          mXEdit->setCursorPosition(0);
           break;
         }
         case 1:
-          {
+        {
           mYEdit->setText(trUtf8("%1 мм").arg(axisPos, 0, 'f', 2));
+          mYEdit->setCursorPosition(0);
           break;
         }
         }
@@ -627,28 +545,109 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
     }
 
     //Текущая скорость.
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_FEED_RESULT))
+    if (aCommand ==  (Commands::MSG_STATE_FEED_RESULT))
     {
       QString value = trUtf8("%1 мм/мин").arg(int((aValue.toFloat() / 1000.0) + 0.5));
 
       mFEdit->setText(value);
+      mFEdit->setCursorPosition(0);
     }
 
     //Скорость работы (нормально, медленно, ускоренно)
-    if (aCommand == QString::fromStdString(Commands::MSG_STATE_MODE_FEED))
+    if (aCommand ==  (Commands::MSG_STATE_MODE_FEED))
     {
       eVelocity value = E_Normal;
 
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_NORMAL))
+      if (aValue ==  (Commands::MSG_VALUE_NORMAL)){
+        mFastButton->setStyleSheet("");
         value = E_Normal;
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_FAST))
+      }else if (aValue ==  (Commands::MSG_VALUE_FAST)){
+        mFastButton->setStyleSheet("background-color: green;");
         value = E_Boost;
-      if (aValue == QString::fromStdString(Commands::MSG_VALUE_SLOW))
+      }else if (aValue ==  (Commands::MSG_VALUE_SLOW)){
+        mFastButton->setStyleSheet("background-color: yellow;");
         value = E_Slow;
+      }
 
-      std::cout << "onCommandReceive: value " << value << std::endl;
+//      std::cout << "onCommandReceive: value " << value << std::endl;
       mOperVelocityView->setVelocity(value);
       mVelocityView->setVelocity(value);
     }
+
+//    //Изменение скорости и направления.
+//    if (aCommand ==  (Commands::MSG_STATE_HAND_DIR_MOVING))
+//    {
+//      QStringList values = aValue.split(",");
+//      eVelocity velocity = E_NoVelocity;
+//      OperDirectionView::eMoveDirection direction = OperDirectionView::E_NoDirection;
+//
+//      if (values.count() == 3)
+//      {
+//        if (values.first().length() == 3 && values.first().at(0) == 'F')
+//        {
+//          QString value = values.first().at(2);
+//
+//          if (value ==  (Commands::MSG_VALUE_NORMAL))
+//            velocity = E_Normal;
+//          if (value ==  (Commands::MSG_VALUE_FAST))
+//            velocity = E_Boost;
+//          if (value ==  (Commands::MSG_VALUE_SLOW))
+//            velocity = E_Slow;
+//        }
+//
+//        if (values.at(1).length() >= 3 && values.at(2).length() >= 3)
+//        {
+//          QString value1 = values.at(1);
+//          QString value2 = values.at(2);
+//          OperDirectionView::eMoveDirection xDirection = OperDirectionView::E_NoDirection;
+//          OperDirectionView::eMoveDirection yDirection = OperDirectionView::E_NoDirection;
+//
+//          QMap <QString, OperDirectionView::eMoveDirection> xDirections;
+//          xDirections.insert("-2", OperDirectionView::E_Top);
+//          xDirections.insert("+2", OperDirectionView::E_Bottom);
+//          xDirections.insert("0", OperDirectionView::E_Stop);
+//
+//          QMap <QString, OperDirectionView::eMoveDirection> yDirections;
+//          yDirections.insert("-2", OperDirectionView::E_Left);
+//          yDirections.insert("+2", OperDirectionView::E_Right);
+//          yDirections.insert("0", OperDirectionView::E_Stop);
+//
+//          if (value1.at(0) == '0' || value2.at(0) == '0') value1 = (value1.at(0) == '0'? value1.mid(2) : value2.mid(2));
+//          else value1 == " ";
+//
+//          if (value2.at(0) == '1' || value1.at(0) == '1') value2 = (value2.at(0) == '1'? value2.mid(2) : value1.mid(2));
+//          else value2 == " ";
+//
+//          if (mRotateAxis)
+//          {
+//            if (yDirections.contains(value1)) yDirection = yDirections.value(value1);
+//            if (xDirections.contains(value2)) xDirection = xDirections.value(value2);
+//          }
+//          else
+//          {
+//            if (xDirections.contains(value1)) xDirection = xDirections.value(value1);
+//            if (yDirections.contains(value2)) yDirection = yDirections.value(value2);
+//          }
+//
+//          if (xDirection == OperDirectionView::E_NoDirection || yDirection == OperDirectionView::E_NoDirection)
+//          {
+//            direction = OperDirectionView::E_NoDirection;
+//          }
+//          else if (xDirection == OperDirectionView::E_Stop || yDirection == OperDirectionView::E_Stop)
+//          {
+//            direction = OperDirectionView::E_Stop;
+//          }
+//          else direction = OperDirectionView::eMoveDirection(xDirection | yDirection);
+//        }
+//      }
+//
+//      if (velocity != E_NoVelocity && direction != OperDirectionView::E_NoDirection)
+//      {
+//        mOperDirectionView->blockSignals(true);
+//        mOperDirectionView->setDirection(direction, velocity);
+//        mOperDirectionView->blockSignals(false);
+//      }
+//    }
+
   }
 }
