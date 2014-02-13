@@ -50,7 +50,8 @@ QString SetGeoCommand(QString _isoStr){
 
         if((pos == (_isoStr.size() - 1)) && (cur_operator == 'Y')){
             //завершаем линию
-            res = res + cur_operator + arg_str;
+            if(arg_str.size() > 1)
+              res = res + cur_operator + arg_str;
             //если до этого вкл быстрый ход
             if(IsG00_active)  res = "G00" + res;
             else  res = "G01" + res;
@@ -394,25 +395,44 @@ QString ConverEssiToISO(QString _isoStr){
     return res;
 };
 
+bool IsEssiOperator(QString _str){
+  switch(_str.at(0).toAscii()){
+    case '+':
+    case '-':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+    case '0':
+    return true;
+  }
+  return false;
+}
+
 int main(int argc, char *argv[])
 {
     QString fileName = argv[1];
+    qDebug()<< fileName;
     QFile file(fileName);
+    QByteArray lst;
     if(file.open(QIODevice::ReadOnly |QIODevice::Text))
     {
-        QFile out_file("out_" + fileName);
-        out_file.open(QIODevice::WriteOnly |QIODevice::Text);
 
         while(!file.atEnd())
         {
             //читаем строку
             QString str = file.readLine();
             //Делим строку на слова разделенные пробелом
-            //QStringList lst = str.split(" ");
-            str = ConverEssiToISO(str);
+            if(IsEssiOperator(str))
+              str = ConverEssiToISO(str);
             if(str != ""){
                 str += "\n";
-                out_file.write(str.toAscii(), str.size());
+                lst.append(str);
             };
                 //qDebug() << str;
         };
@@ -422,5 +442,10 @@ int main(int argc, char *argv[])
     {
         qDebug()<< "don't open file";
     }
+    file.close();
+    //удаляем пред значения
+    file.open(QIODevice::WriteOnly |QIODevice::Text);
+    file.write(lst);
+    file.close();
     return 0;
 }
