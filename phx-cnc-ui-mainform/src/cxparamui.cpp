@@ -3,17 +3,20 @@
 #include <QProcess>
 #include <QFile>
 #include <QTimer>
+#include <QtGui/qmessagebox.h>
 #include <QLineEdit>
 #include <QKeyEvent>
+#include <qdebug.h>
 
 #include "CXParamData.h"
+#include "CXUdpManager.h"
 
 #define INI_PATH "techparams.ini"
 #define XML_PATH "settings.xml"
 
 CXParamUi::CXParamUi() : AXBaseWindow()
 {
-	mType = "plasma";
+	mType = "Рlasma";
 	ui.setupUi(this);
 
 	if (!QFile::exists(INI_PATH))
@@ -307,6 +310,16 @@ void CXParamUi::save()
 	CXParamData::open(INI_PATH);
 	CXParamData::setValues(mType + "/Common", values);
 	CXParamData::close(true);
+	//сохраняем по файлам
+	qDebug() << mType;
+	int res = QProcess::execute(QApplication::applicationDirPath() + "/baseClient.exe", QStringList() << mType << " 1");
+	if(res == 0){
+	  //отправляем переинициализацию
+	  emit iniSaved();
+	}else{
+	  //ошибка
+	  QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Не сумели сохранить файлы"));
+	};
 }
 
 void CXParamUi::onButtonClicked()
