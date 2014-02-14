@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+  <utils>
+    <util name="Макро CAD" description=""  cmd="bash ./macro.sh" access="all" modal="true"/>
+    <util name="Газовая консоль" description=""  cmd="bash ./gasconsole.sh"  access="all" modal="true"/>
+    <util name="Отчет об ошибке" description=""  cmd="bash ./backup-log.sh"  access="all" modal="true"/>
+    <util name="Резервировать параметры" description=""  cmd="bash ./backup-ini.sh" modal="true" access="all" />
+    <util name="Восстановить параметры" description=""  cmd="bash ./restore-ini.sh" modal="true" access="0" />
+    <util name="Обновить ПО" description=""  cmd="bash ./update.sh" access="0" modal="true" />
+    <util name="Откатить обновление ПО" description=""  cmd="bash ./restore.sh" access="0" modal="true" />
+    <util name="Консоль ввода/вывода(только просмотр)" description=""  cmd="bash ./io2.sh" access="0" />
+    <util name="Консоль ввода/вывода(полный доступ)" description=""   cmd="bash ./io.sh" access="0" />
+    <util name="Осциллограф" description=""  cmd="bash ./oscil.sh" access="0" />
+    <util name="Стоп ядра управления" description=""  type="sh" cmd="bash ./stop.sh" modal="true" access="0" />
+    <util name="Перезапуск ядра управления" description=""  type="sh" cmd="bash ./restart.sh" modal="true" access="0" />
+    <util name="Терминал УЧПУ" description=""  type="sh" cmd="bash ./terminal.sh" access="0" />
+  </utils>

@@ -1,0 +1,2 @@
+java -classpath BaseClasses.jar:BaseMacros.jar:AdditionalMacros.jar:swt.jar:jdom.jar:crimson.jar ru.autogenmash.macros.cometmacros.MacrosLauncher
+# java -classpath JavaKernel.jar:commons-logging-1.0.4.jar:log4j-1.2.11.jar:jdom.jar:xml.jar:commons-collections-3.2.1.jar:commons-net-1.4.1.jar ru.autogenmash.core.utils.compiler.Compiler

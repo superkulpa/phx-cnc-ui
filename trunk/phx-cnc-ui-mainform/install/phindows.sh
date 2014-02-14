@@ -1,0 +1,1 @@
+phindows/phindows.exe  -t192.168.233.51 -n/dev/photon
