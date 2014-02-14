@@ -105,7 +105,7 @@ KeyValueMap CXBaseClient::getImageData(const QString& aTableName, const QString&
 		QSqlRecord record = query.record();
 		for (int i = 0; i < record.count(); i++)
 		{
-			//бинарные данные картинки должны быть последними.
+			//Р±РёРЅР°СЂРЅС‹Рµ РґР°РЅРЅС‹Рµ РєР°СЂС‚РёРЅРєРё РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РїРѕСЃР»РµРґРЅРёРјРё.
 			if (i == record.count() - 1)
 			{
 				QFile imageFile(aFileName);

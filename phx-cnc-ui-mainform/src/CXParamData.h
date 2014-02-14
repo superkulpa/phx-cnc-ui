@@ -6,97 +6,101 @@
 
 #include "iniFile.h"
 
-typedef QList<QPair<QString, QString> > PairsList;
+typedef QList<QPair<QString, QString>> PairsList;
 
 struct SXDataXml
 {
 public:
-	SXDataXml(const QString& aName, const QString& aDescr, int aColumn)
+	SXDataXml(const QString& aName, const QString& aDescr, int aColumn, bool aIsReadOnly, double aDelta)
 	{
 		mName = aName;
 		mDescr = aDescr;
 		mColumn = aColumn;
+		mIsReadOnly = aIsReadOnly;
+		mDelta = aDelta;
 	}
 	
 	QString mName;
 	QString mDescr;
 	int mColumn;
+	bool mIsReadOnly;
+	double mDelta;
 };
 
 class CXParamData
 {
 public:
 	/*!
-		������� �������� ini-�����.
-		\param aFileName - ��� ����� � �����.
+		Функция открытия ini-файла.
+		\param aFileName - имя файла с путем.
 	*/
 	static void open(const QString& aFileName);
 
 	/*!
-		������� �������� ini-����� � ������������ ��������.
-		\param aIsWrite - ���������� �� ��������� �� ����.
+		Функция закрытия ini-файла и освобождение ресурсов.
+		\param aIsWrite - записывать ли изменения на диск.
 	*/
 	static void close(bool aIsWrite = true);
 
 	/*!
-		������� ��������� ������ ������ � �� ��������.
-		\param aType - ��� ���� (������������� ��������� Keys � ����� ������).
+		Функция получения списка ключей и их значений.
+		\param aType - тип реза (автоматически добавляет Keys к имени группы).
 	*/
 	static QMap<QString, QString> getKeys(const QString& aType);
 
 	/*!
-		������� ��������� ������ �������� � �������� ���������.
-		\param aType - ��� ����.
+		Функция получения списка название и значение параметра.
+		\param aType - тип реза.
 	*/
 	static QMap<QString, QString> getValues(const QString& aType);
 
 	/*!
-	������� ��������� ������ �������� � �������� ���������.
-	\param aFileName - ��� xml-�����.
-		\param aType - ��� ����.
+	Функция получения списка название и описание параметра.
+	\param aFileName - имя xml-файла.
+		\param aType - тип реза.
 	*/
 	static QList<SXDataXml> getCaptions(const QString& aFileName, const QString& aType);
 
 	/*!
-		������� ��������� ������ �������� ������ ��������.
-		\param aFileName - ��� xml-�����.
-		\param aType - ��� ����.
-		\return ������ �������� ������ ��������.
+		Функция получения списка названий секций картинок.
+		\param aFileName - имя xml-файла.
+		\param aType - тип реза.
+		\return Список названий секций картинок.
 	*/
 	static QList <QString> getImages(const QString& aFileName, const QString& aType);
 
 	/*!
-		������� ��������� ������ ��������������� ������.
-		\param aFileName - ��� xml-�����.
-		\param aType - ��� ����.
-		\return ������ ��������������� ������.
+		Функция получения списка зафиксированных ключей.
+		\param aFileName - имя xml-файла.
+		\param aType - тип реза.
+		\return Список зафиксированных ключей.
 	*/
 	static QMap<QString, QString> getFixedKeys(const QString& aFileName, const QString& aType);
 
 	/*!
-		������� �������� ������ ������/����� �� ini-�����.
-		\param aKeys - ������ ��������� ������/����� (������������� ��������� Keys � ����� ������).
+		Функция удаления списка ключей/групп из ini-файла.
+		\param aKeys - список удаляемых ключей/групп (автоматически добавляет Keys к имени группы).
 	*/
 	static void deleteKeys(const QStringList& aKeys);
 
 	/*!
-		������� ��������� ������ ��������� ������ ��� ������.
-		\param aGroup - ��� ������, ��� ������� ��������������� ������ ������ (������������� ��������� Keys � ����� ������).
-		\param aKeys - ������ ����������� ������.
+		Функция установки списка доступных ключей для группы.
+		\param aGroup - имя группы, для которых устанавливается список ключей (автоматически добавляет Keys к имени группы).
+		\param aKeys - список добавляемых ключей.
 	*/
 	static void setKeysArray(const QString& aGroup, const QStringList& aKeys);
 	
 	/*!
-		������� ��������� ������ ��������� ������ ��� ������.
-		\param aGroup - ��� ������, ��� ������� ��������������� ������ ������ (������������� ��������� Keys � ����� ������).
-		\return ������ ��������� ������.
+		Функция получения списка доступных ключей для группы.
+		\param aGroup - имя группы, для которых устанавливается список ключей (автоматически добавляет Keys к имени группы).
+		\return Список доступных ключей.
 	*/
 	static QStringList getKeysArray(const QString& aGroup);
 
 	/*!
-		������� ��������� �������� ������.
-		\param aGroup - ��� ������, ��� ������� ��������������� ��������.
-		\param aValues - ������ ��� (���, ��������).
+		Функция установки значений группе.
+		\param aGroup - имя группы, для которой устанавливаются значения.
+		\param aValues - список пар (имя, значение).
 	*/
 	static void setValues(const QString& aGroup, const PairsList& aValues);
 

@@ -3,6 +3,7 @@
 
 #include "AXBaseWindow.h"
 #include <QComboBox>
+#include <QDoubleSpinBox>
 
 #include "ui_cxparamui.h"
 
@@ -28,9 +29,11 @@ signals:
 
 private:
 	Ui::CXParamUiClass ui;
+	QGridLayout* mValuesLayout;
+
 	QString mType;
 	QString mLastUpdateKey;
-	QList <QLineEdit*> mEditors;
+	QList <QDoubleSpinBox*> mEditors;
 	QList <QComboBox*> mKeyList;
 };
 
