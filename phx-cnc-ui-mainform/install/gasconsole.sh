@@ -1,0 +1,3 @@
+cd .
+./gasConsole.exe
+cd .
