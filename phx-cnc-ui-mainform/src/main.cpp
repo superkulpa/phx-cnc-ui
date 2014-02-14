@@ -284,7 +284,7 @@ main(int argc, char *argv[])
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
           windows.value("CXEditPathFile"), SLOT(onSave()));
       QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXFilesList"),
-		  SLOT(setGroup()));
+		  SLOT(onTurn()));
       QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), windows.value("CXParamUi"),
 		  SLOT(show()));
       QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel,
