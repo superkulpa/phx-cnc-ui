@@ -17,7 +17,7 @@ QMAKE_CXXFLAGS += -std=c++11
 
 INCLUDEPATH += ../include
 
-QMAKE_LIBSDIR += ../libs
+QMAKE_LIBDIR += ../indstall/libs
 LIBS += -lglog
 # Input
 HEADERS	+=	src/AXBaseWindow.h \
