@@ -3,20 +3,18 @@
 #include <QProcess>
 #include <QFile>
 #include <QTimer>
-#include <QtGui/qmessagebox.h>
-#include <QLineEdit>
 #include <QKeyEvent>
-#include <qdebug.h>
+#include <QMessageBox>
+#include <QDebug>
 
 #include "CXParamData.h"
-#include "CXUdpManager.h"
 
 #define INI_PATH "techparams.ini"
 #define XML_PATH "settings.xml"
 
 CXParamUi::CXParamUi() : AXBaseWindow()
 {
-	mType = "Рlasma";
+	mType = "Plasma";
 	ui.setupUi(this);
 
 	if (!QFile::exists(INI_PATH))
@@ -25,6 +23,14 @@ CXParamUi::CXParamUi() : AXBaseWindow()
 		iniFile.open(QIODevice::WriteOnly);
 		iniFile.close();
 	}
+
+	ui.mValuesScroll->setWidgetResizable(true);
+
+	QWidget* valueWidget = new QWidget(ui.mValuesScroll);
+	valueWidget->setObjectName("valueWidget");
+	ui.mValuesScroll->setWidget(valueWidget);
+
+	mValuesLayout = new QGridLayout(valueWidget);
 
 	readKeys();
 
@@ -152,7 +158,7 @@ void CXParamUi::readKeys()
 	else
 	{
 		setUpdatesEnabled(false);
-		clearLayout(ui.mValuesLayout);
+		clearLayout(mValuesLayout);
 		clearLayout(ui.mImagesLayout);
 
 		if (!isBreak) readValues();
@@ -180,17 +186,16 @@ void CXParamUi::readValues()
 	QList <SXDataXml> captions = CXParamData::getCaptions(XML_PATH, mType);
 
 	QLabel* labelValue = NULL;
-	QLineEdit* editValue = NULL;
+	QDoubleSpinBox* editValue = NULL;
 	mEditors.clear();
 	int row1 = 0;
 	int row2 = 0;
 	int row = 0;
 	int column = 0;
+	double value = 0;
 
-	for (int i = 0; i < captions.count(); i++)
+	foreach (const SXDataXml& data, captions)
 	{
-		const SXDataXml& data = captions.at(i);
-
 		if (values.contains(data.mName))
 		{
 			column = (data.mColumn > 0) ? 2 : 0;
@@ -199,13 +204,26 @@ void CXParamUi::readValues()
 			labelValue = new QLabel(data.mDescr, this);
 			labelValue->setMargin(5);
 			if (row % 2 == 0) labelValue->setStyleSheet("background-color: silver;");
-			ui.mValuesLayout->addWidget(labelValue, row, column);
+			mValuesLayout->addWidget(labelValue, row, column);
 
-			editValue = new QLineEdit(values.value(data.mName), this);
-			editValue->setValidator(new QDoubleValidator(editValue));
+			value = values.value(data.mName).toDouble();
+
+			editValue = new QDoubleSpinBox(this);
+			if (data.mDelta > 0)
+			{
+				editValue->setRange(value - data.mDelta, value + data.mDelta);
+			}
+			else editValue->setRange(DBL_MIN, DBL_MAX);
+			editValue->setValue(value);
+
+			editValue->setButtonSymbols(QAbstractSpinBox::NoButtons);
+			editValue->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
+			editValue->setReadOnly(data.mIsReadOnly);
+			editValue->setLocale(QLocale(QLocale::English));
+
 			editValue->setProperty("valueName", data.mName);
 			mEditors.append(editValue);
-			ui.mValuesLayout->addWidget(editValue, row, column + 1);
+			mValuesLayout->addWidget(editValue, row, column + 1);
 		}
 	}
 
@@ -302,7 +320,7 @@ void CXParamUi::save()
 {
 	PairsList values;
 
-	foreach (QLineEdit* editor, mEditors)
+	foreach (QDoubleSpinBox* editor, mEditors)
 	{
 		values << QPair<QString, QString>(editor->property("valueName").toString(), editor->text());
 	}
@@ -310,6 +328,7 @@ void CXParamUi::save()
 	CXParamData::open(INI_PATH);
 	CXParamData::setValues(mType + "/Common", values);
 	CXParamData::close(true);
+
 	//сохраняем по файлам
 	qDebug() << mType;
 	int res = QProcess::execute(QApplication::applicationDirPath() + "/baseClient.exe", QStringList() << mType << " 1");

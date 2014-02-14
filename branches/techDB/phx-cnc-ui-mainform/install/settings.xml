@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <Settings>
-  <manager freeze="0"/>
+  <manager freeze="1"/>
   <delay>100</delay>
   <buttonDelay>100</buttonDelay>
   <translate>ru.qm</translate>
@@ -91,7 +91,7 @@
     <plasma>
       <!-- Порядок имеет значения, на форме отражаются в том же порядке -->
       <Caption descr="Режим реза: Плазма"/>
-      <CuttingFeed column="1" descr="Скорость реза"/>
+      <CuttingFeed delta="100" column="1" descr="Скорость реза"/>
       <Kerf descr="Ширина реза"/>
       <MinThickness column="1" descr="Мин толщина"/>
       <MaxThickness descr="Макс толщина"/>
@@ -122,6 +122,8 @@
         <item path="Plasma/Image3"/>
         <item path="Plasma/Image4"/>
         <item path="Plasma/Image5"/>
+        <item path="Plasma/Image6"/>
+        <item path="Plasma/Image7"/>
       </assembly>
       <!--fixed>
 		<Manufactor value="Hypertherm"/>

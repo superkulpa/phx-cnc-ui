@@ -71,6 +71,8 @@ QList<SXDataXml> CXParamData::getCaptions(const QString& aFileName, const QStrin
 		QRegExp regVisible("visible=\"([^\"]+)\"");
 		QRegExp regDescr("descr=\"([^\"]+)\"");
 		QRegExp regColumn("column=\"([^\"]+)\"");
+		QRegExp regReadOnly("readonly=\"([^\"]+)\"");
+		QRegExp regDelta("delta=\"([^\"]+)\"");
 		regExp.setMinimal(true);
 
 		int index = regExp.indexIn(text);
@@ -85,8 +87,10 @@ QList<SXDataXml> CXParamData::getCaptions(const QString& aFileName, const QStrin
 			{
 				regDescr.indexIn(tagText);
 				regColumn.indexIn(tagText);
+				regReadOnly.indexIn(tagText);
+				regDelta.indexIn(tagText);
 
-				res.append(SXDataXml(regExp.cap(1), regDescr.cap(1), regColumn.cap(1).toInt()));
+				res.append(SXDataXml(regExp.cap(1), regDescr.cap(1), regColumn.cap(1).toInt(), regReadOnly.cap(1).toInt(), regDelta.cap(1).toDouble()));
 			}
 
 			index += regExp.matchedLength();
