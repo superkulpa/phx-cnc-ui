@@ -16,7 +16,9 @@ CXTextParameters::CXTextParameters() :
   mTextEdit = new QTextEdit(this);
   mTextEdit->setReadOnly(true);
   mTextEdit->setMinimumHeight(10);
-  mTextEdit->setPlainText(trUtf8("Нет сообщений"));
+  mTextEdit->setTextColor(QColor(255, 0, 0));
+  mTextEdit->setPlainText(trUtf8("Нет связи с контроллером"));
+  mTextEdit->setTextColor(QColor(0, 0, 0));
   centralLayout->addWidget(mTextEdit);
 
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
