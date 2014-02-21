@@ -126,16 +126,22 @@ addGroupPanel(int aGroup)
   return panel;
 }
 
+int userIsOperator = 0;
+
+
 int
 main(int argc, char *argv[])
 {
   fLB::FLAGS_logtostderr = 1;
-  fLI::FLAGS_v = 4;
+  fLI::FLAGS_v = 3;
   google::InitGoogleLogging(argv[0]);
   LOG(INFO) << "Start cnc-ui\n";
 
   QApplication app(argc, argv);
   app.setQuitOnLastWindowClosed(false);
+
+
+  if(QString(getenv("USER")) == "op") userIsOperator = 1;
 
   QString translate = CXSettingsXML::getValue("settings.xml", "translate", "0");
 
@@ -178,10 +184,10 @@ main(int argc, char *argv[])
       windows);
 
   createUIWindow(CXCompileEdit::staticMetaObject.className(), CXWindowsManager::_wingroupCP,
-	  windows);
+      windows);
 
   createUIWindow(CXParamUi::staticMetaObject.className(), 1000,
-	  windows);
+      windows);
 
   createUIWindow(CXOperDirectionWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
@@ -236,7 +242,7 @@ main(int argc, char *argv[])
       texts.append(QObject::trUtf8("Макро"));
       texts.append(QObject::trUtf8("Загрузить"));
       texts.append(QObject::trUtf8("Повернуть"));
-      texts.append(QObject::trUtf8("Тест"));
+      texts.append(QObject::trUtf8(" "));
       texts.append(QObject::trUtf8("Выключение"));
       curGroupPanel->setButtonsText(texts);
 
@@ -258,9 +264,8 @@ main(int argc, char *argv[])
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
           windows.value("CXEditPathFile"), SLOT(onSave()));
       QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), windows.value("CXFilesList"),
-		  SLOT(setGroup()));
-      QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), windows.value("CXParamUi"),
-		  SLOT(show()));
+		  SLOT(onTurn()));
+
       QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), curGroupPanel,
 		  SLOT(onExit()));
 
@@ -340,9 +345,9 @@ main(int argc, char *argv[])
       QStringList texts;
       texts.append(QObject::trUtf8("УП"));
       texts.append(QObject::trUtf8("Параметры"));
-      texts.append(QObject::trUtf8("Наладка"));
+      texts.append( (! userIsOperator)?QObject::trUtf8("Наладка"):QObject::trUtf8(""));
       texts.append(QObject::trUtf8("Утилиты"));
-      texts.append(QString());
+      texts.append(QObject::trUtf8("Параметры\nреза"));
       texts.append(QString());
       texts.append(QObject::trUtf8("Сбросить\nкоординаты"));
       texts.append(QString());
@@ -352,15 +357,21 @@ main(int argc, char *argv[])
 
       curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupCP);
       curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupParams);
-      curGroupPanel->getButton(2)->setProperty("groupName", CXWindowsManager::_wingroupIO);
       QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
           SLOT(setGroup()));
       QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel,
           SLOT(setGroup()));
-      QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel,
-          SLOT(onDeviceEditShow()));
+      if(! userIsOperator){
+        curGroupPanel->getButton(2)->setProperty("groupName", CXWindowsManager::_wingroupIO);
+        QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel,
+            SLOT(onDeviceEditShow()));
+      }
+
       QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()),
           windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
+
+      QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked())
+         , windows.value("CXParamUi"), SLOT(show()));
 
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
           windows.value("CXOperDirectionWindow"), SLOT(onResetCoordinates()));
@@ -371,6 +382,7 @@ main(int argc, char *argv[])
 //          &manager, SLOT(changeVisibleVirtualKeyboardNum0()));
     }
 
+    if(! userIsOperator)
     if(NULL != (curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupIO)))
     {
       QList<QPushButton*> buttonsList;
@@ -411,7 +423,7 @@ main(int argc, char *argv[])
   }
 
   QObject::connect(windows.value("CXParamUi"), SIGNAL(iniSaved()),
-        windows.value("CXParametersWindow"), SLOT(saveParameters()));
+        windows.value("CXParametersWindow"), SLOT(saveParametersAnyway()));
 
   /**/
   //Общий заголовок

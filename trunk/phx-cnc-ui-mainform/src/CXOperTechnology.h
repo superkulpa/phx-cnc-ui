@@ -19,7 +19,7 @@ class CXOperTechnology : public AXBaseWindow, public Ui::CXOperTechnology
 Q_OBJECT
 public:
   //! Конструктор.
-  CXOperTechnology();
+ CXOperTechnology();
 
   //! Деструктор.
   virtual ~CXOperTechnology();

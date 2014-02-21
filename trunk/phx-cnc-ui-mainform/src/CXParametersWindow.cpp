@@ -267,8 +267,11 @@ CXParametersWindow::makeTabs(bool aIsSystem)
   }
 
   //if(curFName.size()>0)fileEditor->onOpenFile(curFName);
-  fileEditor->reloadFiles();
-  mTabWidget->addTab(fileEditor, QString::fromUtf8("Все"));
+  extern int userIsOperator;
+  if(!userIsOperator){
+    fileEditor->reloadFiles();
+    mTabWidget->addTab(fileEditor, QString::fromUtf8("Все"));
+  }
   updateButtonsText();
   mTabWidget->setCurrentIndex(curTab);
   //setTabEnabled(curTab, true);
