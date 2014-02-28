@@ -395,7 +395,7 @@ int main(int argc, char *argv[])
 		return res;
 	}
 
-/* �������� �������� ����� */
+/* Загрузка значений полей */
 	w += QString(" AND gases=%1").arg(keys.value("GasTypes"));
 
 	KeyValueMap columnValuesMap;
@@ -465,7 +465,7 @@ int main(int argc, char *argv[])
 		b = b;
 	}
 */
-/* �������� �������� */
+/* Загрузка картинок */
 	bool isBreak = false;
 	int imageIndex = 1;
 	KeyValueMap imageParts = client.getValues("tbl_parts_groups", "part_1,part_2,part_3,part_4,part_5,part_6,part_7,part_8,part_9,part_10", QString("id=%1").arg(values.value("out_parts_group")));
@@ -483,12 +483,14 @@ int main(int argc, char *argv[])
 		if (values.isEmpty() || !imageParts.contains(curPart)) isBreak = true;
 		else
 		{
-			values = client.getImageData("tbl_torch_parts_types as a, tbl_torch_parts as b", "a.name, a.description, b.image", "b.id=" + imageParts.value(curPart), imagesDir.path() + "/" + values.value("Image"));
+			values = client.getImageData("tbl_torch_parts_types as a, tbl_torch_parts as b", "a.name, a.description as Description, b.number as Number, b.image", "b.id=" + imageParts.value(curPart), imagesDir.path() + "/" + values.value("Image"));
 
 			PairsList imageValues;
 			QMap<QString, QString>::iterator iter;
 			for (iter = values.begin(); iter != values.end(); iter++)
 			{
+				if (iter.key() == QString("image")) continue;
+
 				imageValues << QPair<QString, QString>(iter.key(), iter.value());
 			}
 
