@@ -229,7 +229,7 @@ CXOperTechnology::onStart()
 
   if (sender() == mRBurnButton)
   {
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_R_BURN, "0");
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FIRE, "0");
   }
 
   //mBurnButton->hide();
@@ -239,8 +239,12 @@ CXOperTechnology::onStart()
 
 void
 CXOperTechnology::onStop()
-{
+{//TODO: qForm Вопрос маски всем, синхронизировать с разведением суппортов
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CUT2_OFF, "0");
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CUT2_OFF, "1");
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CUT2_OFF, "2");
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CUT2_OFF, "3");
+
 
   //mStopButton->hide();
   mBurnButton->show();

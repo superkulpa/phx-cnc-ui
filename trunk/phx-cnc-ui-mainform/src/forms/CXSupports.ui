@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CXSupportsClass</class>
+ <widget class="QWidget" name="CXSupportsClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>581</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>CXParamUi</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="mKeysBox">
+     <property name="title">
+      <string>Фиксация суппортов</string>
+     </property>
+     <layout class="QHBoxLayout" name="mKeysLayout">
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>1</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="CXTouchButton" name="cutY1" native="true">
+           <property name="text" stdset="0">
+            <string>Резать</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="CXTouchButton" name="frwrdY1" native="true">
+           <property name="text" stdset="0">
+            <string>Прямая</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="CXTouchButton" name="stopY1" native="true">
+           <property name="text" stdset="0">
+            <string>Стоп</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="CXTouchButton" name="bkwrdY1" native="true">
+           <property name="text" stdset="0">
+            <string>Обратная</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>2</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="CXTouchButton" name="cutY2" native="true">
+        <property name="text" stdset="0">
+         <string>Резать</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CXTouchButton" name="frwrdY2" native="true">
+        <property name="text" stdset="0">
+         <string>Прямая</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CXTouchButton" name="stopY2" native="true">
+        <property name="text" stdset="0">
+         <string>Стоп</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CXTouchButton" name="bkwrdY2" native="true">
+        <property name="text" stdset="0">
+         <string>Обратная</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>3</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="CXTouchButton" name="cutY3" native="true">
+        <property name="text" stdset="0">
+         <string>Резать</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CXTouchButton" name="frwrdY3" native="true">
+        <property name="text" stdset="0">
+         <string>Прямая</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CXTouchButton" name="stopY3" native="true">
+        <property name="text" stdset="0">
+         <string>Стоп</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CXTouchButton" name="bkwrdY3" native="true">
+        <property name="text" stdset="0">
+         <string>Обратная</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>4</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="CXTouchButton" name="cutY4" native="true">
+        <property name="text" stdset="0">
+         <string>Резать</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CXTouchButton" name="frwrdY4" native="true">
+        <property name="text" stdset="0">
+         <string>Прямая</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CXTouchButton" name="stopY4" native="true">
+        <property name="text" stdset="0">
+         <string>Стоп</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CXTouchButton" name="bkwrdY4" native="true">
+        <property name="text" stdset="0">
+         <string>Обратная</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="CXTouchButton" name="mCloseButton" native="true">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="text" stdset="0">
+        <string>Закрыть</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="4" margin="4"/>
+ <customwidgets>
+  <customwidget>
+   <class>CXTouchButton</class>
+   <extends>QWidget</extends>
+   <header>CXTouchButton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>mCloseButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CXSupportsClass</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>552</x>
+     <y>378</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
