@@ -98,6 +98,12 @@ CXGroupPanel::macroCommand()
 }
 
 void
+CXGroupPanel::macroCommand2()
+{
+  CXProcess::execute("bash ./macro2.sh");
+}
+
+void
 CXGroupPanel::onExit()
 {
   CXExitDialog exitDialog(this);

@@ -41,7 +41,7 @@
         <item>
          <widget class="CXTouchButton" name="mRBurnButton">
           <property name="text">
-           <string>Врезка</string>
+           <string>Поджиг</string>
           </property>
          </widget>
         </item>

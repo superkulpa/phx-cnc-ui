@@ -44,6 +44,9 @@ public slots:
   void
   macroCommand();
 
+  void
+  macroCommand2();
+
   //! Слот на выход.
   void
   onExit();

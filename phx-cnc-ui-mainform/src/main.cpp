@@ -20,6 +20,8 @@
 #include "CXVirtualKeyboard.h"
 #include "CXUdpManager.h"
 #include "CXParamui.h"
+#include "CXSupports.h"
+
 
 #include "terminalCtrl.h"
 //
@@ -50,37 +52,43 @@ createUIWindow(const char* aIndex, int aGroup, QMap<QString, QWidget*>& windows)
       res = new CXEditPathFile();
 
       break;
-	}
-	if (aIndex == CXCompileEdit::staticMetaObject.className())
-	{
-		res = new CXCompileEdit();
+    }
+    if (aIndex == CXCompileEdit::staticMetaObject.className())
+    {
+      res = new CXCompileEdit();
 
-		break;
-	}
-	if (aIndex == CXParamUi::staticMetaObject.className())
-	{
-		res = new CXParamUi();
+      break;
+    }
+    if (aIndex == CXParamUi::staticMetaObject.className())
+    {
+      res = new CXParamUi();
 
-		break;
-	}
+      break;
+    }
+    if (aIndex == CXSupportsWindow::staticMetaObject.className())
+    {
+      res = new CXSupportsWindow();
+      break;
+    }
+
     if (aIndex == CXParametersWindow::staticMetaObject.className())
     {
       res = new CXParametersWindow(false);
 
       break;
     }
-//    if (aIndex == CXIniFileEditor::staticMetaObject.className())
-//    {
-//      res = new CXIniFileEditor();
-//
-//      break;
-//    }
-//    if (aIndex == CXIniFileList::staticMetaObject.className())
-//    {
-//      res = new CXIniFileList();
-//
-//      break;
-//    }
+    //    if (aIndex == CXIniFileEditor::staticMetaObject.className())
+    //    {
+    //      res = new CXIniFileEditor();
+    //
+    //      break;
+    //    }
+    //    if (aIndex == CXIniFileList::staticMetaObject.className())
+    //    {
+    //      res = new CXIniFileList();
+    //
+    //      break;
+    //    }
     if (aIndex == CXOperDirectionWindow::staticMetaObject.className())
     {
       res = new CXOperDirectionWindow();
@@ -132,10 +140,10 @@ int userIsOperator = 0;
 int
 main(int argc, char *argv[])
 {
-  fLB::FLAGS_logtostderr = 1;
-  fLI::FLAGS_v = 3;
-  google::InitGoogleLogging(argv[0]);
-  LOG(INFO) << "Start cnc-ui\n";
+//  fLB::FLAGS_logtostderr = 1;
+//  fLI::FLAGS_v = 3;
+//  google::InitGoogleLogging(argv[0]);
+  VLOG(INFO) << "Start cnc-ui\n";
 
   QApplication app(argc, argv);
   app.setQuitOnLastWindowClosed(false);
@@ -187,6 +195,9 @@ main(int argc, char *argv[])
       windows);
 
   createUIWindow(CXParamUi::staticMetaObject.className(), 1000,
+      windows);
+
+  createUIWindow(CXSupportsWindow::staticMetaObject.className(), 1000,
       windows);
 
   createUIWindow(CXOperDirectionWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
@@ -347,7 +358,7 @@ main(int argc, char *argv[])
       texts.append(QObject::trUtf8("Параметры"));
       texts.append( (! userIsOperator)?QObject::trUtf8("Наладка"):QObject::trUtf8(""));
       texts.append(QObject::trUtf8("Утилиты"));
-      texts.append(QObject::trUtf8("Параметры\nреза"));
+      texts.append(QObject::trUtf8("Раскрой"));
       texts.append(QString());
       texts.append(QObject::trUtf8("Сбросить\nкоординаты"));
       texts.append(QString());
@@ -371,7 +382,8 @@ main(int argc, char *argv[])
           windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
 
       QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked())
-         , windows.value("CXParamUi"), SLOT(show()));
+//          , curGroupPanel, SLOT(macroCommand2()));
+         , windows.value("CXSupportsWindow"), SLOT(show()));
 
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
           windows.value("CXOperDirectionWindow"), SLOT(onResetCoordinates()));
@@ -452,6 +464,6 @@ main(int argc, char *argv[])
   CTerminalCntrl::startTerminal(AXBaseWindow::mUdpManager);
 
   int ret = app.exec();
-  google::ShutdownGoogleLogging();
+//  google::ShutdownGoogleLogging();
   return  ret;
 }

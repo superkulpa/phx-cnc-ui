@@ -5,9 +5,17 @@ UI_DIR	+= ./GeneratedFiles
 
 CONFIG += debug_and_release
 
-_install.depends = $(SOURCES)
+_install-release.depends = $(SOURCES)
+_install-debug.depends = $(SOURCES)
+win32 {
+_install-release.commands = cp ./release/phx-cnc-ui-mainform*  ../install
+_install-debug.commands = cp ./debug/phx-cnc-ui-mainform*  ../install
+
+}
+unix {
 _install.commands = cp ./phx-cnc-ui-mainform*  ../install
-QMAKE_EXTRA_TARGETS += _install
+}
+QMAKE_EXTRA_TARGETS += _install-release _install-debug
 
 QMAKE_CXXFLAGS += -std=c++11
 #QMAKE_CXXFLAGS += -std=c++0x
@@ -18,7 +26,7 @@ QMAKE_CXXFLAGS += -std=c++11
 INCLUDEPATH += ../include
 
 QMAKE_LIBDIR += ../install/libs
-LIBS += -lglog
+#LIBS += -lglog
 # Input
 HEADERS	+=	src/AXBaseWindow.h \
 			src/CXWindowsManager.h \
@@ -62,7 +70,8 @@ HEADERS	+=	src/AXBaseWindow.h \
       src/CXTechDlg.h \
       src/CXVirtualKeyboardNum.h \
       src/CXOperFeedDlg.h \
-      src/CXParamui.h \   
+      src/CXParamui.h \
+      src/CXSupports.h \   
       src/utils/CXParamData.h \
       src/utils/CXMLReader.h
 
@@ -108,7 +117,8 @@ SOURCES +=	src/main.cpp \
       src/CXVirtualKeyboardNum.cpp \
       src/CXTechDlg.cpp \
       src/CXOperFeedDlg.cpp \
-      src/CXParamui.cpp \        
+      src/CXParamui.cpp \
+      src/CXSupports.cpp \   
       src/utils/CXParamData.cpp \
 			src/utils/CXMLReader.cpp
 
@@ -127,7 +137,8 @@ FORMS +=	src/forms/CXFilesList.ui \
 			src/forms/CXDeviceView.ui \
       src/forms/CXWarmingUpDlg.ui \		
       src/forms/CXVirtualKeyboardNum.ui \
-      src/forms/CXParam.ui \        	
+      src/forms/CXParam.ui \
+      src/forms/CXSupports.ui \   
 			src/forms/CXChannelEdit.ui
 
 RESOURCES += resource.qrc
