@@ -22,6 +22,15 @@
 #include "CXParamui.h"
 #include "CXSupports.h"
 
+/* *
+ * TODO: qForm: gasConsole: провести команды регуляции газа, проверить работу с techparams и
+ * загрузки файла
+ * TODO: qForm: ввести запрет загрузки УП пока не стоп
+ *
+ * TODO: qForm: повторный сброс аварий очищает поле аварий
+ *
+ * TODO: qForm: доступ разным пользователям к различным утилитам УЧПУ
+ * */
 
 #include "terminalCtrl.h"
 //
@@ -358,7 +367,8 @@ main(int argc, char *argv[])
       texts.append(QObject::trUtf8("Параметры"));
       texts.append( (! userIsOperator)?QObject::trUtf8("Наладка"):QObject::trUtf8(""));
       texts.append(QObject::trUtf8("Утилиты"));
-      texts.append(QObject::trUtf8("Раскрой"));
+//      texts.append(QObject::trUtf8("Раскрой"));
+      texts.append(QObject::trUtf8("Параметры\nреза"));
       texts.append(QString());
       texts.append(QObject::trUtf8("Сбросить\nкоординаты"));
       texts.append(QString());
@@ -382,8 +392,9 @@ main(int argc, char *argv[])
           windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
 
       QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked())
-//          , curGroupPanel, SLOT(macroCommand2()));
-         , windows.value("CXSupportsWindow"), SLOT(show()));
+         , windows.value("CXParamUi"), SLOT(show()));
+//         , windows.value("CXSupportsWindow"), SLOT(show()));
+//TODO: qForm: продумать вывод Раскроя/БД
 
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
           windows.value("CXOperDirectionWindow"), SLOT(onResetCoordinates()));

@@ -509,7 +509,6 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
     //Позиция осей.
     if (aCommand ==  (Commands::MSG_STATE_POS_AXIS))
     {
-      //TODO реализовать красиво отображеие координат может прихолить по одной
       QStringList list = aValue.split(",");
       for (int i = 0; i < list.size(); i++)
       {

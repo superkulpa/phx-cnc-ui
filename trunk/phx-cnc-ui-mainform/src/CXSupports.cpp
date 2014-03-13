@@ -78,7 +78,7 @@ CXSupportsWindow::~CXSupportsWindow()
 void CXSupportsWindow::onButtonClicked()
 {
   QAbstractButton* button = qobject_cast<QAbstractButton*>(sender());
-//todo: qForm.3 рефакторить фикс суппортов
+//todo: qForm.5 рефакторить фикс суппортов
   if (button == ui.cutY1 )
   {
     if(ui.cutY1->property("cut") == 0){
