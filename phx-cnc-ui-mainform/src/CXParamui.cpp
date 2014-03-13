@@ -319,6 +319,8 @@ void CXParamUi::save()
   //сохраняем по файлам
 //  qDebug() << mType;
 //TODO: qForm.2 маску суппортов брать из тек маски технологии
+//TODO: qForm.2 добавить разброс по файлам суппортов, с правильной секцией
+
   int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh"
       , QStringList() << "-f" << INI_PATH << "-t" << mType << " -m 1");
   if(res == 0){

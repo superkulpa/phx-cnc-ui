@@ -264,7 +264,6 @@ CXOperTechnology::onMarkerMode(){
       MSG_VALUE_INVERT);
 //  mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "IOn7",
 //      "10=invert");
-//TODO: qForm: сделать по уму
 }
 
 void
