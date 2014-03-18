@@ -224,12 +224,12 @@ QString SetMCommandValue(QString _isoStr){
         break;
         case '7':
             //7->M71
-            res = "M71";
+            res = "M81";
             res = res + SetTCommandValue(_isoStr,3);
         return res;
         case '8':
             //8->M75
-            res = "M75";
+            res = "M83";
             res = res + SetTCommandValue(_isoStr,3);
         break;
     };
@@ -417,7 +417,7 @@ bool IsEssiOperator(QString _str){
 int main(int argc, char *argv[])
 {
     QString fileName = argv[1];
-    qDebug()<< fileName;
+    qDebug()<< fileName + "\n";
     QFile file(fileName);
     QByteArray lst;
     if(file.open(QIODevice::ReadOnly |QIODevice::Text))
@@ -430,17 +430,19 @@ int main(int argc, char *argv[])
             //Делим строку на слова разделенные пробелом
             if(IsEssiOperator(str))
               str = ConverEssiToISO(str);
-            if(str != ""){
-                str += "\n";
+            if((str != "") && (!IsBracked)){
+                if(str.indexOf("%") != -1) str = "%1";
+                if(str.indexOf("\n") == -1)str += "\n";
                 lst.append(str);
-            };
                 //qDebug() << str;
+            };
+
         };
 
     }
     else
     {
-        qDebug()<< "don't open file";
+        qDebug()<< "don't open file\n";
     }
     file.close();
     //удаляем пред значения
