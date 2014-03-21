@@ -273,19 +273,24 @@ CXParametersModel::data(const QModelIndex& index, int role) const
 
     if (role == Qt::EditRole || role == Qt::DisplayRole)
     {
+      CXParameterData* p_data = mParameters.at(index.row());
+      if(NULL == p_data)
+        return "noname";
+
       switch (index.column())
       {
       case 0:
         {
-        if (role == Qt::DisplayRole)
-          return mParameters.at(index.row())->mName;
-        mParameters.at(index.row())->getValue();
+        if (role == Qt::DisplayRole){
+          return p_data->mName;
+        }
+        return p_data->getValue();
       }
       case 1:
         case 2:
         case 3:
         {
-        return mParameters.at(index.row())->getValue();
+        return p_data->getValue();
       }
       }
     }

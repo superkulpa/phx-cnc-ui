@@ -138,6 +138,7 @@ private slots:
   QString
   getConfigAttribute(const QString& aAttributeName);
 
+  void onAccept();
   //! Слот на сохранение файла.
   void
   onSave();

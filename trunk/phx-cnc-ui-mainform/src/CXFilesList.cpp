@@ -12,6 +12,7 @@
 #include "CXUdpManager.h"
 #include "utils/CXMLReader.h"
 #include <QtGui/QResizeEvent>
+#include "utils/iniFile.h"
 
 CXFilesList::CXFilesList(bool aIsSaveDialog) :
     AXBaseWindow()
@@ -294,7 +295,22 @@ CXFilesList::onCompileFile(int _clear)
 
   CXMLReader xmlReader(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
   xmlReader.SetAttribute("compiler/parameters/parameter/Common.CpName"
-                        ,"value",mFileName);
+                            ,"value",mFileName);
+  {
+    QString d_value, f_value;
+
+    CIniFile configFile(QString(QApplication::applicationDirPath() + "/jini/params.ini").toStdString());
+    configFile.ReadIniFile();
+
+    d_value        = QString::fromStdString(configFile.GetValue("General/Offset", "value", "0"));
+    f_value        = QString::fromStdString(configFile.GetValue("Move/ListFeed", "value", "1000"));
+
+    xmlReader.SetAttribute("compiler/parameters/parameter/Kerfing.D"
+        ,"value",d_value);
+    xmlReader.SetAttribute("compiler/parameters/parameter/Common.Feed"
+        ,"value",f_value);
+  }
+
   if(_clear){
     xmlReader.SetAttribute("compiler/parameters/parameter/RSI.Scale"
                           ,"value","100");
@@ -302,43 +318,7 @@ CXFilesList::onCompileFile(int _clear)
                           ,"value", "0");
     xmlReader.SetAttribute("compiler/parameters/parameter/RSI.RotationAngle"
                           ,"value", "0");
-  };
-//  QFile configFile(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
-//  configFile.open(QIODevice::ReadOnly);
-
-//  QDomDocument doc;
-//  doc.setContent(&configFile);
-
-//  QDomElement domElement = doc.documentElement();
-//  domElement = domElement.firstChildElement("parameters");
-//
-//  if (!domElement.isNull())
-//  {
-//    domElement = domElement.firstChildElement("parameter");
-//
-//    while (!domElement.isNull())
-//    {
-//      if (domElement.attribute("name") == QString("Common.CpName"))
-//      {
-//        domElement.setAttribute("value", mFileName);
-//
-//        break;
-//      }
-//
-//      domElement = domElement.nextSiblingElement("parameter");
-//    }
-//  }
-//
-//  configFile.close();
-//
-//  configFile.open(QIODevice::WriteOnly);
-//  QTextStream out(&configFile);
-//  out.setCodec("UTF-8");
-//
-//  doc.save(out, 2);
-//
-//  configFile.close();
-
+  }
   mProcess->start("bash ./cpc.sh " + mFileName);
 }
 
@@ -367,21 +347,19 @@ CXFilesList::onLoadCheckFile()
   if (mProcess != NULL)
     return;
 
-  CXProcessingParametersWindow* parametersWindow =
-      new CXProcessingParametersWindow(this);
+  CXProcessingParametersWindow* parametersWindow = new CXProcessingParametersWindow(this);
   parametersWindow->setAttribute(Qt::WA_DeleteOnClose);
   parametersWindow->setWindowFlags(Qt::Dialog);
   parametersWindow->setWindowModality(Qt::ApplicationModal);
   parametersWindow->resize(800, 600);
   parametersWindow->setFileName(getConfigAttribute("Common.OutputCpNameKerf"),
       getConfigAttribute("Common.OutputRunCpName"));
+  parametersWindow->show();
 
-  if (parametersWindow->exec() == QDialog::Accepted)
-  {
-//		mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_LOAD_CP, "0");
-    emit fileManageCreated(getConfigAttribute("Common.OutputCpName"),
-        getConfigAttribute("Common.OutputCpNameKerf"));
-  }
+//  if (parametersWindow->exec() == QDialog::Accepted)
+//  {
+//    onAccept();
+//  }
 }
 
 void
@@ -501,6 +479,15 @@ CXFilesList::dropEvent(QDropEvent *ev)
                       + QFileInfo(url.toLocalFile()).fileName();
     QFile::copy(url.toLocalFile(), newname);
   }
+}
+
+void
+CXFilesList::onAccept()
+{
+  mIsShow = false;
+  onCompileFile();
+//  emit fileManageCreated(getConfigAttribute("Common.OutputCpName"),
+//                         getConfigAttribute("Common.OutputCpNameKerf"));
 }
 
 void CXFilesList::dragEnterEvent(QDragEnterEvent *ev)
