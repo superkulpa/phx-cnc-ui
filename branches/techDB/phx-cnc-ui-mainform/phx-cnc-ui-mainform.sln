@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "phx-cnc-ui-mainform", "phx-
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "baseClient", "baseClient\baseClient.vcxproj", "{8802A7E8-7A66-44AD-B5CF-15D9CF0FA505}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BaseCreator", "BaseCreator\BaseCreator.vcxproj", "{8F90BF18-3565-4A30-9807-39D04BC6C364}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{8802A7E8-7A66-44AD-B5CF-15D9CF0FA505}.Debug|Win32.Build.0 = Debug|Win32
 		{8802A7E8-7A66-44AD-B5CF-15D9CF0FA505}.Release|Win32.ActiveCfg = Release|Win32
 		{8802A7E8-7A66-44AD-B5CF-15D9CF0FA505}.Release|Win32.Build.0 = Release|Win32
+		{8F90BF18-3565-4A30-9807-39D04BC6C364}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8F90BF18-3565-4A30-9807-39D04BC6C364}.Debug|Win32.Build.0 = Debug|Win32
+		{8F90BF18-3565-4A30-9807-39D04BC6C364}.Release|Win32.ActiveCfg = Release|Win32
+		{8F90BF18-3565-4A30-9807-39D04BC6C364}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

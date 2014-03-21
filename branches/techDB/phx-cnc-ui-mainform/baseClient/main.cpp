@@ -8,8 +8,6 @@
 #include <QSqlQuery>
 #include <qdebug.h>
 
-#include "math.h"
-
 #include "CXBaseClient.h"
 #include "../src/CXParamData.h"
 #define MAX_SUPP_COUNT 8
@@ -87,14 +85,14 @@ int ReloadPlasmaCuttingParams(CIniFile& _cutIni, CIniFile& _techIni, QString _na
 
   int _listFeed = _cutIni.GetValueI(name, "CuttingFeed", 1000);
   iniFileParams.SetValueI("Move/ListFeed", "value",  _listFeed);
-  iniFileParams.SetValueI("General/Offset", "value", round(_cutIni.GetValueF(name, "Kerf", 0) * 10 / 2));
+  iniFileParams.SetValueI("General/Offset", "value", qRound(_cutIni.GetValueF(name, "Kerf", 0) * 10 / 2));
 
   int burn_feed = _cutIni.GetValueI(name, "BurningFeed",0);
 
   double zTouchUp = 0;
   double zUpAfterArc = 0;
   double zCutDistance = 0;
-  double motionDelay = round(_cutIni.GetValueF(name,"BurningTime",0) * 10);
+  double motionDelay = qRound(_cutIni.GetValueF(name,"BurningTime",0) * 10);
   string paramName = "Technology/" + _name.toStdString() + "/MotionDelay";
   _techIni.SetValueI(paramName,"value",(motionDelay >= 0) ? motionDelay : 0);
   paramName = "Technology/" + _name.toStdString() + "/Burn/FeedDivisor";
@@ -157,7 +155,7 @@ int ReloadOxyCuttingParams(CIniFile& _cutIni){
   ///скидываем параметры с временного файла в файл инициализации
   int _listFeed = _cutIni.GetValueI("Oxy/Common", "CuttingFeed", 1000);
   iniFileParams.SetValueI("Move/ListFeed", "value", _listFeed );
-  iniFileParams.SetValueI("General/Offset", "value", (round)(_cutIni.GetValueF("Oxy/Common", "Kerf", 0) * 10 / 2));
+  iniFileParams.SetValueI("General/Offset", "value", qRound(_cutIni.GetValueF("Oxy/Common", "Kerf", 0) * 10 / 2));
 
   //файл для передачи параметров кислородной газовой консоли
   CIniFile iniParamsGC("./jini/paramsGC.ini", 1000);
@@ -303,7 +301,7 @@ int main(int argc, char *argv[])
 	CXParamData::deleteKeys(QStringList() << type);
 /**/
 	QStringList allKeys;
-	allKeys << "Manufactor/Keys" << "Source/Keys" << "MetallType/Keys" << "Thickness/Keys" << "Power/Keys" << "GasTypes/Keys" << type + "/Common";
+	allKeys <<  "Source/Keys" << "MetallType/Keys" << "Thickness/Keys" << "Power/Keys" << "GasTypes/Keys" << "ConsAngles/Keys" << type + "/Common";
 	CXParamData::deleteKeys(allKeys);
 /**/
 	CXBaseClient client;
@@ -320,22 +318,10 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 /**/
-	QString curKey = "Manufactor";
-	KeyValueList availableKeys = client.execute("tbl_manufacturers", "id, name", "", "name");
+	QString curKey = "Source";
+	KeyValueList availableKeys = client.execute("tbl_plasma_sources", "id, name", "", "name");
 
 	int res = check(availableKeys, curKey, keys, type);
-	if (res <= 0)
-	{
-		if (res < 0) out << QString("%1: available keys are empty\n").arg(curKey);
-		else out << QString("wrong key: %1-%2\n").arg(curKey).arg(keys.value(curKey));
-
-		return res;
-	}
-
-	curKey = "Source";
-	availableKeys = client.execute("tbl_plasma_sources", "id, name", QString("manufacturer=%1").arg(keys.value("Manufactor")), "name");
-
-	res = check(availableKeys, curKey, keys, type);
 	if (res <= 0)
 	{
 		if (res < 0) out << QString("%1: available keys are empty\n").arg(curKey);
@@ -395,9 +381,22 @@ int main(int argc, char *argv[])
 		return res;
 	}
 
-/* Загрузка значений полей */
+	curKey = "ConsAngles";
 	w += QString(" AND gases=%1").arg(keys.value("GasTypes"));
+	availableKeys = client.execute("tbl_cons_angle as a, tbl_plasma_params as b", "DISTINCT b.cons_angle, a.name", w + " AND b.cons_angle=a.id", "a.name");
 
+	res = check(availableKeys, curKey, keys, type);
+	if (res <= 0)
+	{
+		if (res < 0) out << QString("%1: available keys are empty\n").arg(curKey);
+		else out << QString("wrong key: %1-%2\n").arg(curKey).arg(keys.value(curKey));
+
+		return res;
+	}
+
+	w += QString(" AND cons_angle=%1").arg(keys.value("ConsAngles"));
+
+/* Загрузка значений полей */
 	KeyValueMap columnValuesMap;
 
 	columnValuesMap.insert("min_thickness", "MinThickness");
