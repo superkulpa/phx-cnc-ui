@@ -458,7 +458,7 @@ main(int argc, char *argv[])
   //	parametersWindow->loadParametersFromFtp();
 
   //
-  CTerminalCntrl::startTerminal(AXBaseWindow::mUdpManager);
+//  CTerminalCntrl::startTerminal(AXBaseWindow::mUdpManager);
 
   return app.exec();
 }

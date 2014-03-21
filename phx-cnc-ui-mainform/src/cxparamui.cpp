@@ -75,9 +75,9 @@ void CXParamUi::readKeys()
 	QComboBox* keyComboBox = NULL;
 	QStringList items, allKeys, keyText, keyName;
 
-	allKeys << "Manufactor" << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes";
-	keyText << trUtf8("Выберите производителя") << trUtf8("Выберите производителя") << trUtf8("Выберите тип металла") << trUtf8("Выберите толщину") << trUtf8("Выберите мощность") << trUtf8("Выберите тип газа");
-	keyName << trUtf8("Производитель") << trUtf8("Производитель") << trUtf8("Тип металла") << trUtf8("Толщина") << trUtf8("Мощность") << trUtf8("Тип газа");
+	allKeys << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes" << "ConsAngles";
+	keyText << trUtf8("Выберите производителя") << trUtf8("Выберите тип металла") << trUtf8("Выберите толщину") << trUtf8("Выберите мощность") << trUtf8("Выберите тип газа") << trUtf8("Выберите угол реза");
+	keyName << trUtf8("Производитель") << trUtf8("Тип металла") << trUtf8("Толщина") << trUtf8("Мощность") << trUtf8("Тип газа") << trUtf8("Угол реза");
 
 	QString curKey;
 	int i = 0;
@@ -286,7 +286,7 @@ void CXParamUi::onKeyChange()
 	QComboBox* curComboBox;
 	PairsList keys;
 
-	allKeys << "Manufactor" << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes";
+	allKeys << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes" << "ConsAngles";
 
 	for (int i = 0; i < ui.mKeysLayout->count(); i++)
 	{
