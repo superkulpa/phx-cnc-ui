@@ -289,17 +289,17 @@ CXParametersWindow::setProgressText(const QString& aText)
 void
 CXParametersWindow::closeFtp()
 {
-  if (mProgressBar != NULL){
+  if (mProgressBar){
     mProgressBar->close();
     delete mProgressBar;
     mProgressBar = NULL;
   }
-
-  QObject::disconnect(mFtp, 0, 0, 0);
-
-  mFtp->close();
-  mFtp->deleteLater();
-  mFtp = NULL;
+  if(mFtp){
+    QObject::disconnect(mFtp, 0, 0, 0);
+    mFtp->close();
+    mFtp->deleteLater();
+    mFtp = NULL;
+  }
 }
 
 void

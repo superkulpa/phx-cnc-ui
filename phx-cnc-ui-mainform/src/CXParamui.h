@@ -8,30 +8,30 @@
 
 class CXParamUi : public AXBaseWindow
 {
-	Q_OBJECT
+  Q_OBJECT
 
 public:
-	CXParamUi();
-	~CXParamUi();
+  CXParamUi();
+  ~CXParamUi();
 
-private slots:
-	void readKeys();
-	void readValues();
-	void clearLayout(QLayout* aLayout);
-	void onKeyChange();
-	void updateData();
-	void save();
-	void onButtonClicked();
+  private slots:
+  void readKeys();
+  void readValues();
+  void clearLayout(QLayout* aLayout);
+  void onKeyChange();
+  void updateData();
+  void save();
+  void onButtonClicked();
 
-signals:
+  signals:
   void iniSaved();
 
-private:
-	Ui::CXParamUiClass ui;
-	QString mType;
-	QString mLastUpdateKey;
-	QList <QLineEdit*> mEditors;
-	QList <QComboBox*> mKeyList;
+  private:
+  Ui::CXParamUiClass ui;
+  QString mType;
+  QString mLastUpdateKey;
+  QList <QLineEdit*> mEditors;
+  QList <QComboBox*> mKeyList;
 };
 
 #endif // CXPARAMUI_H

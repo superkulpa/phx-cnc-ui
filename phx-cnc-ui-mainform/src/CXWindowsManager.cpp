@@ -15,8 +15,8 @@
 
 CXWindowsManager::CXWindowsManager()
 {
-  mList.insertMulti("QDesktopWidget", QApplication::desktop());
-  mList.insertMulti("QDesktopWidget", QApplication::desktop());
+  mList.insertMulti("QDesktopWidget", NULL);
+ // mList.insertMulti("QDesktopWidget", NULL);
 
   mEvents << QEvent::MouseButtonDblClick << QEvent::MouseButtonPress << QEvent::MouseMove
       << QEvent::MouseButtonRelease << QEvent::Wheel << QEvent::KeyPress << QEvent::FocusIn
@@ -76,8 +76,7 @@ CXWindowsManager::setCurrentGroup(int aGroupNumber)
   mGroupNumber = aGroupNumber;
   AXBaseWindow* curWindow = NULL;
 
-  QMap<QString, QWidget*>::iterator iter;
-  for (iter = mList.begin(); iter != mList.end(); ++iter)
+  for (auto iter = mList.begin(); iter != mList.end(); ++iter)
   {
     curWindow = qobject_cast<AXBaseWindow*>(*iter);
 
@@ -147,8 +146,7 @@ CXWindowsManager::save(const QString& aFileName)
 
     QString className;
 
-    QMap<QString, QWidget*>::iterator iter;
-    for (iter = mList.begin(); iter != mList.end(); ++iter)
+    for (auto iter = mList.begin(); iter != mList.end(); ++iter)
     {
       curWindow = qobject_cast<AXBaseWindow*>(*iter);
 
@@ -313,10 +311,9 @@ CXWindowsManager::bringToFront()
 {
   AXBaseWindow* curWindow = NULL;
 
-  QMap<QString, QWidget*>::iterator iter;
-  for (iter = mList.begin(); iter != mList.end(); ++iter)
+  for (auto iter = mList.begin(); iter != mList.end(); ++iter)
   {
-    curWindow = qobject_cast<AXBaseWindow*>(*iter);
+    curWindow = (*iter);
 
     if (curWindow == NULL)
       continue;
@@ -359,8 +356,7 @@ CXWindowsManager::setFreeze(bool aIsFreeze)
    */
   AXBaseWindow* curWindow = NULL;
 
-  QMap<QString, QWidget*>::iterator iter;
-  for (iter = mList.begin(); iter != mList.end(); ++iter)
+  for (auto iter = mList.begin(); iter != mList.end(); ++iter)
   {
     curWindow = qobject_cast<AXBaseWindow*>(*iter);
 
@@ -496,16 +492,18 @@ CXWindowsManager::windowGeometryChange(const QRect& aNewGeometry, bool aIsResize
     QRect newRect = aNewGeometry;
     QRect curRect;
 
-    QMap<QString, QWidget*>::iterator iter;
-    for (iter = mList.begin(); iter != mList.end(); ++iter)
+    for (auto iter = mList.begin(); iter != mList.end(); ++iter)
     {
+      if(*iter == NULL)
+        curRect = QApplication::desktop()->availableGeometry();
+      else
       if (*iter == window || !(*iter)->isVisible())
         continue;
 
-      if (iter.key() == "QDesktopWidget")
-        curRect = qobject_cast<QDesktopWidget*>(*iter)->availableGeometry();
-      else
-        curRect = (*iter)->geometry();
+//      if (iter.key() == "QDesktopWidget")
+//        curRect = QApplication::desktop()->availableGeometry();
+//      else
+      curRect = (*iter)->geometry();
 
       if (intersects(aNewGeometry, curRect))
       {
@@ -611,4 +609,14 @@ CXWindowsManager::intersects(const QRect& aFirstRect, const QRect& aSecondRect, 
   }
 
   return false;
+}
+
+AXBaseWindow*
+CXWindowsManager::getWindow(const QString& _winName)
+{
+  if (mList.contains(_winName))
+  {
+    return (mList.value(_winName));
+  }
+  return NULL;
 }

@@ -25,6 +25,7 @@ public:
   setFileName(const QString& aFileName, const QString& aFtpFileName);
 
 private slots:
+  void onLoadDB();
   //! Слот на загрузку.
   void
   onFileLoad();

@@ -86,6 +86,7 @@ public:
   bool
   getFreeze();
 
+  AXBaseWindow* getWindow(const QString& _winName);
 public slots:
   /*!
    Функция установки заморозки всем окнам.
@@ -134,7 +135,7 @@ private:
   bool mIsFreeze;
   int mGroupNumber;
 
-  QMap<QString, QWidget*> mList;
+  QMap<QString, AXBaseWindow*> mList;
   QVector<int> mEvents;
 
 //	QVector <QString> mKeyboardWindows;

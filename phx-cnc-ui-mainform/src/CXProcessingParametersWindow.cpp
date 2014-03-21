@@ -10,12 +10,13 @@
 #include "utils/CXFtp.h"
 #include "utils/CXSettingsXML.h"
 #include "CXUdpManager.h"
+#include "CXParamui.h"
 
-CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) :
-    QDialog(parent)
+CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* _parent) :
+    QDialog(_parent)
 {
   setupUi(this);
-  setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
+  setWindowFlags(Qt::Dialog /*| Qt::WindowCloseButtonHint*/);
 
   mFtp = NULL;
   mParametersView = new CXParametersView(this, CXParametersView::mDataMap.values(0));
@@ -24,10 +25,18 @@ CXProcessingParametersWindow::CXProcessingParametersWindow(QWidget* parent) :
 
   connect(mCancelButton, SIGNAL(clicked()), this, SLOT(reject()));
   connect(mLoadButton, SIGNAL(clicked()), this, SLOT(onFileLoad()));
+  connect(mLoadBaseButton, SIGNAL(clicked()), this, SLOT(onLoadDB()));
+
+  connect(this, SIGNAL(accepted()), parent(), SLOT(onAccept()) );
 }
 
 CXProcessingParametersWindow::~CXProcessingParametersWindow()
 {
+  disconnect(AXBaseWindow::mManager->getWindow("CXParamUi"), SIGNAL(iniSaved())
+          , this, SLOT(close() ));
+//  disconnect(this, SIGNAL(accepted()), parent(), SLOT(onAccept()) );
+  disconnect(AXBaseWindow::mManager->getWindow("CXParamUi"), SIGNAL(iniSaved())
+         , AXBaseWindow::mManager->getWindow("CXFilesList"), SLOT(onAccept()) );
 }
 
 void
@@ -35,6 +44,28 @@ CXProcessingParametersWindow::setFileName(const QString& aFileName, const QStrin
 {
   mFileName = aFileName;
   mFtpFileName = aFtpFileName;
+}
+
+void CXProcessingParametersWindow::onLoadDB(){
+//  AXBaseWindow::mManager->getWindow("CXParamUi")->show();
+   //AXBaseWindow* parametersWindow = AXBaseWindow::mManager->getWindow("CXParamUi");//= new CXParamUi();
+   //connect(parametersWindow, SIGNAL(iniSaved()), this, SLOT(close()));
+  connect(AXBaseWindow::mManager->getWindow("CXParamUi"), SIGNAL(iniSaved())
+         , AXBaseWindow::mManager->getWindow("CXFilesList"), SLOT(onAccept()) );
+//          , this, SIGNAL(accepted()));
+  connect(AXBaseWindow::mManager->getWindow("CXParamUi"), SIGNAL(closed())
+          , this, SLOT(close() ));
+
+//
+//  connect(AXBaseWindow::mManager->getWindow("CXParamUi"), SIGNAL(closed())
+//         , this, SLOT(show()) );
+  hide();
+  AXBaseWindow::mManager->getWindow("CXParamUi")->show();
+  //close();
+//   if (parametersWindow->show() == QDialog::Accepted)
+//   {
+//     accept();
+//   }
 }
 
 void

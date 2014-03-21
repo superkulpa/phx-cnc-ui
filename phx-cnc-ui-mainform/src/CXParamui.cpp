@@ -326,10 +326,11 @@ void CXParamUi::save()
   if(res == 0){
     //отправляем переинициализацию
     emit iniSaved();
+    close();
   }else{
     //ошибка
-    QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Не сумели сохранить файлы"));
-  };
+    QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Не могу сохранить файлы"));
+  }
 }
 
 void CXParamUi::onButtonClicked()
