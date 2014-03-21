@@ -1,5 +1,3 @@
-#include "BaseCreator.h"
-
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -9,8 +7,6 @@
 #include <QTextStream>
 #include <QMap>
 #include <QSqlDriver>
-
-#include <QMessageBox>
 
 int main(int argc, char *argv[])
 {
