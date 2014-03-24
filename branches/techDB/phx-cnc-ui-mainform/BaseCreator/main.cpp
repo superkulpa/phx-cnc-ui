@@ -1,3 +1,5 @@
+#include "BaseCreator.h"
+
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -7,6 +9,8 @@
 #include <QTextStream>
 #include <QMap>
 #include <QSqlDriver>
+
+#include <QMessageBox>
 
 int main(int argc, char *argv[])
 {
@@ -53,7 +57,7 @@ int main(int argc, char *argv[])
 	QString createTable = "\
 							CREATE TABLE [tbl_fields_configs] ('id' INTEGER NOT NULL PRIMARY KEY DEFAULT 'nextval((''\"tbl_fields_configs_id_seq\"''::text)::regclass)', 'description' TEXT, 'plasma_source' INTEGER NOT NULL, 'reserve_field_number' INTEGER NOT NULL, 'reserve_field_name' TEXT NOT NULL, 'reserve_field_min' REAL NOT NULL, 'reserve_field_max' REAL NOT NULL);\
 							CREATE TABLE [tbl_gas_types] ('id' INTEGER NOT NULL PRIMARY KEY DEFAULT 'nextval((''\"tbl_gas_types_id_seq\"''::text)::regclass)', 'gases' TEXT NOT NULL, 'mixed' INTEGER NOT NULL DEFAULT 'false', 'description' TEXT);\
-							CREATE TABLE [tbl_cons_angle] ('id' INTEGER NOT NULL PRIMARY KEY DEFAULT 'nextval((''\"tbl_cons_angle_id_seq\"''::text)::regclass)', 'name' TEXT NOT NULL);\
+							CREATE TABLE [tbl_cons_angles] ('id' INTEGER NOT NULL PRIMARY KEY DEFAULT 'nextval((''\"tbl_cons_angles_id_seq\"''::text)::regclass)', 'name' TEXT);\
 							CREATE TABLE [tbl_parts_groups] ('id' INTEGER NOT NULL PRIMARY KEY DEFAULT 'nextval((''\"tbl_parts_groups_id_seq\"''::text)::regclass)', 'description' TEXT, 'part_1' INTEGER, 'part_2' INTEGER, 'part_3' INTEGER, 'part_4' INTEGER, 'part_5' INTEGER, 'part_6' INTEGER, 'part_7' INTEGER, 'part_8' INTEGER, 'part_9' INTEGER, 'part_10' INTEGER);\
 							CREATE TABLE [tbl_plasma_metal_types] ('id' INTEGER NOT NULL PRIMARY KEY DEFAULT 'nextval((''\"tbl_plasma_metal_types_id_seq\"''::text)::regclass)', 'name' TEXT NOT NULL, 'description' TEXT);\
 							CREATE TABLE [tbl_plasma_params] ('id' INTEGER NOT NULL PRIMARY KEY DEFAULT 'nextval((''\"tbl_plasma_params_id_seq\"''::text)::regclass)', 'cons_angle' INTEGER NOT NULL, 'plasma_source' INTEGER NOT NULL, 'metal_type' INTEGER NOT NULL, 'min_thickness' REAL NOT NULL, 'max_thickness' REAL NOT NULL, 'gases' INTEGER NOT NULL, 'amperage' INTEGER NOT NULL, 'out_description' TEXT, 'out_under_water' INTEGER NOT NULL DEFAULT 'false', 'out_voltage' INTEGER NOT NULL, 'out_feed' INTEGER NOT NULL, 'out_burning_z_distance' REAL NOT NULL, 'out_cutting_z_distance' REAL NOT NULL, 'out_kerf' REAL NOT NULL, 'out_ignition_distance' REAL NOT NULL, 'out_burning_feed' INTEGER NOT NULL, 'out_burning_time' REAL NOT NULL, 'out_parts_group' INTEGER NOT NULL, 'out_gases_mix1' REAL, 'out_gases_mix2' REAL, 'out_plasma_preflow_pressure' REAL NOT NULL, 'out_shield_preflow_pressure' REAL NOT NULL, 'out_plasma_cutflow_pressure' REAL NOT NULL, 'out_shield_cutflow_pressure' REAL NOT NULL, 'out_plasma_preflow_rate' REAL NOT NULL, 'out_shield_preflow_rate' REAL NOT NULL, 'out_plasma_cutflow_rate' REAL NOT NULL, 'out_shield_cutflow_rate' REAL NOT NULL, 'out_additional_field_1' REAL, 'out_additional_field_2' REAL, 'out_additional_field_3' REAL, 'out_additional_field_4' REAL, 'out_additional_field_5' REAL);\
@@ -215,7 +219,7 @@ int main(int argc, char *argv[])
 			query.exec();
 		}
 
-		queryText = "INSERT INTO tbl_cons_angle VALUES(:id, :name);";
+		queryText = "INSERT INTO tbl_cons_angles VALUES(:id, :name);";
 
 		for (mapIter = consAngles.begin(); mapIter != consAngles.end(); mapIter++)
 		{
@@ -229,7 +233,7 @@ int main(int argc, char *argv[])
 
 		queryText = "INSERT INTO tbl_torch_parts VALUES(:id, :type, :number, :image, :manufacturer, :description);";
 		QFile tempFile;
-		QDir imagesDir(path + "images/");
+		QDir imagesDir(path + "/images/");
 		QStringList files;
 		int imageType = -1;
 
@@ -257,7 +261,7 @@ int main(int argc, char *argv[])
 					imageType = imagesTypes.value(temp2);
 				}
 
-				tempFile.setFileName(path + "images/" + temp);
+				tempFile.setFileName(path + "/images/" + temp);
 
 				if (tempFile.exists() && tempFile.open(QIODevice::ReadOnly))
 				{

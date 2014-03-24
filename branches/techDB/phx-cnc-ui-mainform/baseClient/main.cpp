@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QTextCodec>
 #include <QSqlQuery>
+#include <QSqlRecord>
 #include <qdebug.h>
 
 #include "CXBaseClient.h"
@@ -317,6 +318,24 @@ int main(int argc, char *argv[])
 
 		return -1;
 	}
+/*
+	QString queryString = QString("SELECT number, name, image FROM tbl_torch_parts_types as a, tbl_torch_parts as b WHERE a.id=b.type ORDER BY number;");
+
+	QSqlQuery query;
+	if (query.exec(queryString) && query.first())
+	{
+		do
+		{
+			QFile imageFile(QString("%1 %2.bmp").arg(query.value(0).toString()).arg(query.value(1).toString()));
+			if (imageFile.open(QIODevice::WriteOnly))
+			{
+				QByteArray data = query.value(2).toByteArray();
+				imageFile.write(data);
+				imageFile.close();
+			}
+		}
+		while (query.next());
+	}
 /**/
 	QString curKey = "Source";
 	KeyValueList availableKeys = client.execute("tbl_plasma_sources", "id, name", "", "name");
@@ -331,7 +350,8 @@ int main(int argc, char *argv[])
 	}
 
 	curKey = "MetallType";
-	availableKeys = client.execute("tbl_plasma_metal_types as a, tbl_plasma_params as b", "DISTINCT metal_type, a.name", "metal_type=a.id", "a.name");
+	QString w = QString("plasma_source=%1").arg(keys.value("Source"));
+	availableKeys = client.execute("tbl_plasma_metal_types as a, tbl_plasma_params as b", "DISTINCT metal_type, a.name", w + " AND metal_type=a.id", "a.name");
 
 	res = check(availableKeys, curKey, keys, type);
 	if (res <= 0)
@@ -343,7 +363,7 @@ int main(int argc, char *argv[])
 	}
 
 	curKey = "Thickness";
-	QString w = QString("plasma_source=%1 AND metal_type=%2").arg(keys.value("Source")).arg(keys.value("MetallType"));
+	w += QString(" AND metal_type=%2").arg(keys.value("MetallType"));
 	availableKeys = client.execute("tbl_plasma_params", "DISTINCT min_thickness, min_thickness", w, "min_thickness");
 
 	res = check(availableKeys, curKey, keys, type);
@@ -383,7 +403,7 @@ int main(int argc, char *argv[])
 
 	curKey = "ConsAngles";
 	w += QString(" AND gases=%1").arg(keys.value("GasTypes"));
-	availableKeys = client.execute("tbl_cons_angle as a, tbl_plasma_params as b", "DISTINCT b.cons_angle, a.name", w + " AND b.cons_angle=a.id", "a.name");
+	availableKeys = client.execute("tbl_cons_angles as a, tbl_plasma_params as b", "DISTINCT b.cons_angle, a.name", w + " AND b.cons_angle=a.id", "a.name");
 
 	res = check(availableKeys, curKey, keys, type);
 	if (res <= 0)
