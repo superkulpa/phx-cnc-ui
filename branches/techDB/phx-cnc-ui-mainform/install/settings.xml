@@ -68,7 +68,7 @@
   <window_CXPathWindow1 visible="1">AdnQywABAAAAAAHyAAAAkwAAA5EAAAKwAAAB8gAAAJMAAAORAAACsAAAAAAAAA==</window_CXPathWindow1>
   <window_CXTitleWindow visible="1">AdnQywABAAAAAAA+AAAAGAAABPEAAABCAAAAPgAAABgAAATxAAAAQgAAAAAAAA==</window_CXTitleWindow>
   <window_CXVirtualKeyboard visible="1">AdnQywABAAAAAAA+AAAAGAAAAY8AAAJWAAAAPgAAABgAAAGPAAACVgAAAAAAAA==</window_CXVirtualKeyboard>
-  <window_CXTurnDialog>AdnQywABAAAAAAA+AAAAKwAAAz8AAAKwAAAAPgAAACsAAAM/AAACsAAAAAAAAA==</window_CXTurnDialog>
+  <window_CXTurnDialog visible="1">AdnQywABAAAAAAA+AAAAKwAAAz8AAAKwAAAAPgAAACsAAAM/AAACsAAAAAAAAA==</window_CXTurnDialog>
   <window_CXUtilsWindow visible="1">AdnQywABAAAAAAAwAAAAKwAABRQAAAJ5AAAAMAAAACsAAAUUAAACeQAAAAAAAA==</window_CXUtilsWindow>
   <window_CXFilesList1>AdnQywABAAAAAAGiAAAAKwAAA14AAAJ5AAABogAAACsAAANeAAACeQAAAAAAAA==</window_CXFilesList1>
   <window_CXTextParameters visible="1">AdnQywABAAAAAAHyAAAAQwAAA5EAAAC1AAAB8gAAAEMAAAORAAAAtQAAAAAAAA==</window_CXTextParameters>
@@ -88,7 +88,7 @@
   <window_CXVirtualKeyboardNum2 visible="1">AdnQywABAAAAAAAAAAAAAAAAAWoAAADEAAAAAAAAAAAAAAFqAAAAxAAAAAAAAA==</window_CXVirtualKeyboardNum2>
   <window_CXParamUi visible="1">AdnQywABAAAAAAA+AAAAQwAABPEAAAMFAAAAPgAAAEMAAATxAAADBQAAAAAAAA==</window_CXParamUi>
   <ui-TechParams>
-    <plasma>
+    <Plasma>
       <!-- Порядок имеет значения, на форме отражаются в том же порядке -->
       <Caption descr="Режим реза: Плазма"/>
       <CuttingFeed delta="100" column="1" descr="Скорость реза"/>
@@ -129,7 +129,7 @@
 		<Manufactor value="Hypertherm"/>
 		<MetallType value="Mild Steel"/>
 	</fixed-->
-    </plasma>
+    </Plasma>
     <writer>
       <!-- Порядок имеет значения, на форме отражаются в том же порядке -->
       <Caption descr="Режим реза: Разметка"/>
