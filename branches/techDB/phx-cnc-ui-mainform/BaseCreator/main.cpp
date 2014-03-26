@@ -249,11 +249,11 @@ int main(int argc, char *argv[])
 
 			if (!files.isEmpty())
 			{
-				temp = files.first().replace(".bmp", "");
+				temp = files.first();
 
 				if (temp.split(QRegExp("( |\\.)")).count() >= 2)
 				{
-					temp2 = temp.mid(temp.indexOf(" ") + 1);//temp.split(QRegExp("( |\\.)")).at(1);
+					temp2 = temp.mid(temp.indexOf(" ") + 1).replace(".bmp", "");//temp.split(QRegExp("( |\\.)")).at(1);
 
 					if (!imagesTypes.contains(temp2)) imagesTypes.insert(temp2, imagesTypes.count() + 1);
 					imageType = imagesTypes.value(temp2);
