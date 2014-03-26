@@ -34,6 +34,7 @@ private slots:
 
 private:
   QWidget* mFocusedWidget;
+  QVector <QString> mAcceptWindow;
 };
 
 #endif // CXVIRTUALKEYBOARD_H
