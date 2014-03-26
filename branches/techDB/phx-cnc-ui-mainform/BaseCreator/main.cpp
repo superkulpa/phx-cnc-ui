@@ -1,5 +1,3 @@
-#include "BaseCreator.h"
-
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
