@@ -30,6 +30,8 @@ CXVirtualKeyboard::CXVirtualKeyboard() :
   }
 
   registerManager();
+
+  mAcceptWindow << "CXEditPathFile" << "CXParametersWindow" << "CXIniFileEditor" << "CXFilesList";
 }
 
 CXVirtualKeyboard::~CXVirtualKeyboard()
@@ -62,9 +64,7 @@ CXVirtualKeyboard::onFocusChange(QWidget* old, QWidget* now)
 
       //qDebug() << w->metaObject()->className();
 
-      if (w->metaObject()->className() == QString("CXEditPathFile")
-//          || w->metaObject()->className() == QString("CXParametersWindow")
-          || w->metaObject()->className() == QString("CXIniFileEditor"))
+	  if (mAcceptWindow.contains(w->metaObject()->className()))
       {
         show();
       }
