@@ -76,12 +76,15 @@ CXProcessingParametersWindow::onFileLoad()
   //QFile::rename(mFileName, mFtpFileName);
 
   QFileInfo fileInfo(mFileName);
+  QFile::copy(mFileName, "jini/list.kerf.ccp");//todo: qForm: облагородить сё
+
   //QFileInfo fileFTPInfo(mFtpFileName);
-  QString pswrd = "ftp";//CXSettingsXML::getValue("settings.xml", "ftp", "ftp");
+  QString pswrd = CXSettingsXML::getValue("settings.xml", "ftp", "ftp");
 
   mFtp = new CXFtp(this);
   mFtp->setConnectData(host, 21, "ftp", pswrd);
-  mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath(), CXFtp::remoteCatalog);
+//  mFtp->setLoadFilesData(fileInfo.absoluteDir().absolutePath(), CXFtp::remoteCatalog);
+  mFtp->setLoadFilesData("jini", CXFtp::remoteCatalog);
 
   //записываем куда загрузится
   //mFtpFileName = "pub/updates/jini/" + mFtpFileName;
@@ -104,8 +107,8 @@ CXProcessingParametersWindow::onFileLoad()
     }
 
     loadFiles << "*.ini";
+//    emit accepted();
   }
-
   mFtp->onFtpUpload(loadFiles);
 }
 

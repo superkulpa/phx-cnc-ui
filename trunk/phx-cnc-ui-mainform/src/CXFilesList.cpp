@@ -47,6 +47,7 @@ CXFilesList::CXFilesList(bool aIsSaveDialog) :
   mFileView->setModel(mModel);
   mRootPath = QApplication::applicationDirPath() + "/../cps";
   mRootIndex = mModel->setRootPath(mRootPath);
+  mBackIndex = mRootIndex;
   mFileView->setRootIndex(mRootIndex);
 
   mUpButton->setEnabled(false);
@@ -55,6 +56,7 @@ CXFilesList::CXFilesList(bool aIsSaveDialog) :
   connect(mFileView, SIGNAL(activated(const QModelIndex&)), this,
       SLOT(onItemActivate(const QModelIndex&)));
 
+  connect(mReturnButton, SIGNAL(clicked()), this, SLOT(onReturn()));
   connect(mDownButton, SIGNAL(clicked()), this, SLOT(onDownList()));
   connect(mUpButton, SIGNAL(clicked()), this, SLOT(onUpList()));
   connect(mOpenButton, SIGNAL(clicked()), this, SLOT(onOpen()));
@@ -144,9 +146,12 @@ CXFilesList::onItemActivate(const QModelIndex& aIndex)
 
       if (index.parent().isValid())
       {
-        if (index.parent() == mRootIndex)
+        if (index.parent() == mRootIndex){
           mModel->setFilter(
               QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
+        }
+
+        mBackIndex = index.parent();
         mFileView->setRootIndex(index.parent());
       }
     }
@@ -186,6 +191,13 @@ CXFilesList::onItemActivate(const QModelIndex& aIndex)
     onCompileFile(true);
   }
 }
+
+void
+CXFilesList::onReturn()
+{
+  onItemActivate(mRootIndex);//TODO qForm: назад сделать нормально
+}
+
 
 void
 CXFilesList::onDownList()

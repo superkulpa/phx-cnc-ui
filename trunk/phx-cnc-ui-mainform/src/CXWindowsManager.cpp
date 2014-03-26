@@ -496,15 +496,15 @@ CXWindowsManager::windowGeometryChange(const QRect& aNewGeometry, bool aIsResize
     {
       if(*iter == NULL)
         curRect = QApplication::desktop()->availableGeometry();
-      else
+      else{
       if (*iter == window || !(*iter)->isVisible())
         continue;
 
 //      if (iter.key() == "QDesktopWidget")
 //        curRect = QApplication::desktop()->availableGeometry();
 //      else
-      curRect = (*iter)->geometry();
-
+        curRect = (*iter)->geometry();
+      }
       if (intersects(aNewGeometry, curRect))
       {
         curValue = absoluteMin(aNewGeometry.top() - curRect.top(),

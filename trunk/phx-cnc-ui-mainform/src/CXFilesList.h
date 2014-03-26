@@ -87,6 +87,9 @@ private slots:
   void
   onItemActivate(const QModelIndex&);
 
+  void
+  onReturn();
+
   //! Слот выделения следующего файла в списке.
   void
   onDownList();
@@ -155,6 +158,7 @@ private:
   QString mFileName;
   QFileSystemModel* mModel;
   QModelIndex mRootIndex;
+  QModelIndex mBackIndex;
   QPushButton* mButton;
 
   CXProcess* mProcess;

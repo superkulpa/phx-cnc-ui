@@ -14,12 +14,13 @@
 #define INI_PATH "techparams.ini"
 #define XML_PATH "settings.xml"
 
-CXParamUi::CXParamUi() : AXBaseWindow()
+CXParamUi::CXParamUi() :
+    AXBaseWindow()
 {
   //TODO: qForm.2 mType брать из тек технологии
   mType = "MPlasma";
   ui.setupUi(this);
-  ui.mValuesLayout->setObjectName(QString::fromUtf8("mValuesLayout"));
+  //ui.mValuesLayout->setObjectName(QString::fromUtf8("mValuesLayout"));
 
   if (!QFile::exists(INI_PATH))
   {
@@ -27,7 +28,13 @@ CXParamUi::CXParamUi() : AXBaseWindow()
     iniFile.open(QIODevice::WriteOnly);
     iniFile.close();
   }
+  ui.mValuesScroll->setWidgetResizable(true);
 
+  QWidget* valueWidget = new QWidget(ui.mValuesScroll);
+  valueWidget->setObjectName("valueWidget");
+  ui.mValuesScroll->setWidget(valueWidget);
+
+  mValuesLayout = new QGridLayout(valueWidget);
   readKeys();
 
   connect(ui.mRestoreButton, SIGNAL(clicked()), this, SLOT(updateData()));
@@ -54,14 +61,15 @@ CXParamUi::~CXParamUi()
 {
 }
 
-void CXParamUi::readKeys()
+void
+CXParamUi::readKeys()
 {
   mKeyList.clear();
   clearLayout(ui.mKeysLayout);
 
   CXParamData::open(INI_PATH);
-  QMap <QString, QString> keys = CXParamData::getKeys(mType);
-  QMap <QString, QString> fixedKeys = CXParamData::getFixedKeys(XML_PATH, mType);
+  QMap<QString, QString> keys = CXParamData::getKeys(mType);
+  QMap<QString, QString> fixedKeys = CXParamData::getFixedKeys(XML_PATH, mType);
 
   bool isUpdateNeed = false;
   bool isBreak = false;
@@ -71,9 +79,12 @@ void CXParamUi::readKeys()
   QComboBox* keyComboBox = NULL;
   QStringList items, allKeys, keyText, keyName;
 
-  allKeys << "Manufactor" << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes";
-  keyText << trUtf8("Выберите производителя") << trUtf8("Выберите наименование") << trUtf8("Выберите тип металла") << trUtf8("Выберите толщину") << trUtf8("Выберите мощность") << trUtf8("Выберите тип газа");
-  keyName << trUtf8("Производитель") << trUtf8("Наименование") << trUtf8("Тип металла") << trUtf8("Толщина") << trUtf8("Мощность") << trUtf8("Тип газа");
+  allKeys << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes" << "ConsAngles";
+  keyText << trUtf8("Выберите производителя") << trUtf8("Выберите тип металла")
+      << trUtf8("Выберите толщину") << trUtf8("Выберите мощность") << trUtf8("Выберите тип газа")
+      << trUtf8("Выберите угол реза");
+  keyName << trUtf8("Производитель") << trUtf8("Тип металла") << trUtf8("Толщина")
+      << trUtf8("Мощность") << trUtf8("Тип газа") << trUtf8("Угол реза");
 
   QString curKey;
   int i = 0;
@@ -82,12 +93,14 @@ void CXParamUi::readKeys()
     curKey = allKeys.at(i);
 
     items = CXParamData::getKeysArray(curKey);
-    if (items.isEmpty() && keys.contains(curKey)) items.append(keys.value(curKey));
+    if (items.isEmpty() && keys.contains(curKey))
+      items.append(keys.value(curKey));
 
     if (items.isEmpty())
     {
       //чтобы небыло циклического обновления при отсутствии ключа.
-      if (mLastUpdateKey != curKey) isUpdateNeed = true;
+      if (mLastUpdateKey != curKey)
+        isUpdateNeed = true;
       mLastUpdateKey = curKey;
       break;
     }
@@ -117,7 +130,8 @@ void CXParamUi::readKeys()
       if (!items.contains(fixedKeys.value(curKey)))
       {
         //чтобы небыло циклического обновления при отсутствии ключа.
-        if (mLastUpdateKey != curKey) isUpdateNeed = true;
+        if (mLastUpdateKey != curKey)
+          isUpdateNeed = true;
         mLastUpdateKey = curKey;
         break;
       }
@@ -132,7 +146,8 @@ void CXParamUi::readKeys()
       keyComboBox->setCurrentIndex(-1);
       isBreak = true;
     }
-    else keyComboBox->setCurrentIndex(items.indexOf(keys.value(curKey)));
+    else
+      keyComboBox->setCurrentIndex(items.indexOf(keys.value(curKey)));
 
     connect(keyComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onKeyChange()));
   }
@@ -143,21 +158,25 @@ void CXParamUi::readKeys()
   bool isValues = !CXParamData::getValues(mType + "/Common").isEmpty();
 
   ui.mStackWidget->setCurrentIndex(1);
-  if (!isValues) ui.mErrorLabel->setText(keyText.at(qMax(0, i - 1)));
+  if (!isValues)
+    ui.mErrorLabel->setText(keyText.at(qMax(0, i - 1)));
 
   if (isUpdateNeed && !isValues)
   {
     CXParamData::close(false);
-    if (isSaveNeed) onKeyChange();
-    else updateData();
+    if (isSaveNeed)
+      onKeyChange();
+    else
+      updateData();
   }
   else
   {
     setUpdatesEnabled(false);
-    clearLayout(ui.mValuesLayout);
+//    clearLayout(ui.mValuesLayout);
     clearLayout(ui.mImagesLayout);
 
-    if (!isBreak) readValues();
+    if (!isBreak)
+      readValues();
 
     CXParamData::close(false);
 
@@ -166,9 +185,10 @@ void CXParamUi::readKeys()
   }
 }
 
-void CXParamUi::readValues()
+void
+CXParamUi::readValues()
 {
-  QMap <QString, QString> values = CXParamData::getValues(mType + "/Common");
+  QMap<QString, QString> values = CXParamData::getValues(mType + "/Common");
 
   if (values.isEmpty())
   {
@@ -179,51 +199,60 @@ void CXParamUi::readValues()
 
   ui.mStackWidget->setCurrentIndex(0);
 
-  QList <SXDataXml> captions = CXParamData::getCaptions(XML_PATH, mType);
+  QList<SXDataXml> captions = CXParamData::getCaptions(XML_PATH, mType);
 
   QLabel* labelValue = NULL;
-  QLineEdit* editValue = NULL;
+  QDoubleSpinBox* editValue = NULL;
   mEditors.clear();
   int row1 = 0;
   int row2 = 0;
   int row = 0;
   int column = 0;
+  double value = 0;
 
-  for (int i = 0; i < captions.count(); i++)
+  foreach (const SXDataXml& data, captions)
+  {  if (values.contains(data.mName))
   {
-    const SXDataXml& data = captions.at(i);
+    column = (data.mColumn > 0) ? 2 : 0;
+    row = (data.mColumn > 0) ? row1++ : row2++;
 
-    if (values.contains(data.mName))
+    labelValue = new QLabel(data.mDescr, this);
+    labelValue->setMargin(5);
+    if (row % 2 == 0) labelValue->setStyleSheet("background-color: silver;");
+    mValuesLayout->addWidget(labelValue, row, column);
+
+    value = values.value(data.mName).toDouble();
+
+    editValue = new QDoubleSpinBox(this);
+    if (data.mDelta > 0)
     {
-      column = (data.mColumn > 0) ? 2 : 0;
-      row = (data.mColumn > 0) ? row1++ : row2++;
-
-      labelValue = new QLabel(data.mDescr, this);
-      labelValue->setMargin(1);
-      if (row % 2 == 0) labelValue->setStyleSheet("background-color: silver;");
-      ui.mValuesLayout->addWidget(labelValue, row, column);
-
-      editValue = new QLineEdit(values.value(data.mName), this);
-      editValue->setValidator(new QDoubleValidator(editValue));
-      editValue->setProperty("valueName", data.mName);
-      //editValue->setMaximumWidth(40);
-      mEditors.append(editValue);
-      ui.mValuesLayout->addWidget(editValue, row, column + 1);
+      editValue->setRange(value - data.mDelta, value + data.mDelta);
     }
+    else
+    editValue->setRange(0.01, 99999);
+    editValue->setValue(value);
+
+    editValue->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    editValue->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
+    editValue->setReadOnly(data.mIsReadOnly);
+    editValue->setLocale(QLocale(QLocale::English));
+
+    editValue->setProperty("valueName", data.mName);
+    mEditors.append(editValue);
+    mValuesLayout->addWidget(editValue, row, column + 1);
   }
+}
 
   QGroupBox* imageBox = NULL;
   QVBoxLayout* imageLayout = NULL;
-  QList <QString> imagesGroup = CXParamData::getImages(XML_PATH, mType);
-  QList <QLabel*> images;
+  QList<QString> imagesGroup = CXParamData::getImages(XML_PATH, mType);
+  QList<QLabel*> images;
   QSize imgSize;
-//  qDebug() << imagesGroup;
 
   for (int i = 0; i < imagesGroup.count(); i++)
   {
     values = CXParamData::getValues(mType + "/" + imagesGroup.at(i));
-//    qDebug() << values;
-    if (values.contains("Image"))
+    if (values.contains("image"))
     {
       imageBox = new QGroupBox();
       imageLayout = new QVBoxLayout(imageBox);
@@ -231,42 +260,48 @@ void CXParamUi::readValues()
 
       labelValue = new QLabel(this);
       labelValue->setAlignment(Qt::AlignCenter);
-      //QPixmap p (QApplication::applicationDirPath() + values.value("Image"));
-      QPixmap p(QApplication::applicationDirPath() + "/" + values.value("Image"));
-      imgSize.setWidth(qMax(imgSize.width(), p.width()));
-      imgSize.setHeight(qMax(imgSize.height(), p.height()));
+      QPixmap p(QApplication::applicationDirPath() + "/db/" + values.value("image"));
+//      imgSize.setWidth(qMax(imgSize.width(), p.width()));
+//      imgSize.setHeight(qMax(imgSize.height(), p.height()));
       labelValue->setPixmap(p);
       imageLayout->addWidget(labelValue);
       images.append(labelValue);
 
       labelValue = new QLabel(this);
       labelValue->setAlignment(Qt::AlignCenter);
-      labelValue->setText(values.value("Number") + "\n" + values.value("Type"));
+      labelValue->setText(values.value("number") + "\n" + values.value("name"));
+      labelValue->setStyleSheet("font-size: 9pt;");
       imageLayout->addWidget(labelValue);
 
       ui.mImagesLayout->addWidget(imageBox);
     }
   }
 
-  //for (int i = 0; i < images.count(); i++) images.at(i)->setMinimumSize(imgSize);
+  for (int i = 0; i < images.count(); i++)
+    images.at(i)->setMinimumSize(imgSize);
 
   ui.mImagesLayout->addStretch();
+
 }
 
-void CXParamUi::clearLayout(QLayout* aLayout)
+void
+CXParamUi::clearLayout(QLayout* aLayout)
 {
   QLayoutItem* child = NULL;
 
   while ((child = aLayout->itemAt(0)) != NULL)
   {
-    if (child->widget() != NULL) child->widget()->deleteLater();
-    if (child->layout() != NULL) clearLayout(child->layout());
+    if (child->widget() != NULL)
+      child->widget()->deleteLater();
+    if (child->layout() != NULL)
+      clearLayout(child->layout());
 
     aLayout->removeItem(child);
   }
 }
 
-void CXParamUi::onKeyChange()
+void
+CXParamUi::onKeyChange()
 {
   ui.mKeysBox->setEnabled(false);
 
@@ -274,15 +309,17 @@ void CXParamUi::onKeyChange()
   QComboBox* curComboBox;
   PairsList keys;
 
-  allKeys << "Manufactor" << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes";
+  allKeys << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes" << "ConsAngles";
 
   for (int i = 0; i < ui.mKeysLayout->count(); i++)
   {
-    if (ui.mKeysLayout->itemAt(i)->widget() == NULL) break;
+    if (ui.mKeysLayout->itemAt(i)->widget() == NULL)
+      break;
 
     curComboBox = mKeyList.at(i);
 
-    if (curComboBox == NULL || curComboBox->currentIndex() < 0) break;
+    if (curComboBox == NULL || curComboBox->currentIndex() < 0)
+      break;
 
     keys.append(QPair<QString, QString>(allKeys.at(i), curComboBox->currentText()));
   }
@@ -297,21 +334,22 @@ void CXParamUi::onKeyChange()
   updateData();
 }
 
-void CXParamUi::updateData()
+void
+CXParamUi::updateData()
 {
   QProcess::execute(QApplication::applicationDirPath() + "/db.sh"
       , QStringList() << "-f" << INI_PATH << "-t" << mType);
   QTimer::singleShot(1, this, SLOT(readKeys()));
 }
 
-void CXParamUi::save()
+void
+CXParamUi::save()
 {
   PairsList values;
 
-  foreach (QLineEdit* editor, mEditors)
-  {
-    values << QPair<QString, QString>(editor->property("valueName").toString(), editor->text());
-  }
+  foreach (QDoubleSpinBox* editor, mEditors)
+  {  values << QPair<QString, QString>(editor->property("valueName").toString(), editor->text());
+}
 
   CXParamData::open(INI_PATH);
   CXParamData::setValues(mType + "/Common", values);
@@ -323,17 +361,21 @@ void CXParamUi::save()
 
   int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh"
       , QStringList() << "-f" << INI_PATH << "-t" << mType << " -m 1");
-  if(res == 0){
+  if (res == 0)
+  {
     //отправляем переинициализацию
     emit iniSaved();
     close();
-  }else{
+  }
+  else
+  {
     //ошибка
     QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Не могу сохранить файлы"));
   }
 }
 
-void CXParamUi::onButtonClicked()
+void
+CXParamUi::onButtonClicked()
 {
   QAbstractButton* button = qobject_cast<QAbstractButton*>(sender());
 
@@ -346,7 +388,8 @@ void CXParamUi::onButtonClicked()
     QKeyEvent keyPress(QEvent::KeyPress, keyCode, Qt::NoModifier, button->shortcut().toString());
     QApplication::sendEvent(focusedWidget, &keyPress);
 
-    QKeyEvent keyRelease(QEvent::KeyRelease, keyCode, Qt::NoModifier, button->shortcut().toString());
+    QKeyEvent keyRelease(QEvent::KeyRelease, keyCode, Qt::NoModifier,
+        button->shortcut().toString());
     QApplication::sendEvent(focusedWidget, &keyRelease);
 
     return;

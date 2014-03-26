@@ -3,6 +3,7 @@
 
 #include "AXBaseWindow.h"
 #include <QComboBox>
+#include <QDoubleSpinBox>
 
 #include "ui_CXParam.h"
 
@@ -26,12 +27,14 @@ public:
   signals:
   void iniSaved();
 
-  private:
-  Ui::CXParamUiClass ui;
-  QString mType;
-  QString mLastUpdateKey;
-  QList <QLineEdit*> mEditors;
-  QList <QComboBox*> mKeyList;
+private:
+	Ui::CXParamUiClass ui;
+	QGridLayout* mValuesLayout;
+
+	QString mType;
+	QString mLastUpdateKey;
+	QList <QDoubleSpinBox*> mEditors;
+	QList <QComboBox*> mKeyList;
 };
 
 #endif // CXPARAMUI_H
