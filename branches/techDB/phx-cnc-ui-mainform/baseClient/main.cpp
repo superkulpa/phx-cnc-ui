@@ -502,7 +502,7 @@ int main(int argc, char *argv[])
 		if (values.isEmpty() || !imageParts.contains(curPart)) isBreak = true;
 		else
 		{
-			values = client.getImageData("tbl_torch_parts_types as a, tbl_torch_parts as b", "a.name, a.description as Description, b.number as Number, b.image", "b.id=" + imageParts.value(curPart), imagesDir.path() + "/" + values.value("Image"));
+			values = client.getImageData("tbl_torch_parts_types as a, tbl_torch_parts as b", "a.name, a.description as Description, b.number as Number, b.image", "b.type = a.id AND b.id=" + imageParts.value(curPart), imagesDir.path() + "/" + values.value("Image"));
 
 			PairsList imageValues;
 			QMap<QString, QString>::iterator iter;
