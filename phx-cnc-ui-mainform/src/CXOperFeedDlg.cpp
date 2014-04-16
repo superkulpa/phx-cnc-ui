@@ -25,7 +25,6 @@ CXOperFeedDlg::CXOperFeedDlg(QWidget *parent) :
   feeds[1] = QString::fromStdString(iniFile.GetValue("Move/FastFeed", "value", "10000")).toInt();
   feeds[2] = QString::fromStdString(iniFile.GetValue("Move/LowFeed", "value", "100")).toInt();
 
-
   QRegExp regExp("(\\+|-)?\\d*\\.?\\d*");
   mFRegularEdit->setValidator(new QRegExpValidator(regExp, mFRegularEdit));
   mFRegularEdit->setText(QString::number(feeds[0]));
@@ -134,10 +133,15 @@ void CXOperFeedDlg::onButtonClicked()
 void
 CXOperFeedDlg::accept()
 {
+  //проверяем значения
+  int maxFeed = QString::fromStdString(iniFile.GetValue("Move/MaxFeed", "value", "100")).toInt();
   int feeds[3];
   feeds[0] = mFRegularEdit->text().toInt();
+  if(feeds[0] > maxFeed) feeds[0] = maxFeed;
   feeds[1] = mFFastEdit->text().toInt();
+  if(feeds[1] > maxFeed) feeds[1] = maxFeed;
   feeds[2] = mFSlowEdit->text().toInt();
+  if(feeds[2] > maxFeed) feeds[2] = maxFeed;
 
   iniFile.SetValue("Move/ListFeed", "value", QString::number(feeds[0]).toStdString());
   iniFile.SetValue("Move/FastFeed", "value", QString::number(feeds[1]).toStdString());
