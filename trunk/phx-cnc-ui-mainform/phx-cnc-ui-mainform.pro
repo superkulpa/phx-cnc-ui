@@ -13,7 +13,7 @@ _install-debug.commands = cp ./debug/phx-cnc-ui-mainform*  ../install
 
 }
 unix {
-_install.commands = cp ./phx-cnc-ui-mainform*  ../install
+_install-debug.commands = cp ./phx-cnc-ui-mainform*  ../install
 }
 QMAKE_EXTRA_TARGETS += _install-release _install-debug
 
@@ -71,6 +71,7 @@ HEADERS	+=	src/AXBaseWindow.h \
       src/CXVirtualKeyboardNum.h \
       src/CXOperFeedDlg.h \
       src/CXParamui.h \
+      src/CXZParamui.h \
       src/CXSupports.h \   
       src/utils/CXParamData.h \
       src/utils/CXMLReader.h
@@ -118,6 +119,7 @@ SOURCES +=	src/main.cpp \
       src/CXTechDlg.cpp \
       src/CXOperFeedDlg.cpp \
       src/CXParamui.cpp \
+      src/CXZParamui.cpp \
       src/CXSupports.cpp \   
       src/utils/CXParamData.cpp \
 			src/utils/CXMLReader.cpp
@@ -138,6 +140,7 @@ FORMS +=	src/forms/CXFilesList.ui \
       src/forms/CXWarmingUpDlg.ui \		
       src/forms/CXVirtualKeyboardNum.ui \
       src/forms/CXParam.ui \
+      src/forms/CXZParam.ui \
       src/forms/CXSupports.ui \   
 			src/forms/CXChannelEdit.ui
 
