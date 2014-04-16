@@ -121,13 +121,16 @@ private:
   CXOperVelocityView* mOperVelocityView;
   //QLabel* mCurrentFrameLabel;
   QWidget* mFrameWidget;
-  CXTouchButton* mFPlusButton;
-  CXTouchButton* mFMinusButton;
-  CXOperVelocityView* mVelocityView;
+//  CXTouchButton* mFPlusButton;
+//  CXTouchButton* mFMinusButton;
+//  CXOperVelocityView* mVelocityView;
   //Номер кадра
   QLineEdit* mFrameEdit;
   //Пробивка
   QLineEdit* mBurnEdit;
+
+  //большой стоп
+  CXTouchButton* mBigStopButton;
 
   CXUtilsWindow* mUtils;
   int mRotateAxis;

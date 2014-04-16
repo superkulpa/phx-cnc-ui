@@ -127,37 +127,40 @@ AXBaseWindow()
   mFrameWidget = new QWidget(this);
   mFrameWidget->hide();
 
-  QGridLayout* frameWidgetLayout = new QGridLayout(mFrameWidget);
+  //QGridLayout* frameWidgetLayout = new QVBoxLayout(mFrameWidget);//new QGridLayout(mFrameWidget);
+  QVBoxLayout* frameWidgetLayout = new QVBoxLayout(mFrameWidget);
   frameWidgetLayout->setMargin(0);
   frameWidgetLayout->setSpacing(0);
 
-  mFPlusButton = new CXTouchButton(trUtf8("+"), mFrameWidget);
-  mFPlusButton->setObjectName("mFPlusButton");
-  //  mFPlusButton->setLongPress(true);
-  mFPlusButton->setFlat(true);
-  mFPlusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+//  mFPlusButton = new CXTouchButton(trUtf8("+"), mFrameWidget);
+//  mFPlusButton->setObjectName("mFPlusButton");
+//  //  mFPlusButton->setLongPress(true);
+//  mFPlusButton->setFlat(true);
+//  mFPlusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+//
+//  mFMinusButton = new CXTouchButton(trUtf8("-"), mFrameWidget);
+//  mFMinusButton->setObjectName("mFMinusButton");
+//  //  mFMinusButton->setLongPress(true);
+//  mFMinusButton->setFlat(true);
+//  mFMinusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
-  mFMinusButton = new CXTouchButton(trUtf8("-"), mFrameWidget);
-  mFMinusButton->setObjectName("mFMinusButton");
-  //  mFMinusButton->setLongPress(true);
-  mFMinusButton->setFlat(true);
-  mFMinusButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+//  frameWidgetLayout->addWidget(mFPlusButton, 0, 0);
+//  frameWidgetLayout->addWidget(mFMinusButton, 1, 0);
 
-  frameWidgetLayout->addWidget(mFPlusButton, 0, 0);
-  frameWidgetLayout->addWidget(mFMinusButton, 1, 0);
+//  QWidget* frameSpacerWidget = new QWidget(mFrameWidget);
+//  frameSpacerWidget->setObjectName("frameSpacerWidget");
+//  frameWidgetLayout->addWidget(frameSpacerWidget, 0, 1);
 
-  QWidget* frameSpacerWidget = new QWidget(mFrameWidget);
-  frameSpacerWidget->setObjectName("frameSpacerWidget");
-  frameWidgetLayout->addWidget(frameSpacerWidget, 0, 1);
+//  mVelocityView = new CXOperVelocityView(mFrameWidget);
+//  mVelocityView->setObjectName("mVelocityView");
+//  mVelocityView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//  mVelocityView->setTexts(QList<QString>() << "^" << trUtf8("*") << "v");
 
-  mVelocityView = new CXOperVelocityView(mFrameWidget);
-  mVelocityView->setObjectName("mVelocityView");
-  mVelocityView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  mVelocityView->setTexts(QList<QString>() << "^" << trUtf8("*") << "v");
+//  frameWidgetLayout->addWidget(mVelocityView, 0, 2, 2, 1);
 
-  frameWidgetLayout->addWidget(mVelocityView, 0, 2, 2, 1);
+  QGroupBox* frameGroupBox = new QGroupBox(mFrameWidget);
 
-  QGridLayout* dataLayout = new QGridLayout();
+  QGridLayout* dataLayout = new QGridLayout(frameGroupBox);
   dataLayout->setMargin(5);
   dataLayout->setSpacing(5);
 
@@ -168,15 +171,27 @@ AXBaseWindow()
   mBurnEdit = new QLineEdit(mFrameWidget);
   mBurnEdit->setObjectName("mBurnEdit");
 
+//  dataLayout->addWidget(frameLabel, 0, 0);
+//  dataLayout->addWidget(burnLabel, 1, 0);
+//  dataLayout->addWidget(mFrameEdit, 0, 1);
+//  dataLayout->addWidget(mBurnEdit, 1, 1);
   dataLayout->addWidget(frameLabel, 0, 0);
-  dataLayout->addWidget(burnLabel, 1, 0);
   dataLayout->addWidget(mFrameEdit, 0, 1);
-  dataLayout->addWidget(mBurnEdit, 1, 1);
-  dataLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 2, 0, 1, 2);
+  dataLayout->addWidget(burnLabel, 0, 2);
+  dataLayout->addWidget(mBurnEdit, 0, 3);
 
-  frameWidgetLayout->addLayout(dataLayout, 0, 3, 2, 1);
+  //dataLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 1, 0, 1, 2);
+  //dataLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 1, 0, 1, 2);
 
+  //frameWidgetLayout->addLayout(dataLayout, 0, 3, 2, 1);
+  //frameWidgetLayout->addLayout(dataLayout,2);
+  frameWidgetLayout->addWidget(frameGroupBox);
+  mBigStopButton = new CXTouchButton(trUtf8("Стоп УП"), mFrameWidget);
+  frameWidgetLayout->addWidget(mBigStopButton, 5);
   OperLayout->addWidget(mFrameWidget, 5);
+
+
+
   /**/
   centralLayout->addLayout(OperLayout);
   /**/
@@ -196,6 +211,7 @@ AXBaseWindow()
   connect(mBackwardButton, SIGNAL(clicked()), this, SLOT(onStart()));
   connect(mSearchButton, SIGNAL(clicked()), this, SLOT(onStart()));
   connect(mStopButton, SIGNAL(clicked()), this, SLOT(onStop()));
+  connect(mBigStopButton, SIGNAL(clicked()), this, SLOT(onStop()));
   connect(mXYButton, SIGNAL(clicked()), this, SLOT(onXYClick()));
   connect(mFLabel, SIGNAL(clicked()), this, SLOT(onFClick()));
   connect(mOperDirectionView, SIGNAL(directionChanged(OperDirectionView::eMoveDirection)), this,
@@ -205,12 +221,12 @@ AXBaseWindow()
 
   connect(mOperVelocityView, SIGNAL(velocityChanged(eVelocity)), this,
       SLOT(onVelocityChange(eVelocity)));
-  connect(mVelocityView, SIGNAL(velocityChanged(eVelocity)), this,
-      SLOT(onVelocityChange(eVelocity)));
+//  connect(mVelocityView, SIGNAL(velocityChanged(eVelocity)), this,
+//      SLOT(onVelocityChange(eVelocity)));
   connect(plusButton, SIGNAL(clicked()), this, SLOT(onUpSpeed()));
   connect(minusButton, SIGNAL(clicked()), this, SLOT(onDownSpeed()));
-  connect(mFPlusButton, SIGNAL(clicked()), this, SLOT(onUpSpeed()));
-  connect(mFMinusButton, SIGNAL(clicked()), this, SLOT(onDownSpeed()));
+//  connect(mFPlusButton, SIGNAL(clicked()), this, SLOT(onUpSpeed()));
+//  connect(mFMinusButton, SIGNAL(clicked()), this, SLOT(onDownSpeed()));
   connect(mCycleButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
   connect(mStepButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
   connect(mFastButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
@@ -570,7 +586,7 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
 
 //      std::cout << "onCommandReceive: value " << value << std::endl;
       mOperVelocityView->setVelocity(value);
-      mVelocityView->setVelocity(value);
+      //mVelocityView->setVelocity(value);
     }
 
 //    //Изменение скорости и направления.
