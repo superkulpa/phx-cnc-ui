@@ -33,8 +33,8 @@ private slots:
 	void onFixZPosButtonClicked();
 	void onFixVButtonClicked();
 	void onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
-//  signals:
-//  void iniSaved();
+signals:
+    void iniSaved();
 public:
 	virtual void setVisible(bool visible);
 private:

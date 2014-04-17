@@ -20,6 +20,7 @@
 
 #define XML_PATH "settings.xml"
 
+#define suppCount  2
 CXZParamUi::CXZParamUi() :
     AXBaseWindow()
 {
@@ -40,8 +41,7 @@ CXZParamUi::CXZParamUi() :
   ui.mValuesScroll->setWidget(valueWidget);
 //  valueWidget->setStyleSheet("background-color: silver;");
   mValuesLayout = new QVBoxLayout(valueWidget);
-  //цикл по суппортам
-  int suppCount = 3;
+
   QLabel* zNumber = NULL;
   QDoubleSpinBox* zPosEditor = NULL;
   CXTouchButton* fixZPos = NULL;
@@ -75,7 +75,7 @@ CXZParamUi::CXZParamUi() :
 
 	  vEditor = new QDoubleSpinBox(groupBox);
 	  vEditor->setMaximum (100);
-	  vEditor->setDecimals(0);
+	  vEditor->setDecimals(1);
 	  mVEditors.append(vEditor);
 	  groupLayout->addWidget(vEditor, i * 2 + 1, 1);
 
@@ -142,7 +142,7 @@ CXZParamUi::onCommandReceive(const QString& aSection, const QString& aCommand, c
 		  int channelNumber = curValue.mid(0, index).toInt();
 
 		  if (channelNumber < 0)	continue;
-		  if (channelNumber == 16) mVEditors[0]->setValue(curValue.mid(index + 1).toInt());
+		  if (channelNumber == 16) mVEditors[0]->setValue(curValue.mid(index + 1).toInt() / 10);
 		}
 	  }
 	}else if (aSection ==  (Commands::MSG_SECTION_TECH)) {
@@ -192,14 +192,34 @@ void
 CXZParamUi::onFixZPosButtonClicked()
 {
   int indx = sender()->property("indx").toInt();
-  qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
+  QString suppName = "Support" + sender()->property("indx").toString();
+  //qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
+  //сохраняем позицию быстрого поиска
+  QString suppPath = QApplication::applicationDirPath() + "/jini/params" + suppName + ".ini";
+  CIniFile suppFile(suppPath.toStdString());
+  suppFile.ReadIniFile();
+  suppFile.SetValue(suppName.toStdString() + "/ZDownFast" ,"value",mZPosEditors[indx - 1]->text().toStdString(),true);
+  suppFile.WriteIniFile();
+  emit iniSaved();
 }
 
 void
 CXZParamUi::onFixVButtonClicked()
 {
   int indx = sender()->property("indx").toInt();
-  qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
+  //qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
+  //сохраняем вольты в уровень стабилизации
+  QString suppName = "Support" + sender()->property("indx").toString();
+  //qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
+  //сохраняем позицию быстрого поиска
+  QString suppPath = QApplication::applicationDirPath() + "/jini/params" + suppName + ".ini";
+  CIniFile suppFile(suppPath.toStdString());
+  suppFile.ReadIniFile();
+  int koef = suppFile.GetValueI(suppName.toStdString() + "/THC/ZVFactor","value", 1);
+  double val = mVEditors[indx - 1]->value() * koef;
+  suppFile.SetValue(suppName.toStdString() + "/THC/ZHunt","value", trUtf8("%1").arg(val).toStdString());
+  suppFile.WriteIniFile();
+  emit iniSaved();
 }
 
 
