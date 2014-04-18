@@ -161,8 +161,8 @@ AXBaseWindow()
   QGroupBox* frameGroupBox = new QGroupBox(mFrameWidget);
 
   QGridLayout* dataLayout = new QGridLayout(frameGroupBox);
-  dataLayout->setMargin(5);
-  dataLayout->setSpacing(5);
+  //dataLayout->setMargin(5);
+  //dataLayout->setSpacing(5);
 
   QLabel* frameLabel = new QLabel(trUtf8("Кадр"), mFrameWidget);
   QLabel* burnLabel = new QLabel(trUtf8("Пробивка"), mFrameWidget);
@@ -185,11 +185,13 @@ AXBaseWindow()
 
   //frameWidgetLayout->addLayout(dataLayout, 0, 3, 2, 1);
   //frameWidgetLayout->addLayout(dataLayout,2);
-  frameWidgetLayout->addWidget(frameGroupBox);
-  mBigStopButton = new CXTouchButton(trUtf8("Стоп УП"), mFrameWidget);
-  frameWidgetLayout->addWidget(mBigStopButton, 5);
-  OperLayout->addWidget(mFrameWidget, 5);
 
+  mBigStopButton = new CXTouchButton(trUtf8("Стоп УП"), mFrameWidget);
+  mBigStopButton->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Expanding);
+  dataLayout->addWidget(mBigStopButton, 1, 0, 3, 4);
+  frameWidgetLayout->addWidget(frameGroupBox);
+//  frameWidgetLayout->addWidget(mBigStopButton);
+  OperLayout->addWidget(mFrameWidget, 5);
 
 
   /**/
