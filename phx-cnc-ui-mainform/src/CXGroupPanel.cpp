@@ -139,6 +139,8 @@ CXGroupPanel::onDeviceEditShow()
   mManager->setCurrentGroup(btn->property("groupName").toInt());
 
   AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "cmd_start", "0");
+  //запускаем АЦП
+  AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_IO, Commands::MSG_CMD_ADC_START, "0");
 }
 
 void
@@ -149,4 +151,6 @@ CXGroupPanel::onDeviceEditHide()
   mManager->setCurrentGroup(btn->property("groupName").toInt());
 
   AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "cmd_stop", "0");
+  //останавливаем АЦП
+  AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_IO, Commands::MSG_CMD_ADC_STOP, "0");
 }
