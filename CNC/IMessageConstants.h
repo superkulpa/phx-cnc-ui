@@ -53,6 +53,8 @@ namespace Commands
     //const String MSG_CMD_RESTART = "cmd_restart";
 	//рестарт формы, после того как форма стартанула
     const String MSG_CMD_FORM_RESTART = "cmd_form_restart";
+    const String MSG_CMD_ADC_START = "cmd_adc_start";
+    const String MSG_CMD_ADC_STOP = "cmd_adc_stop";
     //const String MSG_CMD_START_UTILS = "cmd_start_utils";
 
 ////////////////////////////////////////////////////////////////////////////////
