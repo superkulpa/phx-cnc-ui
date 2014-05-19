@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/0.848602290/PATH/delimiter=;
+environment/project/0.848602290/PATH/operation=replace
+environment/project/0.848602290/PATH/value=d\:\\mingw32\\bin;d\:\\Qt4.8.5\\bin;d\:\\mingw32\\msys\\bin
+environment/project/0.848602290/QT_HOME/delimiter=;
+environment/project/0.848602290/QT_HOME/operation=replace
+environment/project/0.848602290/QT_HOME/value=D\:\\Qt4.8.5
+environment/project/0.848602290/append=true
+environment/project/0.848602290/appendContributed=true
