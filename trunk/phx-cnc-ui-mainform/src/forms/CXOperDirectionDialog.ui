@@ -30,7 +30,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0" colspan="8">
+     <item row="2" column="0" colspan="8">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="CXTouchButton" name="mAbsoluteButton">
@@ -54,7 +54,7 @@
        </item>
       </layout>
      </item>
-     <item row="2" column="0" colspan="8">
+     <item row="3" column="0" colspan="8">
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
         <string/>
@@ -113,21 +113,33 @@
           </item>
          </layout>
         </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QPushButton" name="mTechPointMoveButton">
+            <property name="text">
+             <string>В точку выезда</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mSetTechPointButton">
+            <property name="text">
+             <string>Установить точку выезда</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="mAbsZeroMoveButton">
+            <property name="text">
+             <string>В 0 машины</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
        </layout>
       </widget>
-     </item>
-     <item row="3" column="0" colspan="8">
-      <spacer name="verticalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item row="0" column="2">
       <widget class="QLabel" name="label_4">
@@ -156,6 +168,19 @@
         <string>0</string>
        </property>
       </widget>
+     </item>
+     <item row="4" column="0" colspan="8">
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>

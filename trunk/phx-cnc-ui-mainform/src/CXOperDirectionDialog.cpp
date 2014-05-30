@@ -21,6 +21,10 @@ CXOperDirectionDialog::CXOperDirectionDialog(QWidget* parent) :
   connect(mAbsoluteButton, SIGNAL(clicked()), this, SLOT(onAbsolute()));
   connect(mRelativeButton, SIGNAL(clicked()), this, SLOT(onRelative()));
 
+  connect(mTechPointMoveButton, SIGNAL(clicked()), this, SLOT(onTechPointMove()));
+  connect(mSetTechPointButton, SIGNAL(clicked()), this, SLOT(onSetTechPoint()));
+  connect(mAbsZeroMoveButton, SIGNAL(clicked()), this, SLOT(onAbsZeroMove()));
+
   connect(mButton0, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(mButton1, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(mButton2, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
@@ -178,3 +182,19 @@ CXOperDirectionDialog::onBurnSet()
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_FROM_BURN,
         mFrameEdit->text());
 }
+
+void CXOperDirectionDialog::onTechPointMove(){
+  if (mUdpManager != NULL)
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_TECH_POINT, 0);
+};
+
+void CXOperDirectionDialog::onSetTechPoint(){
+  if (mUdpManager != NULL)
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_SET_TECH_POINT, 0);
+};
+
+void CXOperDirectionDialog::onAbsZeroMove(){
+  if (mUdpManager != NULL)
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_ABS_ZERO, 0);
+};
+
