@@ -75,7 +75,7 @@ CXZParamUi::CXZParamUi() :
 
 	  vEditor = new QDoubleSpinBox(groupBox);
 	  vEditor->setMaximum (100);
-	  vEditor->setDecimals(1);
+	  vEditor->setDecimals(2);
 	  mVEditors.append(vEditor);
 	  groupLayout->addWidget(vEditor, i * 2 + 1, 1);
 
@@ -142,7 +142,7 @@ CXZParamUi::onCommandReceive(const QString& aSection, const QString& aCommand, c
 		  int channelNumber = curValue.mid(0, index).toInt();
 
 		  if (channelNumber < 0)	continue;
-		  if (channelNumber == 16) mVEditors[0]->setValue(curValue.mid(index + 1).toInt() / 10);
+		  if (channelNumber == 16) mVEditors[0]->setValue(curValue.mid(index + 1).toDouble() / 1000);
 		}
 	  }
 	}else if (aSection ==  (Commands::MSG_SECTION_TECH)) {

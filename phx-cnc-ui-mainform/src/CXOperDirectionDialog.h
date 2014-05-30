@@ -55,6 +55,13 @@ private slots:
   void
   onBurnSet();
 
+  //! Переехать в точку выезда
+  void onTechPointMove();
+  //! Установить точку выезда
+  void onSetTechPoint();
+  //! Переехать в абс 0
+  void onAbsZeroMove();
+
 public:
   CXUdpManager* mUdpManager;
 
