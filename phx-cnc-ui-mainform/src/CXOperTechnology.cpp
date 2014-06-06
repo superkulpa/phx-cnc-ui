@@ -260,6 +260,8 @@ CXOperTechnology::onSVR()
 
 void
 CXOperTechnology::onMarkerMode(){
+  //warmDlg->show();
+
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_POINTER,
       MSG_VALUE_INVERT);
 //  mUdpManager->sendCommand(Commands::MSG_SECTION_IO, "IOn7",

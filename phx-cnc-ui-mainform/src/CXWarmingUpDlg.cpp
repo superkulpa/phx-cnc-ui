@@ -14,8 +14,12 @@ CXWarmingUpDlg::CXWarmingUpDlg(QObject* _master)
 {
   Ui::WarmingUp::setupUi(this);
   stage = _ticTac;
-  btContinueBreak->setText(QString().fromUtf8("Продолжить"));
-  connect(btContinueBreak, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
+  btContinue->setText(QString().fromUtf8("Продолжить"));
+  btContinue->setMinimumHeight(75);
+  btBreak->setText(QString().fromUtf8("Прервать"));
+  btBreak->setMinimumHeight(75);
+  connect(btContinue, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
+  connect(btBreak, SIGNAL(clicked()), this, SLOT(onButtonClickedBreak()));
   connect(this, SIGNAL(postStateWaiting(int)), this, SLOT(onWarmProcess(int)));
  }
 
@@ -30,7 +34,7 @@ CXWarmingUpDlg::onButtonClicked()
 {
   switch(stage){
   case _ticTac:
-    btContinueBreak->setText(QString().fromUtf8("Прервать"));
+    btContinue->hide();//setText(QString().fromUtf8("Прервать"));
     stage = _continue;
     emit postCmdWaiting(_continue);
     break;
@@ -43,13 +47,18 @@ CXWarmingUpDlg::onButtonClicked()
   }
 }
 
+void CXWarmingUpDlg::onButtonClickedBreak(){
+  stage = _continue;
+  onButtonClicked();
+}
+
 void
 CXWarmingUpDlg::setVisible(bool visible)
 {
   if(visible == false){
     stage = _ticTac;
     progressBar->setValue(0);
-    btContinueBreak->setText(QString().fromUtf8("Продолжить"));
+    btContinue->show();//setText(QString().fromUtf8("Продолжить"));
   }
   QDialog::setVisible(visible);
 }

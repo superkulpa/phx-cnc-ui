@@ -261,8 +261,8 @@ CXParamUi::readValues()
       labelValue = new QLabel(this);
       labelValue->setAlignment(Qt::AlignCenter);
       QPixmap p(QApplication::applicationDirPath() + "/db/" + values.value("image"));
-//      imgSize.setWidth(qMax(imgSize.width(), p.width()));
-//      imgSize.setHeight(qMax(imgSize.height(), p.height()));
+      imgSize.setWidth(qMax(imgSize.width(), p.width()));
+      imgSize.setHeight(qMax(imgSize.height(), p.height()));
       labelValue->setPixmap(p);
       imageLayout->addWidget(labelValue);
       images.append(labelValue);
