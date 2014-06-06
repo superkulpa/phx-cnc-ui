@@ -76,7 +76,12 @@ CXProcessingParametersWindow::onFileLoad()
   //QFile::rename(mFileName, mFtpFileName);
 
   QFileInfo fileInfo(mFileName);
-  QFile::copy(mFileName, "jini/list.kerf.ccp");//todo: qForm: облагородить сё
+  qDebug() << QApplication::applicationDirPath() + "/tmp/list.kerf.ccp";
+  qDebug() << QApplication::applicationDirPath() + "/jini";
+
+ // QFile::remove( QApplication::applicationDirPath() + "/jini/list.kerf.ccp");
+  QFile::copy( QApplication::applicationDirPath() + "/tmp/list.kerf.ccp"
+      ,  QApplication::applicationDirPath() + "/jini");//todo: qForm: облагородить сё
 
   //QFileInfo fileFTPInfo(mFtpFileName);
   QString pswrd = CXSettingsXML::getValue("settings.xml", "ftp", "ftp");

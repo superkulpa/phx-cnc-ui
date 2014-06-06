@@ -35,6 +35,7 @@ public:
 
 private slots:
   void onButtonClicked();
+  void onButtonClickedBreak();
 
   void onWarmProcess(int _percent);
 signals:
