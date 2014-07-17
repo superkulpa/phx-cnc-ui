@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="plasma_console">
+	<item value="Al" key="metalType"/>
+	<item value="400" key="amperage"/>
+	<item value="Hypertherm" key="manufacturer"/>
+	<item value="true" key="showMetalTypePage"/>
+	<item value="true" key="showGasPage"/>
+	<item value="true" key="showPlasmaSourcePage"/>
+	<item value="15.0" key="minThickness"/>
+	<item value="15.0" key="maxThickness"/>
+	<item value="manuf" key="modeName"/>
+	<item value="true" key="showManufacturerPage"/>
+	<item value="HPR400XD" key="plasmaSource"/>
+	<item value="H35&amp;N2/N2" key="gases"/>
+</section>

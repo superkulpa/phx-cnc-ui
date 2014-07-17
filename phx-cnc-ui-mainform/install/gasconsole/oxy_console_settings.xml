@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="oxy_console">
+	<item value="СТ3" key="metalType"/>
+	<item value="true" key="showMetalTypePage"/>
+	<item value="10" key="minThickness"/>
+	<item value="12" key="maxThickness"/>
+	<item value="тестовый" key="modeName"/>
+</section>
