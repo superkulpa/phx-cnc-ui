@@ -10,9 +10,9 @@ _install-debug.depends = $(SOURCES)
 win32 {
 _install-release.commands = cp ./release/phx-cnc-ui-mainform*  ../install
 _install-debug.commands = cp ./debug/phx-cnc-ui-mainform*  ../install
-
 }
 unix {
+_install-release.commands = cp ./phx-cnc-ui-mainform*  ../install
 _install-debug.commands = cp ./phx-cnc-ui-mainform*  ../install
 }
 QMAKE_EXTRA_TARGETS += _install-release _install-debug
