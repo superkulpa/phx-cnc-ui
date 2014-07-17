@@ -75,12 +75,12 @@ createUIWindow(const char* aIndex, int aGroup, QMap<QString, QWidget*>& windows)
 
       break;
     }
-    if (aIndex == CXZParamUi::staticMetaObject.className())
-	{
-	  res = new CXZParamUi();
-
-	  break;
-	}
+//    if (aIndex == CXZParamUi::staticMetaObject.className())
+//	{
+//	  res = new CXZParamUi();
+//
+//	  break;
+//	}
     if (aIndex == CXSupportsWindow::staticMetaObject.className())
     {
       res = new CXSupportsWindow();
@@ -213,8 +213,8 @@ main(int argc, char *argv[])
   createUIWindow(CXParamUi::staticMetaObject.className(), 1000,
       windows);
 
-  createUIWindow(CXZParamUi::staticMetaObject.className(), 1000,
-        windows);
+//  createUIWindow(CXZParamUi::staticMetaObject.className(), 1000,
+//        windows);
 
   createUIWindow(CXSupportsWindow::staticMetaObject.className(), 1000,
       windows);
@@ -382,7 +382,8 @@ main(int argc, char *argv[])
       texts.append(QString());
       texts.append(QObject::trUtf8("Сбросить\nкоординаты"));
       texts.append(QString());
-      texts.append(QObject::trUtf8("Настройка\nсуппорта"));
+      texts.append(QString());
+      //texts.append(QObject::trUtf8("Настройка\nсуппорта"));
       texts.append(QObject::trUtf8("Сброс\nаварий"));
       curGroupPanel->setButtonsText(texts);
 
@@ -408,8 +409,8 @@ main(int argc, char *argv[])
 
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
           windows.value("CXOperDirectionWindow"), SLOT(onResetCoordinates()));
-	  QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()),
-          windows.value("CXZParamUi"), SLOT(show()));
+//	  QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()),
+//          windows.value("CXZParamUi"), SLOT(show()));
       QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()),
           windows.value("CXTextParameters"), SLOT(onResetAlarms()));
 
@@ -460,8 +461,8 @@ main(int argc, char *argv[])
   QObject::connect(windows.value("CXParamUi"), SIGNAL(iniSaved()),
         windows.value("CXParametersWindow"), SLOT(saveParametersAnyway()));
 
-  QObject::connect(windows.value("CXZParamUi"), SIGNAL(iniSaved()),
-        windows.value("CXParametersWindow"), SLOT(saveParametersAnyway()));
+//  QObject::connect(windows.value("CXZParamUi"), SIGNAL(iniSaved()),
+//        windows.value("CXParametersWindow"), SLOT(saveParametersAnyway()));
   /**/
   //Общий заголовок
   CXTitleWindow* title = new CXTitleWindow();

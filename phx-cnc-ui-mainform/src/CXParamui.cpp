@@ -11,7 +11,7 @@
 #include "utils/CXParamData.h"
 #include "CXUdpManager.h"
 
-#define INI_PATH "techparams.ini"
+#define INI_PATH "jini/techparams.ini"
 #define XML_PATH "settings.xml"
 
 CXParamUi::CXParamUi() :
@@ -349,7 +349,7 @@ CXParamUi::save()
 
   foreach (QDoubleSpinBox* editor, mEditors)
   {  values << QPair<QString, QString>(editor->property("valueName").toString(), editor->text());
-}
+  }
 
   CXParamData::open(INI_PATH);
   CXParamData::setValues(mType + "/Common", values);

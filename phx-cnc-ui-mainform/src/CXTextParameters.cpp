@@ -95,7 +95,7 @@ CXTextParameters::onCommandReceive(const QString& aSection, const QString& aComm
       }
 //			if (text == "\n") text = "";
 
-      mTextEdit->setPlainText(text);
+      mTextEdit->setPlainText(text.trimmed());
     }
 
     //чистим лишнее

@@ -157,8 +157,8 @@ CXOperTechnology::CXOperTechnology() :
       horizontalLayout_4->addWidget(mbStateSup.last());
 
       mSVRZ.push_back( new QLabel(frSuppList));
-      //  mSVRZ.last()->setAlignment(Qt::AlignCenter);
-      //mSVRZ.last()->setText("V:125");
+      mSVRZ.last()->setAlignment(Qt::AlignCenter);
+      mSVRZ.last()->setText("V:125");
       horizontalLayout_4->addWidget(mSVRZ.last());
 
       mbStateZ.push_back( new CXTouchButton(frSuppList));

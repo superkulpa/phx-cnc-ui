@@ -4,6 +4,7 @@
 #include "AXBaseWindow.h"
 
 #include <QTreeWidget>
+#include <QMessageBox>
 
 #include "utils/CXProcess.h"
 
@@ -45,6 +46,7 @@ private slots:
 private:
   QTreeWidget* mTreeWidget;
   CXProcess* mProcess;
+  QMessageBox* mBox;
 };
 
 #endif // CXUTILSWINDOW_H

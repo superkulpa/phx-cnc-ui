@@ -99,7 +99,8 @@ CXUtilsWindow::onExecute()
         SLOT(onProcessFinish(int, QProcess::ExitStatus)));
     connect(mProcess, SIGNAL(error(QProcess::ProcessError)), this,
         SLOT(onProcessError(QProcess::ProcessError)));
-
+    mBox = new QMessageBox(QMessageBox::Information,trUtf8("Идет отработка"),trUtf8("Прервать"),QMessageBox::Ok,this);
+    mBox->show();
     mProcess->start(command);
   }
 }
@@ -111,8 +112,8 @@ CXUtilsWindow::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatus)
 
   if (aExitStatus == QProcess::NormalExit)
   {
+    mBox->setText(trUtf8("Завершено"));
   }
-
   mProcess->deleteLater();
   mProcess = NULL;
 }
@@ -123,7 +124,7 @@ CXUtilsWindow::onProcessError(QProcess::ProcessError aError)
   Q_UNUSED(aError)
 
   QMessageBox::critical(NULL, trUtf8("Ошибка"), qobject_cast<QProcess*>(sender())->errorString());
-
+  mBox->setText(trUtf8("Ошибка"));
   mProcess->deleteLater();
   mProcess = NULL;
 }
