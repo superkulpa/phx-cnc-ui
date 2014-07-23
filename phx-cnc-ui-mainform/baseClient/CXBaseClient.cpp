@@ -140,6 +140,5 @@ CXBaseClient::getImageData(const QString& aTableName, const QString& aColumns,
         }
     }
   //	else query.lastError().text();
-
   return values;
 }
