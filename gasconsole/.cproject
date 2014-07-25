@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<?fileVersion 4.0.0?>
+
+<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="0.848602290">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="0.848602290" moduleId="org.eclipse.cdt.core.settings" name="Default">
@@ -31,6 +33,10 @@
 								<option id="gnu.cpp.compiler.option.include.paths.1925833155" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;D:\Qt4.8.5\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${QT_HOME}\include\QtGui&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${QT_HOME}\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${QT_HOME}\include\QtNetwork&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${QT_HOME}\include\QtXML&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${QT_HOME}\include\QtCore&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1190813495" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -39,6 +45,9 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1032761357" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.669981423" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
+								<option id="gnu.cpp.link.option.paths.2113525371" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="../$QT_HOME/lib"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.105440596" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -54,11 +63,25 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="phx-gasconsole.null.204971930" name="phx-gasconsole"/>
 	</storageModule>
+	<storageModule moduleId="refreshScope" versionNumber="1">
+		<resource resourceType="PROJECT" workspacePath="/phx-gasconsole"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="0.848602290;0.848602290.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.372563374;cdt.managedbuild.tool.gnu.cpp.compiler.input.1190813495">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="0.848602290;0.848602290.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.549859406;cdt.managedbuild.tool.gnu.c.compiler.input.2033904270">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="0.848602290">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
 			<target name="clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>mingw32-make</buildCommand>
-				<buildArguments/>
 				<buildTarget>clean</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
@@ -75,20 +98,20 @@
 			<target name="qmake" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>qmake-4.8</buildCommand>
 				<buildArguments> -r -spec  linux-g++   ../phx-gasconsole.pro</buildArguments>
-				<buildTarget/>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
 			<target name="_install-release" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>mingw32-make</buildCommand>
+				<buildArguments/>
 				<buildTarget>_install-release</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
 			<target name="debug" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>mingw32-make</buildCommand>
+				<buildCommand>make</buildCommand>
 				<buildArguments>-f Makefile</buildArguments>
 				<buildTarget>debug  _install-debug</buildTarget>
 				<stopOnError>true</stopOnError>
@@ -106,13 +129,13 @@
 			<target name="qmake-win32" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>qmake</buildCommand>
 				<buildArguments>-r -spec  win32-g++   ../phx-gasconsole.pro</buildArguments>
-				<buildTarget/>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
 			<target name="_install-debug" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>mingw32-make</buildCommand>
+				<buildArguments/>
 				<buildTarget>_install-debug</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>false</useDefaultCommand>
@@ -120,19 +143,5 @@
 			</target>
 		</buildTargets>
 	</storageModule>
-	<storageModule moduleId="refreshScope" versionNumber="1">
-		<resource resourceType="PROJECT" workspacePath="/phx-gasconsole"/>
-	</storageModule>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="0.848602290;0.848602290.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.372563374;cdt.managedbuild.tool.gnu.cpp.compiler.input.1190813495">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="0.848602290;0.848602290.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.549859406;cdt.managedbuild.tool.gnu.c.compiler.input.2033904270">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="0.848602290">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
-	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 </cproject>

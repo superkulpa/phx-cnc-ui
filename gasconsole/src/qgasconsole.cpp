@@ -19,6 +19,7 @@ CXUdpManager* QGasConsole::mUdpManager = NULL;
 #define HPR_CMD_STOP_TEST_PRE_FLOW "065"
 #define HPR_CMD_START_TEST_CUT_FLOW "066"
 #define HPR_CMD_STOP_TEST_CUT_FLOW "067"
+#define HPR_CMD_START_TEST_PUMP "071"
 #define HPR_CMD_GET_TIMER_COUNTER "125"
 #define HPR_CMD_GET_INFO_CHOPPER_DC "133"
 #define HPR_CMD_CONNECTION_TIMEOUT "Timeout"
@@ -26,45 +27,45 @@ CXUdpManager* QGasConsole::mUdpManager = NULL;
 QString GetPSStatus(int _code){
   switch (_code){
     case 0:
-    return "IDLE";
+    return QObject::trUtf8("Холостой ход");//"IDLE";
     case 2:
-    return "PURGE";
+    return QObject::trUtf8("Очистка");//"PURGE";
     case 3:
-    return "IDLE2";
+    return QObject::trUtf8("Холостой ход2");//"IDLE2";
     case 4:
-    return "PREFLOW";
+    return QObject::trUtf8("Продувка");//"PREFLOW";
     case 5:
-    return "PILOT ARC";
+    return QObject::trUtf8("Дежурная дуга");//"PILOT ARC";
     case 6:
-    return "TRANSFER";
+    return QObject::trUtf8("Перенос");//"TRANSFER";
     case 7:
-    return "RAMP-UP";
+    return QObject::trUtf8("Плавное включение");//"RAMP-UP";
     case 8:
-    return "STEADY STATE";
+    return QObject::trUtf8("Стационарный режим");//"STEADY STATE";
     case 9:
-    return "RAMP-DOWN";
+    return QObject::trUtf8("Плавное выключение");//"RAMP-DOWN";
     case 10:
-    return "FINAL RAMP-DOWN";
+    return QObject::trUtf8("Окончательное плавное выключение");//"FINAL RAMP-DOWN";
     case 11:
-    return "AUTO OFF";
+    return QObject::trUtf8("Автоматическое отключение");//"AUTO OFF";
     case 12:
-    return "TEST CUTFLOW";
+    return QObject::trUtf8("Тест режущего");//"TEST CUTFLOW";
     case 14:
-    return "SHUTDOWN";
+    return QObject::trUtf8("Завершение работы");//"SHUTDOWN";
     case 15:
-    return "RESET";
+    return QObject::trUtf8("Перезагрузка");//"RESET";
     case 16:
-    return "MAINTENANCE";
+    return QObject::trUtf8("Техническое обслуживание");//"MAINTENANCE";
     case 20:
-    return "TESTPREFLOW";
+    return QObject::trUtf8("Тест продувки");//"TESTPREFLOW";
     case 22:
-    return "MANUAL PUMP CONTROL";
+    return QObject::trUtf8("Ручное управление насосом");//"MANUAL PUMP CONTROL";
     case 23:
-    return "INLET LEAD CHECK";
+    return QObject::trUtf8("Проверка на герметичность системы");//"INLET LEAD CHECK";
     case 24:
-    return "SYSTEM LEAD CHECK";
+    return QObject::trUtf8("Тест на герментичность системы");//"SYSTEM LEAD CHECK";
     case 25:
-    return "BURKERT FLOW CHECK";
+    return QObject::trUtf8("Проверка протока через клапан Burket");//"BURKERT FLOW CHECK";
   }
   return "NoName";
 }
@@ -72,23 +73,23 @@ QString GetPSStatus(int _code){
 QString GetGasName(int _gas){
   switch (_gas){
     case 0:
-    return "No Gas";
+    return QObject::trUtf8("Нет газа");//"No Gas";
     case 1:
-    return "Oxygen";
+    return QObject::trUtf8("Кислород");//"Oxygen";
     case 2:
-    return "Methane(not supported)";
+    return QObject::trUtf8("Метан(не поддерживается)");//"Methane(not supported)";
     case 3:
-    return "H35(argon - hydrogen)";
+    return QObject::trUtf8("Н35(аргон-водород)");//"H35(argon - hydrogen)";
     case 4:
-    return "H5(not supported)";
+    return QObject::trUtf8("H5(не поддерживается)");//"H5(not supported)";
     case 5:
-    return "Air";
+    return QObject::trUtf8("Воздух");//"Air";
     case 6:
-    return "Nitrogen";
+    return QObject::trUtf8("Азот");//"Nitrogen";
     case 7:
-    return "Argon";
+    return QObject::trUtf8("Аргон");//"Argon";
     case 8:
-    return "F5(N95)";
+    return QObject::trUtf8("F5(N95)");//"F5(N95)";
   }
   return "NoName";
 }
@@ -98,13 +99,16 @@ QString GetGasName(int _gas){
 QGasConsole::QGasConsole(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::QGasConsole), startPreFlow(false), startCutFlow(false)
+	,startPumpTest(false)
 {
     mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_START, "");
     ui->setupUi(this);
     connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
           this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 
-    connect(ui->btClear, SIGNAL(clicked()), this, SLOT(onClear()));
+    connect(ui->btReset, SIGNAL(clicked()), this, SLOT(onClear()));
+
+    connect(ui->btPump, SIGNAL(clicked()), this, SLOT(onPump()));
 
     connect(ui->btUpdate, SIGNAL(clicked()), this, SLOT(onUpdate()));
     connect(ui->btUpdateAdd, SIGNAL(clicked()), this, SLOT(onUpdate()));
@@ -141,10 +145,10 @@ QStringList ParseHPRCmd(QString command){
 
     command = command.mid(pos + 1);
     pos = command.indexOf(" ");
-    qDebug(curCommand.toStdString().c_str());
+    //qDebug(curCommand.toStdString().c_str());
     commands.append(curCommand);
   }
-  qDebug(command.toStdString().c_str());
+  //qDebug(command.toStdString().c_str());
   commands.append(command);
   return commands;
 };
@@ -152,7 +156,7 @@ QStringList ParseHPRCmd(QString command){
 void QGasConsole::ParseResponseFromHPR(const QString& aValue){
   QString curCommand = aValue.mid(0,3);//выбираем команду
   QStringList curValues = ParseHPRCmd(aValue.right(aValue.size() - 3));//значение
-  qDebug(curCommand.toStdString().c_str());
+  //qDebug(curCommand.toStdString().c_str());
   if(curCommand == HPR_CMD_HELLO){
     //qDebug("Hello");
     setWindowTitle(curValues.value(0));
@@ -160,7 +164,7 @@ void QGasConsole::ParseResponseFromHPR(const QString& aValue){
   }else if(curCommand == HPR_CMD_VERSION){
     //ревизия
     ui->lPS_Rev->setText(curValues.value(0));
-    ui->lGC_Rev->setText(curValues.value(1));
+    ui->lGC_Rev->setText(" " + curValues.value(1));
     SendCommand(HPR_CMD_LAST_ERRORS);
   }else if(curCommand == HPR_CMD_CONNECTION_TIMEOUT){
     setWindowTitle("Can not connect...");
@@ -252,6 +256,7 @@ void QGasConsole::ParseResponseFromHPR(const QString& aValue){
     //qDebug("StartTestCutFlow");
   }else if(curCommand == HPR_CMD_STOP_TEST_CUT_FLOW){
     //qDebug("StopTestCutFlow");
+  }else if(curCommand == HPR_CMD_START_TEST_PUMP){
   };
 };
 
@@ -289,10 +294,10 @@ void QGasConsole::onUpdate()
 
 void QGasConsole::onTestPreFlow(){
   if(startPreFlow){
-    ui->btTestPreflow->setText("Test");
+	ui->btTestPreflow->setText(trUtf8("Тест продувки"));
     SendCommand(HPR_CMD_STOP_TEST_PRE_FLOW);
   }else{
-    ui->btTestPreflow->setText("TestPreflow");
+	ui->btTestPreflow->setText(trUtf8("Стоп"));
     SendCommand(HPR_CMD_START_TEST_PRE_FLOW);
   };
 
@@ -301,11 +306,23 @@ void QGasConsole::onTestPreFlow(){
 
 void QGasConsole::onTestCutFlow(){
   if(startCutFlow){
-    ui->btTestCutflow->setText("Test");
-    SendCommand(HPR_CMD_STOP_TEST_CUT_FLOW);
+	ui->btTestCutflow->setText(trUtf8("Тест резки"));
+	SendCommand(HPR_CMD_STOP_TEST_CUT_FLOW);
   }else{
-    ui->btTestCutflow->setText("TestCutflow");
+	ui->btTestCutflow->setText(trUtf8("Стоп"));
     SendCommand(HPR_CMD_START_TEST_CUT_FLOW);
   };
   startCutFlow = !startCutFlow;
 }
+
+void QGasConsole::onPump(){
+  QString command = HPR_CMD_START_TEST_PUMP;
+  if(startPumpTest){
+	ui->btPump->setText(trUtf8("Насос"));
+    SendCommand(command + "0");
+  }else{
+	ui->btPump->setText(trUtf8("Стоп"));
+    SendCommand(command + "1");
+  };
+  startPumpTest = !startPumpTest;
+};
