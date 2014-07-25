@@ -23,6 +23,7 @@ private slots:
   void  onUpdate();
   void onTestPreFlow();
   void onTestCutFlow();
+  void onPump();
 
 public:
   void SendCommand(const QString& aCommand);
@@ -38,6 +39,7 @@ private:
     Ui::QGasConsole *ui;
     bool startPreFlow;
     bool startCutFlow;
+    bool startPumpTest;
 
 };
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>805</width>
-    <height>638</height>
+    <width>995</width>
+    <height>645</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,11 +42,16 @@
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_20">
                 <item>
-                 <layout class="QGridLayout" name="gridLayout_5">
+                 <layout class="QGridLayout" name="gridLayout_5" columnstretch="4,2,1">
                   <item row="0" column="0">
                    <widget class="QLabel" name="label">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Line Voltage</string>
+                     <string>Лин. напряжение</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -56,12 +61,23 @@
                   <item row="0" column="1">
                    <widget class="QLabel" name="lLineVoltage">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="autoFillBackground">
+                     <bool>false</bool>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -73,6 +89,12 @@
                   </item>
                   <item row="0" column="2">
                    <widget class="QLabel" name="label_3">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>V</string>
                     </property>
@@ -83,8 +105,13 @@
                   </item>
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_15">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Current setpont</string>
+                     <string>Заданный ток</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -93,8 +120,13 @@
                   </item>
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_16">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Work Lead</string>
+                     <string>Рабочий ток</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -103,8 +135,13 @@
                   </item>
                   <item row="3" column="0">
                    <widget class="QLabel" name="label_17">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Coolant Flow</string>
+                     <string>Проток о.ж.</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -113,8 +150,13 @@
                   </item>
                   <item row="4" column="0">
                    <widget class="QLabel" name="label_18">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>PS State Code</string>
+                     <string>Состояние</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -123,8 +165,13 @@
                   </item>
                   <item row="5" column="0">
                    <widget class="QLabel" name="label_19">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Last Errors Codes</string>
+                     <string>Посл. ошибки</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -134,12 +181,23 @@
                   <item row="1" column="1">
                    <widget class="QLabel" name="lCurSetPoint">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="autoFillBackground">
+                     <bool>false</bool>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -151,8 +209,14 @@
                   </item>
                   <item row="1" column="2">
                    <widget class="QLabel" name="label_32">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Amps</string>
+                     <string>A</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -163,8 +227,19 @@
                    <widget class="QLabel" name="lWorkLead">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="autoFillBackground">
+                     <bool>false</bool>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -176,8 +251,14 @@
                   </item>
                   <item row="2" column="2">
                    <widget class="QLabel" name="label_34">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Amps</string>
+                     <string>A</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -188,8 +269,16 @@
                    <widget class="QLabel" name="lCoolantFlow">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -201,6 +290,12 @@
                   </item>
                   <item row="3" column="2">
                    <widget class="QLabel" name="label_36">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>GFM</string>
                     </property>
@@ -213,8 +308,16 @@
                    <widget class="QLabel" name="lPSStateCode">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -228,8 +331,16 @@
                    <widget class="QLabel" name="lLastErrors">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -251,11 +362,16 @@
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_21">
                 <item>
-                 <layout class="QGridLayout" name="gridLayout_16">
+                 <layout class="QGridLayout" name="gridLayout_16" columnstretch="4,1,1">
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_4">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Arc On Time</string>
+                     <string>Время работы дуги</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -266,8 +382,16 @@
                    <widget class="QLabel" name="lArcOnTime">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -279,8 +403,14 @@
                   </item>
                   <item row="0" column="2">
                    <widget class="QLabel" name="label_6">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Seconds</string>
+                     <string>секунды</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -289,8 +419,13 @@
                   </item>
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_20">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Sys On Time</string>
+                     <string>Время работы системы</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -299,8 +434,13 @@
                   </item>
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_21">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Tot Starts</string>
+                     <string>Кол-во пусков</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -309,8 +449,13 @@
                   </item>
                   <item row="3" column="0">
                    <widget class="QLabel" name="label_22">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Tot Start Errors</string>
+                     <string>Кол-во ошибок запуска</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -319,8 +464,13 @@
                   </item>
                   <item row="4" column="0">
                    <widget class="QLabel" name="label_23">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Tot Ramp Errors</string>
+                     <string>Кол-во ошибок изменения</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -331,8 +481,16 @@
                    <widget class="QLabel" name="lSysOnTime">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -344,8 +502,14 @@
                   </item>
                   <item row="1" column="2">
                    <widget class="QLabel" name="label_40">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Minutes</string>
+                     <string>минуты</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -356,8 +520,16 @@
                    <widget class="QLabel" name="lTotStarts">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -369,8 +541,14 @@
                   </item>
                   <item row="2" column="2">
                    <widget class="QLabel" name="label_42">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Count</string>
+                     <string>штуки</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -381,8 +559,16 @@
                    <widget class="QLabel" name="lTotErrors">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -394,8 +580,14 @@
                   </item>
                   <item row="3" column="2">
                    <widget class="QLabel" name="label_44">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Count</string>
+                     <string>штуки</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -406,8 +598,16 @@
                    <widget class="QLabel" name="lRampErrors">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -419,8 +619,14 @@
                   </item>
                   <item row="4" column="2">
                    <widget class="QLabel" name="label_46">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Count</string>
+                     <string>штуки</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -446,8 +652,13 @@
                  <layout class="QGridLayout" name="gridLayout_17">
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_7">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Plasma Inlet Gas</string>
+                     <string>Плазмообразующий газ на вх.</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -458,8 +669,16 @@
                    <widget class="QLabel" name="lPlasmaIG">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -471,8 +690,13 @@
                   </item>
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_24">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Shield Inlet Gas</string>
+                     <string>Защитный газ на вх.</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -483,8 +707,16 @@
                    <widget class="QLabel" name="lShieldIG">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -506,11 +738,16 @@
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_23">
                 <item>
-                 <layout class="QGridLayout" name="gridLayout_18">
+                 <layout class="QGridLayout" name="gridLayout_18" columnstretch="4,2,1">
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_9">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Plasma Cutflow</string>
+                     <string>Проток пл/г при резе</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -521,8 +758,16 @@
                    <widget class="QLabel" name="lPlasmaCutflow">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -534,8 +779,13 @@
                   </item>
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_25">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Plasma Prefow</string>
+                     <string>Проток пл/г при продувке</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -544,8 +794,13 @@
                   </item>
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_26">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Shield Cutflow</string>
+                     <string>Проток з/г при резе</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -554,8 +809,13 @@
                   </item>
                   <item row="3" column="0">
                    <widget class="QLabel" name="label_27">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Shield Preflow</string>
+                     <string>Проток з/г при продувке</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -566,8 +826,16 @@
                    <widget class="QLabel" name="lPlasmaPreflow">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -579,6 +847,12 @@
                   </item>
                   <item row="1" column="2">
                    <widget class="QLabel" name="label_49">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>PSI</string>
                     </property>
@@ -591,8 +865,16 @@
                    <widget class="QLabel" name="lShieldCutflow">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -604,6 +886,12 @@
                   </item>
                   <item row="2" column="2">
                    <widget class="QLabel" name="label_51">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>PSI</string>
                     </property>
@@ -616,8 +904,16 @@
                    <widget class="QLabel" name="lShieldPreflow">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -629,6 +925,12 @@
                   </item>
                   <item row="3" column="2">
                    <widget class="QLabel" name="label_53">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>PSI</string>
                     </property>
@@ -639,6 +941,12 @@
                   </item>
                   <item row="0" column="2">
                    <widget class="QLabel" name="label_11">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>PSI</string>
                     </property>
@@ -659,11 +967,16 @@
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_24">
                 <item>
-                 <layout class="QGridLayout" name="gridLayout_19">
+                 <layout class="QGridLayout" name="gridLayout_19" columnstretch="4,2,1">
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_12">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Inlet Cut Gas #1</string>
+                     <string>Рез. газ #1 на входе</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -674,8 +987,16 @@
                    <widget class="QLabel" name="lInletGas1">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -687,6 +1008,12 @@
                   </item>
                   <item row="0" column="2">
                    <widget class="QLabel" name="label_14">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>PSI</string>
                     </property>
@@ -697,8 +1024,13 @@
                   </item>
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_28">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Inlet Cut Gas #2</string>
+                     <string>Рез. газ #2 на входе</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -707,8 +1039,13 @@
                   </item>
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_29">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Mixed Gas #1</string>
+                     <string>Газ. смесь #1</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -717,8 +1054,13 @@
                   </item>
                   <item row="3" column="0">
                    <widget class="QLabel" name="label_30">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>Mixed Gas #2</string>
+                     <string>Газ. смесь #2</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -729,8 +1071,16 @@
                    <widget class="QLabel" name="lMixedGas1">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -742,6 +1092,12 @@
                   </item>
                   <item row="1" column="2">
                    <widget class="QLabel" name="label_54">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>PSI</string>
                     </property>
@@ -754,8 +1110,16 @@
                    <widget class="QLabel" name="lInletGas2">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -769,8 +1133,16 @@
                    <widget class="QLabel" name="lMixedGas2">
                     <property name="font">
                      <font>
+                      <family>Sans Serif</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
                       <italic>true</italic>
+                      <bold>false</bold>
                      </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                     </property>
                     <property name="text">
                      <string>TextLabel</string>
@@ -782,6 +1154,12 @@
                   </item>
                   <item row="2" column="2">
                    <widget class="QLabel" name="label_58">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>PSI</string>
                     </property>
@@ -792,6 +1170,12 @@
                   </item>
                   <item row="3" column="2">
                    <widget class="QLabel" name="label_59">
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                      <italic>true</italic>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>PSI</string>
                     </property>
@@ -827,14 +1211,14 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="btClear">
+            <widget class="QPushButton" name="btPump">
              <property name="font">
               <font>
-               <pointsize>25</pointsize>
+               <pointsize>26</pointsize>
               </font>
              </property>
              <property name="text">
-              <string>Сброс</string>
+              <string>Насос</string>
              </property>
             </widget>
            </item>
@@ -846,7 +1230,7 @@
               </font>
              </property>
              <property name="text">
-              <string>TestPreflow</string>
+              <string>Тест продувки</string>
              </property>
             </widget>
            </item>
@@ -858,7 +1242,7 @@
               </font>
              </property>
              <property name="text">
-              <string>TestCutflow</string>
+              <string>Тест резки</string>
              </property>
             </widget>
            </item>
@@ -888,7 +1272,7 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <layout class="QGridLayout" name="gridLayout_2">
+          <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,1">
            <item row="3" column="0" colspan="2">
             <spacer name="verticalSpacer">
              <property name="orientation">
@@ -912,8 +1296,13 @@
                <layout class="QGridLayout" name="gridLayout_4">
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_43">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Chopper A</string>
+                   <string>Инвертор A</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -924,19 +1313,33 @@
                  <widget class="QLabel" name="lChopperATemp">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="2">
                  <widget class="QLabel" name="label_47">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>F 140/185</string>
                   </property>
@@ -947,8 +1350,13 @@
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_48">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Chopper B</string>
+                   <string>Инвертор B</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -957,8 +1365,13 @@
                 </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_50">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Chopper C</string>
+                   <string>Инвертор C</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -967,8 +1380,13 @@
                 </item>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_52">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Chopper D</string>
+                   <string>Инвертор D</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -979,19 +1397,33 @@
                  <widget class="QLabel" name="lChopperBTemp">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="2">
                  <widget class="QLabel" name="label_56">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>F 140/185</string>
                   </property>
@@ -1004,19 +1436,33 @@
                  <widget class="QLabel" name="lChopperCTemp">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="2" column="2">
                  <widget class="QLabel" name="label_60">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>F 140/185</string>
                   </property>
@@ -1029,19 +1475,33 @@
                  <widget class="QLabel" name="lChopperDTemp">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="2">
                  <widget class="QLabel" name="label_62">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>F 140/185</string>
                   </property>
@@ -1052,8 +1512,13 @@
                 </item>
                 <item row="4" column="0">
                  <widget class="QLabel" name="label_63">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Coolant</string>
+                   <string>Охл. жидкость</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1062,8 +1527,13 @@
                 </item>
                 <item row="5" column="0">
                  <widget class="QLabel" name="label_64">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Transformer</string>
+                   <string>Трансформатор</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1074,19 +1544,33 @@
                  <widget class="QLabel" name="lCoolantTemp">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="4" column="2">
                  <widget class="QLabel" name="label_66">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>F 140/158</string>
                   </property>
@@ -1099,19 +1583,33 @@
                  <widget class="QLabel" name="lTransformerTemp">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
                 <item row="5" column="2">
                  <widget class="QLabel" name="label_68">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>F 140/248</string>
                   </property>
@@ -1148,8 +1646,13 @@
                <layout class="QGridLayout" name="gridLayout_6" columnstretch="10,3,1,3,10" columnminimumwidth="0,0,0,0,0">
                 <item row="0" column="0">
                  <widget class="QLabel" name="labelGC">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Power Supply Rev / Gas Console Rev</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Источник Rev / Газ. консоль Rev&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -1157,8 +1660,16 @@
                  <widget class="QLabel" name="lPS_Rev">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1172,8 +1683,16 @@
                  <widget class="QLabel" name="lGC_Rev">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1195,6 +1714,11 @@
                 </item>
                 <item row="0" column="2">
                  <widget class="QLabel" name="label_5">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>/</string>
                   </property>
@@ -1215,11 +1739,16 @@
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <item>
-               <layout class="QGridLayout" name="gridLayout_3" columnstretch="3,2,1,2,3">
+               <layout class="QGridLayout" name="gridLayout_3" columnstretch="3,2,1,2,1">
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_2">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Chopper A</string>
+                   <string>Инвертор A</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1228,8 +1757,14 @@
                 </item>
                 <item row="0" column="4">
                  <widget class="QLabel" name="label_8">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Amps</string>
+                   <string>A</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -1238,8 +1773,13 @@
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_10">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Chopper B</string>
+                   <string>Инвертор B</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1248,8 +1788,13 @@
                 </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_13">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Chopper C</string>
+                   <string>Инвертор C</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1258,8 +1803,13 @@
                 </item>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_31">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Chopper D</string>
+                   <string>Инвертор D</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1268,8 +1818,14 @@
                 </item>
                 <item row="1" column="4">
                  <widget class="QLabel" name="label_38">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Amps</string>
+                   <string>A</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -1278,8 +1834,14 @@
                 </item>
                 <item row="2" column="4">
                  <widget class="QLabel" name="label_39">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Amps</string>
+                   <string>A</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -1288,8 +1850,14 @@
                 </item>
                 <item row="3" column="4">
                  <widget class="QLabel" name="label_41">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                    <italic>true</italic>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>Amps</string>
+                   <string>A</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -1313,8 +1881,16 @@
                  <widget class="QLabel" name="lChA_SP">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1328,8 +1904,16 @@
                  <widget class="QLabel" name="lChB_SP">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1343,8 +1927,16 @@
                  <widget class="QLabel" name="lChB_Cur">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1358,8 +1950,16 @@
                  <widget class="QLabel" name="lChC_SP">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1373,8 +1973,16 @@
                  <widget class="QLabel" name="lChC_Cur">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1388,8 +1996,16 @@
                  <widget class="QLabel" name="lChD_SP">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1403,8 +2019,16 @@
                  <widget class="QLabel" name="lChD_Cur">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1418,8 +2042,16 @@
                  <widget class="QLabel" name="lChA_Cur">
                   <property name="font">
                    <font>
+                    <family>Sans Serif</family>
+                    <pointsize>16</pointsize>
+                    <weight>50</weight>
                     <italic>true</italic>
+                    <bold>false</bold>
                    </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(253, 247, 255);
+font: italic 16pt &quot;Sans Serif&quot;;</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1431,6 +2063,11 @@
                 </item>
                 <item row="1" column="2">
                  <widget class="QLabel" name="label_67">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>/</string>
                   </property>
@@ -1441,6 +2078,11 @@
                 </item>
                 <item row="2" column="2">
                  <widget class="QLabel" name="label_69">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>/</string>
                   </property>
@@ -1451,6 +2093,11 @@
                 </item>
                 <item row="3" column="2">
                  <widget class="QLabel" name="label_70">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>/</string>
                   </property>
@@ -1461,6 +2108,11 @@
                 </item>
                 <item row="0" column="2">
                  <widget class="QLabel" name="label_71">
+                  <property name="font">
+                   <font>
+                    <pointsize>16</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>/</string>
                   </property>
@@ -1490,6 +2142,18 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btReset">
+             <property name="font">
+              <font>
+               <pointsize>26</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Сброс</string>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QPushButton" name="btUpdateAdd">

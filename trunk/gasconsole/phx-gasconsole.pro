@@ -21,7 +21,7 @@ _install-debug.commands = cp ./debug/phx-gasconsole*  ../install
 
 }
 unix {
-_install-debug.commands = cp ./phx-gasconsole*  ../install
+_install-debug.commands = cp ./build/phx-gasconsole*  ../install
 }
 QMAKE_EXTRA_TARGETS += _install-release _install-debug
 
