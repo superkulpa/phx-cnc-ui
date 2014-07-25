@@ -7,7 +7,7 @@ TEMPLATE = app
 
 INCLUDEPATH += ./src ./GeneratedFiles
 
-QT       += core gui
+QT       += core gui xml xmlpatterns network
 
 UI_DIR  += ./GeneratedFiles
 
@@ -30,9 +30,13 @@ QMAKE_CXXFLAGS += -std=c++11
 
 #TARGET = phx-gasconsole
 
-SOURCES += main.cpp\
-        qgasconsole.cpp
+SOURCES += src/main.cpp \
+           src/qgasconsole.cpp \
+           src/utils/CXSettingsXML.cpp \
+           src/CXUdpManager.cpp
 
-HEADERS  += qgasconsole.h
+HEADERS  += src/qgasconsole.h \
+            src/utils/CXSettingsXML.h \
+            src/CXUdpManager.h
 
-FORMS    += qgasconsole.ui
+FORMS    += src/forms/qgasconsole.ui
