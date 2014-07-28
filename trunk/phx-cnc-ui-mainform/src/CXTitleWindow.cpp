@@ -28,6 +28,8 @@ CXTitleWindow::CXTitleWindow() :
   mControlButton = new CXTouchButton(trUtf8("Управление выкл."), this);
   mControlButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
   mControlButton->setFocusPolicy(Qt::NoFocus);
+  mControlButton->setLongPress(true);
+  mControlButton->SetNeedFirstEvent(true);
   centralLayout->addWidget(mControlButton);
 
   mFileLabel = new QLabel(this);
@@ -36,7 +38,8 @@ CXTitleWindow::CXTitleWindow() :
 
   registerManager();
 
-  connect(mControlButton, SIGNAL(clicked()), this, SLOT(onControl()));
+  connect(mControlButton, SIGNAL(onFirstEvent()), this, SLOT(onControl()));
+  connect(mControlButton, SIGNAL(clicked()), this, SLOT(onBlockLimits()));
 
   connect(mStopButton, SIGNAL(clicked()), this, SLOT(onStopOperation()));
 
@@ -79,6 +82,14 @@ CXTitleWindow::onControl()
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CONTROL,
       Commands::MSG_VALUE_INVERT);
 }
+
+void
+CXTitleWindow::onBlockLimits()
+{
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_BLOCK_LIMITS,
+      Commands::MSG_VALUE_ON);
+}
+
 
 void
 CXTitleWindow::onStopOperation(){

@@ -19,6 +19,11 @@ public:
   //! Функция установки флага, использовать ли зажатие кнопки или сразу отжимать кнопку после нажатия.
   void setLongPress(bool aIsLongPress);
 
+  //! Функция установки флага, нужно ли различать короткое и длинное нажатие.
+  void SetNeedFirstEvent(bool aNeedFirstEvent);
+signals:
+  void onFirstEvent();
+
 protected:
   //! Переопределенная фукнция рисования.
   virtual void
@@ -40,6 +45,7 @@ private:
   QTime mTime;
   int mTimer;
   bool mIsLongPress;
+  bool needFirstEvent;
 public:
   static int mDelay;
   static int mDelayLong;

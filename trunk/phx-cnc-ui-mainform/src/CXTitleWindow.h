@@ -37,6 +37,9 @@ private slots:
   //! Слот на управление.
   void
   onControl();
+  //! Блокируем концевики
+  void
+  onBlockLimits();
 
   //! Стоп операций
   void

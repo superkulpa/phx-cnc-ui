@@ -47,6 +47,13 @@ CXTouchButton::setLongPress(bool aIsLongPress)
 }
 
 void
+CXTouchButton::SetNeedFirstEvent(bool aNeedFirstEvent)
+{
+  needFirstEvent = aNeedFirstEvent;
+}
+
+
+void
 CXTouchButton::paintEvent(QPaintEvent* e)
 {
   QPushButton::paintEvent(e);
@@ -67,6 +74,8 @@ CXTouchButton::mousePressEvent(QMouseEvent* e)
 
     if (!isCheckable()/* && !mIsLongPress*/)
       QPushButton::mousePressEvent(e);
+    if(needFirstEvent)
+      emit onFirstEvent();
   }
 }
 
