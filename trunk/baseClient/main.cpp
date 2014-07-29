@@ -18,7 +18,7 @@
 #define MAX_SUPP_COUNT 8
 CIniFile iniFileParams;
 CIniFile iniParamsTech;
-CIniFile iniParamsSup[MAX_SUPP_COUNT];
+//CIniFile iniParamsSup[MAX_SUPP_COUNT];
 int supp_count;
 int supp_mask;
 
@@ -78,19 +78,19 @@ check(const KeyValueList& aAvailableKeys, const QString& aCurKey,
   return 1;
 }
 
-int
-SetZHuntValue(int _supp_count, double _zHunt, double _preZHunt = .0)
-{
-  // for (int i = 0; i < _supp_count; i++)
-  {
-    iniParamsSup[0].SetValueF("Support1/THC/ZHunt", "value", _zHunt);
-    if (_preZHunt != 0)
-      iniParamsSup[0].SetValueF("Support1/THC/preZHunt", "value", _preZHunt);
-    if (!iniParamsSup[0].WriteIniFile())
-      return 1;
-  };
-return 0;
-}
+//int
+//SetZHuntValue(int _supp_count, double _zHunt, double _preZHunt = .0)
+//{
+//  // for (int i = 0; i < _supp_count; i++)
+//  {
+//    iniParamsSup[0].SetValueF("Support1/THC/ZHunt", "value", _zHunt);
+//    if (_preZHunt != 0)
+//      iniParamsSup[0].SetValueF("Support1/THC/preZHunt", "value", _preZHunt);
+//    if (!iniParamsSup[0].WriteIniFile())
+//      return 1;
+//  };
+//return 0;
+//}
 
 //при необходимости раскидываем параметры плазмы
 int
@@ -131,8 +131,14 @@ ReloadPlasmaCuttingParams(CIniFile& _cutIni, CIniFile& _techIni, QString _name)
   paramName = "Technology/" + _name.toStdString() + "/BurnZDistance";
   _techIni.SetValueI(paramName, "value", zCutDistance);
 
-  if (SetZHuntValue(supp_count, _cutIni.GetValueF(name, "SVRVoltage", 0)) != 0)
-    return 1;
+  double zHunt = _cutIni.GetValueF(name, "SVRVoltage", 0);
+
+  paramName = "Technology/" + _name.toStdString() + "/ZHunt";
+
+  _techIni.SetValueF(paramName, "value", zHunt);
+//
+//  if (SetZHuntValue(supp_count, _cutIni.GetValueF(name, "SVRVoltage", 0)) != 0)
+//    return 1;
 
   if (!_techIni.WriteIniFile())
     {
@@ -154,9 +160,13 @@ ReloadWriterCuttingParams(CIniFile& _cutIni)
           * 10;
   iniParamsTech.SetValueI("Technology/Writer/TouchUp", "value", zTouchUp);
 
-  if (SetZHuntValue(3, _cutIni.GetValueF("Writer/Common", "ArcVoltage", 0))
-      != 0)
-    return 1;
+  double zHunt = _cutIni.GetValueF("Writer/Common", "SVRVoltage", 0);
+
+  iniParamsTech.SetValueF("Technology/Writer/ZHunt","value", zHunt);
+
+//  if (SetZHuntValue(3, _cutIni.GetValueF("Writer/Common", "ArcVoltage", 0))
+//      != 0)
+//    return 1;
 
   if (!iniParamsTech.WriteIniFile())
     {
@@ -225,6 +235,12 @@ ReloadOxyCuttingParams(CIniFile& _cutIni)
   iniParamsTech.SetValueI("Technology/Oxy/Burn/FeedDivisor", "value",
       (int) burn_feed * 100 / _listFeed);
 
+
+  double zHunt = _cutIni.GetValueF("Oxy/Common", "SVRVoltage", 0);
+
+  iniParamsTech.SetValueF("Technology/Oxy/ZHunt","value", zHunt);
+
+
   if (!iniParamsTech.WriteIniFile())
     {
       printf("ERROR: fault to write Ini file\n");
@@ -239,7 +255,7 @@ ReloadOxyCuttingParams(CIniFile& _cutIni)
 
 //перегружаем параметры реза
 int
-ReloadCuttingParams(QString _fname, QString _type, int _supp_mask)
+ReloadCuttingParams(QString _fname, QString _type/*, int _supp_mask*/)
 {
   CIniFile cutIni(_fname.toStdString(), -1);
   if (!cutIni.ReadFile(_fname.toStdString()))
@@ -262,27 +278,27 @@ ReloadCuttingParams(QString _fname, QString _type, int _supp_mask)
       fprintf(stdout, "%s\n", warn.c_str());
       return 1;
     };
-  //нечего инициализировать
-  if (_supp_mask == 0)
-    return 1;
-  supp_mask = _supp_mask;
-
-  for (int i = 0; i < MAX_SUPP_COUNT; i++)
-    {
-      if (_supp_mask & (1 << i))
-        {
-          QString suppName = "./jini/paramsSupport" + QString::number(i + 1)
-          + ".ini";
-          iniParamsSup[supp_count] = CIniFile(suppName.toStdString(), -1);
-          if (!iniParamsSup[supp_count].ReadFile(suppName.toStdString()))
-            {
-              string warn = "Unable read ini file " + suppName.toStdString();
-              fprintf(stdout, "%s\n", warn.c_str());
-              return 1;
-            };
-          supp_count++;
-        };
-    };
+//  //нечего инициализировать
+//  if (_supp_mask == 0)
+//    return 1;
+//  supp_mask = _supp_mask;
+//
+//  for (int i = 0; i < MAX_SUPP_COUNT; i++)
+//    {
+//      if (_supp_mask & (1 << i))
+//        {
+//          QString suppName = "./jini/paramsSupport" + QString::number(i + 1)
+//          + ".ini";
+//          iniParamsSup[supp_count] = CIniFile(suppName.toStdString(), -1);
+//          if (!iniParamsSup[supp_count].ReadFile(suppName.toStdString()))
+//            {
+//              string warn = "Unable read ini file " + suppName.toStdString();
+//              fprintf(stdout, "%s\n", warn.c_str());
+//              return 1;
+//            };
+//          supp_count++;
+//        };
+//    };
   //обновляем нужную технологию
   int res = 0;
   if ((_type == "MPlasma") || (_type == "Plasma"))
@@ -325,7 +341,7 @@ main(int argc, char *argv[])
     }
   if (smask.size() > 0)
     {
-      return ReloadCuttingParams(fileName, type, smask.toInt());
+      return ReloadCuttingParams(fileName, type/*, smask.toInt()*/);
     }
 
   //QStringList str; str.append(".");
