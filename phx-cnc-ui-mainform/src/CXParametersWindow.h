@@ -68,7 +68,7 @@ public slots:
   void setTechnology(const QString& _tech);
 
 signals:
-  void saveParams();
+  void uploadCompleted(int _error);
 
 protected:
   //! Функция событий таймера.
@@ -91,8 +91,8 @@ private slots:
 
 private:
   //! Функция загрузки данных на/с FTP-сервера.
-  void
-  loadFiles(bool aIsUpload);
+//  void
+//  loadFiles(bool aIsUpload);
   //! Функция очистки данных.
   void
   clearData();

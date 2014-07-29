@@ -52,6 +52,7 @@ void CXProcessingParametersWindow::onLoadDB(){
    //connect(parametersWindow, SIGNAL(iniSaved()), this, SLOT(close()));
   connect(AXBaseWindow::mManager->getWindow("CXParamUi"), SIGNAL(iniSaved())
          , AXBaseWindow::mManager->getWindow("CXFilesList"), SLOT(onAccept()) );
+
 //          , this, SIGNAL(accepted()));
   connect(AXBaseWindow::mManager->getWindow("CXParamUi"), SIGNAL(closed())
           , this, SLOT(close() ));
@@ -108,11 +109,12 @@ CXProcessingParametersWindow::onFileLoad()
     for (iter = CXParametersView::mDataMap.begin(); iter != CXParametersView::mDataMap.end();
         ++iter)
     {
-      iter.value()->save();
+      if(iter.value()->isModified){
+        if(!loadFiles.contains( QFileInfo(iter.value()->mConfigFileName).fileName()))
+          loadFiles << QFileInfo(iter.value()->mConfigFileName).fileName();
+        iter.value()->save();
+      }
     }
-
-    loadFiles << "*.ini";
-//    emit accepted();
   }
   mFtp->onFtpUpload(loadFiles);
 }
@@ -140,9 +142,12 @@ CXProcessingParametersWindow::onAllFilesIsLoaded(bool aIsUpload)
   closeFtp();
 
   AXBaseWindow::mManager->setCurrentGroup(4);
-  AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS,
-      Commands::MSG_CMD_REFRESH_PARAMS, "0");
-  AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_LOAD_CP,
-      mFtpFileName);
+  if(aIsUpload){
+    AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS,Commands::MSG_CMD_RELOAD_PARAMS,
+        "0");
+
+    AXBaseWindow::mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_LOAD_CP,
+        mFtpFileName);
+  }
   accept();
 }

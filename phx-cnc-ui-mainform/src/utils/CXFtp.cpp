@@ -58,7 +58,7 @@ CXFtp::onFtpDownload(const QStringList& aFiles)
 {
   mIsUpload = false;
   mFileFilters = aFiles;
-
+  VLOG(D4) << LOGS << LOGP(mFileFilters) << LOGN;
   loadFiles();
 }
 
@@ -75,7 +75,7 @@ CXFtp::onFtpUpload(const QStringList& aFiles)
   {
     mFilesList.append(CXFtpFileInfo(iter->absoluteFilePath(), iter->size()));
   }
-
+ // VLOG(D4) << LOGS << LOGP(mFilesList) << LOGN;
   loadFiles();
 }
 
@@ -239,11 +239,18 @@ CXFtp::onFtpCommandFinish(int id, bool aIsError)
 
 void
 CXFtp::onListInfo(const QUrlInfo& aInfo)
-{
-  if (aInfo.isFile())
-  {
-    if (mFileFilters.isEmpty()
-        || mFileFilters.contains(QFileInfo(aInfo.name()).completeSuffix()))
+{//Фильтры понимают только так
+  //     *.ini
+  //     techparams.ini
+  //     TODO: qForm - допилить фильтры через regexp
+  if (aInfo.isFile() && ! mFileFilters.isEmpty()){
+    bool bingo = false;
+    if(mFileFilters.at(0) == "*.ini"&& (QFileInfo(aInfo.name()).completeSuffix() == "ini") )
+      bingo = true;
+
+    if(!bingo && mFileFilters.contains(aInfo.name()))
+      bingo = true;
+    if(bingo)
     {
       VLOG(D4) << LOGS << LOGPqs(aInfo.name()) << LOGN;
       mFilesList.append(CXFtpFileInfo(aInfo.name(), aInfo.size()));

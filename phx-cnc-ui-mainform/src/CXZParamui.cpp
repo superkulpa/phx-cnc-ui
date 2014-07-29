@@ -129,40 +129,40 @@ void CXZParamUi::setVisible(bool visible){
 void
 CXZParamUi::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
-	if(! isVisible()) return;
-	if (aSection ==  (Commands::MSG_SECTION_IO))
-	{
-	 //TODO сделать нормально
-	  if(aCommand.indexOf("Z1") != -1){
-		//1 суппорт
-		QStringList list = aValue.split(",");
-		for (int i = 0; i < list.size(); i++) {
-		  const QString& curValue = list.at(i);
-		  int index = curValue.indexOf("=");
-		  int channelNumber = curValue.mid(0, index).toInt();
+  if(! isVisible()) return;
+  if (aSection ==  (Commands::MSG_SECTION_IO))
+  {
+    //TODO сделать нормально
+    if(aCommand.indexOf("Z1") != -1){
+      //1 суппорт
+      QStringList list = aValue.split(",");
+      for (int i = 0; i < list.size(); i++) {
+        const QString& curValue = list.at(i);
+        int index = curValue.indexOf("=");
+        int channelNumber = curValue.mid(0, index).toInt();
 
-		  if (channelNumber < 0)	continue;
-		  if (channelNumber == 16) mVEditors[0]->setValue(curValue.mid(index + 1).toDouble() / 1000);
-		}
-	  }
-	}else if (aSection ==  (Commands::MSG_SECTION_TECH)) {
-	  //Позиция осей.
-	  if (aCommand ==  (Commands::MSG_STATE_POS_AXIS))
-		{
-		  QStringList list = aValue.split(",");
-		  for (int i = 0; i < list.size(); i++)
-		  {
-			QString axisPosStr = list.at(i);
-			int indx = axisPosStr.indexOf("=");
-			int axisIndx = axisPosStr.mid(0, indx).toInt();
-			double axisPos = axisPosStr.mid(indx + 1).toDouble() / 1000.0;
-			qDebug(trUtf8("%1").arg(axisIndx).toStdString().c_str());
-			qDebug(trUtf8("%1").arg(axisPos).toStdString().c_str());
-     	    mZPosEditors[axisIndx]->setValue(axisPos);
-		  }
+        if (channelNumber < 0)	continue;
+        if (channelNumber == 16) mVEditors[0]->setValue(curValue.mid(index + 1).toDouble() / 1000);
+      }
+    }
+  }else if (aSection ==  (Commands::MSG_SECTION_TECH)) {
+    //Позиция осей.
+    if (aCommand ==  (Commands::MSG_STATE_POS_AXIS))
+    {
+      QStringList list = aValue.split(",");
+      for (int i = 0; i < list.size(); i++)
+      {
+        QString axisPosStr = list.at(i);
+        int indx = axisPosStr.indexOf("=");
+        int axisIndx = axisPosStr.mid(0, indx).toInt();
+        double axisPos = axisPosStr.mid(indx + 1).toDouble() / 1000.0;
+        qDebug(trUtf8("%1").arg(axisIndx).toStdString().c_str());
+        qDebug(trUtf8("%1").arg(axisPos).toStdString().c_str());
+        mZPosEditors[axisIndx]->setValue(axisPos);
+      }
 
-		}
-	 };
+    }
+  };
 }
 
 
@@ -191,35 +191,35 @@ CXZParamUi::onButtonClicked()
 void
 CXZParamUi::onFixZPosButtonClicked()
 {
-  int indx = sender()->property("indx").toInt();
-  QString suppName = "Support" + sender()->property("indx").toString();
-  //qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
-  //сохраняем позицию быстрого поиска
-  QString suppPath = QApplication::applicationDirPath() + "/jini/params" + suppName + ".ini";
-  CIniFile suppFile(suppPath.toStdString());
-  suppFile.ReadIniFile();
-  suppFile.SetValue(suppName.toStdString() + "/ZDownFast" ,"value",mZPosEditors[indx - 1]->text().toStdString(),true);
-  suppFile.WriteIniFile();
-  emit iniSaved();
+//  int indx = sender()->property("indx").toInt();
+//  QString suppName = "Support" + sender()->property("indx").toString();
+//  //qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
+//  //сохраняем позицию быстрого поиска
+//  QString suppPath = QApplication::applicationDirPath() + "/jini/params" + suppName + ".ini";
+//  CIniFile suppFile(suppPath.toStdString());
+//  suppFile.ReadIniFile();
+//  suppFile.SetValue(suppName.toStdString() + "/ZDownFast" ,"value",mZPosEditors[indx - 1]->text().toStdString(),true);
+//  suppFile.WriteIniFile();
+//  emit iniSaved();
 }
 
 void
 CXZParamUi::onFixVButtonClicked()
 {
-  int indx = sender()->property("indx").toInt();
-  //qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
-  //сохраняем вольты в уровень стабилизации
-  QString suppName = "Support" + sender()->property("indx").toString();
-  //qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
-  //сохраняем позицию быстрого поиска
-  QString suppPath = QApplication::applicationDirPath() + "/jini/params" + suppName + ".ini";
-  CIniFile suppFile(suppPath.toStdString());
-  suppFile.ReadIniFile();
-  int koef = suppFile.GetValueI(suppName.toStdString() + "/THC/ZVFactor","value", 1);
-  double val = mVEditors[indx - 1]->value() * koef;
-  suppFile.SetValue(suppName.toStdString() + "/THC/ZHunt","value", trUtf8("%1").arg(val).toStdString());
-  suppFile.WriteIniFile();
-  emit iniSaved();
+//  int indx = sender()->property("indx").toInt();
+//  //qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
+//  //сохраняем вольты в уровень стабилизации
+//  QString suppName = "Support" + sender()->property("indx").toString();
+//  //qDebug(trUtf8("%1").arg(indx).toStdString().c_str());
+//  //сохраняем позицию быстрого поиска
+//  QString suppPath = QApplication::applicationDirPath() + "/jini/params" + suppName + ".ini";
+//  CIniFile suppFile(suppPath.toStdString());
+//  suppFile.ReadIniFile();
+//  int koef = suppFile.GetValueI(suppName.toStdString() + "/THC/ZVFactor","value", 1);
+//  double val = mVEditors[indx - 1]->value() * koef;
+//  suppFile.SetValue(suppName.toStdString() + "/THC/ZHunt","value", trUtf8("%1").arg(val).toStdString());
+//  suppFile.WriteIniFile();
+//  emit iniSaved();
 }
 
 

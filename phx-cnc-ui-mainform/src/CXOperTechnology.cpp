@@ -175,7 +175,12 @@ CXOperTechnology::CXOperTechnology() :
     }
     verticalLayout_2->addStretch();
   }
+
   currTech = listOfTechs.begin();
+  if(currTech == listOfTechs.end()){
+    VLOG(ERRR) << "Invalid listOfTechs";
+    return;
+  }
   mTechnology->setText(currTech->second);
   CXTechDlg::create(this, listOfTechs,  SLOT(onTechDlgClose(const QString&)) );
 
