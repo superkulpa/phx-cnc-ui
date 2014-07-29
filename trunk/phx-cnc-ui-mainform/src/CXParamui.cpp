@@ -7,9 +7,12 @@
 #include <QLineEdit>
 #include <QKeyEvent>
 #include <qdebug.h>
+#include <QProcess>
 
+#include "utils/CXSettingsXML.h"
 #include "utils/CXParamData.h"
 #include "CXUdpManager.h"
+#include "CXWindowsManager.h"
 
 #define INI_PATH "jini/techparams.ini"
 #define XML_PATH "settings.xml"
@@ -53,6 +56,10 @@ CXParamUi::CXParamUi() :
   connect(ui.mButtonBackspace, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(ui.mButtonDel, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(ui.mButtonDot, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
+
+  connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
+      this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
+
 
   registerManager();
 }
@@ -363,9 +370,16 @@ CXParamUi::save()
       , QStringList() << "-f" << INI_PATH << "-t" << mType << " -m 1");
   if (res == 0)
   {
+
+//    QObject::connect(AXBaseWindow::mManager->getWindow("CXParametersWindow"), SIGNAL(uploadCompleted(int))
+//           , this, SLOT(onReiniCompleted(int)) );
+
     //отправляем переинициализацию
-    emit iniSaved();
-    close();
+    //emit iniSaved();
+    //Закачать на УЧПУ
+    loadFiles(true, QStringList() << "techparams.ini"<< "params.ini"<< "paramsMPlasma.ini",
+        SLOT(onClose(bool)));
+    //close();
   }
   else
   {
@@ -393,5 +407,110 @@ CXParamUi::onButtonClicked()
     QApplication::sendEvent(focusedWidget, &keyRelease);
 
     return;
+  }
+}
+
+//
+void
+CXParamUi::loadFiles(bool aIsUpload, const QStringList& files, const char *member_onFtpSuccess)
+{
+//  mIsUpload = aIsUpload;
+//
+//  mProgressBar = new QProgressBar;
+//  mProgressBar->setWindowFlags(Qt::FramelessWindowHint);
+//  mProgressBar->setAlignment(Qt::AlignCenter);
+//  mProgressBar->setWindowModality(Qt::ApplicationModal);
+//
+//  QSize size = QApplication::desktop()->availableGeometry().size();
+//  mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
+
+  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.0.125");
+  QString pswrd = CXSettingsXML::getValue("settings.xml", "ftp", "ftp");
+
+  mFtp = new CXFtp(this);
+  mFtp->setConnectData(host, 21, "ftp", pswrd);
+  mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
+
+//  connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
+//  connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
+//  connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
+  connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, member_onFtpSuccess);
+  connect(mFtp, SIGNAL(errorReceived()), this, SLOT(closeFtp()));
+
+  if (aIsUpload)
+    mFtp->onFtpUpload(QStringList() << files);
+  else
+    mFtp->onFtpDownload(QStringList() << files);
+
+//  mProgressBar->show();
+}
+
+//
+void CXParamUi::onCommandReceive(const QString& _sect, const QString& _cmd, const QString& _values){
+
+  if (_sect ==  (Commands::MSG_SECTION_GC))
+  do{
+    if (_cmd ==  (Commands::MSG_STATE_RELOAD_PARAMS))
+    {
+      //скачать с УЧПУ
+      lastStateValue = _values;
+      loadFiles(false, QStringList() << "techparams.ini", SLOT(onFtpSuccess_step1(bool)));
+      break;
+    }
+  }while(0);
+}
+
+
+void
+CXParamUi::onFtpSuccess_step1(bool aIsUpload)
+{
+//    mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_RELOAD_PARAMS, "0");
+  closeFtp();
+//aIsUpload=false: Panel<-CNC
+  if (! aIsUpload){
+    int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh", QStringList() << lastStateValue);
+    if(res == 0)
+    {
+    //закачать на УЧПУ
+     loadFiles(true, QStringList() << "techparams.ini"<< "params.ini"<< "paramsMPlasma.ini"
+         ,SLOT(onReiniCompleted(bool)));
+    }else{
+      mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_ERROR, "0");
+    }
+  }
+}
+
+
+//
+void CXParamUi::onReiniCompleted(bool aIsUpload){
+  closeFtp();
+  mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_RELOAD, "0");
+  mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "0");
+}
+
+
+void
+CXParamUi::onClose(bool aIsUpload)
+{
+//    mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_RELOAD_PARAMS, "0");
+  closeFtp();
+//  //aIsUpload=false: Panel<-CNC
+//  if (! aIsUpload){
+//    //перегрузить файлы
+//    loadFiles(false, QStringList() << "techparams.ini"<< "params.ini"<< "paramsMPlasma.ini");
+//  }else{
+//
+//  }
+  close();
+}
+
+void
+CXParamUi::closeFtp()
+{
+  if(mFtp){
+    QObject::disconnect(mFtp, 0, 0, 0);
+    mFtp->close();
+    mFtp->deleteLater();
+    mFtp = NULL;
   }
 }

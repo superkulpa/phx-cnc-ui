@@ -44,6 +44,7 @@ public:
   //! Максимальная граница значений параметра.
   int mMax;
 
+  bool isModified;
 private:
   int mValue;
 };

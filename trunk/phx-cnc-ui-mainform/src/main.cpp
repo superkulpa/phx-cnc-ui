@@ -458,8 +458,8 @@ main(int argc, char *argv[])
     //   }
   }
 
-  QObject::connect(windows.value("CXParamUi"), SIGNAL(iniSaved()),
-        windows.value("CXParametersWindow"), SLOT(saveParametersAnyway()));
+//  QObject::connect(windows.value("CXParamUi"), SIGNAL(iniSaved()),
+//        windows.value("CXParametersWindow"), SLOT(saveParametersAnyway()));
 
 //  QObject::connect(windows.value("CXZParamUi"), SIGNAL(iniSaved()),
 //        windows.value("CXParametersWindow"), SLOT(saveParametersAnyway()));

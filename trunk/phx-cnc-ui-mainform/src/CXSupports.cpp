@@ -183,10 +183,10 @@ void CXSupportsWindow::onButtonClicked()
 }
 
 void CXSupportsWindow::setVisible(bool visible) {
-  if(visible)
-    mUdpManager->sendCommand("G30", Commands::MSG_CMD_FORM_RESTART, "1");
-  else
-    mUdpManager->sendCommand("G30", Commands::MSG_CMD_FORM_RESTART, "0");
+//  if(visible)
+//    mUdpManager->sendCommand("G30", Commands::MSG_CMD_FORM_RESTART, "1");
+//  else
+//    mUdpManager->sendCommand("G30", Commands::MSG_CMD_FORM_RESTART, "0");
   AXBaseWindow::setVisible(visible);
 }
 

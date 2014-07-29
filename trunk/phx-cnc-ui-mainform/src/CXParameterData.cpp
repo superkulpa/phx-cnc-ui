@@ -7,6 +7,7 @@ CXParameterData::CXParameterData()
   mMin = 0;
   mMax = 10000;
   mValue = 0;
+  isModified = false;
 }
 
 CXParameterData::~CXParameterData()
@@ -16,6 +17,7 @@ CXParameterData::~CXParameterData()
 void
 CXParameterData::setValue(int aValue)
 {
+  isModified = (mValue != aValue);
   mValue = aValue;
 }
 
@@ -33,11 +35,14 @@ CXParameterData::getValue()
 void
 CXParameterData::save()
 {
-  CIniFile iniFile(mConfigFileName.toStdString());
-  iniFile.ReadIniFile();
+  if(isModified){
+    CIniFile iniFile(mConfigFileName.toStdString());
+    iniFile.ReadIniFile();
 
-  iniFile.SetValue(mConfigGroup.toStdString(), "value", QString::number(mValue).toStdString());
-  iniFile.WriteIniFile();
+    iniFile.SetValue(mConfigGroup.toStdString(), "value", QString::number(mValue).toStdString());
+    iniFile.WriteIniFile();
+  }
+  isModified = false;
 }
 
 /**/

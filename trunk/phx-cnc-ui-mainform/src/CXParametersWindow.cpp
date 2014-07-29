@@ -45,8 +45,8 @@ CXParametersWindow::CXParametersWindow(bool aIsSystem) :
   QObject::connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 
-  //загружаем параметры
-  loadFiles(false);
+  //загружаем параметры - все файлы
+  loadFiles(false, QStringList() << "*.ini");
   registerManager();
 
 
@@ -67,7 +67,8 @@ CXParametersWindow::setButtons(const QList<QPushButton*>& aButtons)
 void
 CXParametersWindow::loadParametersFromFtp()
 {
-  mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "1");
+  mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_REFRESH_PARAMS, "1");
+  //ждем MSG_STATE_RELOAD_PARAMS
   int timerTimeout = CXSettingsXML::getValue("settings.xml", "parametersTimeout", "5000").toInt();
 
   if (timerTimeout <= 0)
@@ -204,7 +205,7 @@ CXParametersWindow::loadParameters()
 void
 CXParametersWindow::saveParametersAnyway()
 {
-  loadFiles(true);
+  loadFiles(true, QStringList() << "*.ini");
 }
 
 void
@@ -214,34 +215,17 @@ CXParametersWindow::saveParameters()
   if(curTab == mTabWidget->count() - 1){
   //с последней вкладки сохранять из iniEditor
     fileEditor->onSave();
+    loadFiles(true, QStringList() << QFileInfo(fileEditor->getFName()).fileName());
   }else{
 
-//  bool isModified = false;
-//
-//  for (int i = 0; i < mTabWidget->count(); i++)
-//  {
-//    CXParametersView* view = qobject_cast<CXParametersView*>(mTabWidget->widget(i));
-//    if (view != NULL)
-//    {
-//      if (view->isModified())
-//      {
-//        isModified = true;
-//        view->resetIsModified();
-//      }
-//    }
-//  }
-//
-//  if (!isModified)
-//    return;
-//
     QMap<int, CXParameterData*>::iterator iter;
     for (iter = CXParametersView::mDataMap.begin(); iter != CXParametersView::mDataMap.end(); ++iter)
     {
       iter.value()->save();
     }
+    loadFiles(true,  QStringList() << "params.ini" << "params"+currTech+".ini");
   }
 
-  loadFiles(true);
 }
 
 void
@@ -280,6 +264,7 @@ CXParametersWindow::makeTabs(bool aIsSystem)
 void
 CXParametersWindow::setProgressText(const QString& aText)
 {
+  if(mProgressBar)
   if (mIsUpload)
     mProgressBar->setFormat(trUtf8("Сохранение ") + aText + " (%p%)");
   else
@@ -308,8 +293,10 @@ CXParametersWindow::onFtpSuccess(bool aIsUpload)
   closeFtp();
 
   if (aIsUpload){
-    mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_REFRESH_PARAMS, "0");
+    mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "0");
+    emit uploadCompleted(0);
   }
+
   loadParameters();
 }
 
@@ -335,7 +322,7 @@ CXParametersWindow::timerEvent(QTimerEvent* e)
     mWaitTimer = -1;
 
     QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Нет ответа от ядра."));
-    loadFiles(false);
+    loadFiles(false, QStringList() << "*.ini");
   }
 }
 
@@ -365,7 +352,7 @@ CXParametersWindow::onCommandReceive(const QString& aSection, const QString& aCo
 
     if (aCommand ==  (Commands::MSG_STATE_RELOAD_PARAMS))
     {
-      loadFiles(false);
+      loadFiles(false, QStringList() << "*.ini");
     }
     else if (aCommand ==  (Commands::MSG_STATE_REFRESH_PARAMS))
     {
@@ -375,7 +362,7 @@ CXParametersWindow::onCommandReceive(const QString& aSection, const QString& aCo
 }
 
 void
-CXParametersWindow::loadFiles(bool aIsUpload)
+CXParametersWindow::loadFiles(bool aIsUpload, const QStringList& files)
 {
   mIsUpload = aIsUpload;
 
@@ -401,31 +388,31 @@ CXParametersWindow::loadFiles(bool aIsUpload)
   connect(mFtp, SIGNAL(errorReceived()), this, SLOT(onFtpError()));
 
   if (aIsUpload)
-    mFtp->onFtpUpload(QStringList() << "*.ini");
+    mFtp->onFtpUpload(QStringList() << files);
   else
-    mFtp->onFtpDownload(QStringList() << "ini");
+    mFtp->onFtpDownload(QStringList() << files);
 
   mProgressBar->show();
 }
 
-void CXParametersWindow::loadFiles(bool aIsUpload, const QStringList& files){
-  mIsUpload = aIsUpload;
-
-  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.0.125");
-  QString pswrd = CXSettingsXML::getValue("settings.xml", "ftp", "ftp");
-
-  mFtp = new CXFtp(this);
-  mFtp->setConnectData(host, 21, "ftp", pswrd);
-  mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
-  connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onFtpSuccess(bool)));
-  connect(mFtp, SIGNAL(errorReceived()), this, SLOT(onFtpError()));
-
-  if (aIsUpload)
-    mFtp->onFtpUpload(files);
-  else
-    mFtp->onFtpDownload(files);
-
-}
+//void CXParametersWindow::loadFiles(bool aIsUpload, const QStringList& files){
+//  mIsUpload = aIsUpload;
+//
+//  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.0.125");
+//  QString pswrd = CXSettingsXML::getValue("settings.xml", "ftp", "ftp");
+//
+//  mFtp = new CXFtp(this);
+//  mFtp->setConnectData(host, 21, "ftp", pswrd);
+//  mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
+//  connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onFtpSuccess(bool)));
+//  connect(mFtp, SIGNAL(errorReceived()), this, SLOT(onFtpError()));
+//
+//  if (aIsUpload)
+//    mFtp->onFtpUpload(files);
+//  else
+//    mFtp->onFtpDownload(files);
+//
+//}
 
 void
 CXParametersWindow::clearData()
