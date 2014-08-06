@@ -23,22 +23,23 @@
 class CG59Parser{
 public:
   QTextStream& out;
-
+//
   int ConvertParams(QString _type, QString& _paramSect, QString& _paramName, QString& _paramValue){
     int intParamN = _paramName.toInt();
     int iParamV = _paramValue.toInt();
+//    out << "prms:" <<intParamN << " " << iParamV << "\n";
     //double dParamV = _paramValue.toDouble();
     switch(intParamN){
     case 503:
       _paramSect = _type + "/Keys";
       _paramName = "MetallType";
-      if(iParamV == 1) _paramValue = "Mild steel";
-      else if(iParamV == 2) _paramValue = "Stainless steel";
+      if(iParamV == 1) _paramValue = "Mild Steel";
+      else if(iParamV == 2) _paramValue = "Stainless Steel";
       else if(iParamV == 3) _paramValue = "Aluminum";
       else if(iParamV == 4) _paramValue = "Other";
       else if(iParamV == 5) _paramValue = "Brass";
       else if(iParamV == 6) _paramValue = "Copper";
-      //elseif (dParam = 1) _paramValue = "Mild steel";//TODO TH?
+      //elseif (dParam = 1) _paramValue = "Mild steel";
       return 1;
     case 504:
       _paramSect = _type + "/Keys";
@@ -190,10 +191,10 @@ public:
       _paramSect = _type + "/Common";
       _paramName = "BurningTime";
       return 1;
-    case 602:
-      _paramSect = _type + "/Common";
-      _paramName = "BurningZDistance";
-      return 1;
+    case 602: //transfer
+//      _paramSect = _type + "/Common";
+//      _paramName = "BurningZDistance";
+      return 0;
     case 603:
       _paramSect = _type + "/Common";
       _paramName = "CuttingZDistance";
@@ -213,17 +214,14 @@ public:
   }
 
   int CorrectZDistances(QMap<QString, QPair <QString, QString> >& _comMap){
-    double zDistance = _comMap["CuttingZDistance"].second.toDouble();
-    //qDebug() << zDistance;
-    //qDebug() << QString("%1").arg(zDistance * _comMap["BurningZDistance"].second.toDouble() / 100);
-    //_comMap[_type + "/Common/IgnitionZDistance"] = QString("%1").arg(zDistance * _comMap[_type + "/Common/IgnitionZDistance"].toDouble() / 100);
-    _comMap["BurningZDistance"].second = QString("%1").arg(zDistance * _comMap["BurningZDistance"].second.toDouble() / 100);
+    //double zDistance = _comMap["CuttingZDistance"].second.toDouble();
+    //_comMap["BurningZDistance"].second = QString("%1").arg(zDistance * _comMap["BurningZDistance"].second.toDouble() / 100);
     return 1;
   }
 
   int PutConstInFile(QString _fname, QMap<QString, QPair<QString,QString>>& _comMap){
     CIniFile cutIni(_fname.toStdString(), -1);
-    if (!cutIni.ReadFile(_fname.toStdString()))
+    if (!cutIni.ReadIniFile())
     {
       out << "Unable read ini file" << _fname;
       return 1;
@@ -236,7 +234,7 @@ public:
       string value = _comMap.values().at(i).second.toStdString();
       //qDebug() << _comMap.values().at(i).second;
       cutIni.SetValue(sect, name, value);
-    };
+    }
     if (!cutIni.WriteIniFile())
     {
       out << "Unable save ini file " << _fname;
@@ -246,21 +244,23 @@ public:
   }
 
   int ParseCuttingParams(QString fileName, QMap<QString, QPair<QString,QString>>& _comMap,  QString _type, QString _command){
+//    out << "cmd:" <<_command << "\n";
     QStringList params = _command.split(",");
     //  qDebug() << params;
     QString paramName;QString paramValue;QString paramSect;
     for (int i = 0; i < params.size(); i++){
       //    qDebug() << params[i];
-      int indx = params[i].indexOf("=");
-      paramName = params[i].left(indx);
-      //    qDebug() << paramName;
-      paramValue = params[i].right(params[i].size() - (indx + 1));
+      QStringList values = params[i].split("=");
+//      int indx = params[i].indexOf("=");
+      paramName = values.at(0);
+//      //    qDebug() << paramName;
+      paramValue = values.at(1);
       //    qDebug() << paramValue;
       int res = ConvertParams(_type, paramSect, paramName, paramValue);
       if(res == -1){
         out << QString("ERROR: parse parameter name = %0, value = %1\n")
-              .arg(params[i].left(indx - 1).toStdString().c_str())
-              .arg(params[i].right(params[i].size() - (indx + 1)).toStdString().c_str());
+              .arg(paramName)
+              .arg(paramValue);
         return -1;
       }else if (res == 1){
         //qDebug() << paramName;
@@ -281,7 +281,6 @@ public:
 
 int parseG59(QTextStream& _out, const QString& _fileName, const QString& _type, const QString& _parseArg){
   QMap<QString, QPair<QString,QString> > comMap;
-
   CG59Parser g59parser(_out);
   int res = g59parser.ParseCuttingParams(_fileName, comMap, _type, _parseArg);
 

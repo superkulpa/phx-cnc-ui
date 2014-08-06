@@ -26,37 +26,44 @@ int transferToParams(QTextStream& out, const QString& fileName, const QString& t
 int
 main(int argc, char *argv[])
 {
-  QString fileName = "jini/techparams.ini", type = "MPlasma", cmd = "";//-f techparams.ini -t MPlasma cmd
+//
+//  QFile logFile("logs/dbclient.log");
+//  logFile.open(QIODevice::WriteOnly);
+
+  QTextStream out(stdout, QIODevice::WriteOnly);
+  out.setCodec(QTextCodec::codecForName("UTF-8"));
+
+  out << "start dbClient";
+
+  QString fileName = "tmp/techparams.ini", type = "MPlasma", cmd = "";//-f techparams.ini -t MPlasma cmd
   QString parse_arg;
   int i = 1;
   while (i < argc)
   {
     if (QString(argv[i]) == "-f" && ++i < argc)
     {
-      fileName = argv[i];
+      out << " fname:" << (fileName = argv[i]);
+
     }else
     if (QString(argv[i]) == "-t" && ++i < argc)
     {
-      type = argv[i];
+      out << " type:" << (type = argv[i]);
     }else
     if (QString(argv[i]) == "-c" && ++i < argc)
     {
-      parse_arg = QString(argv[i]).remove(QRegExp("[\t\n\r ]"));
+      parse_arg = QString(argv[i]).remove(QRegExp("[\t\n\r\'\" ]+"));
+      out << " parsearg:" << parse_arg;
     }else{
     cmd += argv[i];
     cmd += ' ';//last args are cmds
+    out << " " << argv[i];;
     }
     i++;
   }
   if(cmd.length() == 0) cmd = "reload ";
+  out << "\n";
 
   QCoreApplication app(argc, argv);
-
-  QFile logFile("logs/dbclient.log");
-  logFile.open(QIODevice::WriteOnly);
-
-  QTextStream out(&logFile);
-  out.setCodec(QTextCodec::codecForName("UTF-8"));
 
   if (type.isEmpty()){
     out << "missing parameters: type (-t) isEmpty \n";
@@ -80,8 +87,12 @@ main(int argc, char *argv[])
     if(cmd.left(pos) == "transfer"){
       res = transferToParams(out, fileName, type);
     }
-    cmd.remove(0, pos<=0?0xff:pos);
+    cmd.remove(0, pos<=0?0xff:pos+1);
   }
   return res;
 }
+
+//-t MPlasma -c "502=35  ,503=1   ,504=200 ,505=2   ,506=1   ,507=111 ,600=144.  ,601=2.2   ,602=400   ,603=5.08  ,604=200. " parse reload transfer
+//-t MPlasma -c "502=35  ,503=1   ,504=200 ,505=2   ,506=1   ,507=111 ,600=144.  ,601=2.2   ,602=400   ,603=5.08  ,604=200. " parse reload transfer
+//-t MPlasma -c "502=35  ,503=1   ,504=400 ,505=2   ,506=1   ,507=111 ,600=144.  ,601=2.2   ,602=400   ,603=5.08  ,604=200. " parse reload transfer$
 

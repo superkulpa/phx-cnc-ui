@@ -55,7 +55,7 @@ ReloadPlasmaCuttingParams(CIniFile& cutIni, CIniFile& moveIni, CIniFile& techIni
   zCutDistance = cutIni.GetValueF(name, "CuttingZDistance", 0) * 10;
 
   //высота реза
-  paramName = "Technology/" + _name.toStdString() + "/BurnZDistance";
+  paramName = "Technology/" + _name.toStdString() + "/CutZDistance";
   techIni.SetValueI(paramName, "value", zCutDistance);
 
   double zHunt = cutIni.GetValueF(name, "SVRVoltage", 0);
@@ -181,14 +181,14 @@ int transferToParams(QTextStream& out, const QString& fileName, const QString& t
   }
   string path = "./jini/params.ini";
   CIniFile iniFileParams(path);
-  if (!iniFileParams.ReadFile(path))
+  if (!iniFileParams.ReadIniFile())
   {
     out << "dbClient: "<< iniFileParams.Path().c_str() << ": Unable to read file";
     return 1;
   }
   path = "./jini/params" + type.toStdString() + ".ini";
   CIniFile iniParamsTech(path);
-  if (!iniParamsTech.ReadFile(path))
+  if (!iniParamsTech.ReadIniFile())
   {
     out << "dbClient: "<< iniParamsTech.Path().c_str() << ": Unable to read file";
     return 1;
