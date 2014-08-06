@@ -458,6 +458,7 @@ CIniFile::AddKeyName(const CString& keyname)
 {
   names.resize( names.size() + 1, keyname);
   keys.resize( keys.size() + 1);
+
   return names.size() - 1;
 }
 
@@ -516,9 +517,9 @@ CIniFile::SetValue(const CString& keyname, const CString& valuename, const CStri
   long keyID = FindKey( keyname);
   if ( keyID == noID)
   {
-    if ( create)
-    keyID = long( AddKeyName( keyname));
-    else
+    if ( create){
+      keyID = long( AddKeyName( keyname));
+    }else
     return false;
   }
 
