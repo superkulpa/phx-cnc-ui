@@ -12,78 +12,89 @@
 #include "CXBaseClient.h"
 #include "utils/CXParamData.h"
 #include "utils/iniFile.h"
-bool
-contains(const QString& aKey, KeyValueMap& aKeys,
-    const KeyValueList& aAvailableKeys, const QString& aType)
-{
-  if (!aKeys.contains(aKey))
-    return false;
 
-  QString keyValue = aKeys.value(aKey);
+class CDBParser{
 
-  QString value;
-  foreach (Pair curValue, aAvailableKeys){
-    if (curValue.first == keyValue)
-    {
-      value = curValue.second;
-      break;
+public:
+  QTextStream& out;
+
+  bool
+  contains(const QString& aKey, KeyValueMap& aKeys,
+      const KeyValueList& aAvailableKeys, const QString& aType)
+  {
+    if (!aKeys.contains(aKey))
+      return false;
+
+    QString keyValue = aKeys.value(aKey);
+
+    QString value;
+    foreach (Pair curValue, aAvailableKeys){
+      if (curValue.first == keyValue)
+      {
+        value = curValue.second;
+        break;
+      }
     }
+
+    if (value.isEmpty())
+      return false;
+
+    QString res = aKeys.value(aKey);
+    aKeys.insert(aKey, value);
+
+    CXParamData::setValues(aType + "/Keys",
+        PairsList() << QPair<QString, QString>(aKey, res));
+
+    return true;
   }
 
-  if (value.isEmpty())
-    return false;
-
-  QString res = aKeys.value(aKey);
-  aKeys.insert(aKey, value);
-
-  CXParamData::setValues(aType + "/Keys",
-      PairsList() << QPair<QString, QString>(aKey, res));
-
-  return true;
-}
-
-int
-check(const KeyValueList& aAvailableKeys, const QString& aCurKey,
-    KeyValueMap& aKeys, const QString& aType)
-{
-  if (aAvailableKeys.isEmpty())
+  int
+  check(const KeyValueList& aAvailableKeys, const QString& aCurKey,
+      KeyValueMap& aKeys, const QString& aType)
   {
-    CXParamData::close();
-    return -1;
+    if (aAvailableKeys.isEmpty())
+    {
+     // CXParamData::close();
+      return -1;
+    }
+
+    QStringList list;
+    foreach (Pair curValue, aAvailableKeys){
+      list.append(curValue.first);
+    }
+
+    CXParamData::setKeysArray(aCurKey, list);
+
+    if (!contains(aCurKey, aKeys, aAvailableKeys, aType))
+    {
+     // CXParamData::close();
+      return 0;
+    }
+
+    return 1;
   }
+  CDBParser(QTextStream& _out):
+    out(_out){    }
 
-  QStringList list;
-  foreach (Pair curValue, aAvailableKeys){
-    list.append(curValue.first);
-  }
-
-  CXParamData::setKeysArray(aCurKey, list);
-
-  if (!contains(aCurKey, aKeys, aAvailableKeys, aType))
-  {
-    CXParamData::close();
-    return 0;
-  }
-
-  return 1;
-}
-
+};
 
 int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
   /**/
   CXParamData::open(fileName);
   CXBaseClient client;
-  KeyValueMap dataBase = CXParamData::getValues("Database");
-  QString dbFileName =  dataBase.value("name");
-  QString resString = client.connectToDataBase(dataBase.value("hosts"), dataBase.value("name"),
-      dataBase.value("port").toInt(), dataBase.value("user"), dataBase.value("password"));
+//  KeyValueMap dataBase = CXParamData::getValues("Database");
+  QString dbFileName = "db/" + type + ".db";// dataBase.value("name");
+
+//  QString resString = client.connectToDataBase(dataBase.value("hosts"), dbFileName,
+//      dataBase.value("port").toInt(), dataBase.value("user"), dataBase.value("password"));
+  QString resString = client.connectToDataBase("", dbFileName, 0, "", "");
+
   int res = 0;
+  CDBParser dbparser(out);
   do{
     if (!resString.isEmpty())
     {
-      out << "connection error:\n";
-      out << resString;
-      out << "\n";
+      out << "connection error: '"<< resString << "'";
       res = -1;
       break;
     }
@@ -99,7 +110,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
     QString curKey = "Source";
     KeyValueList availableKeys = client.execute("tbl_plasma_sources", "id, name", "", "name");
 
-    int res = check(availableKeys, curKey, keys, type);
+    int res = dbparser.check(availableKeys, curKey, keys, type);
     if (res <= 0)
     {
       if (res < 0) out << QString("%1: available keys are empty\n").arg(curKey);
@@ -113,7 +124,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
     QString w = QString("plasma_source=%1").arg(keys.value("Source"));
     availableKeys = client.execute("tbl_plasma_metal_types as a, tbl_plasma_params as b", "DISTINCT metal_type, a.name", w + " AND metal_type=a.id", "a.name");
 
-    res = check(availableKeys, curKey, keys, type);
+    res = dbparser.check(availableKeys, curKey, keys, type);
     if (res <= 0)
     {
       if (res < 0) out << QString("%1: available keys are empty\n").arg(curKey);
@@ -126,7 +137,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
     w += QString(" AND metal_type=%2").arg(keys.value("MetallType"));
     availableKeys = client.execute("tbl_plasma_params", "DISTINCT min_thickness, min_thickness", w, "min_thickness");
 
-    res = check(availableKeys, curKey, keys, type);
+    res = dbparser.check(availableKeys, curKey, keys, type);
     if (res <= 0)
     {
       if (res < 0) out << QString("%1: available keys are empty\n").arg(curKey);
@@ -139,7 +150,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
     curKey = "Power";
     w += QString(" AND max_thickness=%1").arg(keys.value("Thickness"));
     availableKeys = client.execute("tbl_plasma_params", "DISTINCT amperage, amperage", w, "amperage");
-    res = check(availableKeys, curKey, keys, type);
+    res = dbparser.check(availableKeys, curKey, keys, type);
     if (res <= 0)
     {
       if (res < 0) out << QString("%1: available keys are empty\n").arg(curKey);
@@ -153,7 +164,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
     w += QString(" AND amperage=%1").arg(keys.value("Power"));
     availableKeys = client.execute("tbl_gas_types as a, tbl_plasma_params as b", "DISTINCT b.gases, a.gases", w + " AND b.gases=a.id", "a.gases");
 
-    res = check(availableKeys, curKey, keys, type);
+    res = dbparser.check(availableKeys, curKey, keys, type);
     if (res <= 0)
     {
       if (res < 0) out << QString("%1: available keys are empty\n").arg(curKey);
@@ -167,7 +178,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
     w += QString(" AND gases=%1").arg(keys.value("GasTypes"));
     availableKeys = client.execute("tbl_cons_angles as a, tbl_plasma_params as b", "DISTINCT b.cons_angle, a.name", w + " AND b.cons_angle=a.id", "a.name");
 
-    res = check(availableKeys, curKey, keys, type);
+    res = dbparser.check(availableKeys, curKey, keys, type);
     if (res <= 0)
     {
       if (res < 0) out << QString("%1: available keys are empty\n").arg(curKey);
