@@ -39,6 +39,7 @@ public:
       else if(iParamV == 4) _paramValue = "Other";
       else if(iParamV == 5) _paramValue = "Brass";
       else if(iParamV == 6) _paramValue = "Copper";
+      else return -1;
       //elseif (dParam = 1) _paramValue = "Mild steel";
       return 1;
     case 504:
@@ -75,6 +76,7 @@ public:
       else if(iParamV == 25) _paramValue = "Ar/Ar";
       else if(iParamV == 26) _paramValue = "Air/Ar";
       else if(iParamV == 27) _paramValue = "Ar/Air";
+      else return -1;
       return 1;
     case 507:
       _paramSect = _type + "/Keys";
@@ -182,6 +184,7 @@ public:
       else if(iParamV == 113) _paramValue = "33";
       else if(iParamV == 114) _paramValue = "34";
       else if(iParamV == 115) _paramValue = "37";
+      else return -1;
       return 1;
     case 600:
       _paramSect = _type + "/Common";
