@@ -14,7 +14,7 @@
 #include "CXUdpManager.h"
 #include "CXWindowsManager.h"
 
-#define INI_PATH "jini/techparams.ini"
+#define INI_PATH "tmp/techparams.ini"
 #define XML_PATH "settings.xml"
 
 CXParamUi::CXParamUi() :
@@ -39,6 +39,7 @@ CXParamUi::CXParamUi() :
 
   mValuesLayout = new QGridLayout(valueWidget);
   readKeys();
+  //readValues();
 
   connect(ui.mRestoreButton, SIGNAL(clicked()), this, SLOT(updateData()));
   connect(ui.mAcceptButton, SIGNAL(clicked()), this, SLOT(save()));
@@ -341,12 +342,13 @@ CXParamUi::onKeyChange()
   updateData();
 }
 
-void
+int
 CXParamUi::updateData()
 {
-  QProcess::execute(QApplication::applicationDirPath() + "/db.sh"
-      , QStringList() << "-f" << INI_PATH << "-t" << mType);
+  int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh"
+      , QStringList() << "-f" << INI_PATH << "-t" << mType << " reload");
   QTimer::singleShot(1, this, SLOT(readKeys()));
+  return res;
 }
 
 void
@@ -362,28 +364,16 @@ CXParamUi::save()
   CXParamData::setValues(mType + "/Common", values);
   CXParamData::close(true);
   //сохраняем по файлам
-//  qDebug() << mType;
-//TODO: qForm.2 маску суппортов брать из тек маски технологии
-//TODO: qForm.2 добавить разброс по файлам суппортов, с правильной секцией
-
   int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh"
-      , QStringList() << "-f" << INI_PATH << "-t" << mType << " -m 1");
+      , QStringList() << "-f" << INI_PATH << "-t" << mType << "transfer");
   if (res == 0)
-  {
-
-//    QObject::connect(AXBaseWindow::mManager->getWindow("CXParametersWindow"), SIGNAL(uploadCompleted(int))
-//           , this, SLOT(onReiniCompleted(int)) );
-
-    //отправляем переинициализацию
-    //emit iniSaved();
-    //Закачать на УЧПУ
-    loadFiles(true, QStringList() << "techparams.ini"<< "params.ini"<< "paramsMPlasma.ini",
-        SLOT(onClose(bool)));
+  {//Закачать на УЧПУ
+    loadFiles(true, QStringList() << "params.ini" << "params" + mType +".ini" << "techparams.ini"
+        , SLOT(onReiniCompleted(bool)));
     //close();
   }
   else
-  {
-    //ошибка
+  { //ошибка
     QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Не могу сохранить файлы"));
   }
 }
@@ -408,6 +398,15 @@ CXParamUi::onButtonClicked()
 
     return;
   }
+}
+
+void
+CXParamUi::setVisible(bool visible)
+{
+  if(visible){
+    readKeys();
+  }
+  return AXBaseWindow::setVisible(visible);
 }
 
 //
@@ -451,35 +450,19 @@ void CXParamUi::onCommandReceive(const QString& _sect, const QString& _cmd, cons
   if (_sect ==  (Commands::MSG_SECTION_GC))
   do{
     if (_cmd ==  (Commands::MSG_STATE_RELOAD_PARAMS))
-    {
-      //скачать с УЧПУ
-      lastStateValue = _values;
-      loadFiles(false, QStringList() << "techparams.ini", SLOT(onFtpSuccess_step1(bool)));
-      break;
+    {//выполнить
+      int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh " + _values);
+      if(res != 0){
+        mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_ERROR, "0");
+        break;
+      }
+
+      //и закачать на УЧПУ
+       loadFiles(true, QStringList() << "params.ini"<< "params" + mType +".ini" << "techparams.ini"
+           ,SLOT(onReiniCompleted(bool)));
     }
   }while(0);
 }
-
-
-void
-CXParamUi::onFtpSuccess_step1(bool aIsUpload)
-{
-//    mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_RELOAD_PARAMS, "0");
-  closeFtp();
-//aIsUpload=false: Panel<-CNC
-  if (! aIsUpload){
-    int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh", QStringList() << lastStateValue);
-    if(res == 0)
-    {
-    //закачать на УЧПУ
-     loadFiles(true, QStringList() << "techparams.ini"<< "params.ini"<< "paramsMPlasma.ini"
-         ,SLOT(onReiniCompleted(bool)));
-    }else{
-      mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_ERROR, "0");
-    }
-  }
-}
-
 
 //
 void CXParamUi::onReiniCompleted(bool aIsUpload){
@@ -494,13 +477,6 @@ CXParamUi::onClose(bool aIsUpload)
 {
 //    mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_RELOAD_PARAMS, "0");
   closeFtp();
-//  //aIsUpload=false: Panel<-CNC
-//  if (! aIsUpload){
-//    //перегрузить файлы
-//    loadFiles(false, QStringList() << "techparams.ini"<< "params.ini"<< "paramsMPlasma.ini");
-//  }else{
-//
-//  }
   close();
 }
 

@@ -16,21 +16,22 @@ public:
   CXParamUi();
   ~CXParamUi();
 
+  virtual void setVisible(bool visible);
+
   private slots:
   void readKeys();
   void readValues();
   void clearLayout(QLayout* aLayout);
   void onKeyChange();
-  void updateData();
+  int updateData();
   void save();
-  void loadFiles(bool aIsUpload, const QStringList& files, const char *member_onFtpSuccess);
   void onButtonClicked();
   void onCommandReceive(const QString&, const QString&, const QString&);
   void onReiniCompleted(bool);
   void closeFtp();
-  void onFtpSuccess_step1(bool);
-
   void onClose(bool aIsUpload);
+
+  void loadFiles(bool aIsUpload, const QStringList& files, const char *member_onFtpSuccess);
   signals:
   void iniSaved();
 
