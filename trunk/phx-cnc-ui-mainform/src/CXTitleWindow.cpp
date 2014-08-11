@@ -86,8 +86,8 @@ CXTitleWindow::onControl()
 void
 CXTitleWindow::onBlockLimits()
 {
-  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_BLOCK_LIMITS,
-      Commands::MSG_VALUE_ON);
+//  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_BLOCK_LIMITS,
+//      Commands::MSG_VALUE_ON);
 }
 
 
