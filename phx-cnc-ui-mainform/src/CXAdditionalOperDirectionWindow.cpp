@@ -117,7 +117,7 @@ CXAdditionalOperDirectionWindow::CXAdditionalOperDirectionWindow() {
   connect(backButton, SIGNAL(clicked()), this, SLOT(onBackWindow()));
   connect(keyboardButton, SIGNAL(clicked()), this, SLOT(onStartKeyboard()));
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
-          this, SLOT());
+          this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
   for(int i = 0; i < nAxis; i++){
   	connect(butRelMove[i], SIGNAL(clicked()), this, SLOT(onComporativeMove()));
   	connect(butAbsMove[i], SIGNAL(clicked()), this, SLOT(onAbsoluteMove()));
