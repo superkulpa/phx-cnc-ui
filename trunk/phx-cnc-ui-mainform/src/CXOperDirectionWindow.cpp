@@ -204,8 +204,10 @@ AXBaseWindow()
   modeLayout->addWidget(mCycleButton);
   mFastButton = new CXTouchButton(trUtf8("Ускоренно"), NULL);
   modeLayout->addWidget(mFastButton);
-  mStepButton = new CXTouchButton(trUtf8("Покадрово"), NULL);
-  modeLayout->addWidget(mStepButton);
+  //mStepButton = new CXTouchButton(trUtf8("Покадрово"), NULL);
+  //modeLayout->addWidget(mStepButton);
+  mNextWindow = new CXTouchButton(trUtf8(">>"), NULL);
+  modeLayout->addWidget(mNextWindow);
 
   centralLayout->addLayout(modeLayout);
 
@@ -230,8 +232,9 @@ AXBaseWindow()
 //  connect(mFPlusButton, SIGNAL(clicked()), this, SLOT(onUpSpeed()));
 //  connect(mFMinusButton, SIGNAL(clicked()), this, SLOT(onDownSpeed()));
   connect(mCycleButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
-  connect(mStepButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
+  //connect(mStepButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
   connect(mFastButton, SIGNAL(clicked()), this, SLOT(onModeChange()));
+  connect(mNextWindow, SIGNAL(clicked()), this, SLOT(onNextWindow()));
 
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
@@ -428,16 +431,23 @@ CXOperDirectionWindow::onModeChange()
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_LOOP,
         Commands::MSG_VALUE_INVERT);
   }
-  else if (sender() == mStepButton)
-  {
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_BY_STEP,
-        Commands::MSG_VALUE_INVERT);
-  }
-  if (sender() == mFastButton)
+//  else if (sender() == mStepButton)
+//  {
+//    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_BY_STEP,
+//        Commands::MSG_VALUE_INVERT);
+//  }
+  else if (sender() == mFastButton)
   {
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_FEED,
         Commands::MSG_VALUE_INVERT);
   }
+}
+
+void
+CXOperDirectionWindow::onNextWindow()
+{
+	hide();
+	emit nextWindow();
 }
 
 void
@@ -515,10 +525,10 @@ CXOperDirectionWindow::onCommandReceive(const QString& aSection, const QString& 
     }
     else if (aCommand ==  (Commands::MSG_STATE_MODE_BY_STEP))
     {
-      if (aValue ==  (Commands::MSG_VALUE_ON))
-        mStepButton->setStyleSheet("background-color: green;");
-      else
-        mStepButton->setStyleSheet("");
+//      if (aValue ==  (Commands::MSG_VALUE_ON))
+//        mStepButton->setStyleSheet("background-color: green;");
+//      else
+//        mStepButton->setStyleSheet("");
     }
   }
 
