@@ -47,6 +47,10 @@ signals:
   positionChanged(const QPointF& aPos, bool aIsAbsolute);
 
   void paramsChanged(bool , const QStringList& );
+
+  //! Переключить на след окно
+	void
+	nextWindow();
 private slots:
   //! Запуск процесса.
   void
@@ -90,6 +94,10 @@ private slots:
   void
   onModeChange();
 
+  //! Переключить на след окно
+  void
+  onNextWindow();
+
   //! Слот получения команды от ядра.
   void
   onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
@@ -114,8 +122,9 @@ private:
   QLineEdit* mFEdit;
 
   CXTouchButton* mCycleButton;
-  CXTouchButton* mStepButton;
   CXTouchButton* mFastButton;
+  //CXTouchButton* mStepButton;
+  CXTouchButton* mNextWindow;
 
   CXOperDirectionView* mOperDirectionView;
   CXOperVelocityView* mOperVelocityView;

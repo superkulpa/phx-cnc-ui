@@ -14,6 +14,7 @@
 #include "CXTitleWindow.h"
 #include "CXParametersWindow.h"
 #include "CXOperDirectionWindow.h"
+#include "CXAdditionalOperDirectionWindow.h"
 #include "CXOperTechnology.h"
 #include "CXTextParameters.h"
 #include "CXDeviceView.h"
@@ -111,6 +112,12 @@ createUIWindow(const char* aIndex, int aGroup, QMap<QString, QWidget*>& windows)
 
       break;
     }
+    if (aIndex == CXAdditionalOperDirectionWindow::staticMetaObject.className())
+		{
+			res = new CXAdditionalOperDirectionWindow();
+
+			break;
+		}
     if (aIndex == CXOperTechnology::staticMetaObject.className())
     {
       res = new CXOperTechnology();
@@ -221,6 +228,11 @@ main(int argc, char *argv[])
 
   createUIWindow(CXOperDirectionWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
+  createUIWindow(CXAdditionalOperDirectionWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
+      windows);
+
+  windows.value("CXAdditionalOperDirectionWindow")->hide();
+
   createUIWindow(CXOperTechnology::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
   createUIWindow(CXPathWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
@@ -255,7 +267,11 @@ main(int argc, char *argv[])
   QObject::connect(windows.value("CXOperTechnology"), SIGNAL(eventTechnologyChanged(const QString&)),
       windows.value("CXParametersWindow"), SLOT(setTechnology(const QString&)));
 
+  QObject::connect(windows.value("CXOperDirectionWindow"), SIGNAL(nextWindow()),
+        windows.value("CXAdditionalOperDirectionWindow"), SLOT(show()));
 
+  QObject::connect(windows.value("CXAdditionalOperDirectionWindow"), SIGNAL(backWindow()),
+        windows.value("CXOperDirectionWindow"), SLOT(show()));
   //Создание функциональных панелей управления для каждой группы окон.
   {
     CXGroupPanel* curGroupPanel;
