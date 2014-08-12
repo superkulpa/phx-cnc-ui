@@ -6,7 +6,7 @@
   <buttonDelayLong>2000</buttonDelayLong>
   <delayXYDir>10</delayXYDir>
   <translate>ru.qm</translate>
-  <kernel_ip>192.168.0.201</kernel_ip>
+  <kernel_ip>192.168.0.211</kernel_ip>
   <kernel_port>50001</kernel_port>
   <ftp>ftp</ftp>
   <rotateAxis>0</rotateAxis>
@@ -54,6 +54,8 @@
 <!-- 	CXOperTechnology #mButtonWidget QAbstractButton { min-height: 65px; } -->
 	CXOperTechnology QLabel { <!--font-size: 14pt; --> min-width: 35px; }
 	CXOperDirectionWindow QAbstractButton {<!--font-size: 12pt;--> min-height: 45px; min-width: 40px; }
+	CXAdditionalOperDirectionWindow QAbstractButton {<!--font-size: 12pt;--> min-height: 45px; min-width: 40px; }
+	CXAdditionalOperDirectionWindow QSpinBox { font-size: 14pt; padding: 5px; }
 <!-- 	CXOperDirectionWindow #xyButton, CXOperDirectionWindow #plusButton, CXOperDirectionWindow #minusButton { min-height: 45px; min-width: 45px; font-size: 12pt; } -->
     <!-- 	CXOperDirectionWindow #mFLabel { padding: 5px 15px 5px 15px;  min-height: 35px; min-width: 35px; font-size: 12pt; } -->
     <!-- 	CXOperDirectionWindow QLabel { font-size: 12pt; } -->
@@ -72,25 +74,25 @@
 	CXProcessingParametersWindow QAbstractButton, CXChannelEdit QAbstractButton, CXDeviceEdit QAbstractButton { min-height: 30px;<!-- padding: 15px; -->}
   </style>
   <window_AXBaseWindow>AdnQywABAAAAAAH9AAAAKwAAA4IAAACHAAAB/QAAACsAAAOCAAAAhwAAAAAAAA==</window_AXBaseWindow>
-  <window_CXParametersWindow visible="1">AdnQywABAAAAAAAxAAAAWwAABDAAAAKwAAAAMQAAAFsAAAQwAAACsAAAAAAAAA==</window_CXParametersWindow>
-  <window_CXCompileEdit visible="1">AdnQywABAAAAAAAxAAACAAAAAlcAAAKyAAAAMQAAAgAAAAJXAAACsgAAAAAAAA==</window_CXCompileEdit>
+  <window_CXParametersWindow visible="1">AdnQywABAAAAAABBAAAAWwAABEAAAAKwAAAAQQAAAFsAAARAAAACsAAAAAAAAA==</window_CXParametersWindow>
+  <window_CXCompileEdit visible="1">AdnQywABAAAAAABBAAACAAAAAmcAAAKyAAAAQQAAAgAAAAJnAAACsgAAAAAAAA==</window_CXCompileEdit>
   <window_CXEditPathFile visible="1">AdnQywABAAAAAAE1AAAAWwAAAqoAAAKyAAABNQAAAFsAAAKqAAACsgAAAAAAAA==</window_CXEditPathFile>
-  <window_CXFilesList visible="1">AdnQywABAAAAAAAxAAAAWwAAATQAAAH/AAAAMQAAAFsAAAE0AAAB/wAAAAAAAA==</window_CXFilesList>
-  <window_CXGroupPanel visible="1">AdnQywABAAAAAAAxAAACswAABDAAAAMHAAAAMQAAArMAAAQwAAADBwAAAAAAAA==</window_CXGroupPanel>
-  <window_CXGroupPanel1 visible="1">AdnQywABAAAAAAAxAAACsQAABDAAAAMFAAAAMQAAArEAAAQwAAADBQAAAAAAAA==</window_CXGroupPanel1>
-  <window_CXGroupPanel2 visible="1">AdnQywABAAAAAAAxAAACswAABDAAAAMHAAAAMQAAArMAAAQwAAADBwAAAAAAAA==</window_CXGroupPanel2>
+  <window_CXFilesList visible="1">AdnQywABAAAAAABBAAAAWwAAAUQAAAH/AAAAQQAAAFsAAAFEAAAB/wAAAAAAAA==</window_CXFilesList>
+  <window_CXGroupPanel visible="1">AdnQywABAAAAAABBAAACswAABEAAAAMHAAAAQQAAArMAAARAAAADBwAAAAAAAA==</window_CXGroupPanel>
+  <window_CXGroupPanel1 visible="1">AdnQywABAAAAAABBAAACsQAABEAAAAMFAAAAQQAAArEAAARAAAADBQAAAAAAAA==</window_CXGroupPanel1>
+  <window_CXGroupPanel2 visible="1">AdnQywABAAAAAABBAAACswAABEAAAAMHAAAAQQAAArMAAARAAAADBwAAAAAAAA==</window_CXGroupPanel2>
   <window_CXGroupPanel3 visible="1">AdnQywABAAAAAAAxAAACswAABDAAAAMHAAAAMQAAArMAAAQwAAADBwAAAAAAAA==</window_CXGroupPanel3>
   <window_CXIniFileEditor>AdnQywABAAAAAAAAAAAAAAAABKEAAAIvAAAAAAAAAAAAAAShAAACLwAAAAAAAA==</window_CXIniFileEditor>
   <window_CXIniFileList>AdnQywABAAAAAAA+AAAAKwAAAZMAAAJ5AAAAPgAAACsAAAGTAAACeQAAAAAAAA==</window_CXIniFileList>
-  <window_CXOperDirectionWindow visible="1">AdnQywABAAAAAAAxAAAAWwAAAZYAAAKyAAAAMQAAAFsAAAGWAAACsgAAAAAAAA==</window_CXOperDirectionWindow>
+  <window_CXOperDirectionWindow visible="1">AdnQywABAAAAAABBAAAAWwAAAfIAAAKyAAAAQQAAAFsAAAHyAAACsgAAAAAAAA==</window_CXOperDirectionWindow>
   <window_CXOperTechnology visible="1">AdnQywABAAAAAAMFAAAAWwAABDQAAAKyAAADBQAAAFsAAAQ0AAACsgAAAAAAAA==</window_CXOperTechnology>
   <window_CXPathWindow visible="1">AdnQywABAAAAAAKrAAAAWwAABDAAAAKyAAACqwAAAFsAAAQwAAACsgAAAAAAAA==</window_CXPathWindow>
-  <window_CXPathWindow1 visible="1">AdnQywABAAAAAAGXAAAAwAAAAwQAAAKyAAABlwAAAMAAAAMEAAACsgAAAAAAAA==</window_CXPathWindow1>
-  <window_CXTitleWindow visible="1">AdnQywABAAAAAAAxAAAAGAAABDAAAABaAAAAMQAAABgAAAQwAAAAWgAAAAAAAA==</window_CXTitleWindow>
+  <window_CXPathWindow1 visible="1">AdnQywABAAAAAAHzAAAAwAAAAwQAAAKyAAAB8wAAAMAAAAMEAAACsgAAAAAAAA==</window_CXPathWindow1>
+  <window_CXTitleWindow visible="1">AdnQywABAAAAAABBAAAAGAAABEAAAABaAAAAQQAAABgAAARAAAAAWgAAAAAAAA==</window_CXTitleWindow>
   <window_CXTurnDialog visible="1">AdnQywABAAAAAAAxAAAAWwAAAqoAAAKyAAAAMQAAAFsAAAKqAAACsgAAAAAAAA==</window_CXTurnDialog>
   <window_CXUtilsWindow visible="1">AdnQywABAAAAAAFeAAAAQwAAAu4AAAKwAAABXgAAAEMAAALuAAACsAAAAAAAAA==</window_CXUtilsWindow>
   <window_CXFilesList1>AdnQywABAAAAAAGiAAAAKwAAA14AAAJ5AAABogAAACsAAANeAAACeQAAAAAAAA==</window_CXFilesList1>
-  <window_CXTextParameters visible="1">AdnQywABAAAAAAGXAAAAWwAAAwQAAAC/AAABlwAAAFsAAAMEAAAAvwAAAAAAAA==</window_CXTextParameters>
+  <window_CXTextParameters visible="1">AdnQywABAAAAAAHzAAAAWwAAAwQAAAC/AAAB8wAAAFsAAAMEAAAAvwAAAAAAAA==</window_CXTextParameters>
   <window_CXGroupPanel4 visible="1">AdnQywABAAAAAAAxAAACsQAABDAAAAMFAAAAMQAAArEAAAQwAAADBQAAAAAAAA==</window_CXGroupPanel4>
   <window_CXDeviceView visible="1">AdnQywABAAAAAAAxAAAAWwAAASAAAAFHAAAAMQAAAFsAAAEgAAABRwAAAAAAAA==</window_CXDeviceView>
   <window_CXDeviceView1 visible="1">AdnQywABAAAAAAAxAAABSAAAASAAAAKyAAAAMQAAAUgAAAEgAAACsgAAAAAAAA==</window_CXDeviceView1>
@@ -100,7 +102,7 @@
   <window_CXDeviceView4 visible="1">AdnQywABAAAAAAIQAAAAWwAAAuUAAAGMAAACEAAAAFsAAALlAAABjAAAAAAAAA==</window_CXDeviceView4>
   <window_CXDeviceView5 visible="1">AdnQywABAAAAAAIQAAABjQAAAuUAAAKyAAACEAAAAY0AAALlAAACsgAAAAAAAA==</window_CXDeviceView5>
   <window_CXDeviceView6 visible="1">AdnQywABAAAAAALmAAAAWwAABDAAAAEhAAAC5gAAAFsAAAQwAAABIQAAAAAAAA==</window_CXDeviceView6>
-  <window_CXVirtualKeyboard visible="1">AdnQywABAAAAAAAxAAAAKAAAAUQAAALeAAAAMQAAACgAAAFEAAAC3gAAAAAAAA==</window_CXVirtualKeyboard>
+  <window_CXVirtualKeyboard visible="1">AdnQywABAAAAAABBAAAAKAAAAVQAAALeAAAAQQAAACgAAAFUAAAC3gAAAAAAAA==</window_CXVirtualKeyboard>
   <window_CXVirtualKeyboardNum visible="1">AdnQywABAAAAAAAxAAABRwAAAXAAAAIVAAAAMQAAAUcAAAFwAAACFQAAAAAAAA==</window_CXVirtualKeyboardNum>
   <window_CXVirtualKeyboardNum1 visible="1">AdnQywABAAAAAAGKAAABVwAAAvQAAAIbAAABigAAAVcAAAL0AAACGwAAAAAAAA==</window_CXVirtualKeyboardNum1>
   <window_CXVirtualKeyboardNum2 visible="1">AdnQywABAAAAAALZAAACCwAABEMAAALPAAAC2QAAAgsAAARDAAACzwAAAAAAAA==</window_CXVirtualKeyboardNum2>
@@ -113,4 +115,7 @@
   </ParamGroups>
   <window_CXDeviceView7 visible="1">AdnQywABAAAAAALmAAABIgAABDAAAAKyAAAC5gAAASIAAAQwAAACsgAAAAAAAA==</window_CXDeviceView7>
   <window_CXParamUi visible="1">AdnQywABAAAAAAKoAAACcAAABP8AAAP/AAACqAAAAnAAAAT/AAAD/wAAAAAAAA==</window_CXParamUi>
+  <window_CXSupportsWindow visible="1">AdnQywABAAAAAAAAAAAAGAAAAkQAAAGnAAAAAAAAABgAAAJEAAABpwAAAAAAAA==</window_CXSupportsWindow>
+  <window_CXZParamUi visible="1">AdnQywABAAAAAAAAAAAAGAAAAlcAAAGnAAAAAAAAABgAAAJXAAABpwAAAAAAAA==</window_CXZParamUi>
+  <window_CXAdditionalOperDirectionWindow visible="1">AdnQywABAAAAAABBAAAAWwAAAbYAAAKyAAAAQQAAAFsAAAG2AAACsgAAAAAAAA==</window_CXAdditionalOperDirectionWindow>
 </Settings>
