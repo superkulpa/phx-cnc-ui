@@ -48,6 +48,7 @@ HEADERS	+=	src/AXBaseWindow.h \
 			src/CXProcessingParametersWindow.h \
 			src/CXTurnDialog.h \
 			src/CXOperDirectionWindow.h \
+			src/CXAdditionalOperDirectionWindow.h \
 			src/CXOperDirectionView.h \
 			src/CXOperVelocityView.h \
 			src/CXOperTechnology.h \
@@ -97,6 +98,7 @@ SOURCES +=	src/main.cpp \
 			src/CXProcessingParametersWindow.cpp \
 			src/CXTurnDialog.cpp \
 			src/CXOperDirectionWindow.cpp \
+			src/CXAdditionalOperDirectionWindow.cpp \
 			src/CXOperDirectionView.cpp \
 			src/CXOperVelocityView.cpp \
 			src/CXOperTechnology.cpp \
