@@ -13,6 +13,7 @@
 #include "utils/CXParamData.h"
 #include "utils/iniFile.h"
 
+//
 class CDBParser{
 
 public:
@@ -74,10 +75,12 @@ public:
     return 1;
   }
   CDBParser(QTextStream& _out):
-    out(_out){    }
+    out(_out)
+  {    }
 
 };
 
+//
 int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
   /**/
   CXParamData::open(fileName);
@@ -110,7 +113,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
     QString curKey = "Source";
     KeyValueList availableKeys = client.execute("tbl_plasma_sources", "id, name", "", "name");
 
-    int res = dbparser.check(availableKeys, curKey, keys, type);
+    res = dbparser.check(availableKeys, curKey, keys, type);
     if (res <= 0)
     {
       if (res < 0) out << QString("%1: available keys are empty\n").arg(curKey);
@@ -305,6 +308,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
 
   /**/
   CXParamData::close();
-  return res;
+  return res>0?0:res;
 
 }
+

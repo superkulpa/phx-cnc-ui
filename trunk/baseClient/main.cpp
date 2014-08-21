@@ -18,26 +18,34 @@
 //
 int getFromDB(QTextStream& out, const QString& fileName, const QString& type);
 //
-int parseG59(QTextStream& out, const QString& fileName, const QString& type, const QString& parseArg);
+int parseG59V500(QTextStream& out, const QString& fileName, const QString& type, const QString& parseArg);
+//
+int parseG59V600(QTextStream& out, const QString& fileName, const QString& type, const QString& parseArg);
 //
 int transferToParams(QTextStream& out, const QString& fileName, const QString& type);
-
+//
+int checkG59(QTextStream& _out, const QString& _fileName, const QString& _type, const QString& _parseArg);
 
 int
 main(int argc, char *argv[])
 {
 //
-//  QFile logFile("logs/dbclient.log");
-//  logFile.open(QIODevice::WriteOnly);
-
+  int i = 1;
   QTextStream out(stdout, QIODevice::WriteOnly);
+  if(QString(argv[1]) == "-l" ){
+    QFile* logFile = new QFile("logs/dbclient.log");
+    logFile->open(QIODevice::WriteOnly);
+    out.setDevice(logFile);
+    i = 2;
+  }
+
   out.setCodec(QTextCodec::codecForName("UTF-8"));
 
   out << "start dbClient";
 
   QString fileName = "tmp/techparams.ini", type = "MPlasma", cmd = "";//-f techparams.ini -t MPlasma cmd
   QString parse_arg;
-  int i = 1;
+
   while (i < argc)
   {
     if (QString(argv[i]) == "-f" && ++i < argc)
@@ -78,14 +86,26 @@ main(int argc, char *argv[])
   while(res == 0 && !cmd.isEmpty()){
     int pos = cmd.indexOf(' ');
 
-    if(cmd.left(pos) == "parse"){
-      res = parseG59(out, fileName, type, parse_arg);
+    if(cmd.left(pos) == "parseV500"){
+      res = parseG59V500(out, fileName, type, parse_arg);
+    }else
+    if(cmd.left(pos) == "parseV600"){
+      res = parseG59V600(out, fileName, type, parse_arg);
     }else
     if(cmd.left(pos) == "reload"){
       res = getFromDB(out, fileName, type);
     }else
     if(cmd.left(pos) == "transfer"){
       res = transferToParams(out, fileName, type);
+    }else
+    if(cmd.left(pos) == "check"){
+      res = checkG59(out, fileName, type, parse_arg);
+//      if(res == 0)
+//        res = getFromDB(out, "./tmp/techparams.jcpc.tmp", type);
+
+    }else{
+      out << "unknown cmd: " << cmd << "\n";
+      res = -1;
     }
     cmd.remove(0, pos<=0?0xff:pos+1);
   }
