@@ -216,5 +216,7 @@ int transferToParams(QTextStream& out, const QString& fileName, const QString& t
     out << "dbClient: "<< iniFileParams.Path().c_str() << ": Unable to write file";
     return 1;
   }
+  QFile::remove("jini/techparams.ini");
+  QFile::copy(fileName, "jini/techparams.ini");
   return 0;
 }
