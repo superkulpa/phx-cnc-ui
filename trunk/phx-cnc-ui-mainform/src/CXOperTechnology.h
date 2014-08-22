@@ -53,9 +53,9 @@ private slots:
   void
   onCutMode();
 
-  //! Слот на изменение скорости.
-  void
-  onVelocityChange(eVelocity aVelocity);
+//  //! Слот на изменение скорости.
+//  void
+//  onVelocityChange(eVelocity aVelocity);
 
   //! Слот получения команды от ядра.
   void
@@ -69,19 +69,30 @@ private slots:
   void
   onTechnologyButton();
 
+  ///Смена задания Z
+	void onZTypeButton();
+
   ///Реакция на продолжить-прервать прогрев
   void onWarmUpConinueBreak(int _continueBreak);
 
   ///Смена технологии
   void onTechDlgClose(const QString& _tech);
 
+  //обработка движения вверх/вниз
+  void onZUp();
+  void onZDown();
 private:
   CXTouchButton *mTButton;
   CXTouchButton *mZHButton;
 
+  CXTouchButton* zTypeBut;
+  bool zMoveType;
+
   QList<CXTouchButton*> mbStateSup;
   QList<QLabel*> mSVRZ;
-  QList<CXTouchButton*> mbStateZ;
+  //QList<CXTouchButton*> mbStateZ;
+  QList<CXTouchButton*> mbZDown;
+  QList<CXTouchButton*> mbZUp;
 
   CXWarmingUpDlg* warmDlg;
   //

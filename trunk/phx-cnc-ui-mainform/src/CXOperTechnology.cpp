@@ -13,7 +13,7 @@
 #include "utils/iniFile.h"
 
 CXOperTechnology::CXOperTechnology() :
-    AXBaseWindow(), warmDlg(NULL)
+    AXBaseWindow(), zMoveType(false), warmDlg(NULL)
 {
   setupUi(this);
 
@@ -36,10 +36,20 @@ CXOperTechnology::CXOperTechnology() :
 //   mZHButton->setText("Z");
 //
 //   verticalLayout_2->addItem(horizontalLayout_2);
-   verticalLayout_2->addStretch();
+  //verticalLayout_2->addStretch();
 
-  mOperVelocity->setMode(E_SingleMode);
-  mOperVelocity->setTexts(QList<QString>() << "^" << trUtf8("стоп\n-\nавто") << "v");
+  QHBoxLayout* horizontalLayout_zHunt = new QHBoxLayout();
+  QFrame* frTmp = new QFrame(frSuppList);
+  horizontalLayout_zHunt->addWidget(frTmp);
+
+  zTypeBut = new CXTouchButton(frSuppList);
+	horizontalLayout_zHunt->addWidget(zTypeBut);
+	zTypeBut->setText(trUtf8("Z коррекция"));
+	verticalLayout_2->addItem(horizontalLayout_zHunt);
+	verticalLayout_2->addStretch();
+
+//  mOperVelocity->setMode(E_SingleMode);
+//  mOperVelocity->setTexts(QList<QString>() << "^" << trUtf8("стоп\n-\nавто") << "v");
 
   //mStopButton->hide();
 
@@ -54,8 +64,10 @@ CXOperTechnology::CXOperTechnology() :
   connect(mMarkerButton, SIGNAL(clicked()), this, SLOT(onMarkerMode()));
   connect(mTechnology, SIGNAL(clicked()), this, SLOT(onTechnologyButton()));
 
-  connect(mOperVelocity, SIGNAL(velocityChanged(eVelocity)), this,
-      SLOT(onVelocityChange(eVelocity)));
+  connect(zTypeBut, SIGNAL(clicked()), this, SLOT(onZTypeButton()));
+
+//  connect(mOperVelocity, SIGNAL(velocityChanged(eVelocity)), this,
+//      SLOT(onVelocityChange(eVelocity)));
 
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
@@ -145,7 +157,7 @@ CXOperTechnology::CXOperTechnology() :
       countOfSupp += std::bitset<32>(it->second).count();
     }
 
-    for(int i = 0; i<countOfSupp; i++){
+    for(int i = 0; i < countOfSupp; i++){
       QHBoxLayout* horizontalLayout_4 = new QHBoxLayout();
       horizontalLayout_4->setSpacing(2);
       mbStateSup.push_back( new CXTouchButton(frSuppList));
@@ -161,11 +173,24 @@ CXOperTechnology::CXOperTechnology() :
       mSVRZ.last()->setText("V:125");
       horizontalLayout_4->addWidget(mSVRZ.last());
 
-      mbStateZ.push_back( new CXTouchButton(frSuppList));
-      mbStateZ.last()->setCheckable(true);
-      mbStateZ.last()->setText("Z" + QString().setNum(i + 1));
-      mbStateZ.last()->setChecked(true);
-      horizontalLayout_4->addWidget(mbStateZ.last());
+//      mbStateZ.push_back( new CXTouchButton(frSuppList));
+//      mbStateZ.last()->setCheckable(true);
+//      mbStateZ.last()->setText("Z" + QString().setNum(i + 1));
+//      mbStateZ.last()->setChecked(true);
+//      horizontalLayout_4->addWidget(mbStateZ.last());
+			mbZUp.push_back( new CXTouchButton(frSuppList));
+//			mbZUp.last()->setCheckable(false);
+			mbZUp.last()->setText("^");
+//			mbZUp.last()->setChecked(true);
+			horizontalLayout_4->addWidget(mbZUp.last());
+			connect(mbZUp.last(), SIGNAL(clicked()), this, SLOT(onZUp()));
+
+			mbZDown.push_back( new CXTouchButton(frSuppList));
+//			mbZDown.last()->setCheckable(false);
+			mbZDown.last()->setText("v");
+//			mbZDown.last()->setChecked(true);
+			horizontalLayout_4->addWidget(mbZDown.last());
+			connect(mbZDown.last(), SIGNAL(clicked()), this, SLOT(onZDown()));
 
       horizontalLayout_4->setAlignment(Qt::AlignCenter);
       //  verticalLayout_2->addItem(new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum));
@@ -213,15 +238,15 @@ CXOperTechnology::onTClick()
 void
 CXOperTechnology::onZHClick()
 {
-  auto &buttons = mbStateZ;
-  bool isCheck  = mZHButton->isChecked();
-  for (int i = 0; i < buttons.count(); ++i)
-  {
-    auto curButton = buttons.at(i);
-    if (curButton->isChecked() == isCheck)
-      continue;
-    curButton->setChecked(isCheck);
-  }
+//  auto &buttons = mbStateZ;
+//  bool isCheck  = mZHButton->isChecked();
+//  for (int i = 0; i < buttons.count(); ++i)
+//  {
+//    auto curButton = buttons.at(i);
+//    if (curButton->isChecked() == isCheck)
+//      continue;
+//    curButton->setChecked(isCheck);
+//  }
 }
 
 void
@@ -280,55 +305,80 @@ CXOperTechnology::onCutMode()
       MSG_VALUE_INVERT);
 }
 
-void
-CXOperTechnology::onVelocityChange(eVelocity aVelocity)
-{
-  QString value;
-
-  switch (aVelocity)
-  {
-  case E_Slow:
-    {
-    value = "+2";
-    break;
-  }
-  case E_Normal:
-    {
-    value = "0";
-    break;
-  }
-  case E_Boost:
-    {
-    value = "-2";
-    break;
-  }
-  default:;
-  }
-
-  QString res;
-  auto& buttons = mbStateZ;
-
-  for (int i = 0; i < buttons.count(); ++i)
-  {
-    if (!res.isEmpty())
-      res.append(",");
-
-    if (buttons.at(i)->isChecked())
-      res.append(QString("%1=%2").arg(i).arg(value));
-    else
-      res.append(QString("%1=0").arg(i));
-  }
-
-  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING_Z, res);
-
-  mOperVelocity->setVelocity(aVelocity);
-}
+//void
+//CXOperTechnology::onVelocityChange(eVelocity aVelocity)
+//{
+//  QString value;
+//
+//  switch (aVelocity)
+//  {
+//  case E_Slow:
+//    {
+//    value = "+2";
+//    break;
+//  }
+//  case E_Normal:
+//    {
+//    value = "0";
+//    break;
+//  }
+//  case E_Boost:
+//    {
+//    value = "-2";
+//    break;
+//  }
+//  default:;
+//  }
+//
+////  QString res;
+////  auto& buttons = mbStateZ;
+////
+////  for (int i = 0; i < buttons.count(); ++i)
+////  {
+////    if (!res.isEmpty())
+////      res.append(",");
+////
+////    if (buttons.at(i)->isChecked())
+////      res.append(QString("%1=%2").arg(i).arg(value));
+////    else
+////      res.append(QString("%1=0").arg(i));
+////  }
+////
+////  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING_Z, res);
+//
+////  mOperVelocity->setVelocity(aVelocity);
+//}
 
 void
 CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue)
 {
   if (aSection ==  (Commands::MSG_SECTION_TECH))
   do{
+		//Напряжение
+    if (aCommand ==  (Commands::MSG_STATE_SVR_BLOCK))
+    {
+      QString currentValue;
+      QStringList list = aValue.split(",");
+
+      for (int i = 0; i < list.count(); i++)
+      {
+        currentValue = list.at(i);
+        int index = QString(currentValue.at(0)).toInt();
+
+        if (index >= 0 && index < mbZDown.count())
+        {
+					if(aCommand == MSG_VALUE_ON){
+          	mbZDown.at(index)->setStyleSheet("background-color: green;");
+          	mbZUp.at(index)->setStyleSheet("background-color: green;");
+          }else if(aCommand == MSG_VALUE_OFF){
+          	mbZDown.at(index)->setStyleSheet("");
+          	mbZUp.at(index)->setStyleSheet("");
+          }
+        }
+      }
+      break;
+    }
+
     //Напряжение
     if (aCommand ==  (Commands::MSG_STATE_SVR_VOLTAGE))
     {
@@ -464,8 +514,10 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
         bool visi = (1<<i) & suppMask;
         mbStateSup[i]->setVisible(visi);
         mSVRZ[i]     ->setVisible(visi);
-        mbStateZ[i]  ->setVisible(visi);
-        mbStateZ[i]  ->setChecked(visi);
+//        mbStateZ[i]  ->setVisible(visi);
+//        mbStateZ[i]  ->setChecked(visi);
+        mbZUp[i]  	 ->setVisible(visi);
+        mbZDown[i]   ->setVisible(visi);
       }
 
       emit eventTechnologyChanged(currTech->first);
@@ -518,9 +570,58 @@ CXOperTechnology::onTechnologyButton()
 }
 
 void
+CXOperTechnology::onZTypeButton(){
+	zMoveType = !zMoveType;
+	if(zMoveType == true){
+		zTypeBut->setStyleSheet("background-color: green;");
+	}else{
+		zTypeBut->setStyleSheet("");
+	}
+}
+
+void
 CXOperTechnology::onTechDlgClose(const QString& _tech)
 {
   if(_tech.isEmpty())return;
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_TECHNOLOGY, _tech);
 //  onCommandReceive( (Commands::MSG_SECTION_TECH),  (Commands::MSG_STATE_TECHNOLOGY), _tech);
+}
+
+void CXOperTechnology::onZUp()
+{
+	CXTouchButton* button = qobject_cast<CXTouchButton*>(sender());
+
+  if (button != NULL)
+  {
+	  int index = button->property("indx").toInt();
+    QString res("%1=%2");
+
+    if (zMoveType){
+      res = res.arg(index).arg( (Commands::MSG_VALUE_INC));
+      mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_SVR, res);
+    }else{
+      res = res.arg(index).arg("-1");
+      mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING_Z, res);
+    }
+  }
+}
+
+void CXOperTechnology::onZDown()
+{
+	CXTouchButton* button = qobject_cast<CXTouchButton*>(sender());
+
+  if (button != NULL)
+  {
+	  int index = button->property("indx").toInt();
+    QString res("%1=%2");
+
+    if (zMoveType){
+      res = res.arg(index).arg( (Commands::MSG_VALUE_DEC));
+      mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_SVR, res);
+    }else{
+      res = res.arg(index).arg("1");
+      mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_HAND_DIR_MOVING_Z, res);
+    }
+  }
+
 }
