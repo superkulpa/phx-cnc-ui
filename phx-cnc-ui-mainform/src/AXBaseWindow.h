@@ -4,7 +4,7 @@
 #define RESIZE_BORDER 5
 #define CLING_SIZE 10
 
-#include <QWidget>
+#include <QtGui/QWidget>
 
 class CXUdpManager;
 class CXWindowsManager;

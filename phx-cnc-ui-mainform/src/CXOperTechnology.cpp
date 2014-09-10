@@ -1,11 +1,14 @@
 #include <iostream>
 #include <stdexcept>
 #include <bitset>
+
 #include "version.h"
+
+#include <QtGui/QWidget>
+#include <QRegExpValidator>
 
 #include "CXOperTechnology.h"
 
-#include <QRegExpValidator>
 
 #include "CXUdpManager.h"
 #include "utils/CXSettingsXML.h"
@@ -49,7 +52,7 @@ CXOperTechnology::CXOperTechnology() :
 	verticalLayout_2->addStretch();
 
 //  mOperVelocity->setMode(E_SingleMode);
-//  mOperVelocity->setTexts(QList<QString>() << "^" << trUtf8("стоп\n-\nавто") << "v");
+//  mOperVelocity->setTexkeyts(QList<QString>() << "^" << trUtf8("стоп\n-\nавто") << "v");
 
   //mStopButton->hide();
 
@@ -367,13 +370,13 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
 
         if (index >= 0 && index < mbZDown.count())
         {
-					if(aCommand == MSG_VALUE_ON){
-          	mbZDown.at(index)->setStyleSheet("background-color: green;");
-          	mbZUp.at(index)->setStyleSheet("background-color: green;");
-          }else if(aCommand == MSG_VALUE_OFF){
-          	mbZDown.at(index)->setStyleSheet("");
-          	mbZUp.at(index)->setStyleSheet("");
-          }
+        	if(aCommand == MSG_VALUE_ON){
+        		mbZDown.at(index)->setStyleSheet("background-color: green;");
+        		mbZUp.at(index)->setStyleSheet("background-color: green;");
+        	}else if(aCommand == MSG_VALUE_OFF){
+        		mbZDown.at(index)->setStyleSheet("");
+        		mbZUp.at(index)->setStyleSheet("");
+        	}
         }
       }
       break;

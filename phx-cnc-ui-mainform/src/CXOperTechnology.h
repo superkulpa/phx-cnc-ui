@@ -1,10 +1,10 @@
 #ifndef CXOperTechnology_H
 #define CXOperTechnology_H
 
-#include "AXBaseWindow.h"
-
 #include <QPushButton>
 #include <QLabel>
+
+#include "AXBaseWindow.h"
 
 #include "ui_CXOperTechnology.h"
 

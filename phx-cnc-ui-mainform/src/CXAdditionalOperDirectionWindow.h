@@ -8,9 +8,9 @@
 #ifndef CXADDITIONALOPERDIRECTIONWINDOW_H_
 #define CXADDITIONALOPERDIRECTIONWINDOW_H_
 
+#include "QtGui/qgroupbox.h"
+#include "QtGui/qspinbox.h"
 #include "AXBaseWindow.h"
-#include "qgroupbox.h"
-#include "qspinbox.h"
 #include "utils/CXProcess.h"
 #include "CXTouchButton.h"
 
