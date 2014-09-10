@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <QTextCodec>
 
-#include "../../CNC/IMessageConstants.h"
+#include "IMessageConstants.h"
 //typedef std::string String;
 
 /*!

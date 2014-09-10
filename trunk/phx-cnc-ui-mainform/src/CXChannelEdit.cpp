@@ -1,7 +1,7 @@
 #include "CXChannelEdit.h"
 
-#include <QDialog>
-#include <QMessageBox>
+#include <QtGui/QDialog>
+#include <QtGui/QMessageBox>
 
 #include "utils/iniFile.h"
 

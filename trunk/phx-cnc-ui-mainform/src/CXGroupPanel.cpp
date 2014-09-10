@@ -2,8 +2,8 @@
 
 //#include <QApplication>
 //#include <QDesktopWidget>
-#include <QVariant>
-#include <QShortcut>
+#include <QtCore/QVariant>
+#include <QtGui/QShortcut>
 
 #include "CXTouchButton.h"
 #include "CXWindowsManager.h"

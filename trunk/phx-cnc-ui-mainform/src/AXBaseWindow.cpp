@@ -1,8 +1,8 @@
 #include "AXBaseWindow.h"
 
-#include <QResizeEvent>
-#include <QPainter>
-#include <QApplication>
+#include <QtGui/QResizeEvent>
+#include <QtGui/QPainter>
+#include <QtGui/QApplication>
 
 #include "CXWindowsManager.h"
 #include "CXUdpManager.h"

@@ -3,7 +3,7 @@
 
 #include "AXBaseWindow.h"
 
-#include <QPushButton>
+#include <QtGui/QPushButton>
 
 /*!
  Класс панели для группы с функциональными клавишами F1-F12.

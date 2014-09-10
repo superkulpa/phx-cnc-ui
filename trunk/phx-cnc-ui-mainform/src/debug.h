@@ -7,7 +7,7 @@
 
 #ifndef DEBUG_H_
 #define DEBUG_H_
-
+#include <stdint.h>
 //#include <glog/logging.h>
 #include <QDebug>
 

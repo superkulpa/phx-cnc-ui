@@ -453,8 +453,8 @@ void CXParamUi::onCommandReceive(const QString& _sect, const QString& _cmd, cons
     {//выполнить
       int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh " + _values);
       if(res != 0){
-        mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_ERROR, "0");
-        break;
+//        mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_ERROR, "0");
+//        break;
       }
 
       //и закачать на УЧПУ

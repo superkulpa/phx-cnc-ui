@@ -6,10 +6,10 @@
  */
 
 #include "CXAdditionalOperDirectionWindow.h"
-#include "qlayout.h"
-#include "qlabel.h"
-#include "qframe.h"
-#include "qlineedit.h"
+#include "QtGui/qlayout.h"
+#include "QtGui/qlabel.h"
+#include "QtGui/qframe.h"
+#include "QtGui/qlineedit.h"
 #include "utils/CXProcess.h"
 #include "CXTouchButton.h"
 #include "CXUdpManager.h"

@@ -185,16 +185,16 @@ CXOperDirectionDialog::onBurnSet()
 
 void CXOperDirectionDialog::onTechPointMove(){
   if (mUdpManager != NULL)
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_TECH_POINT, 0);
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_TECH_POINT, "-1UserDef");
 };
 
 void CXOperDirectionDialog::onSetTechPoint(){
   if (mUdpManager != NULL)
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_SET_TECH_POINT, 0);
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_SET_TECH_POINT, "-1UserDef");
 };
 
 void CXOperDirectionDialog::onAbsZeroMove(){
   if (mUdpManager != NULL)
-    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_ABS_ZERO, 0);
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_TECH_POINT, "0AbsZero");
 };
 
