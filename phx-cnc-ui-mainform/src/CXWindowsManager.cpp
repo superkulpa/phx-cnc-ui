@@ -36,7 +36,8 @@ CXWindowsManager::CXWindowsManager()
 
 CXWindowsManager::~CXWindowsManager()
 {
-  save("settings.xml");
+	if(! mIsFreeze)
+		save("settings.xml");
 }
 
 void

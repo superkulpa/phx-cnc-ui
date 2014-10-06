@@ -122,7 +122,7 @@ CXOperTechnology::CXOperTechnology() :
     if(entryName.empty())
       throw std::runtime_error("entryName is empty");
 
-    QString descr = QString::fromUtf8(iniFile.GetValue(key, i, "empty").c_str());
+    QString descr = QString::fromUtf8(iniFile.GetValue(key, i, "").c_str());
     if(descr.isEmpty()) continue;
 
     QString nameOfTech = QString::fromStdString(entryName);
@@ -137,9 +137,10 @@ CXOperTechnology::CXOperTechnology() :
         return 0;}
     };
 
-    maskSup += calcMask()(entry);
-
     QStringList ql = entry.split(",").filter("mngr=");
+    if(ql.empty()){
+    	maskSup += calcMask()(entry);
+    }else
     for(auto &ql_item: ql){
       entryName = (ql_item).split("=").value(1).toStdString();
 
