@@ -185,6 +185,7 @@ CXOperTechnology::CXOperTechnology() :
 			mbZUp.push_back( new CXTouchButton(frSuppList));
 //			mbZUp.last()->setCheckable(false);
 			mbZUp.last()->setText("^");
+			mbZUp.last()->setProperty("indx", (QString().setNum(i)));
 //			mbZUp.last()->setChecked(true);
 			horizontalLayout_4->addWidget(mbZUp.last());
 			connect(mbZUp.last(), SIGNAL(clicked()), this, SLOT(onZUp()));
@@ -192,6 +193,7 @@ CXOperTechnology::CXOperTechnology() :
 			mbZDown.push_back( new CXTouchButton(frSuppList));
 //			mbZDown.last()->setCheckable(false);
 			mbZDown.last()->setText("v");
+			mbZDown.last()->setProperty("indx", (QString().setNum(i)));
 //			mbZDown.last()->setChecked(true);
 			horizontalLayout_4->addWidget(mbZDown.last());
 			connect(mbZDown.last(), SIGNAL(clicked()), this, SLOT(onZDown()));
