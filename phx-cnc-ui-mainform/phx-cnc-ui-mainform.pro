@@ -70,12 +70,13 @@ HEADERS	+=	src/AXBaseWindow.h \
       src/CXTechDlg.h \
       src/CXVirtualKeyboardNum.h \
       src/CXOperFeedDlg.h \
-      src/CXParamui.h \
-      src/CXZParamui.h \
-      src/CXSupports.h \ 
+      		src/CXParamui.h \
+      		src/CXZParamui.h \
+      		src/CXSupports.h \ 
       src/CXAdditionalOperDirectionWindow.h \  
       src/utils/CXParamData.h \
-      src/utils/CXMLReader.h
+      src/utils/CXMLReader.h \
+    src/CXOperBevelHead.h
 
 SOURCES +=	src/main.cpp \
 			src/AXBaseWindow.cpp \
@@ -123,8 +124,9 @@ SOURCES +=	src/main.cpp \
       src/CXZParamui.cpp \
       src/CXSupports.cpp \   
       src/CXAdditionalOperDirectionWindow.cpp \
-      src/utils/CXParamData.cpp \
-			src/utils/CXMLReader.cpp
+      		src/utils/CXParamData.cpp \
+			src/utils/CXMLReader.cpp \
+    		src/CXOperBevelHead.cpp
 
 FORMS +=	src/forms/CXFilesList.ui \
       src/forms/CXTechDlg.ui \
@@ -144,6 +146,7 @@ FORMS +=	src/forms/CXFilesList.ui \
       src/forms/CXParam.ui \
       src/forms/CXZParam.ui \
       src/forms/CXSupports.ui \   
-			src/forms/CXChannelEdit.ui
+			src/forms/CXChannelEdit.ui \
+    src/forms/CXOperBevelHead.ui
 
 RESOURCES += resource.qrc

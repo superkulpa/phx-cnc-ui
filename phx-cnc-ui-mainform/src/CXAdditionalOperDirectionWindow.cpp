@@ -6,8 +6,8 @@
  */
 
 #include "CXAdditionalOperDirectionWindow.h"
-#include "QtGui/qlayout.h"
-#include "QtGui/qlabel.h"
+#include <QVBoxLayout>
+#include <QLabel>
 #include "QtGui/qframe.h"
 #include "QtGui/qlineedit.h"
 #include "utils/CXProcess.h"
@@ -94,10 +94,16 @@ CXAdditionalOperDirectionWindow::CXAdditionalOperDirectionWindow() {
   QVBoxLayout* centralLayout = new QVBoxLayout(this);
   centralLayout->setMargin(5);
   nAxis = 0;
+  centralLayout->addWidget(new QLabel(trUtf8("Управление поворотным блоком")));
   centralLayout->addWidget(CreateAxisGroup(trUtf8("A"), A_AXIS_ID, -A_AXIS_MAX_VALUE, A_AXIS_MAX_VALUE));
   centralLayout->addWidget(CreateAxisGroup(trUtf8("C"), C_AXIS_ID, -C_AXIS_MAX_VALUE, C_AXIS_MAX_VALUE));
-  centralLayout->addWidget(CreateAxisGroup(trUtf8("V"), V_AXIS_ID, -V_AXIS_MAX_VALUE, V_AXIS_MAX_VALUE));
+//  centralLayout->addWidget(CreateAxisGroup(trUtf8("V"), V_AXIS_ID, -V_AXIS_MAX_VALUE, V_AXIS_MAX_VALUE));
 
+  QHBoxLayout* butLayout = new QHBoxLayout(this);
+  butLayout->addWidget(new CXTouchButton(trUtf8("В ноль"), NULL));
+  butLayout->addStretch();
+  butLayout->addWidget(new CXTouchButton(trUtf8("Фиксировать\nноль"), NULL));
+  centralLayout->addLayout(butLayout);
   //пружинка
   centralLayout->addStretch();
 

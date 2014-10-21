@@ -14,7 +14,7 @@ class CXParamUi : public AXBaseWindow
 
 public:
   CXParamUi();
-  ~CXParamUi();
+  virtual ~CXParamUi();
 
   virtual void setVisible(bool visible);
 
