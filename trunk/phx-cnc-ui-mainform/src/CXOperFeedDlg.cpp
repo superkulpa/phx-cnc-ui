@@ -72,19 +72,21 @@ void CXOperFeedDlg::onButtonClicked()
 
   if (clickedButton != NULL && lineEdit != NULL)
   {
-    QMap<QKeySequence, QString> keyValues;
-    keyValues.insert(Qt::Key_0, "0");
-    keyValues.insert(Qt::Key_1, "1");
-    keyValues.insert(Qt::Key_2, "2");
-    keyValues.insert(Qt::Key_3, "3");
-    keyValues.insert(Qt::Key_4, "4");
-    keyValues.insert(Qt::Key_5, "5");
-    keyValues.insert(Qt::Key_6, "6");
-    keyValues.insert(Qt::Key_7, "7");
-    keyValues.insert(Qt::Key_8, "8");
-    keyValues.insert(Qt::Key_9, "9");
-    keyValues.insert(Qt::Key_Plus, "+");
-    keyValues.insert(Qt::Key_Minus, "-");
+    static QMap<QKeySequence, QString> keyValues;
+    if(keyValues.empty()){
+      keyValues.insert(Qt::Key_0, "0");
+      keyValues.insert(Qt::Key_1, "1");
+      keyValues.insert(Qt::Key_2, "2");
+      keyValues.insert(Qt::Key_3, "3");
+      keyValues.insert(Qt::Key_4, "4");
+      keyValues.insert(Qt::Key_5, "5");
+      keyValues.insert(Qt::Key_6, "6");
+      keyValues.insert(Qt::Key_7, "7");
+      keyValues.insert(Qt::Key_8, "8");
+      keyValues.insert(Qt::Key_9, "9");
+      keyValues.insert(Qt::Key_Plus, "+");
+      keyValues.insert(Qt::Key_Minus, "-");
+    }
 
     if (keyValues.contains(clickedButton->shortcut()))
     {

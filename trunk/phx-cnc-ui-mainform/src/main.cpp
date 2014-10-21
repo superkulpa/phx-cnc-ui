@@ -14,7 +14,7 @@
 #include "CXTitleWindow.h"
 #include "CXParametersWindow.h"
 #include "CXOperDirectionWindow.h"
-#include "CXAdditionalOperDirectionWindow.h"
+#include "CXOperBevelHead.h"
 #include "CXOperTechnology.h"
 #include "CXTextParameters.h"
 #include "CXDeviceView.h"
@@ -32,6 +32,8 @@
  * TODO: qForm: повторный сброс аварий очищает поле аварий
  *
  * TODO: qForm: доступ разным пользователям к различным утилитам УЧПУ
+ *
+ * TODO: qForm: создание и связка оконб как то надо причесать
  * */
 
 #include "terminalCtrl.h"
@@ -94,30 +96,30 @@ createUIWindow(const char* aIndex, int aGroup, QMap<QString, QWidget*>& windows)
 
       break;
     }
-    //    if (aIndex == CXIniFileEditor::staticMetaObject.className())
-    //    {
-    //      res = new CXIniFileEditor();
-    //
-    //      break;
-    //    }
-    //    if (aIndex == CXIniFileList::staticMetaObject.className())
-    //    {
-    //      res = new CXIniFileList();
-    //
-    //      break;
-    //    }
+//    if (aIndex == CXIniFileEditor::staticMetaObject.className())
+//    {
+//      res = new CXIniFileEditor();
+//
+//      break;
+//    }
+//    if (aIndex == CXIniFileList::staticMetaObject.className())
+//    {
+//      res = new CXIniFileList();
+//
+//      break;
+//    }
     if (aIndex == CXOperDirectionWindow::staticMetaObject.className())
     {
       res = new CXOperDirectionWindow();
 
       break;
     }
-    if (aIndex == CXAdditionalOperDirectionWindow::staticMetaObject.className())
-		{
-			res = new CXAdditionalOperDirectionWindow();
+    if (aIndex == CXOperBevelHead::staticMetaObject.className())
+    {
+      res = new CXOperBevelHead();
 
-			break;
-		}
+      break;
+    }
     if (aIndex == CXOperTechnology::staticMetaObject.className())
     {
       res = new CXOperTechnology();
@@ -228,10 +230,10 @@ main(int argc, char *argv[])
 
   createUIWindow(CXOperDirectionWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
-  createUIWindow(CXAdditionalOperDirectionWindow::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
+  createUIWindow(CXOperBevelHead::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
 
-  windows.value("CXAdditionalOperDirectionWindow")->hide();
+//  windows.value("CXOperBevelHead")->hide();
 
   createUIWindow(CXOperTechnology::staticMetaObject.className(), CXWindowsManager::_wingroupOper,
       windows);
@@ -268,10 +270,10 @@ main(int argc, char *argv[])
       windows.value("CXParametersWindow"), SLOT(setTechnology(const QString&)));
 
   QObject::connect(windows.value("CXOperDirectionWindow"), SIGNAL(nextWindow()),
-        windows.value("CXAdditionalOperDirectionWindow"), SLOT(show()));
+        windows.value("CXOperBevelHead"), SLOT(raise()));
 
-  QObject::connect(windows.value("CXAdditionalOperDirectionWindow"), SIGNAL(backWindow()),
-        windows.value("CXOperDirectionWindow"), SLOT(show()));
+  QObject::connect(windows.value("CXOperBevelHead"), SIGNAL(nextWindow()),
+        windows.value("CXOperDirectionWindow"), SLOT(raise()));
   //Создание функциональных панелей управления для каждой группы окон.
   {
     CXGroupPanel* curGroupPanel;
@@ -422,6 +424,9 @@ main(int argc, char *argv[])
          , windows.value("CXParamUi"), SLOT(show()));
 //         , windows.value("CXSupportsWindow"), SLOT(show()));
 //TODO: qForm: продумать вывод Раскроя/БД
+
+//      QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked())
+//         , windows.value("CXOperBevelHead"), SLOT(raise()));
 
       QObject::connect(curGroupPanel->getButton(6), SIGNAL(clicked()),
           windows.value("CXOperDirectionWindow"), SLOT(onResetCoordinates()));

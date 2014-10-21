@@ -108,6 +108,7 @@ namespace Commands
     const String MSG_CMD_GOTO_TECH_POINT = "cmd_goto_tech_point";
     const String MSG_CMD_SET_TECH_POINT  = "cmd_set_tech_point";
     const String MSG_CMD_GOTO_ABS_ZERO   = "cmd_goto_abs_zero";
+    const String MSG_CMD_SET_ABS_ZERO  = "cmd_set_abs_zero";
 
 	//Сброс координат, добавить кнопку F7
     const String MSG_CMD_RESET_POS = "cmd_reset_pos";

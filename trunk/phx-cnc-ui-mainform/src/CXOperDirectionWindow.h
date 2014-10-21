@@ -49,8 +49,8 @@ signals:
   void paramsChanged(bool , const QStringList& );
 
   //! Переключить на след окно
-	void
-	nextWindow();
+  void
+  nextWindow();
 private slots:
   //! Запуск процесса.
   void
