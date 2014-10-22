@@ -1,5 +1,6 @@
 #include "CXOperBevelHead.h"
 
+#include <QtCore/QtCore>
 #include <QtGui/QResizeEvent>
 
 #include "ui_CXOperBevelHead.h"
@@ -8,14 +9,17 @@
 #define INDX_AXIS_A 3
 #define INDX_AXIS_C 5
 #define SIGN_DEG 00B0
+static QMap<QString, QPointer<QLabel> > lPos;
 
 CXOperBevelHead::CXOperBevelHead() :
   AXBaseWindow(),
     ui(new Ui::CXOperBevelHead)
 {
     ui->setupUi(this);
-    ui->label_3->setText(QString::fromUtf8("0.1*"));
-    ui->label_4->setText(QString::fromUtf8("0.1*"));
+    ui->label_3->setText(QString::fromUtf8("в 0.1\u00B0"));
+    ui->label_4->setText(QString::fromUtf8("в 0.1\u00B0"));
+    ui->lposA->setText(QString::fromUtf8("0\u00B0"));
+    ui->lposC->setText(QString::fromUtf8("0\u00B0"));
 
     connect(ui->mButton0, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
     connect(ui->mButton1, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
@@ -39,7 +43,9 @@ CXOperBevelHead::CXOperBevelHead() :
     QRegExp regExp("(\\+|-)?\\d*\\.?\\d*");
     ui->eposA->setValidator(new QRegExpValidator(regExp, ui->eposA));
     ui->eposC->setValidator(new QRegExpValidator(regExp, ui->eposC));
-//    ui->nextWindow->setObjectName(QString::fromUtf8("nextWindow"));
+    ui->nextWindow->setObjectName(QString::fromUtf8("bevelNextWindow"));
+    lPos["3"] = (ui->lposA);
+    lPos["5"] = (ui->lposC);
 
     connect(ui->bAmove, SIGNAL(clicked()), this, SLOT(onAMoveClicked()));
     connect(ui->bCmove, SIGNAL(clicked()), this, SLOT(onCMoveClicked()));
@@ -65,17 +71,13 @@ CXOperBevelHead::onCommandReceive(const QString& aSection, const QString& aComma
     {
       QStringList axisList = aValue.split(",");
       for (auto litem: axisList)
-      {
+      {//udp:MM#pos_axis#3=49599$
 	QStringList valueList = litem.split("=");
-	if(! valueList.empty())
-	switch(valueList[0].toInt()){
-	  case INDX_AXIS_A:
-	    ui->lposA->setText(valueList[1]);
-	  break;
-	  case INDX_AXIS_C:
-	    ui->lposC->setText(valueList[1]);
-	  break;
-	}
+	if( valueList.size() != 2 ) break;
+	QLabel* label = lPos[valueList[0]];
+	if(label == nullptr) break;
+	double deg = valueList[1].toDouble() / 1000.0;
+	label->setText(trUtf8("%1\u00B0").arg(deg, 0, 'f', 1));
       }
     }
   }
