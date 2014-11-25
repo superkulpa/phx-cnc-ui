@@ -30,8 +30,10 @@ CXWindowsManager::CXWindowsManager()
 
   IsVirtualKeyboardEnabled = true;
   QString virtualKeyboardEnabled = CXSettingsXML::getValue("settings.xml", "virtual_keyboard", "0");
-  if (!virtualKeyboardEnabled.isEmpty() && virtualKeyboardEnabled.toInt() == 0)
+  if (virtualKeyboardEnabled.isEmpty() || virtualKeyboardEnabled.toInt() == 0){
     IsVirtualKeyboardEnabled = false;
+    mVirtualKeyboard = NULL;
+  }
 }
 
 CXWindowsManager::~CXWindowsManager()
@@ -369,7 +371,7 @@ CXWindowsManager::setFreeze(bool aIsFreeze)
 void
 CXWindowsManager::changeVisibleVirtualKeyboard()
 {
-//  if (mVirtualKeyboard == NULL)
+ if (mVirtualKeyboard == NULL) return;
 //    mVirtualKeyboard = new CXVirtualKeyboard;
 
   if (mVirtualKeyboard->isVisible())
@@ -577,8 +579,9 @@ CXWindowsManager::absoluteMin(int value1, int value2)
 void
 CXWindowsManager::createKeyboards()
 {
+  if(! IsVirtualKeyboardEnabled) return;
   mVirtualKeyboard = new CXVirtualKeyboard;
-mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(0));
+  mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(0));
 //mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(1));
 //mVirtualKeyboardsNum.push_back(new CXVirtualKeyboardNum(2));
 }

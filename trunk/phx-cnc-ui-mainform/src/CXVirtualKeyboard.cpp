@@ -49,27 +49,25 @@ void
 CXVirtualKeyboard::onFocusChange(QWidget* old, QWidget* now)
 {
   Q_UNUSED(old)
-
   if (now != 0 && !isAncestorOf(now))
   {
     if (mFocusedWidget != NULL) disconnect(mFocusedWidget, SIGNAL(destroyed()), this, SLOT(onDelete()));
     mFocusedWidget = now;
-	connect(mFocusedWidget, SIGNAL(destroyed()), this, SLOT(onDelete()));
+    connect(mFocusedWidget, SIGNAL(destroyed()), this, SLOT(onDelete()));
 
     if (now->property("readOnly").isValid() && now->property("readOnly").toBool() == false)
     {
       QWidget* w = now;
       while (w->parentWidget() != NULL)
-        w = w->parentWidget();
+	w = w->parentWidget();
 
       //qDebug() << w->metaObject()->className();
-
-	  if (mAcceptWindow.contains(w->metaObject()->className()))
+      if (mAcceptWindow.contains(w->metaObject()->className()))
       {
-        show();
+	show();
       }
       else
-        hide();
+	hide();
     }
     else
       hide();
