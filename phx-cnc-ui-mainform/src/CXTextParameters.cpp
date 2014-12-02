@@ -53,7 +53,7 @@ CXTextParameters::onCommandReceive(const QString& aSection, const QString& aComm
 {
   if (aSection ==  (Commands::MSG_SECTION_ALARM))
   {
-    if (!mIsError || aCommand ==  (Commands::MSG_STATE_MULTI_ALARM))
+    if (!mIsError && aCommand ==  (Commands::MSG_STATE_MULTI_ALARM))
     {
       mTextEdit->clear();
     }
