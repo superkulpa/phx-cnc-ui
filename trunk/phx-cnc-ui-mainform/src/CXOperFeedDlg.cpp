@@ -18,7 +18,7 @@ CXOperFeedDlg::CXOperFeedDlg(QWidget *parent) :
   setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 //  std::string s = QApplication::applicationDirPath().toStdString() + "/jini/params.ini";
-  iniFile = CIniFile("jini/params.ini");
+  iniFile = CIniFile("./jini/params.ini");
   iniFile.ReadIniFile();
   int feeds[3];
   feeds[0] = QString::fromStdString(iniFile.GetValue("Move/ListFeed", "value", "1000")).toInt();
