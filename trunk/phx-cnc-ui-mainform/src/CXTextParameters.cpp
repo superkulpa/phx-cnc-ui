@@ -53,10 +53,10 @@ CXTextParameters::onCommandReceive(const QString& aSection, const QString& aComm
 {
   if (aSection ==  (Commands::MSG_SECTION_ALARM))
   {
-    if (!mIsError && aCommand ==  (Commands::MSG_STATE_MULTI_ALARM))
-    {
+  	//
+    if ((!mIsError && (aCommand ==  (Commands::MSG_STATE_MULTI_ALARM)))
+     || (mTextEdit->toPlainText().contains(QString().fromUtf8("Нет сообщений"))))
       mTextEdit->clear();
-    }
 
     mIsError = true;
 
