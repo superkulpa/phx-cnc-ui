@@ -1,5 +1,7 @@
 #include <QApplication>
 
+#include <stdlib.h>
+
 #include <QVBoxLayout>
 #include <QTranslator>
 #include "version.h"
@@ -160,7 +162,7 @@ addGroupPanel(int aGroup)
 }
 
 int userIsOperator = 0;
-
+#include <stdlib.h>
 
 int
 main(int argc, char *argv[])
@@ -168,13 +170,16 @@ main(int argc, char *argv[])
 //  fLB::FLAGS_logtostderr = 1;
 //  fLI::FLAGS_v = 3;
 //  google::InitGoogleLogging(argv[0]);
-  VLOG(INFO) << "Start cnc-ui\n";
+
+	VLOG(INFO) << "Start cnc-ui\n";
 
   QApplication app(argc, argv);
   app.setQuitOnLastWindowClosed(false);
 
-
-  if(QString(getenv("USER")) == "op") userIsOperator = 1;
+  QString userLogin = QString(getenv("USER"));
+  if((userLogin != "cust") &&
+  	 (userLogin != "cnc"))
+  	userIsOperator = 1;
 
   QString translate = CXSettingsXML::getValue("settings.xml", "translate", "0");
 
