@@ -48,10 +48,10 @@ private slots:
   //! Слот получения команды от ядра.
   void
   onCommandReceive(const QString& aSection, const QString& aCommand, const QString& aValue);
-
+public:
+  QLabel* mCPStateLabel;
 private:
   QLabel* mFileLabel;
-  QLabel* mCPStateLabel;
   CXTouchButton* mStopButton;
   CXTouchButton* mControlButton;
   QString mFileName;

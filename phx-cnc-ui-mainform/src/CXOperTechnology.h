@@ -28,6 +28,9 @@ signals:
   void eventTechnologyChanged(const QString& _tech);
 
 private slots:
+	void
+	OnTechConsole();
+
   //!
   void
   onTClick();
