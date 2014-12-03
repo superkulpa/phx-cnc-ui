@@ -39,7 +39,7 @@ CXParameterItemDelegate::createEditor(QWidget* parent, const QStyleOptionViewIte
     QSpinBox* spinBox = new QSpinBox(parent);
 
     spinBox->setAccelerated(true);
-	spinBox->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
+    spinBox->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
     spinBox->setValue(index.data(Qt::EditRole).toInt());
     spinBox->setRange(index.data(Qt::UserRole + 100).toInt(),
         index.data(Qt::UserRole + 101).toInt());
