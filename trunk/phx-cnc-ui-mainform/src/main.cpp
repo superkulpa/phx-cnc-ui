@@ -421,8 +421,7 @@ main(int argc, char *argv[])
           windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
 
       QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked())
-         , windows.value("CXParamUi"), SLOT(show()));
-//         , windows.value("CXSupportsWindow"), SLOT(show()));
+      		,windows.value("CXOperTechnology"), SLOT(OnTechConsole()));//, windows.value("CXParamUi"), SLOT(show()));
 //TODO: qForm: продумать вывод Раскроя/БД
 
 //      QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked())

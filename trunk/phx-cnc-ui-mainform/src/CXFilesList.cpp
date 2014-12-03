@@ -10,9 +10,11 @@
 #include "CXProcessingParametersWindow.h"
 #include "CXTurnDialog.h"
 #include "CXUdpManager.h"
+#include "CXWindowsManager.h"
 #include "utils/CXMLReader.h"
 #include <QtGui/QResizeEvent>
 #include "utils/iniFile.h"
+#include "CXTitleWindow.h"
 
 CXFilesList::CXFilesList(bool aIsSaveDialog) :
     AXBaseWindow()
@@ -358,6 +360,10 @@ CXFilesList::onLoadCheckFile()
   //не загружать пока не закочена компиляция.
   if (mProcess != NULL)
     return;
+  if (((CXTitleWindow*)(mManager->getWindow("CXTitleWindow")))->mCPStateLabel->text() != trUtf8("Ручное упр.")){
+  	QMessageBox::information(NULL, trUtf8("Сообщение"), trUtf8("Необходимо остановить УП"));
+  	return;
+  }
 
   CXProcessingParametersWindow* parametersWindow = new CXProcessingParametersWindow(this);
   parametersWindow->setAttribute(Qt::WA_DeleteOnClose);

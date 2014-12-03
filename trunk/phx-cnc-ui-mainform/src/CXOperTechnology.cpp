@@ -9,11 +9,14 @@
 
 #include "CXOperTechnology.h"
 
+#include <QMessageBox>
 
 #include "CXUdpManager.h"
+#include "CXWindowsManager.h"
 #include "utils/CXSettingsXML.h"
 #include "CXTechDlg.h"
 #include "utils/iniFile.h"
+
 
 CXOperTechnology::CXOperTechnology() :
     AXBaseWindow(), zMoveType(false), warmDlg(NULL)
@@ -223,6 +226,22 @@ CXOperTechnology::~CXOperTechnology()
 {
 
 }
+
+void CXOperTechnology::OnTechConsole()
+{
+	if(mManager != NULL)
+		if((mTechnology->text() == trUtf8("Микроплазма"))
+		|| (mTechnology->text() == trUtf8("Плазма"))){
+
+			AXBaseWindow* param = mManager->getWindow("CXParamUi");
+
+			param->show();
+		}else{
+			QMessageBox::information(NULL, trUtf8("Сообщение"), trUtf8("Нет базы данных"));
+		};
+}
+
+
 
 void
 CXOperTechnology::onTClick()

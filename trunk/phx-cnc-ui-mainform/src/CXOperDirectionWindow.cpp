@@ -261,6 +261,7 @@ CXOperDirectionWindow::onUtils()
   mUtils->show();
 }
 
+
 void
 CXOperDirectionWindow::onResetCoordinates()
 {

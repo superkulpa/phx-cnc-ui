@@ -87,11 +87,14 @@ CXTextParameters::onCommandReceive(const QString& aSection, const QString& aComm
       for (int i = 0; i < alarms.count(); i++)
       {
         buffer = alarms.at(i).trimmed();
-
-        if (text.contains(buffer))
-        {
-          text.replace(buffer, "");
-        }
+        int index = 0;
+        while ((index = text.indexOf(buffer,index)) != -1){
+        	text.remove(index, buffer.size() + 1);
+        };
+//        if (text.contains(buffer))
+//        {
+//          text.replace(buffer, "");
+//        }
       }
 //			if (text == "\n") text = "";
 
