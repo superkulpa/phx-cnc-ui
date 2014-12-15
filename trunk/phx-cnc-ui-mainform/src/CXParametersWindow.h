@@ -7,6 +7,7 @@
 #include <QProgressBar>
 #include <QPushButton>
 
+#include "CXUtilsWindow.h"
 class CXFtp;
 class CXIniFileEditor;
 
@@ -29,6 +30,8 @@ private:
   void
   loadGroups();
 public slots:
+  void
+  onUtils();
   //! Слот загрузки файлов с данным по FTP.
   void
   loadParametersFromFtp();
@@ -117,6 +120,7 @@ private:
   int curTab;
   QString currTech;
   QList<QPushButton*> mButtons;
+  CXUtilsWindow* mUtils;
 };
 
 #endif // CXPARAMETERSWINDOW_H

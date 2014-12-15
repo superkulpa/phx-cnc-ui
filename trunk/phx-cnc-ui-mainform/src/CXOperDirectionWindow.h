@@ -28,10 +28,6 @@ public:
   virtual ~CXOperDirectionWindow();
 
 public slots:
-  //! Слот показа утилит.
-  void
-  onUtils();
-
   //! Слот сброса координат.
   void
   onResetCoordinates();
@@ -141,7 +137,6 @@ private:
   //большой стоп
   CXTouchButton* mBigStopButton;
 
-  CXUtilsWindow* mUtils;
   int mRotateAxis;
 };
 

@@ -371,14 +371,27 @@ CXWindowsManager::setFreeze(bool aIsFreeze)
 void
 CXWindowsManager::changeVisibleVirtualKeyboard()
 {
- if (mVirtualKeyboard == NULL) return;
+  keyProcess = new CXProcess();
+  keyProcess->start("./startKeyboard.sh");
+  connect(keyProcess, SIGNAL(finished(int, QProcess::ExitStatus))
+      , this, SLOT(onKeyboardFinished(int, QProcess::ExitStatus)));
+  return ;
+  if (mVirtualKeyboard == NULL) return;
 //    mVirtualKeyboard = new CXVirtualKeyboard;
 
   if (mVirtualKeyboard->isVisible())
     mVirtualKeyboard->hide();
   else
     mVirtualKeyboard->show();
-  return ;
+
+}
+
+void CXWindowsManager::onKeyboardFinished(int aExitCode, QProcess::ExitStatus aExitStatus){
+  if (keyProcess != NULL)
+  {
+    keyProcess->deleteLater();
+    keyProcess = NULL;
+  }
 }
 
 void

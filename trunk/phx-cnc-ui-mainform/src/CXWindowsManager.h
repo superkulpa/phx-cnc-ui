@@ -4,6 +4,7 @@
 #include <QMap>
 
 #include "AXBaseWindow.h"
+#include "utils/CXProcess.h"
 
 class CXVirtualKeyboard;
 class CXVirtualKeyboardNum;
@@ -88,6 +89,10 @@ public:
 
   AXBaseWindow* getWindow(const QString& _winName);
 public slots:
+/*!
+   Функция закрытия виртуальной клавиатуры
+   */
+  void onKeyboardFinished(int, QProcess::ExitStatus);
   /*!
    Функция установки заморозки всем окнам.
    \param aIsFreeze - флаг заморозки.
@@ -143,6 +148,8 @@ private:
   CXVirtualKeyboard* mVirtualKeyboard;
   QVector<CXVirtualKeyboardNum*> mVirtualKeyboardsNum;
   bool IsVirtualKeyboardEnabled;
+
+  CXProcess* keyProcess;
 };
 
 #endif // CXWINDOWSMANAGER_H
