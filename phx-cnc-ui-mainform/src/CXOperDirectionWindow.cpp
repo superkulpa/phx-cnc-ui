@@ -18,7 +18,7 @@ CXOperDirectionWindow::CXOperDirectionWindow() :
 AXBaseWindow()
 {
   mIsRunning = false;
-  mUtils = NULL;
+ // mUtils = NULL;
   mRotateAxis = CXSettingsXML::getValue("settings.xml", "rotateAxis", "0").toInt();
 
   QVBoxLayout* centralLayout = new QVBoxLayout(this);
@@ -249,17 +249,17 @@ CXOperDirectionWindow::~CXOperDirectionWindow()
 
 }
 
-void
-CXOperDirectionWindow::onUtils()
-{
-  if (mUtils == NULL)
-  {
-    mUtils = new CXUtilsWindow();
-    mUtils->setWindowModality(Qt::ApplicationModal);
-  }
-
-  mUtils->show();
-}
+//void
+//CXOperDirectionWindow::onUtils()
+//{
+//  if (mUtils == NULL)
+//  {
+//    mUtils = new CXUtilsWindow();
+//    mUtils->setWindowModality(Qt::ApplicationModal);
+//  }
+//
+//  mUtils->show();
+//}
 
 
 void
