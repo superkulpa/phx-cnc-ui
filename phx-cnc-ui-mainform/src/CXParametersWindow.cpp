@@ -30,6 +30,7 @@ CXParametersWindow::CXParametersWindow(bool aIsSystem) :
   mIsUpload = false;
   mProgressBar = NULL;
   mIsSystem = aIsSystem;
+  mUtils = NULL;
 
   currTech = "MPlasma";
 
@@ -54,8 +55,20 @@ CXParametersWindow::CXParametersWindow(bool aIsSystem) :
 }
 
 CXParametersWindow::~CXParametersWindow()
+{	}
+
+void
+CXParametersWindow::onUtils()
 {
+  if (mUtils == NULL)
+  {
+    mUtils = new CXUtilsWindow();
+    mUtils->setWindowModality(Qt::ApplicationModal);
+  }
+
+  mUtils->show();
 }
+
 
 void
 CXParametersWindow::setButtons(const QList<QPushButton*>& aButtons)
