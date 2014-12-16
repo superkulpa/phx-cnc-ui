@@ -18,8 +18,16 @@ CXWarmingUpDlg::CXWarmingUpDlg(QObject* _master)
   btContinue->setMinimumHeight(75);
   btBreak->setText(QString().fromUtf8("Прервать"));
   btBreak->setMinimumHeight(75);
+
+  btStop = new CXTouchButton(groupBox);
+  btStop->setObjectName(QString::fromUtf8("btStop"));
+  btStop->setText(QString().fromUtf8("Стоп реза"));
+  btStop->setMinimumHeight(75);
+  horizontalLayout->addWidget(btStop);
+
   connect(btContinue, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(btBreak, SIGNAL(clicked()), this, SLOT(onButtonClickedBreak()));
+  connect(btStop, SIGNAL(clicked()), this, SLOT(onButtonClickedStop()));
   connect(this, SIGNAL(postStateWaiting(int)), this, SLOT(onWarmProcess(int)));
  }
 
@@ -46,10 +54,16 @@ CXWarmingUpDlg::onButtonClicked()
     break;
   }
 }
-
+break
 void CXWarmingUpDlg::onButtonClickedBreak(){
   stage = _continue;
   onButtonClicked();
+}
+
+void CXWarmingUpDlg::onButtonClickedStop ()
+{
+  emit postCmdWaiting(_stop);
+  hide();
 }
 
 void
@@ -71,7 +85,7 @@ void CXWarmingUpDlg::onWarmProcess(int _percent){
 //    onButtonClicked();
     hide();
   }else
-  if(isHidden()) show();
+    if(isHidden()) show();
 }
 
 void
@@ -89,3 +103,4 @@ CXWarmingUpDlg::registerContinueBreak(QObject* _receiver, const char* _member)
 {
   connect(this, SIGNAL(postCmdWaiting(int)), _receiver, _member);
 }
+
