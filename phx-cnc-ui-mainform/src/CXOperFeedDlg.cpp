@@ -21,9 +21,9 @@ CXOperFeedDlg::CXOperFeedDlg(QWidget *parent) :
   iniFile = CIniFile("./jini/params.ini");
   iniFile.ReadIniFile();
   int feeds[3];
-  feeds[0] = QString::fromStdString(iniFile.GetValue("Move/ListFeed", "value", "1000")).toInt();
-  feeds[1] = QString::fromStdString(iniFile.GetValue("Move/FastFeed", "value", "10000")).toInt();
-  feeds[2] = QString::fromStdString(iniFile.GetValue("Move/LowFeed", "value", "100")).toInt();
+  feeds[0] = iniFile.GetValueI("Move/ListFeed", "value", 1000);//QString::fromStdString().toInt();
+  feeds[1] = iniFile.GetValueI("Move/FastFeed", "value", 10000);//QString::fromStdString(iniFile.GetValueI("Move/FastFeed", "value", "10000")).toInt();
+  feeds[2] = iniFile.GetValueI("Move/LowFeed", "value", 100);//QString::fromStdString(iniFile.GetValueI("Move/LowFeed", "value", "100")).toInt();
 
   QRegExp regExp("(\\+|-)?\\d*\\.?\\d*");
   mFRegularEdit->setValidator(new QRegExpValidator(regExp, mFRegularEdit));
@@ -136,7 +136,7 @@ void
 CXOperFeedDlg::accept()
 {
   //проверяем значения
-  int maxFeed = QString::fromStdString(iniFile.GetValue("Move/MaxFeed", "value", "100")).toInt();
+  int maxFeed = iniFile.GetValueI("Move/MaxFeed", "value", 100);
   int feeds[3];
   feeds[0] = mFRegularEdit->text().toInt();
   if(feeds[0] > maxFeed) feeds[0] = maxFeed;
@@ -145,9 +145,9 @@ CXOperFeedDlg::accept()
   feeds[2] = mFSlowEdit->text().toInt();
   if(feeds[2] > maxFeed) feeds[2] = maxFeed;
 
-  iniFile.SetValue("Move/ListFeed", "value", QString::number(feeds[0]).toStdString());
-  iniFile.SetValue("Move/FastFeed", "value", QString::number(feeds[1]).toStdString());
-  iniFile.SetValue("Move/LowFeed", "value", QString::number(feeds[2]).toStdString());
+  iniFile.SetValueI("Move/ListFeed", "value", feeds[0]);
+  iniFile.SetValueI("Move/FastFeed", "value", feeds[1]);
+  iniFile.SetValueI("Move/LowFeed", "value", feeds[2]);
   iniFile.WriteIniFile();
 
   QDialog::accept();
