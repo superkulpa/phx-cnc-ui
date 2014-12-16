@@ -405,7 +405,8 @@ main(int argc, char *argv[])
       QStringList texts;
       texts.append(QObject::trUtf8("УП"));
       texts.append(QObject::trUtf8("Параметры"));
-      texts.append( (! userIsOperator)?QObject::trUtf8("Наладка"):QObject::trUtf8(""));
+      //texts.append( (! userIsOperator)?QObject::trUtf8("Наладка"):QObject::trUtf8(""));
+      texts.append(QObject::trUtf8("Наладка"));
       texts.append(QObject::trUtf8("Утилиты"));
 //      texts.append(QObject::trUtf8("Раскрой"));
       texts.append(QObject::trUtf8("Параметры\nреза"));
@@ -423,11 +424,11 @@ main(int argc, char *argv[])
           SLOT(setGroup()));
       QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel,
           SLOT(setGroup()));
-      if(! userIsOperator){
+      //if(! userIsOperator){
         curGroupPanel->getButton(2)->setProperty("groupName", CXWindowsManager::_wingroupIO);
         QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel,
             SLOT(onDeviceEditShow()));
-      }
+      //}
 
       QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()),
           windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
@@ -450,7 +451,7 @@ main(int argc, char *argv[])
 //          &manager, SLOT(changeVisibleVirtualKeyboardNum0()));
     }
 
-    if(! userIsOperator)
+    //if(! userIsOperator)
     if(NULL != (curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupIO)))
     {
       QList<QPushButton*> buttonsList;

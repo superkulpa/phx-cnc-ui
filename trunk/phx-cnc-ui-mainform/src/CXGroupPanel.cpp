@@ -117,14 +117,14 @@ CXGroupPanel::onExit()
     {
     mUdpManager->sendCommand(Commands::MSG_SECTION_START, Commands::MSG_CMD_SHUTDOWN, "0");
     QApplication::processEvents();
-//			QApplication::quit();
+		QApplication::exit(res);//quit();
 
     break;
   }
     //выход.
   case 2:
     {
-    QApplication::quit();
+    QApplication::exit(res);//quit();
 
     break;
   }

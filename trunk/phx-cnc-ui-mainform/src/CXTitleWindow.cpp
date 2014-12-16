@@ -52,11 +52,19 @@ CXTitleWindow::~CXTitleWindow()
 
 }
 
+QString GetFileName(QString _fileName){
+	int indx = _fileName.indexOf("/cps/");
+	QString ret = _fileName;
+	if(indx != -1) ret = _fileName.right(_fileName.size() - (indx + 5));
+	return ret;
+}
+
+
 void
 CXTitleWindow::onFileOpen(const QString& aFileName)
 {
   mFileName = QFontMetrics(font()).elidedText(aFileName, Qt::ElideLeft, width() - 10);
-  mFileLabel->setText(mFileName);
+  mFileLabel->setText(GetFileName(mFileName));
 }
 
 void
@@ -64,7 +72,7 @@ CXTitleWindow::onErrorReceive(const QString& aError)
 {
   if (aError.isEmpty())
   {
-    mFileLabel->setText(mFileName);
+    mFileLabel->setText(GetFileName(mFileName));
     mFileLabel->setStyleSheet("");
     mFileLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
   }
@@ -139,7 +147,7 @@ CXTitleWindow::onCommandReceive(const QString& aSection, const QString& aCommand
     {
       if (aValue == "0")
       {
-        mFileLabel->setText(mFileName);
+        mFileLabel->setText(GetFileName(mFileName));
         mFileLabel->setStyleSheet("");
       }
       else
