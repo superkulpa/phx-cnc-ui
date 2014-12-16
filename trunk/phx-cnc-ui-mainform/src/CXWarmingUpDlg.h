@@ -13,11 +13,13 @@
 class CXWarmingUpDlg : public QDialog, public Ui::WarmingUp
 {
 Q_OBJECT
+  CXTouchButton* btStop;
 public:
 enum EStages{
   _ticTac
  ,_continue
  ,_break
+ ,_stop
 };
 public:
   //! Конструктор.
@@ -36,6 +38,7 @@ public:
 private slots:
   void onButtonClicked();
   void onButtonClickedBreak();
+  void onButtonClickedStop();
 
   void onWarmProcess(int _percent);
 signals:

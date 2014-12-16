@@ -583,8 +583,10 @@ void CXOperTechnology::onWarmUpConinueBreak(int _continueBreak){
 //
   if(_continueBreak == CXWarmingUpDlg::_continue)
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_WAITING_CONTINUE, "0");
-  else
+  else   if(_continueBreak == CXWarmingUpDlg::_break)
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_WAITING_BREAK, "0");
+  else
+    mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_STOP_OPERATION, "0");
 }
 
 //
