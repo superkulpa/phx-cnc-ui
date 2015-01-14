@@ -54,7 +54,7 @@ CXWarmingUpDlg::onButtonClicked()
     break;
   }
 }
-break
+
 void CXWarmingUpDlg::onButtonClickedBreak(){
   stage = _continue;
   onButtonClicked();
