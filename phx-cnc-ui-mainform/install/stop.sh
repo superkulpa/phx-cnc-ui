@@ -1,2 +1,2 @@
-echo "Stop the CNC Kernel"
-. rcmd.sh "stop.sh"
+#!/bin/sh
+python ./rcmd.py "/CNC/stop" > ./logs/stop.last
