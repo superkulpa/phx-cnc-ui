@@ -1,2 +1,4 @@
-echo "Restart the CNC Kernel"
-. rcmd.sh "slay -f15 phxStarter; /CNC/start > /CNC/logs/last_start &"
+#!/bin/sh
+bash ./stop.sh
+sleep 5
+python ./rcmd.py "/CNC/start &" > ./logs/restart.last
