@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Info>
+  <parameters>
+    <parameter name="Длина перемещений" value="521317.0" />
+    <parameter name="Длина реза" value="456986.0" />
+    <parameter name="Имя УП" value="/home/kulpanov/_prj/robo/z4/z4.ui/ws/phx-cnc-ui-mainform/cps/Exibit_/exhibit/bossdoor.iso" />
+    <parameter name="Количество пробивок" value="69" />
+    <parameter name="Габарит Y" value="7683.0" />
+    <parameter name="Габарит X" value="6711.0" />
+  </parameters>
+</Info>
+
