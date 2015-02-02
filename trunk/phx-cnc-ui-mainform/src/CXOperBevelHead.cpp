@@ -44,6 +44,7 @@ CXOperBevelHead::CXOperBevelHead() :
     ui->eposA->setValidator(new QRegExpValidator(regExp, ui->eposA));
     ui->eposC->setValidator(new QRegExpValidator(regExp, ui->eposC));
     ui->nextWindow->setObjectName(QString::fromUtf8("bevelNextWindow"));
+
     lPos["3"] = (ui->lposA);
     lPos["5"] = (ui->lposC);
 
@@ -53,6 +54,9 @@ CXOperBevelHead::CXOperBevelHead() :
     connect(ui->bLockZero, SIGNAL(clicked()), this, SLOT(onLockZeroClicked()));
 
     connect(ui->nextWindow, SIGNAL(clicked()), this, SLOT(onNextWindow()));
+    ui->eposC->setEnabled(false);
+    ui->bCmove->setEnabled(false);
+
     registerManager();
 }
 

@@ -101,6 +101,8 @@ private:
   //
   CXTechDlg::MSupps listOfSupps;
   CXTechDlg::MTechs listOfTechs;
+  CXTechDlg::MTechs listOfOpts;
+  CXTechDlg::MOpts 	currOpts;
   CXTechDlg::MTechs::iterator currTech;
 };
 

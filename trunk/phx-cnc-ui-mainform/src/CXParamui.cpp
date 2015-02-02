@@ -219,37 +219,38 @@ CXParamUi::readValues()
   double value = 0;
 
   foreach (const SXDataXml& data, captions)
-  {  if (values.contains(data.mName))
   {
-    column = (data.mColumn > 0) ? 2 : 0;
-    row = (data.mColumn > 0) ? row1++ : row2++;
+  	if (values.contains(data.mName))
+  	{
+  		column = (data.mColumn > 0) ? 2 : 0;
+  		row = (data.mColumn > 0) ? row1++ : row2++;
 
-    labelValue = new QLabel(data.mDescr, this);
-    labelValue->setMargin(5);
-    if (row % 2 == 0) labelValue->setStyleSheet("background-color: silver;");
-    mValuesLayout->addWidget(labelValue, row, column);
+  		labelValue = new QLabel(data.mDescr, this);
+  		labelValue->setMargin(5);
+  		if (row % 2 == 0) labelValue->setStyleSheet("background-color: silver;");
+  		mValuesLayout->addWidget(labelValue, row, column);
 
-    value = values.value(data.mName).toDouble();
+  		value = values.value(data.mName).toDouble();
 
-    editValue = new QDoubleSpinBox(this);
-    if (data.mDelta > 0)
-    {
-      editValue->setRange(value - data.mDelta, value + data.mDelta);
-    }
-    else
-    editValue->setRange(0.01, 99999);
-    editValue->setValue(value);
+  		editValue = new QDoubleSpinBox(this);
+  		if (data.mDelta > 0)
+  		{
+  			editValue->setRange(value - data.mDelta, value + data.mDelta);
+  		}
+  		else
+  			editValue->setRange(0.01, 99999);
+  		editValue->setValue(value);
 
-    editValue->setButtonSymbols(QAbstractSpinBox::NoButtons);
-    editValue->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
-    editValue->setReadOnly(data.mIsReadOnly);
-    editValue->setLocale(QLocale(QLocale::English));
+  		editValue->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  		editValue->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
+  		editValue->setReadOnly(data.mIsReadOnly);
+  		editValue->setLocale(QLocale(QLocale::English));
 
-    editValue->setProperty("valueName", data.mName);
-    mEditors.append(editValue);
-    mValuesLayout->addWidget(editValue, row, column + 1);
+  		editValue->setProperty("valueName", data.mName);
+  		mEditors.append(editValue);
+  		mValuesLayout->addWidget(editValue, row, column + 1);
+  	}
   }
-}
 
   QGroupBox* imageBox = NULL;
   QVBoxLayout* imageLayout = NULL;

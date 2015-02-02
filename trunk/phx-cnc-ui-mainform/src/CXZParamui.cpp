@@ -156,8 +156,6 @@ CXZParamUi::onCommandReceive(const QString& aSection, const QString& aCommand, c
         int indx = axisPosStr.indexOf("=");
         int axisIndx = axisPosStr.mid(0, indx).toInt();
         double axisPos = axisPosStr.mid(indx + 1).toDouble() / 1000.0;
-        qDebug(trUtf8("%1").arg(axisIndx).toStdString().c_str());
-        qDebug(trUtf8("%1").arg(axisPos).toStdString().c_str());
         mZPosEditors[axisIndx]->setValue(axisPos);
       }
 

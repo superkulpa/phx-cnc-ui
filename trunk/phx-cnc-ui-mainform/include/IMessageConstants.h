@@ -24,8 +24,8 @@ namespace Commands
 //    const String MSG_STATE_PREFIX = "state_";
     const String MSG_CMD_PREFIX = "cmd_";
 
-    const String MSG_ECHO_CMD_PREFIX = "echo_";
-
+    const String MSG_ECHO_PREFIX = "echo_";
+    const String MSG_ON_STOP = "on_stop";
 
     //общие значения
     const String MSG_VALUE_OFF = "off";
@@ -108,7 +108,7 @@ namespace Commands
     const String MSG_CMD_GOTO_TECH_POINT = "cmd_goto_tech_point";
     const String MSG_CMD_SET_TECH_POINT  = "cmd_set_tech_point";
     const String MSG_CMD_GOTO_ABS_ZERO   = "cmd_goto_abs_zero";
-    const String MSG_CMD_SET_ABS_ZERO  = "cmd_set_abs_zero";
+    const String MSG_CMD_SET_ABS_ZERO   = "cmd_set_abs_zero";
 
 	//Сброс координат, добавить кнопку F7
     const String MSG_CMD_RESET_POS = "cmd_reset_pos";
@@ -170,8 +170,8 @@ namespace Commands
 		const String MSG_CMD_MOVE_AXIS8B = "8=-2";
 		const String MSG_CMD_MOVE_AXIS8S = "8=0";
 
-    const String MSG_CMD_MOVE_STOP = "cmd_move_stop"; //стоп перемещениям - кнопка внутри круга
-
+    const String MSG_CMD_MOVE_STOP    = "cmd_move_stop"; //стоп перемещениям - кнопка внутри круга
+    const String MSG_STATE_MOVE_STOP  = "state_move_stop";
     const String MSG_STATE_HAND_DIR_MOVING = "state_hand_dir_moving";
 	
 //Управление со стороны технологии(справа)
@@ -216,7 +216,7 @@ namespace Commands
     // Количество пробивок. - future
     const String MSG_STATE_COUNT_BURN = "state_count_burn";
     // переезд
-    const String MSG_TECH_MOVE = "tech_move";
+    const String MSG_CMD_TECH_MOVE = "cmd_tech_move";
 
     //Состояние ожидания выполнения техн операции - future
     const String MSG_CMD_WAITING   = "cmd_waiting";
@@ -228,6 +228,8 @@ namespace Commands
     // Технология, значение: тек технология(плазма, микроплазма, кислород, разметка, сверление).
     const String MSG_STATE_TECHNOLOGY = "state_technology";
     const String MSG_CMD_TECHNOLOGY  = "cmd_technology";
+    const String MSG_STATE_TECHNOLOGY_OPTION_ADD = "state_technology_add";
+    const String MSG_STATE_TECHNOLOGY_OPTION_REMOVE = "state_technology_remove";
 	//в значении приходит имя технологии: Oxy, MPlasma, Plasma, Laser, ... - future
 
     // Напряжение, в десятых долях вольта. цифры между столцами T и Z, формат 0=123,...

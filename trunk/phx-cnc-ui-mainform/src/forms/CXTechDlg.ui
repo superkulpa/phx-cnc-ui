@@ -16,7 +16,7 @@
   <property name="windowTitle">
    <string>Выбор технологии обработки</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout"/>
+  <layout class="QVBoxLayout" name="verticalLayout"/>
  </widget>
  <resources/>
  <connections/>
