@@ -337,7 +337,6 @@ main(int argc, char *argv[])
     if(NULL != (curGroupPanel = addGroupPanel(CXWindowsManager::_wingroupParams)))
     {
       QStringList texts;
-      texts.append(QObject::trUtf8("УП"));
       texts.append(QObject::trUtf8("Управление"));
       texts.append(QString());
       texts.append(QString());
@@ -345,29 +344,30 @@ main(int argc, char *argv[])
       texts.append(QString());
       texts.append(QString());
       texts.append(QString());
+      texts.append(QObject::trUtf8("Утилиты"));
       texts.append(QObject::trUtf8("Загрузить"));
       texts.append(QObject::trUtf8("Сохранить"));
       curGroupPanel->setButtonsText(texts);
 
       //настройка группы переключения
-      curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupCP);
-      curGroupPanel->getButton(1)->setProperty("groupName", CXWindowsManager::_wingroupOper);
+//      curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupCP);
+      curGroupPanel->getButton(0)->setProperty("groupName", CXWindowsManager::_wingroupOper);
+//      QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
+//          SLOT(setGroup()));
       QObject::connect(curGroupPanel->getButton(0), SIGNAL(clicked()), curGroupPanel,
-          SLOT(setGroup()));
-      QObject::connect(curGroupPanel->getButton(1), SIGNAL(clicked()), curGroupPanel,
           SLOT(setGroup()));
 
       CXParametersWindow* parametersWindow = qobject_cast<CXParametersWindow*>(
           windows.value("CXParametersWindow"));
 
       QList<QPushButton*> buttons;
-      for (int i = 2; i < 8; ++i)
+      for (int i = 1; i < 7; ++i)
         buttons.append(curGroupPanel->getButton(i));
 
       parametersWindow->setButtons(buttons);
 
-//      QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), parametersWindow,
-//          SLOT(showSettings()));
+      QObject::connect(curGroupPanel->getButton(7), SIGNAL(clicked()), parametersWindow,
+          SLOT(onUtils()));
       QObject::connect(curGroupPanel->getButton(8), SIGNAL(clicked()), parametersWindow,
           SLOT(loadParametersFromFtp()));
       QObject::connect(curGroupPanel->getButton(9), SIGNAL(clicked()), parametersWindow,
@@ -407,7 +407,7 @@ main(int argc, char *argv[])
       texts.append(QObject::trUtf8("Параметры"));
       //texts.append( (! userIsOperator)?QObject::trUtf8("Наладка"):QObject::trUtf8(""));
       texts.append(QObject::trUtf8("Наладка"));
-      texts.append(QObject::trUtf8("Утилиты"));
+      texts.append(QString());
 //      texts.append(QObject::trUtf8("Раскрой"));
       texts.append(QObject::trUtf8("Параметры\nреза"));
       texts.append(QString());

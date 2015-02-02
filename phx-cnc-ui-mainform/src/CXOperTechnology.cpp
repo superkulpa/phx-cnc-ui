@@ -61,7 +61,6 @@ CXOperTechnology::CXOperTechnology() :
 
 //  connect(mTButton, SIGNAL(clicked()), this, SLOT(onTClick()));
 //  connect(mZHButton, SIGNAL(clicked()), this, SLOT(onZHClick()));
-
   connect(mBurnButton, SIGNAL(clicked()), this, SLOT(onStart()));
   connect(mRBurnButton, SIGNAL(clicked()), this, SLOT(onStart()));
   connect(mStopButton, SIGNAL(clicked()), this, SLOT(onStop()));
@@ -103,27 +102,19 @@ CXOperTechnology::CXOperTechnology() :
   {
   CIniFile iniFile("jini/config.ini");
   iniFile.ReadIniFile();
-  int key = iniFile.FindKey("Form/Technologies");//MPlasma=Микроплазма
+  int key = iniFile.FindKey("Form/Technologies");
   uint32_t i = 0;
   do try{
-//    QString nameOfTech = QString::fromStdString(iniFile.ValueName(key, i));//MPlasma
-//    if(nameOfTech.isEmpty())
-//      throw std::runtime_error("valueName is empty");
-
-//    QStringList values = QString::fromUtf8(iniFile.GetValue(key, i, "0,empty").c_str()).split(",");
-//    int nSup = values[0].toInt();
-//    if(nSup == 0) {// нет числа суппорт
-//      continue;
-//    }
-//    QString descr = values[1];
-
-    //Oxy=type=TM:Oxy,name=Support2,tag=1,zCtrl=zCtrl2,gc=oxyGC,vl=1,ishead,mngr=Oxy2,mngr=Oxy3
-
     int maskSup = 0;
 
     std::string entryName = iniFile.ValueName(key, i);
+    //entry:MPlasma=Микроплазма
     if(entryName.empty())
       throw std::runtime_error("entryName is empty");
+
+    if(entryName == "opts"){
+    	continue;
+    }
 
     QString descr = QString::fromUtf8(iniFile.GetValue(key, i, "").c_str());
     if(descr.isEmpty()) continue;
@@ -155,6 +146,29 @@ CXOperTechnology::CXOperTechnology() :
   }catch(std::exception& e){
     LOG_E(ERROR);
   }while(++i < iniFile.NumValues(key));
+
+  do try{
+//TODO: qForm: опции технологий, труборез. Брать из config.ini
+//		QString opts = QString::fromStdString(iniFile.GetValue("Form/Technologies", "opts"));
+//		if(opts.size() == 0)
+//			break;
+//
+//		struct calcMask{ int operator ()(const QString& entry){
+//				bool isOk = false;
+//				int tag =  entry.split(",").filter("tag=").value(0).split("=").value(1).toInt(&isOk);
+//				if(isOk)return (1<<tag);
+//				return 0;}
+//		};
+//
+//		QStringList ql = opts.split(",").filter("mngr=");
+  	listOfOpts["RTube"] = QString::fromUtf8("Труборез");
+  	currOpts["RTube"] = false;
+//  	listOfOpts["Marker"] = QString::fromUtf8("Маркер"); fortest only
+//  	currOpts["Marker"] = false;
+  }catch(std::exception& e){
+      LOG_E(ERROR);
+	}while(0);
+
   }
 
   {
@@ -215,8 +229,9 @@ CXOperTechnology::CXOperTechnology() :
     VLOG(ERRR) << "Invalid listOfTechs";
     return;
   }
+
   mTechnology->setText(currTech->second);
-  CXTechDlg::create(this, listOfTechs,  SLOT(onTechDlgClose(const QString&)) );
+  CXTechDlg::create(this, listOfTechs,  listOfOpts, SLOT(onTechDlgClose(const QString&)) );
 
   //QTimer::singleShot(0, this, );
   onCommandReceive( Commands::MSG_SECTION_TECH, Commands::MSG_STATE_TECHNOLOGY , currTech->first);
@@ -229,19 +244,18 @@ CXOperTechnology::~CXOperTechnology()
 
 void CXOperTechnology::OnTechConsole()
 {
+	static const int MPlasmaLen = QString().fromUtf8("Микроплазма").length();
+	static const int PlasmaLen = QString().fromUtf8("Плазма").length();
+
 	if(mManager != NULL)
-		if((mTechnology->text() == trUtf8("Микроплазма"))
-		|| (mTechnology->text() == trUtf8("Плазма"))){
-
+		if((mTechnology->text().left(MPlasmaLen) == trUtf8("Микроплазма"))
+		|| (mTechnology->text().left(PlasmaLen) == trUtf8("Плазма"))){
 			AXBaseWindow* param = mManager->getWindow("CXParamUi");
-
 			param->show();
 		}else{
 			QMessageBox::information(NULL, trUtf8("Сообщение"), trUtf8("Нет базы данных"));
 		};
 }
-
-
 
 void
 CXOperTechnology::onTClick()
@@ -430,7 +444,6 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
       QStringList list = aValue.split(",");
       auto &buttons = mbStateSup;//mNuberButtonGroup->buttons();
       QAbstractButton* curButton = NULL;
-
       for (int i = 0; i < list.count(); i++)
       {
         currentValue = list.at(i);
@@ -526,21 +539,24 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
       break;
     }
     if((aCommand ==  (Commands::MSG_STATE_TECHNOLOGY) ) )
-    {
     try{
-      //QStringList values = aValue.split("=");//Oxy=4,Кислород
-
       currTech = listOfTechs.find(aValue);
-      if(currTech == listOfTechs.end()) throw std::runtime_error(QString("Unknown tech: %1").arg(aValue).toUtf8().begin());
+      if(currTech == listOfTechs.end())
+      	throw std::runtime_error(QString("Unknown tech: %1").arg(aValue).toUtf8().begin());
 
       mTechnology->setText(currTech->second);
+      for(auto tech_option: currOpts){
+				if(tech_option.second == true){
+					CXTechDlg::getInstance()->setOptions(tech_option.first, 1);
+					mTechnology->setText(mTechnology->text().trimmed() + "\n" + listOfOpts[tech_option.first]);
+				}
+      }
+
       int suppMask = listOfSupps[aValue];
       for(int i=0; i<mbStateSup.size(); i++){
         bool visi = (1<<i) & suppMask;
         mbStateSup[i]->setVisible(visi);
         mSVRZ[i]     ->setVisible(visi);
-//        mbStateZ[i]  ->setVisible(visi);
-//        mbStateZ[i]  ->setChecked(visi);
         mbZUp[i]  	 ->setVisible(visi);
         mbZDown[i]   ->setVisible(visi);
       }
@@ -549,7 +565,51 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
     }catch(std::exception& e){
       LOG_E(ERROR);
     }
-    }
+    if(aCommand ==  Commands::MSG_STATE_TECHNOLOGY_OPTION_ADD )
+     try{
+			auto option_it = listOfOpts.find(aValue);
+      if(option_it == listOfOpts.end())
+      	throw std::runtime_error(QString("Unknown tech opts: %1").arg(aValue).toUtf8().begin());
+
+ 			currOpts[(*option_it).first] = true;
+ 			CXTechDlg::getInstance()->setOptions((*option_it).first, 1);
+ 			mTechnology->setText(mTechnology->text().remove(QRegExp((*option_it).second)).trimmed());
+
+//       int suppMask = listOfSupps[aValue];
+//       for(int i=0; i<mbStateSup.size(); i++){
+//         bool visi = (1<<i) & suppMask;
+//         mbStateSup[i]->setVisible(visi);
+//         mSVRZ[i]     ->setVisible(visi);
+//         mbZUp[i]  	 ->setVisible(visi);
+//         mbZDown[i]   ->setVisible(visi);
+//       }
+//
+//       emit eventTechnologyChanged(currTech->first);
+     }catch(std::exception& e){
+       LOG_E(ERROR);
+     }
+     if(aCommand ==  Commands::MSG_STATE_TECHNOLOGY_OPTION_REMOVE )
+      try{
+ 			 auto option_it = listOfOpts.find(aValue);
+       if(option_it == listOfOpts.end())
+       	throw std::runtime_error(QString("Unknown tech opts: %1").arg(aValue).toUtf8().begin());
+
+ 			currOpts[(*option_it).first] = false;
+ 			CXTechDlg::getInstance()->setOptions((*option_it).first, 0);
+ 			mTechnology->setText(mTechnology->text().remove(QRegExp((*option_it).second)).trimmed());
+ //       int suppMask = listOfSupps[aValue];
+ //       for(int i=0; i<mbStateSup.size(); i++){
+ //         bool visi = (1<<i) & suppMask;
+ //         mbStateSup[i]->setVisible(visi);
+ //         mSVRZ[i]     ->setVisible(visi);
+ //         mbZUp[i]  	 ->setVisible(visi);
+ //         mbZDown[i]   ->setVisibleconst(visi);
+ //       }
+ //
+ //       emit eventTechnologyChanged(currTech->first);
+      }catch(std::exception& e){
+        LOG_E(ERROR);
+      }
 
   }while(0);
 }
