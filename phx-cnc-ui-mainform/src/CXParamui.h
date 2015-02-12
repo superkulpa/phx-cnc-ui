@@ -24,6 +24,7 @@ public:
   void clearLayout(QLayout* aLayout);
   void onKeyChange();
   int updateData();
+  void SendToPlasmaSource();
   void save();
   void onButtonClicked();
   void onCommandReceive(const QString&, const QString&, const QString&);
