@@ -25,6 +25,7 @@ HEADERS += CXBaseClient.h \
 SOURCES += CXBaseClient.cpp \
           getFromDB.cpp \
           parseG59.cpp \
+          combinePlasmaSourceCommand.cpp \
           transferParams.cpp \
            utils/CXParamData.cpp \
            utils/iniFile.cpp main.cpp

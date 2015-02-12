@@ -25,6 +25,8 @@ int parseG59V600(QTextStream& out, const QString& fileName, const QString& type,
 int transferToParams(QTextStream& out, const QString& fileName, const QString& type);
 //
 int checkG59(QTextStream& _out, const QString& _fileName, const QString& _type, const QString& _parseArg);
+//
+int combinePlasmaSourceCommand(QTextStream& _out, const QString& _fileName, const QString& type);
 
 int
 main(int argc, char *argv[])
@@ -57,14 +59,20 @@ main(int argc, char *argv[])
     {
       out << " type:" << (type = argv[i]);
     }else
+    if (QString(argv[i]) == "-r")
+    {
+      out << " reload plasma source";
+      cmd += "load";
+      cmd += ' ';//last args are cmds
+    }else
     if (QString(argv[i]) == "-c" && ++i < argc)
     {
       parse_arg = QString(argv[i]).remove(QRegExp("[\t\n\r\'\" ]+"));
       out << " parsearg:" << parse_arg;
     }else{
-    cmd += argv[i];
-    cmd += ' ';//last args are cmds
-    out << " " << argv[i];;
+      cmd += argv[i];
+      cmd += ' ';//last args are cmds
+      out << " " << argv[i];
     }
     i++;
   }
@@ -94,6 +102,9 @@ main(int argc, char *argv[])
     }else
     if(cmd.left(pos) == "reload"){
       res = getFromDB(out, fileName, type);
+    }else
+    if(cmd.left(pos) == "load"){
+      res = combinePlasmaSourceCommand(out, fileName, type);
     }else
     if(cmd.left(pos) == "transfer"){
       res = transferToParams(out, fileName, type);
