@@ -352,6 +352,18 @@ CXParamUi::updateData()
   return res;
 }
 
+void CXParamUi::SendToPlasmaSource()
+{
+  CIniFile techIni = CIniFile(INI_PATH, 0);
+  techIni.ReadIniFile();
+  techIni.CaseSensitive();
+  string name = mType.toStdString() + "/Command";
+  QString command = QString::fromStdString(techIni.GetValue(name, "cmd", "noCmd"));
+  if(command != "noCmd")
+    mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_DIRECT_CMD, command);
+  techIni.Erase();
+}
+
 void
 CXParamUi::save()
 {
@@ -366,11 +378,15 @@ CXParamUi::save()
   CXParamData::close(true);
   //сохраняем по файлам
   int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh"
-      , QStringList() << "-f" << INI_PATH << "-t" << mType << "transfer");
+      , QStringList() << "-f" << INI_PATH << "-t" << mType << "transfer"<< "-r");
   if (res == 0)
   {//Закачать на УЧПУ
+    //обновляем значения на источнике
+    SendToPlasmaSource();
+
     loadFiles(true, QStringList() << "params.ini" << "params" + mType +".ini" << "techparams.ini"
         , SLOT(onReiniCompleted(bool)));
+
     //close();
   }
   else
