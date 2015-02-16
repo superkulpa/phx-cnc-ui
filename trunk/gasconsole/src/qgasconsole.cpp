@@ -94,8 +94,6 @@ QString GetGasName(int _gas){
   return "NoName";
 }
 
-
-
 QGasConsole::QGasConsole(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::QGasConsole), startPreFlow(false), startCutFlow(false)
@@ -288,8 +286,10 @@ void QGasConsole::onClear(){
 
 void QGasConsole::onUpdate()
 {
-  SendCommand(HPR_CMD_HELLO);
+  //SendCommand(HPR_CMD_HELLO);
   //SendCommand(HPR_CMD_GET_STATE);
+  SendCommand(HPR_CMD_GET_PS_INFO);
+  SendCommand(HPR_CMD_GET_CONTROL_DATA);
 }
 
 void QGasConsole::onTestPreFlow(){
