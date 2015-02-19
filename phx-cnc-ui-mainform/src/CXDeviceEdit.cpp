@@ -24,9 +24,13 @@ CXDeviceEdit::CXDeviceEdit(QWidget* parent) :
   acceptButton->setDefault(true);
   layout->addWidget(acceptButton);
 
+  CXTouchButton* cancelButton = new CXTouchButton(trUtf8("Отменить"), this);
+  cancelButton->setDefault(true);
+  layout->addWidget(cancelButton);
   mValidator = new QRegExpValidator(QRegExp("[^=,]*"), this);
 
   connect(acceptButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 CXDeviceEdit::~CXDeviceEdit()
@@ -107,3 +111,5 @@ CXDeviceEdit::accept()
 
   QDialog::accept();
 }
+
+
