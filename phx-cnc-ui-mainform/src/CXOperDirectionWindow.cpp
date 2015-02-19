@@ -459,7 +459,7 @@ CXOperDirectionWindow::StartCP()
   mForwardButton->hide();
   mBackwardButton->hide();
   mSearchButton->hide();
-  mOperDirectionView->hide();
+  //mOperDirectionView->hide();
 
   mStopButton->show();
   //  mCurrentFrameLabel->show();
