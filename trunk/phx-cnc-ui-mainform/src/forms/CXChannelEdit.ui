@@ -20,7 +20,16 @@
       <string>Секции</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>7</number>
+      </property>
+      <property name="topMargin">
+       <number>7</number>
+      </property>
+      <property name="rightMargin">
+       <number>7</number>
+      </property>
+      <property name="bottomMargin">
        <number>7</number>
       </property>
       <item>
@@ -39,7 +48,16 @@
       <string>Имена</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>7</number>
+      </property>
+      <property name="topMargin">
+       <number>7</number>
+      </property>
+      <property name="rightMargin">
+       <number>7</number>
+      </property>
+      <property name="bottomMargin">
        <number>7</number>
       </property>
       <item>
@@ -58,7 +76,16 @@
       <string/>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>7</number>
+      </property>
+      <property name="topMargin">
+       <number>7</number>
+      </property>
+      <property name="rightMargin">
+       <number>7</number>
+      </property>
+      <property name="bottomMargin">
        <number>7</number>
       </property>
       <item>
@@ -110,6 +137,19 @@
      </property>
     </widget>
    </item>
+   <item row="2" column="2">
+    <widget class="CXTouchButton" name="mCancelButton">
+     <property name="text">
+      <string>Отменить</string>
+     </property>
+     <property name="autoDefault">
+      <bool>true</bool>
+     </property>
+     <property name="default">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
@@ -131,6 +171,22 @@
     <hint type="sourcelabel">
      <x>687</x>
      <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mCancelButton</sender>
+   <signal>clicked()</signal>
+   <receiver>CXChannelEdit</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>693</x>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>409</x>
