@@ -14,8 +14,8 @@
 #include "CXUdpManager.h"
 #include "CXWindowsManager.h"
 
-#define INI_PATH "tmp/techparams.ini"
-#define XML_PATH "settings.xml"
+#define TECH_PARAMS_PATH "tmp/techparams.ini"
+#define SETTINGS_PATH "settings.xml"
 
 CXParamUi::CXParamUi() :
     AXBaseWindow()
@@ -25,9 +25,9 @@ CXParamUi::CXParamUi() :
   ui.setupUi(this);
   //ui.mValuesLayout->setObjectName(QString::fromUtf8("mValuesLayout"));
 
-  if (!QFile::exists(INI_PATH))
+  if (!QFile::exists(TECH_PARAMS_PATH))
   {
-    QFile iniFile(INI_PATH);
+    QFile iniFile(TECH_PARAMS_PATH);
     iniFile.open(QIODevice::WriteOnly);
     iniFile.close();
   }
@@ -43,6 +43,8 @@ CXParamUi::CXParamUi() :
 
   connect(ui.mRestoreButton, SIGNAL(clicked()), this, SLOT(updateData()));
   connect(ui.mAcceptButton, SIGNAL(clicked()), this, SLOT(save()));
+  connect(ui.mLaunchGC, SIGNAL(clicked()), this, SLOT(launchGC()));
+
 
   connect(ui.mButton0, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(ui.mButton1, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
@@ -75,9 +77,9 @@ CXParamUi::readKeys()
   mKeyList.clear();
   clearLayout(ui.mKeysLayout);
 
-  CXParamData::open(INI_PATH);
+  CXParamData::open(TECH_PARAMS_PATH);
   QMap<QString, QString> keys = CXParamData::getKeys(mType);
-  QMap<QString, QString> fixedKeys = CXParamData::getFixedKeys(XML_PATH, mType);
+  QMap<QString, QString> fixedKeys = CXParamData::getFixedKeys(SETTINGS_PATH, mType);
 
   bool isUpdateNeed = false;
   bool isBreak = false;
@@ -207,7 +209,7 @@ CXParamUi::readValues()
 
   ui.mStackWidget->setCurrentIndex(0);
 
-  QList<SXDataXml> captions = CXParamData::getCaptions(XML_PATH, mType);
+  QList<SXDataXml> captions = CXParamData::getCaptions(SETTINGS_PATH, mType);
 
   QLabel* labelValue = NULL;
   QDoubleSpinBox* editValue = NULL;
@@ -254,7 +256,7 @@ CXParamUi::readValues()
 
   QGroupBox* imageBox = NULL;
   QVBoxLayout* imageLayout = NULL;
-  QList<QString> imagesGroup = CXParamData::getImages(XML_PATH, mType);
+  QList<QString> imagesGroup = CXParamData::getImages(SETTINGS_PATH, mType);
   QList<QLabel*> images;
   QSize imgSize;
 
@@ -335,7 +337,7 @@ CXParamUi::onKeyChange()
 
   if (!keys.isEmpty())
   {
-    CXParamData::open(INI_PATH);
+    CXParamData::open(TECH_PARAMS_PATH);
     CXParamData::setValues(mType + "/Keys", keys);
     CXParamData::close();
   }
@@ -347,21 +349,28 @@ int
 CXParamUi::updateData()
 {
   int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh"
-      , QStringList() << "-f" << INI_PATH << "-t" << mType << " reload");
+      , QStringList() << "-f" << TECH_PARAMS_PATH << "-t" << mType << " reload");
   QTimer::singleShot(1, this, SLOT(readKeys()));
   return res;
 }
 
-void CXParamUi::SendToPlasmaSource()
+static QString SendToPlasmaSource(const QString& mType)
 {
-  CIniFile techIni = CIniFile(INI_PATH, 0);
+  CIniFile techIni = CIniFile(TECH_PARAMS_PATH, 0);
   techIni.ReadIniFile();
-  techIni.CaseSensitive();
   string name = mType.toStdString() + "/Command";
-  QString command = QString::fromStdString(techIni.GetValue(name, "cmd", "noCmd"));
-  if(command != "noCmd")
-    mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_DIRECT_CMD, command);
-  techIni.Erase();
+  QString command = QString::fromStdString(techIni.GetValue(name, "cmd", ""));
+//
+//  if(command != "noCmd"){
+//    mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_DIRECT_CMD, command);
+//  }
+  return mType+","+command;
+}
+
+void CXParamUi::launchGC(){
+	//выполнить
+	int res = QProcess::startDetached(
+			QApplication::applicationDirPath () + "/gc.sh");
 }
 
 void
@@ -373,26 +382,12 @@ CXParamUi::save()
   {  values << QPair<QString, QString>(editor->property("valueName").toString(), editor->text());
   }
 
-  CXParamData::open(INI_PATH);
+  CXParamData::open(TECH_PARAMS_PATH);
   CXParamData::setValues(mType + "/Common", values);
   CXParamData::close(true);
-  //сохраняем по файлам
-  int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh"
-      , QStringList() << "-f" << INI_PATH << "-t" << mType << "transfer"<< "-r");
-  if (res == 0)
-  {//Закачать на УЧПУ
-    //обновляем значения на источнике
-    SendToPlasmaSource();
-
-    loadFiles(true, QStringList() << "params.ini" << "params" + mType +".ini" << "techparams.ini"
-        , SLOT(onReiniCompleted(bool)));
-
-    //close();
-  }
-  else
-  { //ошибка
+  QString str = "-f ";str +=TECH_PARAMS_PATH;str +=" -t ";str += mType;str +=" transfer makecmd";
+  if(0 != executeDB(str))
     QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Не могу сохранить файлы"));
-  }
 }
 
 void
@@ -440,13 +435,12 @@ CXParamUi::loadFiles(bool aIsUpload, const QStringList& files, const char *membe
 //  QSize size = QApplication::desktop()->availableGeometry().size();
 //  mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
 
-  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.0.125");
+  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.233.125");
   QString pswrd = CXSettingsXML::getValue("settings.xml", "ftp", "ftp");
 
   mFtp = new CXFtp(this);
   mFtp->setConnectData(host, 21, "ftp", pswrd);
   mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
-
 //  connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
 //  connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
 //  connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
@@ -461,6 +455,27 @@ CXParamUi::loadFiles(bool aIsUpload, const QStringList& files, const char *membe
 //  mProgressBar->show();
 }
 
+int
+CXParamUi::executeDB (const QString& _values)
+{
+	//выполнить
+	int res = QProcess::execute (
+			QApplication::applicationDirPath () + "/db.sh " + _values);
+	if (res == 0)
+	{
+		//и закачать на УЧПУ
+		loadFiles (true,
+							 QStringList () << "params.ini" << "params" + mType + ".ini",
+							 SLOT(onReiniCompleted(bool)));
+	}
+	else
+	{
+		mUdpManager->sendCommand (Commands::MSG_SECTION_GC,
+															Commands::MSG_CMD_GC_ERROR, "error");
+	}
+	return res;
+}
+
 //
 void CXParamUi::onCommandReceive(const QString& _sect, const QString& _cmd, const QString& _values){
 
@@ -468,15 +483,7 @@ void CXParamUi::onCommandReceive(const QString& _sect, const QString& _cmd, cons
   do{
     if (_cmd ==  (Commands::MSG_STATE_RELOAD_PARAMS))
     {//выполнить
-      int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh " + _values);
-      if(res != 0){
-//        mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_ERROR, "0");
-//        break;
-      }
-
-      //и закачать на УЧПУ
-       loadFiles(true, QStringList() << "params.ini"<< "params" + mType +".ini" << "techparams.ini"
-           ,SLOT(onReiniCompleted(bool)));
+				int res = executeDB (_values);
     }
   }while(0);
 }
@@ -484,8 +491,9 @@ void CXParamUi::onCommandReceive(const QString& _sect, const QString& _cmd, cons
 //
 void CXParamUi::onReiniCompleted(bool aIsUpload){
   closeFtp();
-  mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_RELOAD, "0");
-  mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "0");
+  //mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "0");
+  QString response = SendToPlasmaSource(mType);
+  mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_RELOAD, response);
 }
 
 

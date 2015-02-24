@@ -24,8 +24,8 @@ public:
   void clearLayout(QLayout* aLayout);
   void onKeyChange();
   int updateData();
-  void SendToPlasmaSource();
   void save();
+  void launchGC();
   void onButtonClicked();
   void onCommandReceive(const QString&, const QString&, const QString&);
   void onReiniCompleted(bool);
@@ -33,6 +33,9 @@ public:
   void onClose(bool aIsUpload);
 
   void loadFiles(bool aIsUpload, const QStringList& files, const char *member_onFtpSuccess);
+	int
+	executeDB (const QString& _values);
+
   signals:
   void iniSaved();
 

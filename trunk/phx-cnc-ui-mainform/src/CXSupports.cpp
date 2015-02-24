@@ -11,8 +11,8 @@
 #include "utils/CXParamData.h"
 #include "CXUdpManager.h"
 
-#define INI_PATH "techparams.ini"
-#define XML_PATH "settings.xml"
+#define TECH_PARAMS_PATH "techparams.ini"
+#define SETTINGS_PATH "settings.xml"
 
 //struct G30_Messages{
 //  typedef QString String;
