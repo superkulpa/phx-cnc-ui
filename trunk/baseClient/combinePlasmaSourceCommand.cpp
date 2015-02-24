@@ -31,11 +31,11 @@ public:
 
   int AddParam(QString& _cmd, const QString& _fname, const string& _s_name, const string& _v_name){
 
-    string res = cutIni.GetValue(_s_name, _v_name, "noValue");
-    if(res == "noValue"){
+    int res = cutIni.GetValueI(_s_name, _v_name, -1);
+    if(res == -1){
       out << "Cannot find parameter Power" << _fname;
       return 1;
-    }else _cmd += (QString::fromStdString(res) + " ");
+    }else _cmd += (QString().number(res) + " ");
     return 0;
   }
 
@@ -68,10 +68,10 @@ public:
     cmd += GetGasId(lGases[0]) + " ";
     cmd += GetGasId(lGases[1]) + " ";
 
-    if(AddParam(cmd, _fname, name, "Gas1CutflowPressure") != 0) return 1;
-    if(AddParam(cmd, _fname, name, "Gas1PreflowPressure") != 0) return 1;
-    if(AddParam(cmd, _fname, name, "Gas2CutflowPressure") != 0) return 1;
-    if(AddParam(cmd, _fname, name, "Gas2PreflowPressure") != 0) return 1;
+    if(AddParam(cmd, _fname, name, "Gas1CutflowRate") != 0) return 1;
+    if(AddParam(cmd, _fname, name, "Gas1PreflowRate") != 0) return 1;
+    if(AddParam(cmd, _fname, name, "Gas2CutflowRate") != 0) return 1;
+    if(AddParam(cmd, _fname, name, "Gas2PreflowRate") != 0) return 1;
     if(AddParam(cmd, _fname, name, "Mixes1") != 0) return 1;
     if(AddParam(cmd, _fname, name, "Mixes2") != 0) return 1;
 

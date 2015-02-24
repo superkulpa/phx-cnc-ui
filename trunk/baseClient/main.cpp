@@ -28,6 +28,20 @@ int checkG59(QTextStream& _out, const QString& _fileName, const QString& _type, 
 //
 int combinePlasmaSourceCommand(QTextStream& _out, const QString& _fileName, const QString& type);
 
+/*
+		 int result = driver.setAllParameters(amperage, 100,
+						plasmaGasTypeCode, shieldGasTypeCode,
+						plasmaCutflowSetpoint, plasmaPreflowSetpoint,
+						shieldCutflowSetpoint, shieldPreflowSetpoint,
+						N2MixSetpoint, gas2MixSetpoint);
+
+		String body = "095" + currentSetpoint + " " + cornerCurrentPercent
+				+ " " + plasmaGasTypeCode + " " + shieldGasTypeCode + " "
+				+ plasmaCutflowSetpoint + " " + plasmaPreflowSetpoint + " "
+				+ shieldCutflowSetpoint + " " + shieldPreflowSetpoint + " "
+				+ N2MixSetpoint + " " + gas2MixSetpoint;
+
+ * */
 int
 main(int argc, char *argv[])
 {
@@ -59,12 +73,12 @@ main(int argc, char *argv[])
     {
       out << " type:" << (type = argv[i]);
     }else
-    if (QString(argv[i]) == "-r")
-    {
-      out << " reload plasma source";
-      cmd += "load";
-      cmd += ' ';//last args are cmds
-    }else
+//    if (QString(argv[i]) == "-r")
+//    {
+//      out << " reload plasma source";
+//      cmd += "load";
+//      cmd += ' ';//last args are cmds
+//    }else
     if (QString(argv[i]) == "-c" && ++i < argc)
     {
       parse_arg = QString(argv[i]).remove(QRegExp("[\t\n\r\'\" ]+"));
@@ -103,7 +117,7 @@ main(int argc, char *argv[])
     if(cmd.left(pos) == "reload"){
       res = getFromDB(out, fileName, type);
     }else
-    if(cmd.left(pos) == "load"){
+    if(cmd.left(pos) == "makecmd"){
       res = combinePlasmaSourceCommand(out, fileName, type);
     }else
     if(cmd.left(pos) == "transfer"){
