@@ -1,3 +1,16 @@
+set auto-load python-scripts off
+
+python
+
+import sys
+sys.path.insert(0, '../')
+
+#from qt4 import register_qt4_printers
+#register_qt4_printers (None)
+
+from libstdcxx import register_libstdcxx_printers
+register_libstdcxx_printers (None)
+end
 
 define pqstr
     printf "(QString)0x%x (length=%i): \"",&$arg0,$arg0.d->size
@@ -13,16 +26,4 @@ define pqstr
     printf "\"\n"
 end
 
-define pstr
-    printf "(string)0x%x (length=%i): \"",&$arg0,$arg0.d->size
-    set $i=0
-    while $i < $arg0.d->size
-        set $c=$arg0.d->data[$i++]
-        if $c < 32 || $c > 127
-                printf "\\u0x%04x", $c
-        else
-                printf "%c", (char)$c
-        end
-    end
-    printf "\"\n"
-end
+
