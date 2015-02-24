@@ -19,7 +19,7 @@ public:
 
 protected:
   QHostAddress host;
-  int port;
+  int port_out;
 public:
   //! Конструктор.
   CXUdpManager(QObject* parent);
