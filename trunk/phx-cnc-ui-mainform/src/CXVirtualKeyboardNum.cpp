@@ -45,7 +45,7 @@ void
 CXVirtualKeyboardNum::onFocusChange(QWidget* old, QWidget* now)
 {
   Q_UNUSED(old)
-    if(index != 2) return; //TODO: qForm.6 вирт клавиатура, костыль конечно
+    if(index != 2) return;
 
   if (now != 0 && !isAncestorOf(now))
   {

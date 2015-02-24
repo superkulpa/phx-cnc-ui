@@ -135,7 +135,6 @@ CXAdditionalOperDirectionWindow::CXAdditionalOperDirectionWindow() {
 }
 
 CXAdditionalOperDirectionWindow::~CXAdditionalOperDirectionWindow() {
-  // TODO Auto-generated destructor stub
 }
 
 void CXAdditionalOperDirectionWindow::onStartKeyboard(){

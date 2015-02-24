@@ -27,15 +27,10 @@
 #include "CXSupports.h"
 
 /* *
- * TODO: qForm: gasConsole: провести команды регуляции газа, проверить работу с techparams и
- * загрузки файла
- * TODO: qForm: ввести запрет загрузки УП пока не стоп
  *
- * TODO: qForm: повторный сброс аварий очищает поле аварий
+ * TODO: qForm.2: доступ разным пользователям к различным утилитам УЧПУ
  *
- * TODO: qForm: доступ разным пользователям к различным утилитам УЧПУ
- *
- * TODO: qForm: создание и связка оконб как то надо причесать
+ * TODO: qForm.2: создание и связка окон в main как то надо причесать
  * */
 
 #include "terminalCtrl.h"
@@ -435,7 +430,6 @@ main(int argc, char *argv[])
 
       QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked())
       		,windows.value("CXOperTechnology"), SLOT(OnTechConsole()));//, windows.value("CXParamUi"), SLOT(show()));
-//TODO: qForm: продумать вывод Раскроя/БД
 
 //      QObject::connect(curGroupPanel->getButton(5), SIGNAL(clicked())
 //         , windows.value("CXOperBevelHead"), SLOT(raise()));

@@ -132,7 +132,6 @@ CXZParamUi::onCommandReceive(const QString& aSection, const QString& aCommand, c
   if(! isVisible()) return;
   if (aSection ==  (Commands::MSG_SECTION_IO))
   {
-    //TODO сделать нормально
     if(aCommand.indexOf("Z1") != -1){
       //1 суппорт
       QStringList list = aValue.split(",");
