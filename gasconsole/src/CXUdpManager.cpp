@@ -12,11 +12,11 @@ CXUdpManager::CXUdpManager(QObject* parent) :
 
   connect(this, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
 
-  host = QHostAddress(CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.0.125"));
-  port = CXSettingsXML::getValue("settings.xml", "kernel_port2", "50002").toInt();
+  host = QHostAddress(CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.233.125"));
+  port_out = CXSettingsXML::getValue("settings.xml", "kernel_port", "50001").toInt();
+  port_in  = CXSettingsXML::getValue("settings.xml", "kernel_port2", "50002").toInt();
 
-  bind(QHostAddress::Any, port);
-
+  bind(QHostAddress::Any, port_in);
 }
 
 CXUdpManager::~CXUdpManager()
@@ -43,7 +43,7 @@ CXUdpManager::sendCommand(const QString& aSection, const QString& aCommand, cons
                    .arg(aCommand)
                    .arg(aValue);
   VLOG(D3) << "udp:out:" << qPrintable(command.left(command.length()-2)) << LOGN;
-  writeDatagram(QByteArray().append(command), host, port);
+  writeDatagram(QByteArray().append(command), host, port_out);
 }
 
 //void

@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <QTextCodec>
 
-#include "../../CNC/IMessageConstants.h"
+#include "../../phx-cnc-ui-mainform/include/IMessageConstants.h"
 //typedef std::string String;
 
 /*!
@@ -19,7 +19,8 @@ public:
 
 protected:
   QHostAddress host;
-  int port;
+  int port_out;
+  int port_in;
   public:
   //! Конструктор.
   CXUdpManager(QObject* parent);
