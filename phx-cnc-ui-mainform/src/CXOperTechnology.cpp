@@ -148,7 +148,7 @@ CXOperTechnology::CXOperTechnology() :
   }while(++i < iniFile.NumValues(key));
 
   do try{
-//TODO: qForm: опции технологий, труборез. Брать из config.ini
+//TODO: qForm.2: опции технологий. Брать из config.ini
 //		QString opts = QString::fromStdString(iniFile.GetValue("Form/Technologies", "opts"));
 //		if(opts.size() == 0)
 //			break;
@@ -308,7 +308,7 @@ CXOperTechnology::onStart()
 
 void
 CXOperTechnology::onStop()
-{//TODO: qForm Вопрос маски всем, синхронизировать с разведением суппортов
+{//TODO: qForm.? Вопрос маски всем, синхронизировать с разведением суппортов
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CUT2_OFF, "0");
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CUT2_OFF, "1");
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_CUT2_OFF, "2");

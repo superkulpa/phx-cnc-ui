@@ -90,7 +90,7 @@ CXOperBevelHead::onCommandReceive(const QString& aSection, const QString& aComma
 void
 CXOperBevelHead::onNextWindow()
 {
-  lower();
+//  lower();
   emit nextWindow();
 }
 

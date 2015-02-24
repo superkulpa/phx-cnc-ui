@@ -197,7 +197,7 @@ CXFilesList::onItemActivate(const QModelIndex& aIndex)
 void
 CXFilesList::onReturn()
 {
-  onItemActivate(mRootIndex);//TODO qForm: назад сделать нормально
+  onItemActivate(mRootIndex);//TODO qForm.4: назад сделать через историю
 }
 
 

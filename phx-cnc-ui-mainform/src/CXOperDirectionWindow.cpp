@@ -447,7 +447,7 @@ CXOperDirectionWindow::onModeChange()
 void
 CXOperDirectionWindow::onNextWindow()
 {
-	lower();
+//	lower();
 	emit nextWindow();
 }
 

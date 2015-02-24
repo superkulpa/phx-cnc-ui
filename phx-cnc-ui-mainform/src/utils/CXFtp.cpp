@@ -242,7 +242,7 @@ CXFtp::onListInfo(const QUrlInfo& aInfo)
 {//Фильтры понимают только так
   //     *.ini
   //     techparams.ini
-  //     TODO: qForm - допилить фильтры через regexp
+  //     TODO: qForm.6- допилить фильтры копируемых файлов через regexp
   if (aInfo.isFile() && ! mFileFilters.isEmpty()){
     bool bingo = false;
     if(mFileFilters.at(0) == "*.ini"&& (QFileInfo(aInfo.name()).completeSuffix() == "ini") )
