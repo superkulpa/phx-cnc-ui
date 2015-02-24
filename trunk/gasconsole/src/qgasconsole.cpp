@@ -133,6 +133,7 @@ void QGasConsole::SendCommand(const QString& aCommand)
 }
 
 QStringList ParseHPRCmd(QString command){
+	command = command.mid(3, command.size() - (2+3));
   QStringList commands;
   QString curCommand;
   int pos = command.indexOf(" ");
@@ -153,11 +154,12 @@ QStringList ParseHPRCmd(QString command){
 
 void QGasConsole::ParseResponseFromHPR(const QString& aValue){
   QString curCommand = aValue.mid(0,3);//выбираем команду
-  QStringList curValues = ParseHPRCmd(aValue.right(aValue.size() - 3));//значение
+  QStringList curValues = ParseHPRCmd(aValue);//значение
   //qDebug(curCommand.toStdString().c_str());
   if(curCommand == HPR_CMD_HELLO){
     //qDebug("Hello");
     setWindowTitle(curValues.value(0));
+    if(curValues.value(0).contains("timeout") ) return ;
     SendCommand(HPR_CMD_VERSION);
   }else if(curCommand == HPR_CMD_VERSION){
     //ревизия
@@ -286,10 +288,10 @@ void QGasConsole::onClear(){
 
 void QGasConsole::onUpdate()
 {
-  //SendCommand(HPR_CMD_HELLO);
-  //SendCommand(HPR_CMD_GET_STATE);
-  SendCommand(HPR_CMD_GET_PS_INFO);
-  SendCommand(HPR_CMD_GET_CONTROL_DATA);
+  SendCommand(HPR_CMD_HELLO);
+//  SendCommand(HPR_CMD_GET_STATE);
+//  SendCommand(HPR_CMD_GET_PS_INFO);
+//  SendCommand(HPR_CMD_GET_CONTROL_DATA);
 }
 
 void QGasConsole::onTestPreFlow(){

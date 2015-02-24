@@ -19,7 +19,7 @@ CXSettingsXML::getValue(const QString& aFileName, const QString& aName, const  Q
 
     xmlFile.close();
   }
-  if(result == 0) result = def;
+  if(result.length() == 0) result = def;
   return result;
 }
 
