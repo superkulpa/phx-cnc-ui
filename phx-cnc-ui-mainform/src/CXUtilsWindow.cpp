@@ -44,7 +44,7 @@ CXUtilsWindow::CXUtilsWindow() :
 
   registerManager();
 
-  load("./utils.xml");
+  load("utils.xml");
 }
 
 CXUtilsWindow::~CXUtilsWindow()
@@ -99,7 +99,8 @@ CXUtilsWindow::onExecute()
         SLOT(onProcessFinish(int, QProcess::ExitStatus)));
     connect(mProcess, SIGNAL(error(QProcess::ProcessError)), this,
         SLOT(onProcessError(QProcess::ProcessError)));
-    mBox = new QMessageBox(QMessageBox::Information,trUtf8("Идет отработка"),trUtf8("Прервать"),QMessageBox::Ok,this);
+    mBox = new QMessageBox(QMessageBox::Information,trUtf8("Идет отработка"),trUtf8("\tПрервать\t"),QMessageBox::Ok,this);
+    mBox->setMinimumWidth(600);
     mBox->show();
     mProcess->start(command);
   }
@@ -112,7 +113,7 @@ CXUtilsWindow::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatus)
 
   if (aExitStatus == QProcess::NormalExit)
   {
-    mBox->setText(trUtf8("Завершено"));
+    mBox->setText(trUtf8("\tЗавершено\t"));
   }
   mProcess->deleteLater();
   mProcess = NULL;

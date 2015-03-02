@@ -16,7 +16,13 @@ public:
   start(const QString& aProgram);
 
   static int
-  execute(const QString& aProgram);
+  startAsynchro(const QString& aProgram);
+
+  static int
+  execute(const QString &program, const QStringList &arguments);
+
+//  static int
+//  execute(const QString& aProgram);
 };
 
 #endif // CXPROCESS_H

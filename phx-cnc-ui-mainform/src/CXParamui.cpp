@@ -41,7 +41,7 @@ CXParamUi::CXParamUi() :
   readKeys();
   //readValues();
 
-  connect(ui.mRestoreButton, SIGNAL(clicked()), this, SLOT(updateData()));
+  connect(ui.mRestoreButton, SIGNAL(clicked()), this, SLOT(repairDB()));
   connect(ui.mAcceptButton, SIGNAL(clicked()), this, SLOT(save()));
   connect(ui.mLaunchGC, SIGNAL(clicked()), this, SLOT(launchGC()));
 
@@ -345,10 +345,16 @@ CXParamUi::onKeyChange()
   updateData();
 }
 
+void CXParamUi::repairDB(){
+  CXProcess::execute("db.sh"
+      , QStringList() << "-f" << TECH_PARAMS_PATH << "-t" << mType << " repair");
+  QTimer::singleShot(1, this, SLOT(updateData()));
+}
+
 int
 CXParamUi::updateData()
 {
-  int res = QProcess::execute(QApplication::applicationDirPath() + "/db.sh"
+  int res = CXProcess::execute("db.sh"
       , QStringList() << "-f" << TECH_PARAMS_PATH << "-t" << mType << " reload");
   QTimer::singleShot(1, this, SLOT(readKeys()));
   return res;
@@ -368,9 +374,8 @@ static QString SendToPlasmaSource(const QString& mType)
 }
 
 void CXParamUi::launchGC(){
-	//выполнить
-	int res = QProcess::startDetached(
-			QApplication::applicationDirPath () + "/gc.sh");
+  //выполнить
+  CXProcess::startAsynchro("gc.sh");
 }
 
 void
@@ -440,7 +445,7 @@ CXParamUi::loadFiles(bool aIsUpload, const QStringList& files, const char *membe
 
   mFtp = new CXFtp(this);
   mFtp->setConnectData(host, 21, "ftp", pswrd);
-  mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
+  mFtp->setLoadFilesData(/*QApplication::applicationDirPath() + */"jini", CXFtp::remoteCatalog);
 //  connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
 //  connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
 //  connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
@@ -459,14 +464,13 @@ int
 CXParamUi::executeDB (const QString& _values)
 {
 	//выполнить
-	int res = QProcess::execute (
-			QApplication::applicationDirPath () + "/db.sh " + _values);
+	int res =  CXProcess::execute("db.sh", QStringList() << _values);
 	if (res == 0)
 	{
 		//и закачать на УЧПУ
 		loadFiles (true,
-							 QStringList () << "params.ini" << "params" + mType + ".ini",
-							 SLOT(onReiniCompleted(bool)));
+				 QStringList () << "params.ini" << "params" + mType + ".ini",
+				 SLOT(onReiniCompleted(bool)));
 	}
 	else
 	{

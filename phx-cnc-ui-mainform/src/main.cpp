@@ -424,9 +424,9 @@ main(int argc, char *argv[])
         QObject::connect(curGroupPanel->getButton(2), SIGNAL(clicked()), curGroupPanel,
             SLOT(onDeviceEditShow()));
       //}
-
-      QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()),
-          windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
+//move to params
+//      QObject::connect(curGroupPanel->getButton(3), SIGNAL(clicked()),
+//          windows.value("CXOperDirectionWindow"), SLOT(onUtils()));
 
       QObject::connect(curGroupPanel->getButton(4), SIGNAL(clicked())
       		,windows.value("CXOperTechnology"), SLOT(OnTechConsole()));//, windows.value("CXParamUi"), SLOT(show()));

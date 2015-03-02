@@ -152,7 +152,7 @@ CXParametersWindow::loadParameters()
 //
   loadGroups();
 
-  QDir configsDir(QApplication::applicationDirPath() + "/jini");
+  QDir configsDir(/*QApplication::applicationDirPath() + */"jini");
   QStringList fileList = configsDir.entryList(QStringList() << "*.ini");
 
   QString curFile;
@@ -392,7 +392,7 @@ CXParametersWindow::loadFiles(bool aIsUpload, const QStringList& files)
 
   mFtp = new CXFtp(this);
   mFtp->setConnectData(host, 21, "ftp", pswrd);
-  mFtp->setLoadFilesData(QApplication::applicationDirPath() + "/jini", CXFtp::remoteCatalog);
+  mFtp->setLoadFilesData(/*QApplication::applicationDirPath() +*/ "jini", CXFtp::remoteCatalog);
 
   connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
   connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));

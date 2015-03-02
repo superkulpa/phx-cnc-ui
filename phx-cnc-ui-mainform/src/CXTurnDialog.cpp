@@ -167,7 +167,7 @@ CXTurnDialog::onWriteScale()
 }
 
 QString CXTurnDialog::getAttribute(const QString& aAttributeName){
-  QFile configFile("./jini/compiler0.cfg");
+  QFile configFile(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
   configFile.open(QIODevice::ReadOnly);
 
   QDomDocument doc;
@@ -199,7 +199,7 @@ QString CXTurnDialog::getAttribute(const QString& aAttributeName){
 
 void CXTurnDialog::saveAttribute(const QString& aAttributeName, const QString& aAttributeValue)
 {
-  QFile configFile("./jini/compiler0.cfg");
+  QFile configFile("jini/compiler0.cfg");
   configFile.open(QIODevice::ReadOnly);
 
   QDomDocument doc;
