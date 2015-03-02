@@ -133,7 +133,7 @@ void QGasConsole::SendCommand(const QString& aCommand)
 }
 
 QStringList ParseHPRCmd(QString command){
-	command = command.mid(3, command.size() - (2+3));
+  command = command.mid(3, command.size()/* - (2+3)*/);//CRC is truncated by hpr-driver
   QStringList commands;
   QString curCommand;
   int pos = command.indexOf(" ");
