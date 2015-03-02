@@ -8,6 +8,7 @@
 #include <QSqlQuery>
 #include <qdebug.h>
 #include <math.h>
+#include <QApplication>
 
 #include "CXBaseClient.h"
 #include "utils/CXParamData.h"
@@ -86,7 +87,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
   CXParamData::open(fileName);
   CXBaseClient client;
 //  KeyValueMap dataBase = CXParamData::getValues("Database");
-  QString dbFileName = "db/" + type + ".db";// dataBase.value("name");
+  QString dbFileName = QApplication::applicationDirPath() + "/db/" + type + ".db";// dataBase.value("name");
 
 //  QString resString = client.connectToDataBase(dataBase.value("hosts"), dbFileName,
 //      dataBase.value("port").toInt(), dataBase.value("user"), dataBase.value("password"));
@@ -271,9 +272,9 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
     QString curPart;
     QFileInfo fileInfo(dbFileName);
 
-    QDir imagesDir(QString("db/%1").arg(type));
+    QDir imagesDir(QString(QApplication::applicationDirPath() +"db/%1").arg(type));
     if (!imagesDir.exists())
-      imagesDir.mkpath(QString("db/%1").arg(type));
+      imagesDir.mkpath(QString(QApplication::applicationDirPath() +"db/%1").arg(type));
 
     while (!isBreak)
     {
@@ -286,7 +287,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
         values = client.getImageData("tbl_torch_parts_types as a, tbl_torch_parts as b"
             , "a.name, a.description, b.number, b.image"
             , "b.type = a.id AND b.id=" + imageParts.value(curPart)
-            , QString("db/%1/Image%2").arg(type).arg(imageIndex));
+            , QString(QApplication::applicationDirPath() +"db/%1/Image%2").arg(type).arg(imageIndex));
 
         //          qDebug() << values;
         PairsList imageValues;

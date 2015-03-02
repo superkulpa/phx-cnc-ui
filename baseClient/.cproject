@@ -80,6 +80,7 @@
 		<buildTargets>
 			<target name="_install" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
+				<buildArguments/>
 				<buildTarget>_install</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
@@ -95,6 +96,7 @@
 			</target>
 			<target name="clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
+				<buildArguments/>
 				<buildTarget>clean</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
@@ -109,7 +111,7 @@
 				<runAllBuilders>false</runAllBuilders>
 			</target>
 			<target name="qmake" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>qmake</buildCommand>
+				<buildCommand>qmake-4.8</buildCommand>
 				<buildArguments> -r -spec  linux-g++   ../baseClient.pro</buildArguments>
 				<buildTarget/>
 				<stopOnError>true</stopOnError>
