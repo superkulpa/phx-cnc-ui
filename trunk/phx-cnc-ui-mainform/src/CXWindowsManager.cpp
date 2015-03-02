@@ -372,7 +372,7 @@ void
 CXWindowsManager::changeVisibleVirtualKeyboard()
 {
   keyProcess = new CXProcess();
-  keyProcess->start("./startKeyboard.sh");
+  keyProcess->start("startKeyboard.sh");
   connect(keyProcess, SIGNAL(finished(int, QProcess::ExitStatus))
       , this, SLOT(onKeyboardFinished(int, QProcess::ExitStatus)));
   return ;

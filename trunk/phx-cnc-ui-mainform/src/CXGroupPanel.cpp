@@ -88,19 +88,19 @@ CXGroupPanel::setGroup()
 void
 CXGroupPanel::directoryCommand()
 {
-  CXProcess::execute("bash ./fm.sh");
+  CXProcess::startAsynchro("fm.sh");
 }
 
 void
 CXGroupPanel::macroCommand()
 {
-  CXProcess::execute("bash ./macro.sh");
+  CXProcess::startAsynchro("macro.sh");
 }
 
 void
 CXGroupPanel::macroCommand2()
 {
-  CXProcess::execute("bash ./macro2.sh");
+  CXProcess::startAsynchro("macro2.sh");
 }
 
 void

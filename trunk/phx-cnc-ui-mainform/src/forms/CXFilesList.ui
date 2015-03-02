@@ -32,7 +32,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Файл данных</string>
+      <string>Файлы УП</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>

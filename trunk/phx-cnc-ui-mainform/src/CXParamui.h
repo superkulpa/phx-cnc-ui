@@ -24,6 +24,7 @@ public:
   void clearLayout(QLayout* aLayout);
   void onKeyChange();
   int updateData();
+  void repairDB();
   void save();
   void launchGC();
   void onButtonClicked();

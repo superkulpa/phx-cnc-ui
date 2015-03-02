@@ -10,6 +10,8 @@
 #include <QLabel>
 #include "QtGui/qframe.h"
 #include "QtGui/qlineedit.h"
+#include <QtGui/QApplication>
+
 #include "utils/CXProcess.h"
 #include "CXTouchButton.h"
 #include "CXUdpManager.h"
@@ -139,7 +141,7 @@ CXAdditionalOperDirectionWindow::~CXAdditionalOperDirectionWindow() {
 
 void CXAdditionalOperDirectionWindow::onStartKeyboard(){
   keyProcess = new CXProcess();
-  keyProcess->start("./startKeyboard.sh");
+  keyProcess->start("startKeyboard.sh");
   connect(keyProcess, SIGNAL(finished(int, QProcess::ExitStatus))
       , this, SLOT(onKeyboardFinished(int, QProcess::ExitStatus)));
 };

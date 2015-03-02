@@ -47,7 +47,8 @@ CXFilesList::CXFilesList(bool aIsSaveDialog) :
   mModel->setFilter(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
 
   mFileView->setModel(mModel);
-  mRootPath = QApplication::applicationDirPath() + "/../cps";
+  mRootPath = "cps";//QApplication::applicationDirPath() + "/cps";
+  qDebug() << "cps dir=" << mRootPath;
   mRootIndex = mModel->setRootPath(mRootPath);
   mBackIndex = mRootIndex;
   mFileView->setRootIndex(mRootIndex);
@@ -307,13 +308,13 @@ CXFilesList::onCompileFile(int _clear)
   connect(mProcess, SIGNAL(error(QProcess::ProcessError)), this,
   SLOT(onProcessError(QProcess::ProcessError)));
 
-  CXMLReader xmlReader(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
+  CXMLReader xmlReader(/*QApplication::applicationDirPath() +*/ "jini/compiler0.cfg");
   xmlReader.SetAttribute("compiler/parameters/parameter/Common.CpName"
                             ,"value",mFileName);
   {
     QString d_value, f_value;
 
-    CIniFile configFile(QString(QApplication::applicationDirPath() + "/jini/params.ini").toStdString());
+    CIniFile configFile(QString(/*QApplication::applicationDirPath() + */"jini/params.ini").toStdString());
     configFile.ReadIniFile();
 
     d_value        = QString::fromStdString(configFile.GetValue("General/Offset", "value", "0"));
@@ -333,7 +334,7 @@ CXFilesList::onCompileFile(int _clear)
     xmlReader.SetAttribute("compiler/parameters/parameter/RSI.RotationAngle"
                           ,"value", "0");
   }
-  mProcess->start("bash ./cpc.sh " + mFileName);
+  mProcess->start("cpc.sh");
 }
 
 void
@@ -407,7 +408,6 @@ CXFilesList::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatus)
 
   if (aExitStatus == QProcess::NormalExit)
   {
-    //emit fileCreated(QApplication::applicationDirPath() + "/tmp/list.cpr.ccp", QApplication::applicationDirPath() + "/tmp/list.kerf.cpr.ccp");
     emit fileCreated(getConfigAttribute("Common.OutputCpName"),
         getConfigAttribute("Common.OutputCpNameKerf"));
 

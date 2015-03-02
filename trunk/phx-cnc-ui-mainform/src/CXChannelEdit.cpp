@@ -128,7 +128,7 @@ CXChannelEdit::onNameChange()
 {
   if (mNamesList->currentRow() >= 0)
   {
-    QString channelsPath = QApplication::applicationDirPath() + "/jini/iochannels.ini";
+    QString channelsPath = /*QApplication::applicationDirPath() + */"jini/iochannels.ini";
     CIniFile channelsFile(channelsPath.toStdString());
     channelsFile.ReadIniFile();
 

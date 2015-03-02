@@ -1,16 +1,16 @@
-set auto-load python-scripts off
+#set auto-load python-scripts off
 
-python
+#python
 
-import sys
-sys.path.insert(0, '../')
+#import sys
+#sys.path.insert(0, '../')
 
 #from qt4 import register_qt4_printers
 #register_qt4_printers (None)
 
-from libstdcxx import register_libstdcxx_printers
-register_libstdcxx_printers (None)
-end
+#from libstdcxx import register_libstdcxx_printers
+#register_libstdcxx_printers (None)
+#end
 
 define pqstr
     printf "(QString)0x%x (length=%i): \"",&$arg0,$arg0.d->size

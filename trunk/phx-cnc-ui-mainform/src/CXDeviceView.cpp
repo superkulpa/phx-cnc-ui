@@ -64,7 +64,7 @@ CXDeviceView::~CXDeviceView()
 void
 CXDeviceView::load()
 {
-  QString configPath = QApplication::applicationDirPath() + "/jini/config.ini";
+  QString configPath = /*QApplication::applicationDirPath() +*/ "jini/config.ini";
   CIniFile configFile(configPath.toStdString());
   configFile.ReadIniFile();
 
@@ -81,7 +81,7 @@ CXDeviceView::load()
   mChannelCount = mDeviceData.mid(channelStart, channelEnd - channelStart).toInt();
   mChannelList.resize(mChannelCount);
 
-  QString channelsPath = QApplication::applicationDirPath() + "/jini/iochannels.ini";
+  QString channelsPath = /*QApplication::applicationDirPath() + */"jini/iochannels.ini";
   CIniFile channelsFile(channelsPath.toStdString());
   channelsFile.ReadIniFile();
 
@@ -149,7 +149,7 @@ CXDeviceView::load()
 void
 CXDeviceView::loadDevices(int aGroupNumber, const QList<QPushButton*>& aButtonsList)
 {
-  QString path = QApplication::applicationDirPath() + "/jini/config.ini";
+  QString path = /*QApplication::applicationDirPath() +*/ "jini/config.ini";
   CIniFile configFile(path.toStdString());
   configFile.ReadIniFile();
 
@@ -315,7 +315,7 @@ CXDeviceView::editDevice()
   {
     mDeviceData = mDeviceEdit->getData();
 
-    QString channelsPath = QApplication::applicationDirPath() + "/jini/config.ini";
+    QString channelsPath = /*QApplication::applicationDirPath() +*/ "jini/config.ini";
     CIniFile channelsFile(channelsPath.toStdString());
     channelsFile.ReadIniFile();
 
@@ -355,7 +355,7 @@ CXDeviceView::editChannel()
   {
     mChannelEdit = new CXChannelEdit;
 
-    QString channelsPath = QApplication::applicationDirPath() + "/jini/iochannels.ini";
+    QString channelsPath = /*QApplication::applicationDirPath() +*/ "jini/iochannels.ini";
     CIniFile channelsFile(channelsPath.toStdString());
     channelsFile.ReadIniFile();
 
@@ -393,7 +393,7 @@ CXDeviceView::editChannel()
   {
     const SXChannelData& newChannelData = mChannelEdit->getData();
 
-    QString channelsPath = QApplication::applicationDirPath() + "/jini/iochannels.ini";
+    QString channelsPath = /*QApplication::applicationDirPath() + */"jini/iochannels.ini";
     CIniFile channelsFile(channelsPath.toStdString());
     channelsFile.ReadIniFile();
 

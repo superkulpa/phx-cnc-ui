@@ -10,8 +10,7 @@ CXIniFileList::CXIniFileList() :
   mModel->setFilter(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
 
   mIniFileView->setModel(mModel);
-  //mRootIndex = mModel->setRootPath(QApplication::applicationDirPath() + "/../cps");
-  mIniFileView->setRootIndex(mModel->setRootPath(QApplication::applicationDirPath() + "/jini"));
+  mIniFileView->setRootIndex(mModel->setRootPath(/*QApplication::applicationDirPath() +*/ "jini"));
 
   connect(mIniFileView, SIGNAL(activated(const QModelIndex&)), this, SLOT(onOpenFile()));
 

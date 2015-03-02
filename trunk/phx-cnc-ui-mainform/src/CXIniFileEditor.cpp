@@ -24,8 +24,7 @@ CXIniFileEditor::CXIniFileEditor() //:
   mModel->setFilter(QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
 
   mIniFileView->setModel(mModel);
-  //mRootIndex = mModel->setRootPath(QApplication::applicationDirPath() + "/../cps");
-  mIniFileView->setRootIndex(mModel->setRootPath(QApplication::applicationDirPath() + "/jini"));
+  mIniFileView->setRootIndex(mModel->setRootPath(/*QApplication::applicationDirPath() + */"jini"));
 
   //QIcon icon; icon.addFile(QString::fromUtf8(":/images/down.png"), QSize(), QIcon::Normal, QIcon::Off);
   btnDown->setIcon(QIcon(":/images/down.png"));

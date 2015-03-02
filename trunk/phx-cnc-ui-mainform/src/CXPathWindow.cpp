@@ -20,8 +20,6 @@ CXPathWindow::CXPathWindow() :
   groupBoxLayout->setSpacing(6);
 
   mPathView = new CXPathView(groupBox);
-  //pathView->load("C:/Users/OLEG@tor/Downloads/files/list.kerf.cpr.ccp", "C:/Users/OLEG@tor/Downloads/files/list.cpr.ccp");
-  //pathView->load(QApplication::applicationDirPath() + "/tmp/list.cpr.ccp", QApplication::applicationDirPath() + "/tmp/list.kerf.cpr.ccp");
   groupBoxLayout->addWidget(mPathView);
 
   QHBoxLayout* horLayout = new QHBoxLayout;
