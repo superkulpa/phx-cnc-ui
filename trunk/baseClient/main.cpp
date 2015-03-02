@@ -27,21 +27,9 @@ int transferToParams(QTextStream& out, const QString& fileName, const QString& t
 int checkG59(QTextStream& _out, const QString& _fileName, const QString& _type, const QString& _parseArg);
 //
 int combinePlasmaSourceCommand(QTextStream& _out, const QString& _fileName, const QString& type);
+//
+int repairDB(QTextStream& _out, const QString& _fileName, const QString& type);
 
-/*
-		 int result = driver.setAllParameters(amperage, 100,
-						plasmaGasTypeCode, shieldGasTypeCode,
-						plasmaCutflowSetpoint, plasmaPreflowSetpoint,
-						shieldCutflowSetpoint, shieldPreflowSetpoint,
-						N2MixSetpoint, gas2MixSetpoint);
-
-		String body = "095" + currentSetpoint + " " + cornerCurrentPercent
-				+ " " + plasmaGasTypeCode + " " + shieldGasTypeCode + " "
-				+ plasmaCutflowSetpoint + " " + plasmaPreflowSetpoint + " "
-				+ shieldCutflowSetpoint + " " + shieldPreflowSetpoint + " "
-				+ N2MixSetpoint + " " + gas2MixSetpoint;
-
- * */
 int
 main(int argc, char *argv[])
 {
@@ -100,8 +88,8 @@ main(int argc, char *argv[])
     return -1;
   }
   if (!QFile::exists(fileName)){
-    out << "missing parameters: file (-f) isn't exist\n";
-    return -1;
+    out << "WARN: missing parameters: file (-f) isn't exist\n";
+//    return -1;
   }
 
   int res = 0;
@@ -127,7 +115,9 @@ main(int argc, char *argv[])
       res = checkG59(out, fileName, type, parse_arg);
 //      if(res == 0)
 //        res = getFromDB(out, "./tmp/techparams.jcpc.tmp", type);
-
+    }else
+    if(cmd.left(pos) == "repair"){
+      res = repairDB(out, fileName, type);
     }else{
       out << "unknown cmd: " << cmd << "\n";
       res = -1;

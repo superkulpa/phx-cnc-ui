@@ -10,7 +10,7 @@ TARGET =
 INCLUDEPATH += . 
 
 _install.depends = $(SOURCES)
-_install.commands = cp ./baseClient*  ../../phx-cnc-ui-mainform/install/dbclient
+_install.commands = cp ./baseClient*  ../../phx-cnc-ui-mainform/install/phx-dbclient
 QMAKE_EXTRA_TARGETS += _install
 
 QT      += sql xml xmlpatterns
@@ -27,5 +27,6 @@ SOURCES += CXBaseClient.cpp \
           parseG59.cpp \
           combinePlasmaSourceCommand.cpp \
           transferParams.cpp \
+          repairDB.cpp \
            utils/CXParamData.cpp \
            utils/iniFile.cpp main.cpp
