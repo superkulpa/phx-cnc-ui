@@ -81,7 +81,7 @@ CXProcessingParametersWindow::onFileLoad()
 //  qDebug() << QApplication::applicationDirPath() + "/jini";
 
   QFile::remove(/* QApplication::applicationDirPath() +*/ "jini/list.kerf.ccp");
-  QFile::copy( QApplication::applicationDirPath() + "/tmp/list.kerf.ccp"
+  QFile::copy( /*QApplication::applicationDirPath() + */ "tmp/list.kerf.ccp"
       , /* QApplication::applicationDirPath() +*/ "jini/list.kerf.ccp");
 
   //QFileInfo fileFTPInfo(mFtpFileName);
