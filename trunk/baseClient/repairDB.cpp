@@ -3,8 +3,10 @@
 #include <QtCore/QFile>
 
 int repairDB(QTextStream& _out, const QString& _fileName, const QString& type){
-  _out << "Repair DB " << _fileName;
+	//QString fileName = QApplication::applicationDirPath() + _fileName;
+	_out << "Repair DB " << _fileName;
+
   QFile::remove(_fileName);
-  QFile::copy(QApplication::applicationDirPath() + "db/techparams.ini", _fileName);
+  QFile::copy(QApplication::applicationDirPath() + "/db/techparams.ini", _fileName);
   return 0;
 }
