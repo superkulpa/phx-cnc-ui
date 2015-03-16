@@ -125,7 +125,7 @@ AXBaseWindow()
    */
   /**/
   mFrameWidget = new QWidget(this);
-  mFrameWidget->hide();
+  //mFrameWidget->hide();
 
   //QGridLayout* frameWidgetLayout = new QVBoxLayout(mFrameWidget);//new QGridLayout(mFrameWidget);
   QVBoxLayout* frameWidgetLayout = new QVBoxLayout(mFrameWidget);
@@ -463,7 +463,7 @@ CXOperDirectionWindow::StartCP()
 
   mStopButton->show();
   //  mCurrentFrameLabel->show();
-  mFrameWidget->show();
+  //mFrameWidget->show();
 }
 
 void
@@ -479,7 +479,7 @@ CXOperDirectionWindow::StopCP()
 
   mStopButton->hide();
   //  mCurrentFrameLabel->hide();
-  mFrameWidget->hide();
+  //mFrameWidget->hide();
 }
 
 void
