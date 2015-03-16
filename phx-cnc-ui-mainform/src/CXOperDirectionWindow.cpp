@@ -101,8 +101,8 @@ AXBaseWindow()
 
   QHBoxLayout* bfLayout = new QHBoxLayout;
 
-  QLabel* frameLabel = new QLabel(trUtf8("Кадр"), mFrameWidget);
-  QLabel* burnLabel = new QLabel(trUtf8("Пробивка"), mFrameWidget);
+  QLabel* frameLabel = new QLabel(trUtf8("Кадр"), groupBox);
+  QLabel* burnLabel = new QLabel(trUtf8("Пробивка"), groupBox);
   mFrameEdit = new QLineEdit(groupBox);
   mFrameEdit->setObjectName("mFrameEdit");
   mBurnEdit = new QLineEdit(groupBox);
@@ -476,7 +476,7 @@ CXOperDirectionWindow::StartCP()
   mForwardButton->hide();
   mBackwardButton->hide();
   mSearchButton->hide();
-  //mOperDirectionView->hide();
+  mOperDirectionView->hide();
 
   mStopButton->show();
   //  mCurrentFrameLabel->show();
