@@ -147,27 +147,28 @@ CXOperTechnology::CXOperTechnology() :
     LOG_E(ERROR);
   }while(++i < iniFile.NumValues(key));
 
+  key = iniFile.FindKey("Form/TechnologiesOpts");
+  i = 0;
+
   do try{
-//TODO: qForm.2: опции технологий. Брать из config.ini
-//		QString opts = QString::fromStdString(iniFile.GetValue("Form/Technologies", "opts"));
-//		if(opts.size() == 0)
-//			break;
-//
-//		struct calcMask{ int operator ()(const QString& entry){
-//				bool isOk = false;
-//				int tag =  entry.split(",").filter("tag=").value(0).split("=").value(1).toInt(&isOk);
-//				if(isOk)return (1<<tag);
-//				return 0;}
-//		};
-//
-//		QStringList ql = opts.split(",").filter("mngr=");
-  	listOfOpts["RTube"] = QString::fromUtf8("Труборез");
-  	currOpts["RTube"] = false;
+  	std::string entryName = iniFile.ValueName(key, i);
+    //entry:RTube=Труборез
+  	    if(entryName.empty())
+  	      throw std::runtime_error("entryName is empty");
+
+  	    QString descr = QString::fromUtf8(iniFile.GetValue(key, i, "").c_str());
+  	    if(descr.isEmpty()) continue;
+
+  	    QString nameOfOpts = QString::fromStdString(entryName);
+  	    listOfOpts[nameOfOpts] = descr;
+  	    currValueOpts[nameOfOpts] = false;
+  	//listOfOpts["RTube"] = QString::fromUtf8("Труборез");
+  	//currOpts["RTube"] = false;
 //  	listOfOpts["Marker"] = QString::fromUtf8("Маркер"); fortest only
 //  	currOpts["Marker"] = false;
   }catch(std::exception& e){
       LOG_E(ERROR);
-	}while(0);
+  }while(++i < iniFile.NumValues(key));
 
   }
 
@@ -540,27 +541,37 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
     }
     if((aCommand ==  (Commands::MSG_STATE_TECHNOLOGY) ) )
     try{
-      currTech = listOfTechs.find(aValue);
-      if(currTech == listOfTechs.end())
-      	throw std::runtime_error(QString("Unknown tech: %1").arg(aValue).toUtf8().begin());
+    	int indx = aValue.indexOf(":");
+    	if((indx != 0) && (aValue.size() > 1)){
+				if (indx == -1)
+					currTech = listOfTechs.find(aValue);
+				else if(indx != 0)
+					currTech = listOfTechs.find(aValue.left(indx));
 
-      mTechnology->setText(currTech->second);
-      for(auto tech_option: currOpts){
-				if(tech_option.second == true){
-					CXTechDlg::getInstance()->setOptions(tech_option.first, 1);
-					mTechnology->setText(mTechnology->text().trimmed() + "\n" + listOfOpts[tech_option.first]);
+				if(currTech == listOfTechs.end())
+					throw std::runtime_error(QString("Unknown tech: %1").arg(aValue).toUtf8().begin());
+
+				int suppMask = listOfSupps[aValue];
+				for(int i=0; i<mbStateSup.size(); i++){
+					bool visi = (1<<i) & suppMask;
+					mbStateSup[i]->setVisible(visi);
+					mSVRZ[i]     ->setVisible(visi);
+					mbZUp[i]  	 ->setVisible(visi);
+					mbZDown[i]   ->setVisible(visi);
 				}
-      }
+    	}
+    	mTechnology->setText(currTech->second);
+    	if((indx != -1) && (aValue.size() > 1)){
+    		CXTechDlg::MTechs::iterator curOpts = listOfOpts.find(aValue.right(aValue.size() - (indx + 1)));
+//				for(auto tech_option: currValueOpts){
+//					if(tech_option.second == true){
+//						CXTechDlg::getInstance()->setOptions(tech_option.first, 1);
+//
+//					}
+//				}
 
-      int suppMask = listOfSupps[aValue];
-      for(int i=0; i<mbStateSup.size(); i++){
-        bool visi = (1<<i) & suppMask;
-        mbStateSup[i]->setVisible(visi);
-        mSVRZ[i]     ->setVisible(visi);
-        mbZUp[i]  	 ->setVisible(visi);
-        mbZDown[i]   ->setVisible(visi);
-      }
-
+				mTechnology->setText(mTechnology->text().trimmed() + "\n" + curOpts->second);
+    	};
       emit eventTechnologyChanged(currTech->first);
     }catch(std::exception& e){
       LOG_E(ERROR);
@@ -571,7 +582,7 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
       if(option_it == listOfOpts.end())
       	throw std::runtime_error(QString("Unknown tech opts: %1").arg(aValue).toUtf8().begin());
 
- 			currOpts[(*option_it).first] = true;
+      currValueOpts[(*option_it).first] = true;
  			CXTechDlg::getInstance()->setOptions((*option_it).first, 1);
  			mTechnology->setText(mTechnology->text().remove(QRegExp((*option_it).second)).trimmed());
 
@@ -594,7 +605,7 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
        if(option_it == listOfOpts.end())
        	throw std::runtime_error(QString("Unknown tech opts: %1").arg(aValue).toUtf8().begin());
 
- 			currOpts[(*option_it).first] = false;
+       currValueOpts[(*option_it).first] = false;
  			CXTechDlg::getInstance()->setOptions((*option_it).first, 0);
  			mTechnology->setText(mTechnology->text().remove(QRegExp((*option_it).second)).trimmed());
  //       int suppMask = listOfSupps[aValue];
