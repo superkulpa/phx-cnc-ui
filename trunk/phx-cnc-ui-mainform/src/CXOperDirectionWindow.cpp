@@ -99,6 +99,23 @@ AXBaseWindow()
 
   groupBoxLayout->addLayout(velocityLayout);
 
+  QHBoxLayout* bfLayout = new QHBoxLayout;
+
+  QLabel* frameLabel = new QLabel(trUtf8("Кадр"), mFrameWidget);
+  QLabel* burnLabel = new QLabel(trUtf8("Пробивка"), mFrameWidget);
+  mFrameEdit = new QLineEdit(groupBox);
+  mFrameEdit->setObjectName("mFrameEdit");
+  mBurnEdit = new QLineEdit(groupBox);
+  mBurnEdit->setObjectName("mBurnEdit");
+
+
+  bfLayout->addWidget(frameLabel);
+  bfLayout->addWidget(mFrameEdit);
+  bfLayout->addWidget(burnLabel);
+  bfLayout->addWidget(mBurnEdit);
+
+  groupBoxLayout->addLayout(bfLayout);
+
   centralLayout->addWidget(groupBox);
   /**/
   QHBoxLayout* OperLayout = new QHBoxLayout;
@@ -125,7 +142,7 @@ AXBaseWindow()
    */
   /**/
   mFrameWidget = new QWidget(this);
-  //mFrameWidget->hide();
+  mFrameWidget->hide();
 
   //QGridLayout* frameWidgetLayout = new QVBoxLayout(mFrameWidget);//new QGridLayout(mFrameWidget);
   QVBoxLayout* frameWidgetLayout = new QVBoxLayout(mFrameWidget);
@@ -164,21 +181,21 @@ AXBaseWindow()
   //dataLayout->setMargin(5);
   //dataLayout->setSpacing(5);
 
-  QLabel* frameLabel = new QLabel(trUtf8("Кадр"), mFrameWidget);
-  QLabel* burnLabel = new QLabel(trUtf8("Пробивка"), mFrameWidget);
-  mFrameEdit = new QLineEdit(mFrameWidget);
-  mFrameEdit->setObjectName("mFrameEdit");
-  mBurnEdit = new QLineEdit(mFrameWidget);
-  mBurnEdit->setObjectName("mBurnEdit");
-
+//  QLabel* frameLabel = new QLabel(trUtf8("Кадр"), mFrameWidget);
+//  QLabel* burnLabel = new QLabel(trUtf8("Пробивка"), mFrameWidget);
+//  mFrameEdit = new QLineEdit(mFrameWidget);
+//  mFrameEdit->setObjectName("mFrameEdit");
+//  mBurnEdit = new QLineEdit(mFrameWidget);
+//  mBurnEdit->setObjectName("mBurnEdit");
+//
+////  dataLayout->addWidget(frameLabel, 0, 0);
+////  dataLayout->addWidget(burnLabel, 1, 0);
+////  dataLayout->addWidget(mFrameEdit, 0, 1);
+////  dataLayout->addWidget(mBurnEdit, 1, 1);
 //  dataLayout->addWidget(frameLabel, 0, 0);
-//  dataLayout->addWidget(burnLabel, 1, 0);
 //  dataLayout->addWidget(mFrameEdit, 0, 1);
-//  dataLayout->addWidget(mBurnEdit, 1, 1);
-  dataLayout->addWidget(frameLabel, 0, 0);
-  dataLayout->addWidget(mFrameEdit, 0, 1);
-  dataLayout->addWidget(burnLabel, 0, 2);
-  dataLayout->addWidget(mBurnEdit, 0, 3);
+//  dataLayout->addWidget(burnLabel, 0, 2);
+//  dataLayout->addWidget(mBurnEdit, 0, 3);
 
   //dataLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 1, 0, 1, 2);
   //dataLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding), 1, 0, 1, 2);
@@ -188,7 +205,7 @@ AXBaseWindow()
 
   mBigStopButton = new CXTouchButton(trUtf8("Стоп УП"), mFrameWidget);
   mBigStopButton->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Expanding);
-  dataLayout->addWidget(mBigStopButton, 1, 0, 3, 4);
+  dataLayout->addWidget(mBigStopButton, 0, 0, 3, 4);
   frameWidgetLayout->addWidget(frameGroupBox);
 //  frameWidgetLayout->addWidget(mBigStopButton);
   OperLayout->addWidget(mFrameWidget, 5);
@@ -463,7 +480,7 @@ CXOperDirectionWindow::StartCP()
 
   mStopButton->show();
   //  mCurrentFrameLabel->show();
-  //mFrameWidget->show();
+  mFrameWidget->show();
 }
 
 void
@@ -479,7 +496,7 @@ CXOperDirectionWindow::StopCP()
 
   mStopButton->hide();
   //  mCurrentFrameLabel->hide();
-  //mFrameWidget->hide();
+  mFrameWidget->hide();
 }
 
 void
