@@ -167,7 +167,7 @@ CXTurnDialog::onWriteScale()
 }
 
 QString CXTurnDialog::getAttribute(const QString& aAttributeName){
-  QFile configFile(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
+  QFile configFile(/*QApplication::applicationDirPath() +*/ "jini/compiler0.cfg");
   configFile.open(QIODevice::ReadOnly);
 
   QDomDocument doc;

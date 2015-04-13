@@ -170,6 +170,8 @@ main(int argc, char *argv[])
 
   QApplication app(argc, argv);
   app.setQuitOnLastWindowClosed(false);
+  //
+   	setlocale(LC_NUMERIC, "C.UTF-8");
 
 #if defined(Q_OS_WIN)
     #define qUsername QString::fromLocal8Bit (qgetenv ("USERNAME").constData ()).toUtf8 ()
