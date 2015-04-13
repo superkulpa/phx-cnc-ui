@@ -27,7 +27,11 @@ ReloadPlasmaCuttingParams(CIniFile& cutIni, CIniFile& moveIni, CIniFile& techIni
 
   int listFeed = cutIni.GetValueI(name, "CuttingFeed", 1000);
   moveIni.SetValueI("Move/ListFeed", "value", listFeed);
-  moveIni.SetValueI("General/Offset", "value", qRound(cutIni.GetValueF(name, "Kerf", 0) * 10 / 2));
+//  string sKerf = cutIni.GetValue(name, "Kerf", "0");
+//  double dKerf = atof(sKerf.c_str());
+//  dKerf *= 10 / 2;
+  double dKerf = cutIni.GetValueF(name, "Kerf", 0) * 10 / 2;
+  moveIni.SetValueI("General/Offset", "value", qRound(dKerf));
 
   int burn_feed = cutIni.GetValueI(name, "BurningFeed", 0);
 

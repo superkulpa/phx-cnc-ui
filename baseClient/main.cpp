@@ -33,7 +33,6 @@ int repairDB(QTextStream& _out, const QString& _fileName, const QString& type);
 int
 main(int argc, char *argv[])
 {
-//
   int i = 1;
   QTextStream out(stdout, QIODevice::WriteOnly);
   if(QString(argv[1]) == "-l" ){
@@ -91,6 +90,18 @@ main(int argc, char *argv[])
     out << "WARN: missing parameters: file (-f) isn't exist\n";
 //    return -1;
   }
+
+  //
+  	setlocale(LC_NUMERIC, "C.UTF-8");
+
+//  printf("Locale is: %s\n", setlocale(LC_NUMERIC, "C.UTF-8"));
+//
+////  printf("Locale is: %s\n", setlocale(LC_ALL, "C.UTF-8"));
+//  struct lconv * lc = localeconv();
+//  char buf[100];
+//  sprintf(buf, "%f", 12.123);
+//  double f = atof(buf);
+//  printf("%f\n", f);
 
   int res = 0;
   while(res == 0 && !cmd.isEmpty()){
