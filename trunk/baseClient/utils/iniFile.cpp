@@ -680,7 +680,8 @@ double CIniFile::GetValueF(const CString& keyname, const CString& valuename, dou
   char svalue[MAX_VALUEDATA];
 
   sprintf( svalue, "%f", defValue);
-  return atof( GetValue( keyname, valuename, svalue).c_str());
+  const char* s = GetValue( keyname, valuename, svalue).c_str();
+  return atof( s );
 }
 
 // 16 variables may be a bit of over kill, but hey, it's only code.
