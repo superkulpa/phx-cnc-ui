@@ -334,7 +334,7 @@ CXFilesList::onCompileFile(int _clear)
     xmlReader.SetAttribute("compiler/parameters/parameter/RSI.RotationAngle"
                           ,"value", "0");
   }
-  mProcess->start("cpc.sh");
+  mProcess->start("cpc.sh " + mFileName);
 }
 
 void
