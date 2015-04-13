@@ -448,7 +448,7 @@ CXFilesList::onProcessError(QProcess::ProcessError aError)
 QString
 CXFilesList::getConfigAttribute(const QString& aAttributeName)
 {
-  QFile configFile(QApplication::applicationDirPath() + "/jini/compiler0.cfg");
+  QFile configFile(/*QApplication::applicationDirPath() +*/ "jini/compiler0.cfg");
   configFile.open(QIODevice::ReadOnly);
 
   QDomDocument doc;

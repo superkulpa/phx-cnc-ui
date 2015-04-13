@@ -147,7 +147,7 @@ CXOperTechnology::CXOperTechnology() :
     LOG_E(ERROR);
   }while(++i < iniFile.NumValues(key));
 
-  key = iniFile.FindKey("Form/TechnologiesOpts");
+  key = iniFile.FindKey("Form/Technologies/Opts");
   i = 0;
 
   do try{
