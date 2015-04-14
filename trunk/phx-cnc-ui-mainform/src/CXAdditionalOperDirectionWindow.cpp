@@ -116,13 +116,18 @@ CXAdditionalOperDirectionWindow::CXAdditionalOperDirectionWindow() {
   //backButton->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Minimum);
   buttonLayout->addWidget(backButton,1);
 
+  blockButton = new CXTouchButton(trUtf8("Бл. слежения"), NULL);
+  //backButton->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Minimum);
+  buttonLayout->addWidget(blockButton,2);
+
   keyboardButton = new CXTouchButton(trUtf8("Клавиатура"), NULL);
   //keyboardButton->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Minimum);
-  buttonLayout->addWidget(keyboardButton,2);
+  buttonLayout->addWidget(keyboardButton,3);
 
   centralLayout->addLayout(buttonLayout);
 
   connect(backButton, SIGNAL(clicked()), this, SLOT(onBackWindow()));
+  connect(blockButton, SIGNAL(clicked()), this, SLOT(onBlockFollow()));
   connect(keyboardButton, SIGNAL(clicked()), this, SLOT(onStartKeyboard()));
   connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
       this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
@@ -149,6 +154,10 @@ void CXAdditionalOperDirectionWindow::onStartKeyboard(){
 void CXAdditionalOperDirectionWindow::onBackWindow(){
   hide();
   emit backWindow();
+};
+
+void CXAdditionalOperDirectionWindow::onBlockFollow(){
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_BLOCK_FOLLOW, Commands::MSG_VALUE_INVERT);
 };
 
 void CXAdditionalOperDirectionWindow::onComporativeMove(){
@@ -201,6 +210,12 @@ CXAdditionalOperDirectionWindow::onCommandReceive(const QString& aSection, const
         indx = GetAxisPosInMap(axisIndx);
         if (indx != -1) curAxisPos[indx]->setValue(axisPos);
       }
-    }
+    }else if (aCommand ==  (Commands::MSG_STATE_MODE_BLOCK_FOLLOW))
+      {
+        if (aValue ==  (Commands::MSG_VALUE_ON))
+          blockButton->setStyleSheet("background-color: green;");
+        else
+          blockButton->setStyleSheet("");
+      }
   }
 }

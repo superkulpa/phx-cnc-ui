@@ -26,6 +26,7 @@ protected:
 	int nAxis;
 	QMap <int, QPair<int, QString> > axisParam;
 	CXTouchButton* backButton;
+	CXTouchButton* blockButton;
 	CXTouchButton* keyboardButton;
 	QVector<QSpinBox*> curAxisPos;
 	QVector<QSpinBox*> setAxisPos;
@@ -39,6 +40,8 @@ public:
 public slots:
 	//! Назад.
 	void onBackWindow();
+	//Режим слежения
+	void onBlockFollow();
 	void onStartKeyboard();
 	void onComporativeMove();
 	void onAbsoluteMove();
