@@ -52,6 +52,7 @@ CXOperBevelHead::CXOperBevelHead() :
     connect(ui->bCmove, SIGNAL(clicked()), this, SLOT(onCMoveClicked()));
     connect(ui->bGoToZero, SIGNAL(clicked()), this, SLOT(onToZeroClicked()));
     connect(ui->bLockZero, SIGNAL(clicked()), this, SLOT(onLockZeroClicked()));
+    connect(ui->bBlockMove, SIGNAL(clicked()), this, SLOT(onBlockMoveClicked()));
 
     connect(ui->nextWindow, SIGNAL(clicked()), this, SLOT(onNextWindow()));
     ui->eposC->setEnabled(false);
@@ -76,14 +77,21 @@ CXOperBevelHead::onCommandReceive(const QString& aSection, const QString& aComma
       QStringList axisList = aValue.split(",");
       for (auto litem: axisList)
       {//udp:MM#pos_axis#3=49599$
-	QStringList valueList = litem.split("=");
-	if( valueList.size() != 2 ) break;
-	QLabel* label = lPos[valueList[0]];
-	if(label == nullptr) break;
-	double deg = valueList[1].toDouble() / 1000.0;
-	label->setText(trUtf8("%1\u00B0").arg(deg, 0, 'f', 1));
+        QStringList valueList = litem.split("=");
+        if( valueList.size() != 2 ) break;
+        QLabel* label = lPos[valueList[0]];
+        if(label == nullptr) break;
+        double deg = valueList[1].toDouble() / 1000.0;
+        label->setText(trUtf8("%1\u00B0").arg(deg, 0, 'f', 1));
       }
+    }else if (aCommand ==  (Commands::MSG_STATE_MODE_BLOCK_FOLLOW))
+    {
+      if (aValue ==  (Commands::MSG_VALUE_ON))
+        ui->bBlockMove->setStyleSheet("background-color: green;");
+      else
+        ui->bBlockMove->setStyleSheet("");
     }
+
   }
 }
 
@@ -154,4 +162,8 @@ CXOperBevelHead::onLockZeroClicked ()
   QString res = QString("%1=0,%2=0").arg(INDX_AXIS_A).arg(INDX_AXIS_C);
   mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR,
 			   Commands::MSG_CMD_SET_ABS_ZERO, res);
+}
+
+void CXOperBevelHead::onBlockMoveClicked(){
+  mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_MODE_BLOCK_FOLLOW, Commands::MSG_VALUE_INVERT);
 }

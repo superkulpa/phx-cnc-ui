@@ -35,6 +35,8 @@ private slots:
     void onToZeroClicked();
     ///
     void onLockZeroClicked();
+    ///
+    void onBlockMoveClicked();
 private:
     Ui::CXOperBevelHead *ui;
 };
