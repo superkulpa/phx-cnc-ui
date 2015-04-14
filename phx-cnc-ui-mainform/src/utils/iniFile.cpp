@@ -112,26 +112,26 @@ void Copy(const CString& _from, const CString& _to){
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-CString CIniFile::GetValueFromOpts(const CString& _opts, const char* _valueName, const char* _defValue){
-  //взять значение из строки опций
-  char* start_opts = strdup(( _opts.c_str()) );
-  char* opts = start_opts;
-
-  const char *myopts[] = {
-#define OPTION_VALUE_NAME         0
-      _valueName
-      , NULL};
-
-  char *value;
-  while (*opts != '\0')
-    switch(getsubopt(&opts, (char* const*)myopts, &value)) {
-      case OPTION_VALUE_NAME :
-        return (value==NULL)? "1" : value;
-    };
-    delete start_opts;
-
-  return _defValue;
-}
+//CString CIniFile::GetValueFromOpts(const CString& _opts, const char* _valueName, const char* _defValue){
+//  //взять значение из строки опций
+//  char* start_opts = strdup(( _opts.c_str()) );
+//  char* opts = start_opts;
+//
+//  const char *myopts[] = {
+//#define OPTION_VALUE_NAME         0
+//      _valueName
+//      , NULL};
+//
+//  char *value;
+//  while (*opts != '\0')
+//    switch(getsubopt(&opts, (char* const*)myopts, &value)) {
+//      case OPTION_VALUE_NAME :
+//        return (value==NULL)? "1" : value;
+//    };
+//    delete start_opts;
+//
+//  return _defValue;
+//}
 
 //Установить значение в строку запуска
 CString CIniFile::SetValueToOpts(const CString& _opts, const char* _valueName, const CString& _value){

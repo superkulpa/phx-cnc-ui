@@ -218,7 +218,7 @@ public:
   bool     DeleteKeyComments( const CString& keyname);
 
 public:
-  static CString GetValueFromOpts(const CString& _opts, const char* _valueName, const char* _defValue);
+  //static CString GetValueFromOpts(const CString& _opts, const char* _valueName, const char* _defValue);
   ///Задать/заменить значение из строки запуска
   static CString SetValueToOpts(const CString& _opts, const char* _valueName, const CString& _value);
 };
