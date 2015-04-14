@@ -99,6 +99,10 @@ namespace Commands
     const String MSG_CMD_MODE_LOOP = "cmd_mode_loop";
     const String MSG_STATE_MODE_LOOP = "state_loop";//on - зеленым
 
+    //Блокировка слежения
+    const String MSG_CMD_MODE_BLOCK_FOLLOW = "cmd_mode_block_follow";
+    const String MSG_STATE_MODE_BLOCK_FOLLOW = "state_block_follow";//on - зеленым
+
     //диалог "Перехать"(там где абс/относ), значение <цифра>
     const String MSG_CMD_FROM_STEP = "cmd_from_step";
     const String MSG_CMD_GOTO_STEP = "cmd_goto_step";
