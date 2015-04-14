@@ -495,7 +495,7 @@ void CXParamUi::onCommandReceive(const QString& _sect, const QString& _cmd, cons
 //
 void CXParamUi::onReiniCompleted(bool aIsUpload){
   closeFtp();
-  //mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "0");
+  mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "0");
   QString response = SendToPlasmaSource(mType);
   mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_RELOAD, response);
 }
