@@ -124,16 +124,7 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <property name="leftMargin">
-       <number>0</number>
-      </property>
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <property name="rightMargin">
-       <number>0</number>
-      </property>
-      <property name="bottomMargin">
+      <property name="margin">
        <number>0</number>
       </property>
       <item row="3" column="1">
@@ -361,6 +352,25 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="CXTouchButton" name="bBlockMove">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>121</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Бл.Движения</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="CXTouchButton" name="nextWindow">
