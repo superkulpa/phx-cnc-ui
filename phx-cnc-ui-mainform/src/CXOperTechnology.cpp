@@ -499,11 +499,18 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
     }
     if (aCommand ==  (Commands::MSG_STATE_MODE_SVR))
     {
-      if (aValue ==  (Commands::MSG_VALUE_ON))
-        mSVRButton->setStyleSheet("background-color: green;");
-      else
+//      if (aValue ==  (Commands::MSG_VALUE_ON))
+//        mSVRButton->setStyleSheet("background-color: green;");
+//      else
+//        mSVRButton->setStyleSheet("");
+//      break;
+      if (aValue ==  (Commands::MSG_VALUE_SVR_OFF)){
         mSVRButton->setStyleSheet("");
-      break;
+      }else if (aValue ==  (Commands::MSG_VALUE_SVR_ON)){
+        mSVRButton->setStyleSheet("background-color: green;");
+      }else if (aValue ==  (Commands::MSG_VALUE_SVR1)){
+        mSVRButton->setStyleSheet("background-color: yellow;");
+      }
     }
     if (aCommand ==  (Commands::MSG_STATE_MODE_CUT))
     {
