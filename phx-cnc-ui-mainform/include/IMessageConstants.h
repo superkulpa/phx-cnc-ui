@@ -264,7 +264,9 @@ namespace Commands
     const String MSG_CMD_MODE_SVR = "cmd_mode_svr";
 
     const String MSG_CMD_SVR = "cmd_svr_value";
-
+    const String MSG_VALUE_SVR_OFF = "0";
+    const String MSG_VALUE_SVR1    = "1";
+    const String MSG_VALUE_SVR_ON  = "3";
 
     /*//Команды технологии
     const String MSG_CMD_TECH  = "cmd_tech"; //команда технологии
