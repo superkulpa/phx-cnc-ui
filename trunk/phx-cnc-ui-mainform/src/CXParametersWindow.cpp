@@ -369,7 +369,8 @@ CXParametersWindow::onCommandReceive(const QString& aSection, const QString& aCo
     }
     else if (aCommand ==  (Commands::MSG_STATE_REFRESH_PARAMS))
     {
-
+      if(aValue != "")
+        loadFiles(false, QStringList() << aValue);
     }
   }
 }
