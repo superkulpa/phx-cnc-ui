@@ -23,7 +23,7 @@ CXOperDirectionView::CXOperDirectionView(QWidget* parent, eDirectionViewTypes aT
   mDelayTimer = -1;
   mCurrentFinger = -1;
   mCurrentDirection = -1;
-
+  setContentsMargins(0, 5, 0, 5);
   if (mDelay == 0)
     mDelay = CXSettingsXML::getDelay("settings.xml", "delayXYDir");
 

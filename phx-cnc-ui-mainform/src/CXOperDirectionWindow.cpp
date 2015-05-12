@@ -99,23 +99,6 @@ AXBaseWindow()
 
   groupBoxLayout->addLayout(velocityLayout);
 
-  QHBoxLayout* bfLayout = new QHBoxLayout;
-
-  QLabel* frameLabel = new QLabel(trUtf8("Кадр"), groupBox);
-  QLabel* burnLabel = new QLabel(trUtf8("Пробивка"), groupBox);
-  mFrameEdit = new QLineEdit(groupBox);
-  mFrameEdit->setObjectName("mFrameEdit");
-  mBurnEdit = new QLineEdit(groupBox);
-  mBurnEdit->setObjectName("mBurnEdit");
-
-
-  bfLayout->addWidget(frameLabel);
-  bfLayout->addWidget(mFrameEdit);
-  bfLayout->addWidget(burnLabel);
-  bfLayout->addWidget(mBurnEdit);
-
-  groupBoxLayout->addLayout(bfLayout);
-
   centralLayout->addWidget(groupBox);
   /**/
   QHBoxLayout* OperLayout = new QHBoxLayout;
@@ -177,7 +160,7 @@ AXBaseWindow()
 
   QGroupBox* frameGroupBox = new QGroupBox(mFrameWidget);
 
-  QGridLayout* dataLayout = new QGridLayout(frameGroupBox);
+  auto dataLayout = new QVBoxLayout(frameGroupBox);
   //dataLayout->setMargin(5);
   //dataLayout->setSpacing(5);
 
@@ -202,10 +185,27 @@ AXBaseWindow()
 
   //frameWidgetLayout->addLayout(dataLayout, 0, 3, 2, 1);
   //frameWidgetLayout->addLayout(dataLayout,2);
+  QHBoxLayout* bfLayout = new QHBoxLayout;
+
+  QLabel* frameLabel = new QLabel(trUtf8("Кадр"), groupBox);
+  QLabel* burnLabel = new QLabel(trUtf8("Пробивка"), groupBox);
+  mFrameEdit = new QLineEdit(groupBox);
+  mFrameEdit->setObjectName("mFrameEdit");
+  mBurnEdit = new QLineEdit(groupBox);
+  mBurnEdit->setObjectName("mBurnEdit");
+
+
+  bfLayout->addWidget(frameLabel);
+  bfLayout->addWidget(mFrameEdit);
+  bfLayout->addWidget(burnLabel);
+  bfLayout->addWidget(mBurnEdit);
+
+  dataLayout->addLayout(bfLayout);
 
   mBigStopButton = new CXTouchButton(trUtf8("Стоп УП"), mFrameWidget);
   mBigStopButton->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Expanding);
-  dataLayout->addWidget(mBigStopButton, 0, 0, 3, 4);
+  dataLayout->addWidget(mBigStopButton);//, 0, 0, 3, 4);
+
   frameWidgetLayout->addWidget(frameGroupBox);
 //  frameWidgetLayout->addWidget(mBigStopButton);
   OperLayout->addWidget(mFrameWidget, 5);
@@ -320,6 +320,7 @@ CXOperDirectionWindow::onXYClick()
     return;
 
   CXOperDirectionDialog dialog(qobject_cast<QWidget*>(sender()));
+  dialog.setFramBurn(mFrameEdit->text(), mBurnEdit->text());
   dialog.mUdpManager = mUdpManager;
   dialog.exec();
 }

@@ -193,6 +193,13 @@ void CXOperDirectionDialog::onSetTechPoint(){
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_SET_TECH_POINT, "-1UserDef");
 };
 
+void
+CXOperDirectionDialog::setFramBurn(const QString& _frame, const QString& _burn)
+{
+  mFrameEdit->setText(_frame);
+  mBurnEdit->setText(_burn);
+}
+
 void CXOperDirectionDialog::onAbsZeroMove(){
   if (mUdpManager != NULL)
     mUdpManager->sendCommand(Commands::MSG_SECTION_OPERATOR, Commands::MSG_CMD_GOTO_TECH_POINT, "0AbsZero");

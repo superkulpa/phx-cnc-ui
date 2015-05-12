@@ -14,6 +14,9 @@
    <string>CXParamUi</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="margin">
+    <number>5</number>
+   </property>
    <item>
     <widget class="QLabel" name="label">
      <property name="sizePolicy">
@@ -78,8 +81,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>285</width>
-                 <height>224</height>
+                 <width>293</width>
+                 <height>236</height>
                 </rect>
                </property>
               </widget>

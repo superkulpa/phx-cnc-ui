@@ -15,7 +15,7 @@ CXPathView::CXPathView(QWidget* parent) :
   setFocusPolicy(Qt::StrongFocus);
 
   mScale = 1.0;
-
+  setContentsMargins(0, 5, 0, 5);
   setAutoFillBackground(true);
 
   QPalette p = palette();

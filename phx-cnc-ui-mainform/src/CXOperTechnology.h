@@ -92,7 +92,7 @@ private:
   bool zMoveType;
 
   QList<CXTouchButton*> mbStateSup;
-  QList<QLabel*> mSVRZ;
+  QList<QPair<QLabel*, QLabel*> > mSVRZ;
   //QList<CXTouchButton*> mbStateZ;
   QList<CXTouchButton*> mbZDown;
   QList<CXTouchButton*> mbZUp;

@@ -24,6 +24,7 @@ public:
   QPointF
   getPosition();
 
+  void setFramBurn(const QString& _frame, const QString& _burn);
 private slots:
   //! Слот абсолютного смещение.
   void
