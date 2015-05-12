@@ -1,3 +1,3 @@
-#!/bin/sh
-python ./runget.py /CNC/backup-stat.sh LOG.stat.tar.gz > ./logs/backup-stat.last
+#!/bin/bash
+runget.py /CNC/backup-stat.sh LOG.stat.tar.gz "Архивация статистики работы"  > logs/backup-stat.last
 

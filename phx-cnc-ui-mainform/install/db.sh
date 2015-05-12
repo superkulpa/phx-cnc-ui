@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 #cd  /home/cnc/CNC
 export PATH=$PATH:.
 #LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./libs
-./dbclient $@
+phx-dbclient $@ > logs/dbclient.log
 exit $?

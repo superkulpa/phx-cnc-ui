@@ -1,2 +1,2 @@
-#bash
+#!/bin/bash
 onboard --layout=Classik --theme=Classic Onboard

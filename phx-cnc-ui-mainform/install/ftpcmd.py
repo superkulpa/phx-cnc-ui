@@ -10,25 +10,36 @@ import pexpect
 #def ftpget(fname):
 def main(cnc_ip, cmd):
     print("ftpcmd:"+cnc_ip, cmd)
+    res = 0
     child = pexpect.spawnu('ftp ' + cnc_ip)
     child.logfile=sys.stdout
-    child.expect([u'(?i)name .*: '])
-    child.sendline('ftp')
-    child.expect([u'Password:'])
-    child.sendline('ftp')
-    time.sleep(3)
-    child.expect([u'ftp>'])
-    child.sendline('cd pub/updates')
-    child.expect([u'ftp>'])
-     
-    child.sendline('binary')
-    child.expect([u'ftp>'])
-     
-    child.sendline(cmd)
-    child.expect([u'ftp>'])
-    
+    try:
+        child.expect([u'(?i)name .*: '])
+        child.sendline('ftp')
+        child.expect([u'Password:'])
+
+        child.sendline('ftp')
+        child.expect([u'ftp>'])
+
+        child.sendline('cd pub/updates')
+        child.expect([u'ftp>'])
+         
+        child.sendline('binary')
+        child.expect([u'ftp>'])
+         
+        child.sendline(cmd)
+        child.expect([u'ftp>'])
+        
+    except pexpect.TIMEOUT as e:
+        print("ftpcmd: time out of operation")
+        res = -1
+    except pexpect.EOF:
+        print("ftpcmd: end of operation")
+        res = -2
+        
     child.sendline('bye')
     child.close()
+    return res
 
 if __name__ == '__main__':
     import os
@@ -38,4 +49,5 @@ if __name__ == '__main__':
         CNC_IP = u"192.168.0.125"
     
     ftp_cmd = u"" + sys.argv[1] + " " + sys.argv[2]#put/get
-    main(CNC_IP, ftp_cmd)
+    res = main(CNC_IP, ftp_cmd)
+    sys.exit(res)

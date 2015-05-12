@@ -19,6 +19,7 @@ if CNC_IP == None :
    
 runScript = sys.argv[1]#'/CNC/backup-logs.sh; '
 getFile = sys.argv[2]# LOG.tar.gz
+mainLabelText = sys.argv[3].decode("utf-8");
  
 print("run&get:" + CNC_IP, runScript, getFile)
 
@@ -32,6 +33,12 @@ class CDlgBar(QtGui.QDialog):
         
         
         self.progressBar = QtGui.QProgressBar(self)
+        self.mainLabel = QtGui.QLabel(self)
+        self.mainLabel.setText(QString(mainLabelText))
+        
+        self.closeButton = QtGui.QPushButton(self)
+        self.closeButton.setText(u"Прервать и закрыть")
+        self.closeButton.clicked.connect(app.closeAllWindows)
 #         
 # #         self.nextStep.connect(self.increaseValue, QtCore.Qt.QueuedConnection)
 #         self.buttonBox = QtGui.QDialogButtonBox(self)
@@ -44,7 +51,10 @@ class CDlgBar(QtGui.QDialog):
         
         layout = QtGui.QVBoxLayout()
 #        layout.addStretch(1)
+        layout.addWidget(self.mainLabel)
         layout.addWidget(self.progressBar)
+        layout.addWidget(self.closeButton)
+
 #         layout.addWidget(self.buttonBox, 1)
         self.setLayout(layout)
  
@@ -67,9 +77,10 @@ class CDlgBar(QtGui.QDialog):
             return
         
 #         print("archive")
-        rcmd.main(CNC_IP, 'cust', 'cust', runScript)
-#         time.sleep(5)
-        self.emitStep(self.stepDownload)
+        if( 0 == rcmd.main(CNC_IP, 'cust', 'cust', runScript)):
+            self.emitStep(self.stepDownload)
+        else:
+            self.setWindowTitle(QString(u'Ошибка архивации'))
         
     @pyqtSlot(int)
     def stepDownload(self, phase = 0):
@@ -80,9 +91,10 @@ class CDlgBar(QtGui.QDialog):
             return
         
 #         print("download")
-        ftpcmd.main(CNC_IP, 'get ' + getFile)
-#         time.sleep(5)
-        self.emitStep(self.stepSaveAs)
+        if( 0 == ftpcmd.main(CNC_IP, 'get ' + getFile)):
+            self.emitStep(self.stepSaveAs)
+        else:
+            self.setWindowTitle(QString(u'Ошибка при копировании файла'))
     
     @pyqtSlot(int)
     def stepSaveAs(self, phase = 0):
@@ -100,13 +112,12 @@ class CDlgBar(QtGui.QDialog):
         QtCore.QFile.remove( saveCat+'/' + getFile)
         if False == QtCore.QFile.copy(getFile, saveCat+'/' + getFile):
             print("error");
-#         print("exit")
-#         time.sleep(5)
+        QtCore.QFile.remove( getFile)
+           
         app.closeAllWindows()
 
 
 app      = QtGui.QApplication(sys.argv)
 progressBar     = CDlgBar()
 
- 
 sys.exit(app.exec_())

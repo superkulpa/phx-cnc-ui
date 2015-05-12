@@ -1,2 +1,3 @@
-#!/bin/sh
-python ./rcmd.py /CNC/io > ./logs/io.last
+#!/bin/bash
+PATH=.:$PATH
+rcmd.py "/CNC/io &" > logs/io.last

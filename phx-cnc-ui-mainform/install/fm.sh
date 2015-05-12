@@ -1,1 +1,2 @@
-pcmanfm ~/cps
+#!/bin/bash
+pcmanfm cps

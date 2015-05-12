@@ -1,2 +1,4 @@
-./restart.sh
+#!/bin/bash
+PATH=.:$PATH
+restart.sh
 

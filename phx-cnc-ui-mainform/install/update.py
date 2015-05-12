@@ -36,11 +36,14 @@ class CDlgBar(QtGui.QDialog):
 #         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
 #         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel)
 #         self.buttonBox.setObjectName("buttonBox")
+        self.mainLabel = QtGui.QLabel(self)
+        self.mainLabel.setText(QString(u"Обновить ПО"))
         self.progressBar.resize(450, 150);
         self.resize(450,150)
         
         layout = QtGui.QVBoxLayout()
 #        layout.addStretch(1)
+        layout.addWidget(self.mainLabel)
         layout.addWidget(self.progressBar)
 #         layout.addWidget(self.buttonBox, 1)
         self.setLayout(layout)
@@ -87,12 +90,11 @@ class CDlgBar(QtGui.QDialog):
 #         print("download")
         finfo = QtCore.QFileInfo(self.archiveName)
         print(finfo)
-        ftpcmd.main(CNC_IP,
-        'put ' + str((self.archiveName + ' CNC.upd.tar.gz').toUtf8()))
-        
-#         time.sleep(5)
-        self.emitStep(self.stepReboot)
-
+        if( 0 == ftpcmd.main(CNC_IP, 'put ' + str((self.archiveName + ' CNC.upd.tar.gz').toUtf8()))):
+            self.emitStep(self.stepReboot)
+        else:
+            self.setWindowTitle(QString(u'Ошибка выгрузки файла'))
+    
     @pyqtSlot(int)
     def stepReboot(self, phase = 0):
         if phase == 0:
