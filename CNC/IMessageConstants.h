@@ -214,6 +214,7 @@ namespace Commands
 
     // Напряжение, в десятых долях вольта. цифры между столцами T и Z, формат 0=123,...
     const String MSG_STATE_SVR_VOLTAGE = "state_svr_voltage"; //
+    const String MSG_STATE_Z_STATUS = "state_z_status"; //
 	
     //кнопки "Пробивка/Врезка" унести под кнопку Стоп реза (так же как Вперед)
 	//На месте расположить кнопки: Указатель,Вытяжка,Резка/Черчение,СВР

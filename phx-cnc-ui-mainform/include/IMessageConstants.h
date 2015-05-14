@@ -238,7 +238,8 @@ namespace Commands
 
     // Напряжение, в десятых долях вольта. цифры между столцами T и Z, формат 0=123,...
     const String MSG_STATE_SVR_VOLTAGE = "state_svr_voltage"; //
-	
+    const String MSG_STATE_Z_STATUS = "state_z_status"; //
+
     //состофяние блокировки СВР
     const String MSG_STATE_SVR_BLOCK = "state_svr_block";
 
