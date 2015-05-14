@@ -61,7 +61,7 @@ class CDlgBar(QtGui.QDialog):
         
         self.show()
         self.nextStep.connect(app.closeAllWindows)
-        self.emitStep(self.stepArchive)
+        self.emitStep(self.stepRunRemote)
     
     def emitStep(self, stepFunc, phase = 0):
         self.nextStep.disconnect()
@@ -69,11 +69,11 @@ class CDlgBar(QtGui.QDialog):
         self.nextStep.emit(phase)
         
     @pyqtSlot(int)
-    def stepArchive(self, phase = 0):
+    def stepRunRemote(self, phase = 0):
         if phase == 0:
             self.setWindowTitle(QString(u'Архивация'))
             self.progressBar.setValue(30)
-            self.emitStep(self.stepArchive, 1)
+            self.emitStep(self.stepRunRemote, 1)
             return
         
 #         print("archive")
@@ -85,37 +85,25 @@ class CDlgBar(QtGui.QDialog):
     @pyqtSlot(int)
     def stepDownload(self, phase = 0):
         if phase == 0:
-            self.setWindowTitle(QString(u'Копирование файла'))
+            self.setWindowTitle(QString(u'Выгрузка'))
             self.progressBar.setValue(60)
             self.emitStep(self.stepDownload, 1)
             return
         
 #         print("download")
-        if( 0 == ftpcmd.main(CNC_IP, 'get ' + getFile)):
-            self.emitStep(self.stepSaveAs)
+        if( 0 == ftpcmd.main(CNC_IP, 'get ' + getFile + " ./logs/"+getFile)):
+            self.emitStep(self.stepFinish)
         else:
-            self.setWindowTitle(QString(u'Ошибка при копировании файла'))
+            self.setWindowTitle(QString(u'Ошибка при выгрузке'))
     
     @pyqtSlot(int)
-    def stepSaveAs(self, phase = 0):
-        if phase == 0:
-            self.setWindowTitle(QString(u'Сохранение файла'))
-            self.progressBar.setValue(90)
-            self.emitStep(self.stepSaveAs, 1)
-            return
-        
-        saveCat = QFileDialog.getExistingDirectory(None, u"Сохранить в каталог",
-                                                    u"./logs",
-                                                    QFileDialog.ShowDirsOnly
-                                                  | QFileDialog.DontResolveSymlinks);
-        print("save to " + saveCat)
-        QtCore.QFile.remove( saveCat+'/' + getFile)
-        if False == QtCore.QFile.copy(getFile, saveCat+'/' + getFile):
-            print("error");
-        QtCore.QFile.remove( getFile)
-           
-        app.closeAllWindows()
-
+    def stepFinish(self, phase = 0):
+		self.setWindowTitle(QString(u'Сохранение файла'))
+		self.progressBar.setValue(100)
+		app.closeAllWindows()
+		return
+       
+ 
 
 app      = QtGui.QApplication(sys.argv)
 progressBar     = CDlgBar()

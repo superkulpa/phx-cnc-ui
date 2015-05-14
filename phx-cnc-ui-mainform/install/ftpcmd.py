@@ -48,6 +48,13 @@ if __name__ == '__main__':
     if CNC_IP == None :
         CNC_IP = u"192.168.0.125"
     
-    ftp_cmd = u"" + sys.argv[1] + " " + sys.argv[2]#put/get
+	ftpcmd = sys.argv[1]
+	remoteFile = sys.argv[2]
+	if len(sys.argv)>2:
+		localFile = sys.argv[3]
+	else:
+		localFile = remoteFile
+
+    ftp_cmd = u"" + ftpcmd + " " + remoteFile + " " + localFile
     res = main(CNC_IP, ftp_cmd)
     sys.exit(res)

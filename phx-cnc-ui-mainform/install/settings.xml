@@ -6,7 +6,7 @@
   <buttonDelayLong>2000</buttonDelayLong>
   <delayXYDir>10</delayXYDir>
   <translate>ru.qm</translate>
-  <kernel_ip>192.168.0.127</kernel_ip>
+  <kernel_ip>192.168.0.126</kernel_ip>
   <kernel_port>50001</kernel_port>
   <kernel_port2>50002</kernel_port2>
   <ftp>ftp</ftp>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Info>
   <parameters>
-    <parameter name="Имя УП" value="2/24.335.00-3.CNC" />
-    <parameter name="Количество пробивок" value="19" />
-    <parameter name="Длина реза" value="6222.0" />
-    <parameter name="Длина перемещений" value="8569.0" />
-    <parameter name="Габарит X" value="557.0" />
-    <parameter name="Габарит Y" value="363.0" />
-    <parameter name="Эквидистанта" value="10" />
+    <parameter name="Имя УП" value="1.cp" />
+    <parameter name="Количество пробивок" value="1" />
+    <parameter name="Длина реза" value="2571.0" />
+    <parameter name="Длина перемещений" value="3571.0" />
+    <parameter name="Габарит X" value="2000.0" />
+    <parameter name="Габарит Y" value="1500.0" />
+    <parameter name="Эквидистанта" value="17" />
   </parameters>
 </Info>
 

@@ -1,0 +1,12 @@
+#!/bin/sh
+#cd ~/CNC
+#LD_LIBRARY_PATH=/opt/CNC/libs:${LD_LIBRARY_PATH}
+#PATH=/opt/CNC:${PATH}
+LD_LIBRARY_PATH=/home/kulpanov/CNC/libs:${LD_LIBRARY_PATH}
+PATH=`pwd`:${PATH}
+export USER=cnc
+export CNC_IP=`cat settings.xml |grep kernel_ip| cut -d '>' -f 2|cut -d '<' -f 1`
+echo set CNC_IP=$CNC_IP
+
+
+./phx-cnc-ui-mainform 2> logs/qform.last

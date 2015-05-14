@@ -1,12 +1,12 @@
 <?xml version="1.0" ?>
   <utils>
-    <util name="Отчет об ошибке" description=""  cmd="bash ./backup-logs.sh"  access="all" modal="true"/>
-    <util name="Резервировать параметры" description=""  cmd="bash ./backup-ini.sh" modal="true" access="all" />
+    <util name="Отчет об ошибке" description=""  cmd="backup-logs.sh"  access="all" modal="true"/>
+    <util name="Резервировать параметры" description=""  cmd="backup-ini.sh" modal="true" access="all" />
     <!-- util name="Восстановить параметры" description=""  cmd="bash ./restore-ini.sh" modal="true" access="0" / -->
-    <util name="Обновить ПО" description=""  cmd="bash ./update.sh" access="0" modal="true" />
+    <util name="Обновить ПО" description=""  cmd="update.sh" access="0" modal="true" />
     <!-- util name="Откатить обновление ПО" description=""  cmd="bash ./restore.sh" access="0" modal="true" / -->
-    <util name="Стоп ядра управления" description=""  type="sh" cmd="bash ./stop.sh" modal="true" access="0" />
-    <util name="Перезапуск ядра управления" description=""  type="sh" cmd="bash ./restart.sh" modal="true" access="0" />
-    <util name="Старт в режиме консоли ввода/вывода" description=""   cmd="bash ./io.sh" access="0" />
-    <util name="Терминал УЧПУ" description=""  type="sh" cmd="bash ./terminal.sh" access="0" />
+    <util name="Стоп ядра управления" description=""  type="sh" cmd="stop.sh" modal="true" access="0" />
+    <util name="Перезапуск ядра управления" description=""  type="sh" cmd="restart.sh" modal="true" access="0" />
+    <util name="Старт в режиме консоли ввода/вывода" description=""   cmd="io.sh" access="0" />
+    <util name="Терминал УЧПУ" description=""  type="sh" cmd="terminal.sh" access="0" />
   </utils>
