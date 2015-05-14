@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<keyboard format="2.1" id="test">
+  <box border="1" spacing="3">
+    <panel filename="macros-Alpha.svg" layer="alpha">
+      <key group="bottomrow" id="ESC" keysym="65307" label="Esc" scan_priority="1" sticky="false"/>
+      <key group="alphanumeric" id="KP0" keycode="19" label="0" scan_priority="1" sticky="false"/>
+      <key group="alphanumeric" id="KP1" keycode="10" label="1" scan_priority="1" sticky="false"/>
+      <key group="alphanumeric" id="KP2" keycode="11" label="2" scan_priority="1" sticky="false"/>
+      <key group="alphanumeric" id="KP3" keycode="12" label="3" scan_priority="1" sticky="false"/>
+      <key group="alphanumeric" id="KP4" keycode="13" label="4" scan_priority="1" sticky="false"/>
+      <key group="alphanumeric" id="KP5" keycode="14" label="5" scan_priority="1" sticky="false"/>
+      <key group="alphanumeric" id="KP6" keycode="15" label="6" scan_priority="1" sticky="false"/>
+      <key group="alphanumeric" id="KP7" keycode="16" label="7" scan_priority="1" sticky="false"/>
+      <key group="alphanumeric" id="KP8" keycode="17" label="8" scan_priority="1" sticky="false"/>
+      <key group="alphanumeric" id="KP9" keycode="18" label="9" scan_priority="1" sticky="false"/>
+      <key group="keypadmisc" id="KPDL" keypress_name="delete" label="Del" scan_priority="1" sticky="false"/>
+      <key group="keypadmisc" id="KPEN" keycode="108" label="Ent" scan_priority="1" sticky="false"/>
+      <key button="true" group="bottomrow" id="quit" label="Quit" scan_priority="2" tooltip="Quit Onboard"/>
+      <key button="true" expand="false" group="bottonrow" id="move" image="move.svg" scannable="false" tooltip="Move Onboard"/>	
+    </panel>
+  </box>
+</keyboard>

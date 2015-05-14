@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created for Onboard -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   height="137"
+   width="391"
+   version="1.0"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="macros-Alpha.svg">
+  <defs
+     id="defs3103" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview3101"
+     showgrid="false"
+     inkscape:zoom="0.97186701"
+     inkscape:cx="195.5"
+     inkscape:cy="68.5"
+     inkscape:window-x="72"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <metadata
+     id="metadata44">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <rect
+     id="NMLK"
+     style="fill:#e5d8b2;stroke:#000000;stroke-width:1.76596224"
+     height="21.979"
+     width="68.544205"
+     y="21.721001"
+     x="61.162998" />
+  <rect
+     id="KP7"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="21.979"
+     y="44.92"
+     x="61.163" />
+  <rect
+     id="KP8"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="21.979"
+     y="44.92"
+     x="84.363" />
+  <rect
+     id="KP9"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="21.979"
+     y="44.92"
+     x="107.56" />
+  <rect
+     id="KP4"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="21.979"
+     y="68.121"
+     x="61.163" />
+  <rect
+     id="KP5"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="21.979"
+     y="68.121"
+     x="84.363" />
+  <rect
+     id="KP6"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="21.979"
+     y="68.121"
+     x="107.56" />
+  <rect
+     id="KP1"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="21.979"
+     y="91.322"
+     x="61.163" />
+  <rect
+     id="KP2"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="21.979"
+     y="91.322"
+     x="84.363" />
+  <rect
+     id="KP3"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="21.979"
+     y="91.322"
+     x="107.56" />
+  <rect
+     id="KPEN"
+     style="stroke:#000;fill:#e5d8b2"
+     height="45.178"
+     width="21.979"
+     y="91.322"
+     x="130.76" />
+  <rect
+     id="KP0"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="45.179"
+     y="114.52"
+     x="61.163" />
+  <rect
+     id="KPDL"
+     style="stroke:#000;fill:#e5d8b2"
+     height="21.979"
+     width="21.979"
+     y="114.52"
+     x="107.56" />
+  <rect
+     id="quit"
+     style="fill:#e5d8b2;stroke:#000000;stroke-width:0.69188917"
+     height="21.842159"
+     width="21.818865"
+     y="21.372629"
+     x="131.29234" />
+  <rect
+     style="fill:#e5d8b2;stroke:#000000;stroke-width:1.53343165"
+     id="move"
+     height="45.109779"
+     width="21.580349"
+     y="44.655262"
+     x="131.05153" />
+</svg>
