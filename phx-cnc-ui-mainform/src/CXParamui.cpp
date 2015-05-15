@@ -375,7 +375,15 @@ static QString SendToPlasmaSource(const QString& mType)
 
 void CXParamUi::launchGC(){
   //выполнить
-  CXProcess::startAsynchro("gc.sh");
+  if (mProcess != NULL) return;
+  mProcess = new CXProcess(this);
+
+  connect(mProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this,
+     SLOT(onProcessFinish(int, QProcess::ExitStatus)));
+
+  connect(mProcess, SIGNAL(error(QProcess::ProcessError)), this,
+    SLOT(onProcessError(QProcess::ProcessError)));
+  mProcess->start("gc.sh");//startAsynchro
 }
 
 void
@@ -519,3 +527,28 @@ CXParamUi::closeFtp()
     mFtp = NULL;
   }
 }
+
+void
+CXParamUi::onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatus)
+{
+  Q_UNUSED(aExitCode)
+
+  if (mProcess != NULL)
+  {
+    mProcess->deleteLater();
+    mProcess = NULL;
+  }
+}
+
+void
+CXParamUi::onProcessError(QProcess::ProcessError aError)
+{
+  Q_UNUSED(aError)
+
+  if (mProcess != NULL)
+  {
+    mProcess->deleteLater();
+    mProcess = NULL;
+  }
+}
+

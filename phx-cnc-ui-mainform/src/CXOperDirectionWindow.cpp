@@ -41,7 +41,7 @@ AXBaseWindow()
   mBackwardButton = new CXTouchButton(trUtf8("Назад"), groupBox);
   buttonLayout->addWidget(mBackwardButton);
 
-  mSearchButton = new CXTouchButton(trUtf8("Поиск"), groupBox);
+  mSearchButton = new CXTouchButton(trUtf8("Возврат\nна контур"), groupBox);
   buttonLayout->addWidget(mSearchButton);
 
   mStopButton = new CXTouchButton(trUtf8("Стоп"), groupBox);

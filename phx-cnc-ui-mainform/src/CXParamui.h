@@ -7,10 +7,14 @@
 #include "utils/CXFtp.h"
 
 #include "ui_CXParam.h"
+#include "utils/CXProcess.h"
 
 class CXParamUi : public AXBaseWindow
 {
   Q_OBJECT
+
+protected:
+  CXProcess* mProcess;
 
 public:
   CXParamUi();
@@ -18,7 +22,7 @@ public:
 
   virtual void setVisible(bool visible);
 
-  private slots:
+private slots:
   void readKeys();
   void readValues();
   void clearLayout(QLayout* aLayout);
@@ -32,6 +36,15 @@ public:
   void onReiniCompleted(bool);
   void closeFtp();
   void onClose(bool aIsUpload);
+
+  //! Слот завершения процесса компиляции файла пути.
+  void
+  onProcessFinish(int aExitCode, QProcess::ExitStatus aExitStatus);
+
+  //! Слот на ошибки процесса компиляции файла пути.
+  void
+  onProcessError(QProcess::ProcessError aError);
+
 
   void loadFiles(bool aIsUpload, const QStringList& files, const char *member_onFtpSuccess);
 	int

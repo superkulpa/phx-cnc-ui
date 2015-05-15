@@ -137,7 +137,7 @@ CXTitleWindow::onCommandReceive(const QString& aSection, const QString& aCommand
       else if (aValue ==  (Commands::MSG_VALUE_BACKWARD))
         mCPStateLabel->setText(trUtf8("Назад"));
       else if (aValue ==  (Commands::MSG_VALUE_FIND_TRJ))
-        mCPStateLabel->setText(trUtf8("Поиск контура"));
+        mCPStateLabel->setText(trUtf8("Выход на контура"));
     }
   }
 
