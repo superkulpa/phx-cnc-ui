@@ -20,6 +20,7 @@
 CXParamUi::CXParamUi() :
     AXBaseWindow()
 {
+  mProcess = NULL;
   //TODO: qForm.2 mType брать из тек технологии
   mType = "MPlasma";
   ui.setupUi(this);

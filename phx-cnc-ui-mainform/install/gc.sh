@@ -1,2 +1,2 @@
 #!/bin/bash
-phx-gasconsole 2> ./logs/gc.last
+./phx-gasconsole 2> ./logs/gc.last
