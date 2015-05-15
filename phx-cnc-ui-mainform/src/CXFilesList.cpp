@@ -495,7 +495,20 @@ CXFilesList::dropEvent(QDropEvent *ev)
 //    qDebug()<<newname;
     QString newname = mModel->filePath(mFileView->rootIndex()) + QDir::separator()
                       + QFileInfo(url.toLocalFile()).fileName();
-    QFile::copy(url.toLocalFile(), newname);
+    if(QFile::exists(newname) == 1){
+      QMessageBox* message = new QMessageBox(trUtf8("Информация"),trUtf8("Файл существует, заменить?"),
+                         QMessageBox::Information,
+                         QMessageBox::Yes,
+                         QMessageBox::No, QMessageBox::NoButton);
+      message->setButtonText(QMessageBox::Yes, trUtf8("Да  "));
+      message->setButtonText(QMessageBox::No, trUtf8("Нет "));
+      int ret = message->exec();
+      delete message;
+      if (ret == QMessageBox::Yes)
+        QFile::remove(newname);
+        QFile::copy(url.toLocalFile(), newname);
+    };
+
   }
 }
 
