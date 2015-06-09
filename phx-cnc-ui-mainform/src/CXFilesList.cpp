@@ -485,17 +485,37 @@ CXFilesList::onSave()
   close();
 }
 
+void CopyDir(QString _dest, QString _src){
+  QDir dir;
+  //проверяем что есть
+  if (!dir.exists(_dest))
+    if(!dir.mkdir(_dest)) return;
+  QDirIterator dItr(_src, QDirIterator::Subdirectories);
+  while(dItr.hasNext()){
+    QString path = dItr.next();
+    QString fName = dItr.fileName();
+
+    if((fName == ".") || (fName == "..") || (fName == ""))
+      continue;
+    QFile::copy(path, _dest + QDir::separator() + fName);
+    //qDebug()<<QString("copy:")<<path <<"->"<<_dest + QDir::separator() + fName;
+  }
+};
+
 void
 CXFilesList::dropEvent(QDropEvent *ev)
 {
   QList<QUrl> urls = ev->mimeData()->urls();
   foreach(QUrl url, urls)
   {
-//    qDebug()<<QString("drop:")<<url.toString();
+    //qDebug()<<QString("drop:")<<url.toString();
+    //qDebug()<<QString("drop:")<<QFileInfo(url.toLocalFile()).fileName();
 //    qDebug()<<newname;
     QString newname = mModel->filePath(mFileView->rootIndex()) + QDir::separator()
                       + QFileInfo(url.toLocalFile()).fileName();
-    if(QFile::exists(newname) == 1){
+    bool isDir = QFileInfo(url.toLocalFile()).isDir();
+    if((QFile::exists(newname) == 1) && (!isDir)){
+
       QMessageBox* message = new QMessageBox(trUtf8("Информация"),trUtf8("Файл существует, заменить?"),
                          QMessageBox::Information,
                          QMessageBox::Yes,
@@ -505,11 +525,14 @@ CXFilesList::dropEvent(QDropEvent *ev)
       int ret = message->exec();
       delete message;
       if (ret == QMessageBox::Yes)
-        QFile::remove(newname);
+          QFile::remove(newname);
       else
         return;
     };
-    QFile::copy(url.toLocalFile(), newname);
+    if (isDir) {
+      CopyDir(newname, url.toLocalFile());
+    }else
+      QFile::copy(url.toLocalFile(), newname);
 
   }
 }
