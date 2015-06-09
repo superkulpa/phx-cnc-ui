@@ -580,6 +580,7 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
               bool visi = (1<<i) & suppMask;
               mbStateSup[i]->setVisible(visi);
               mSVRZ[i].first->setVisible(visi);
+              mSVRZ[i].second->setVisible(visi);
               mbZUp[i]->setVisible(visi);
               mbZDown[i]->setVisible(visi);
             }
@@ -600,51 +601,51 @@ CXOperTechnology::onCommandReceive(const QString& aSection, const QString& aComm
         }catch(std::exception& e){
           LOG_E(ERROR);
         }
-        if(aCommand ==  Commands::MSG_STATE_TECHNOLOGY_OPTION_ADD )
+      if(aCommand ==  Commands::MSG_STATE_TECHNOLOGY_OPTION_ADD )
+        try{
+          auto option_it = listOfOpts.find(aValue);
+          if(option_it == listOfOpts.end())
+            throw std::runtime_error(QString("Unknown tech opts: %1").arg(aValue).toUtf8().begin());
+
+          currValueOpts[(*option_it).first] = true;
+          CXTechDlg::getInstance()->setOptions((*option_it).first, 1);
+          mTechnology->setText(mTechnology->text().remove(QRegExp((*option_it).second)).trimmed());
+
+          //       int suppMask = listOfSupps[aValue];
+          //       for(int i=0; i<mbStateSup.size(); i++){
+          //         bool visi = (1<<i) & suppMask;
+          //         mbStateSup[i]->setVisible(visi);
+          //         mSVRZ[i]     ->setVisible(visi);
+          //         mbZUp[i]  	 ->setVisible(visi);
+          //         mbZDown[i]   ->setVisible(visi);
+          //       }
+          //
+          //       emit eventTechnologyChanged(currTech->first);
+        }catch(std::exception& e){
+          LOG_E(ERROR);
+        }
+      if(aCommand ==  Commands::MSG_STATE_TECHNOLOGY_OPTION_REMOVE )
           try{
             auto option_it = listOfOpts.find(aValue);
             if(option_it == listOfOpts.end())
               throw std::runtime_error(QString("Unknown tech opts: %1").arg(aValue).toUtf8().begin());
 
-            currValueOpts[(*option_it).first] = true;
-            CXTechDlg::getInstance()->setOptions((*option_it).first, 1);
+            currValueOpts[(*option_it).first] = false;
+            CXTechDlg::getInstance()->setOptions((*option_it).first, 0);
             mTechnology->setText(mTechnology->text().remove(QRegExp((*option_it).second)).trimmed());
-
             //       int suppMask = listOfSupps[aValue];
             //       for(int i=0; i<mbStateSup.size(); i++){
             //         bool visi = (1<<i) & suppMask;
             //         mbStateSup[i]->setVisible(visi);
             //         mSVRZ[i]     ->setVisible(visi);
             //         mbZUp[i]  	 ->setVisible(visi);
-            //         mbZDown[i]   ->setVisible(visi);
+            //         mbZDown[i]   ->setVisibleconst(visi);
             //       }
             //
             //       emit eventTechnologyChanged(currTech->first);
           }catch(std::exception& e){
             LOG_E(ERROR);
           }
-          if(aCommand ==  Commands::MSG_STATE_TECHNOLOGY_OPTION_REMOVE )
-            try{
-              auto option_it = listOfOpts.find(aValue);
-              if(option_it == listOfOpts.end())
-                throw std::runtime_error(QString("Unknown tech opts: %1").arg(aValue).toUtf8().begin());
-
-              currValueOpts[(*option_it).first] = false;
-              CXTechDlg::getInstance()->setOptions((*option_it).first, 0);
-              mTechnology->setText(mTechnology->text().remove(QRegExp((*option_it).second)).trimmed());
-              //       int suppMask = listOfSupps[aValue];
-              //       for(int i=0; i<mbStateSup.size(); i++){
-              //         bool visi = (1<<i) & suppMask;
-              //         mbStateSup[i]->setVisible(visi);
-              //         mSVRZ[i]     ->setVisible(visi);
-              //         mbZUp[i]  	 ->setVisible(visi);
-              //         mbZDown[i]   ->setVisibleconst(visi);
-              //       }
-              //
-              //       emit eventTechnologyChanged(currTech->first);
-            }catch(std::exception& e){
-              LOG_E(ERROR);
-            }
 
     }while(0);
 }
