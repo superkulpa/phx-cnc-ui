@@ -506,8 +506,10 @@ CXFilesList::dropEvent(QDropEvent *ev)
       delete message;
       if (ret == QMessageBox::Yes)
         QFile::remove(newname);
-        QFile::copy(url.toLocalFile(), newname);
+      else
+        return;
     };
+    QFile::copy(url.toLocalFile(), newname);
 
   }
 }
