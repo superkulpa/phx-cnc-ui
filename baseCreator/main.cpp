@@ -102,7 +102,8 @@ int main(int argc, char *argv[])
 		QString temp2;
 
 		dataBase.driver()->beginTransaction();
-
+		double prevThick = 0;
+		double prevA = 0;
 		while (!stream.atEnd())
 		{
 			sourceData = stream.readLine().split(";");
@@ -120,15 +121,22 @@ int main(int argc, char *argv[])
 				if (!metalTypes.contains(temp)) metalTypes.insert(temp, metalTypes.count() + 1);
 				query.bindValue(":metal_type", metalTypes.value(temp));
 
-				temp = sourceData.at(3);
-				query.bindValue(":min_thickness", temp.toDouble());
-				query.bindValue(":max_thickness", temp.toDouble());
+				double newA = sourceData.at(4).toDouble();
+				query.bindValue(":amperage", newA);
+
+				if(newA != prevA) prevThick = 0;
+
+				double newThick = sourceData.at(3).toDouble();
+				query.bindValue(":min_thickness", prevThick);
+				query.bindValue(":max_thickness", newThick);
+
+				prevThick = newThick;
 
 				temp = sourceData.at(5) + "/" + sourceData.at(6);
 				if (!gasesTypes.contains(temp)) gasesTypes.insert(temp, gasesTypes.count() + 1);
 				query.bindValue(":gases", gasesTypes.value(temp));
 
-				query.bindValue(":amperage", sourceData.at(4).toDouble());
+
 				query.bindValue(":out_description", "");
 				query.bindValue(":out_under_water", false);
 				query.bindValue(":out_voltage", sourceData.at(19).toDouble());

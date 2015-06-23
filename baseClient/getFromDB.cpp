@@ -152,7 +152,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
     }
 
     curKey = "Power";
-    w += QString(" AND max_thickness=%1").arg(keys.value("Thickness"));
+    w += QString(" AND (max_thickness>%1) AND (min_thickness<=%1)").arg(keys.value("Thickness"));
     availableKeys = client.execute("tbl_plasma_params", "DISTINCT amperage, amperage", w, "amperage");
     res = dbparser.check(availableKeys, curKey, keys, type);
     if (res <= 0)
