@@ -126,6 +126,7 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
 
     curKey = "MetallType";
     QString w = QString("plasma_source=%1").arg(keys.value("Source"));
+
     availableKeys = client.execute("tbl_plasma_metal_types as a, tbl_plasma_params as b", "DISTINCT metal_type, a.name", w + " AND metal_type=a.id", "a.name");
 
     res = dbparser.check(availableKeys, curKey, keys, type);
@@ -140,7 +141,6 @@ int getFromDB(QTextStream& out, const QString& fileName, const QString& type){
     curKey = "Thickness";
     w += QString(" AND metal_type=%2").arg(keys.value("MetallType"));
     availableKeys = client.execute("tbl_plasma_params", "DISTINCT min_thickness, min_thickness", w, "min_thickness");
-
     res = dbparser.check(availableKeys, curKey, keys, type);
     if (res <= 0)
     {
