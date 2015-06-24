@@ -46,7 +46,6 @@ CXParamUi::CXParamUi() :
   connect(ui.mAcceptButton, SIGNAL(clicked()), this, SLOT(save()));
   connect(ui.mLaunchGC, SIGNAL(clicked()), this, SLOT(launchGC()));
 
-
   connect(ui.mButton0, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(ui.mButton1, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(ui.mButton2, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
@@ -57,13 +56,15 @@ CXParamUi::CXParamUi() :
   connect(ui.mButton7, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(ui.mButton8, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(ui.mButton9, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
-  connect(ui.mButtonBackspace, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
+  connect(ui.mButtonBackspace, SIGNAL(clicked()), this,
+      SLOT(onButtonClicked()));
   connect(ui.mButtonDel, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
   connect(ui.mButtonDot, SIGNAL(clicked()), this, SLOT(onButtonClicked()));
 
-  connect(mUdpManager, SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
-      this, SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
-
+  connect(mUdpManager,
+      SIGNAL(commandReceived(const QString&, const QString&, const QString&)),
+      this,
+      SLOT(onCommandReceive(const QString&, const QString&, const QString&)));
 
   registerManager();
 }
@@ -80,7 +81,8 @@ CXParamUi::readKeys()
 
   CXParamData::open(TECH_PARAMS_PATH);
   QMap<QString, QString> keys = CXParamData::getKeys(mType);
-  QMap<QString, QString> fixedKeys = CXParamData::getFixedKeys(SETTINGS_PATH, mType);
+  QMap<QString, QString> fixedKeys = CXParamData::getFixedKeys(SETTINGS_PATH,
+      mType);
 
   bool isUpdateNeed = false;
   bool isBreak = false;
@@ -90,12 +92,14 @@ CXParamUi::readKeys()
   QComboBox* keyComboBox = NULL;
   QStringList items, allKeys, keyText, keyName;
 
-  allKeys << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes" << "ConsAngles";
+  allKeys << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes"
+      << "ConsAngles";
   keyText << trUtf8("Выберите производителя") << trUtf8("Выберите тип металла")
-      << trUtf8("Выберите толщину") << trUtf8("Выберите мощность") << trUtf8("Выберите тип газа")
-      << trUtf8("Выберите угол реза");
-  keyName << trUtf8("Производитель") << trUtf8("Тип металла") << trUtf8("Толщина")
-      << trUtf8("Мощность") << trUtf8("Тип газа") << trUtf8("Угол реза");
+      << trUtf8("Выберите толщину") << trUtf8("Выберите мощность")
+      << trUtf8("Выберите тип газа") << trUtf8("Выберите угол реза");
+  keyName << trUtf8("Производитель") << trUtf8("Тип металла")
+      << trUtf8("Толщина") << trUtf8("Мощность") << trUtf8("Тип газа")
+      << trUtf8("Угол реза");
 
   QString curKey;
   int i = 0;
@@ -160,7 +164,8 @@ CXParamUi::readKeys()
     else
       keyComboBox->setCurrentIndex(items.indexOf(keys.value(curKey)));
 
-    connect(keyComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onKeyChange()));
+    connect(keyComboBox, SIGNAL(currentIndexChanged(int)), this,
+        SLOT(onKeyChange()));
   }
 
   ui.mKeysLayout->addStretch();
@@ -221,39 +226,38 @@ CXParamUi::readValues()
   int column = 0;
   double value = 0;
 
-  foreach (const SXDataXml& data, captions)
+  foreach (const SXDataXml& data, captions){
+  if (values.contains(data.mName))
   {
-  	if (values.contains(data.mName))
-  	{
-  		column = (data.mColumn > 0) ? 2 : 0;
-  		row = (data.mColumn > 0) ? row1++ : row2++;
+    column = (data.mColumn > 0) ? 2 : 0;
+    row = (data.mColumn > 0) ? row1++ : row2++;
 
-  		labelValue = new QLabel(data.mDescr, this);
-  		labelValue->setMargin(5);
-  		if (row % 2 == 0) labelValue->setStyleSheet("background-color: silver;");
-  		mValuesLayout->addWidget(labelValue, row, column);
+    labelValue = new QLabel(data.mDescr, this);
+    labelValue->setMargin(5);
+    if (row % 2 == 0) labelValue->setStyleSheet("background-color: silver;");
+    mValuesLayout->addWidget(labelValue, row, column);
 
-  		value = values.value(data.mName).toDouble();
+    value = values.value(data.mName).toDouble();
 
-  		editValue = new QDoubleSpinBox(this);
-  		if (data.mDelta > 0)
-  		{
-  			editValue->setRange(value - data.mDelta, value + data.mDelta);
-  		}
-  		else
-  			editValue->setRange(0.01, 99999);
-  		editValue->setValue(value);
+    editValue = new QDoubleSpinBox(this);
+    if (data.mDelta > 0)
+    {
+      editValue->setRange(value - data.mDelta, value + data.mDelta);
+    }
+    else
+    editValue->setRange(0.01, 99999);
+    editValue->setValue(value);
 
-  		editValue->setButtonSymbols(QAbstractSpinBox::NoButtons);
-  		editValue->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
-  		editValue->setReadOnly(data.mIsReadOnly);
-  		editValue->setLocale(QLocale(QLocale::English));
+    editValue->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    editValue->setCorrectionMode(QAbstractSpinBox::CorrectToNearestValue);
+    editValue->setReadOnly(data.mIsReadOnly);
+    editValue->setLocale(QLocale(QLocale::English));
 
-  		editValue->setProperty("valueName", data.mName);
-  		mEditors.append(editValue);
-  		mValuesLayout->addWidget(editValue, row, column + 1);
-  	}
+    editValue->setProperty("valueName", data.mName);
+    mEditors.append(editValue);
+    mValuesLayout->addWidget(editValue, row, column + 1);
   }
+}
 
   QGroupBox* imageBox = NULL;
   QVBoxLayout* imageLayout = NULL;
@@ -272,7 +276,8 @@ CXParamUi::readValues()
 
       labelValue = new QLabel(this);
       labelValue->setAlignment(Qt::AlignCenter);
-      QPixmap p(QApplication::applicationDirPath() + "/db/" + values.value("image"));
+      QPixmap p(
+          QApplication::applicationDirPath() + "/db/" + values.value("image"));
       imgSize.setWidth(qMax(imgSize.width(), p.width()));
       imgSize.setHeight(qMax(imgSize.height(), p.height()));
       labelValue->setPixmap(p);
@@ -321,7 +326,8 @@ CXParamUi::onKeyChange()
   QComboBox* curComboBox;
   PairsList keys;
 
-  allKeys << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes" << "ConsAngles";
+  allKeys << "Source" << "MetallType" << "Thickness" << "Power" << "GasTypes"
+      << "ConsAngles";
 
   for (int i = 0; i < ui.mKeysLayout->count(); i++)
   {
@@ -333,7 +339,8 @@ CXParamUi::onKeyChange()
     if (curComboBox == NULL || curComboBox->currentIndex() < 0)
       break;
 
-    keys.append(QPair<QString, QString>(allKeys.at(i), curComboBox->currentText()));
+    keys.append(
+        QPair<QString, QString>(allKeys.at(i), curComboBox->currentText()));
   }
 
   if (!keys.isEmpty())
@@ -346,22 +353,25 @@ CXParamUi::onKeyChange()
   updateData();
 }
 
-void CXParamUi::repairDB(){
-  CXProcess::execute("db.sh"
-      , QStringList() << "-f" << TECH_PARAMS_PATH << "-t" << mType << " repair");
+void
+CXParamUi::repairDB()
+{
+  CXProcess::execute("db.sh",
+      QStringList() << "-f" << TECH_PARAMS_PATH << "-t" << mType << " repair");
   QTimer::singleShot(1, this, SLOT(updateData()));
 }
 
 int
 CXParamUi::updateData()
 {
-  int res = CXProcess::execute("db.sh"
-      , QStringList() << "-f" << TECH_PARAMS_PATH << "-t" << mType << " reload");
+  int res = CXProcess::execute("db.sh",
+      QStringList() << "-f" << TECH_PARAMS_PATH << "-t" << mType << " reload");
   QTimer::singleShot(1, this, SLOT(readKeys()));
   return res;
 }
 
-static QString SendToPlasmaSource(const QString& mType)
+static QString
+SendToPlasmaSource(const QString& mType)
 {
   CIniFile techIni = CIniFile(TECH_PARAMS_PATH, 0);
   techIni.ReadIniFile();
@@ -371,20 +381,23 @@ static QString SendToPlasmaSource(const QString& mType)
 //  if(command != "noCmd"){
 //    mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_DIRECT_CMD, command);
 //  }
-  return mType+","+command;
+  return mType + "," + command;
 }
 
-void CXParamUi::launchGC(){
+void
+CXParamUi::launchGC()
+{
   //выполнить
-  if (mProcess != NULL) return;
+  if (mProcess != NULL)
+    return;
   mProcess = new CXProcess(this);
 
   connect(mProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this,
-     SLOT(onProcessFinish(int, QProcess::ExitStatus)));
+      SLOT(onProcessFinish(int, QProcess::ExitStatus)));
 
   connect(mProcess, SIGNAL(error(QProcess::ProcessError)), this,
-    SLOT(onProcessError(QProcess::ProcessError)));
-  mProcess->start("gc.sh");//startAsynchro
+      SLOT(onProcessError(QProcess::ProcessError)));
+  mProcess->start("gc.sh"); //startAsynchro
 }
 
 void
@@ -392,16 +405,20 @@ CXParamUi::save()
 {
   PairsList values;
 
-  foreach (QDoubleSpinBox* editor, mEditors)
-  {  values << QPair<QString, QString>(editor->property("valueName").toString(), editor->text());
-  }
+  foreach (QDoubleSpinBox* editor, mEditors){ values << QPair<QString, QString>(editor->property("valueName").toString(), editor->text());
+}
 
   CXParamData::open(TECH_PARAMS_PATH);
   CXParamData::setValues(mType + "/Common", values);
   CXParamData::close(true);
-  QString str = "-f ";str +=TECH_PARAMS_PATH;str +=" -t ";str += mType;str +=" transfer makecmd";
-  if(0 != executeDB(str))
-    QMessageBox::information(NULL, trUtf8("Ошибка"), trUtf8("Не могу сохранить файлы"));
+  QString str = "-f ";
+  str += TECH_PARAMS_PATH;
+  str += " -t ";
+  str += mType;
+  str += " transfer makecmd";
+  if (0 != executeDB(str))
+    QMessageBox::information(NULL, trUtf8("Ошибка"),
+        trUtf8("Не могу сохранить файлы"));
 }
 
 void
@@ -415,7 +432,8 @@ CXParamUi::onButtonClicked()
 
     QWidget* focusedWidget = focusWidget();
 
-    QKeyEvent keyPress(QEvent::KeyPress, keyCode, Qt::NoModifier, button->shortcut().toString());
+    QKeyEvent keyPress(QEvent::KeyPress, keyCode, Qt::NoModifier,
+        button->shortcut().toString());
     QApplication::sendEvent(focusedWidget, &keyPress);
 
     QKeyEvent keyRelease(QEvent::KeyRelease, keyCode, Qt::NoModifier,
@@ -429,7 +447,8 @@ CXParamUi::onButtonClicked()
 void
 CXParamUi::setVisible(bool visible)
 {
-  if(visible){
+  if (visible)
+  {
     readKeys();
   }
   return AXBaseWindow::setVisible(visible);
@@ -437,7 +456,8 @@ CXParamUi::setVisible(bool visible)
 
 //
 void
-CXParamUi::loadFiles(bool aIsUpload, const QStringList& files, const char *member_onFtpSuccess)
+CXParamUi::loadFiles(bool aIsUpload, const QStringList& files,
+    const char *member_onFtpSuccess)
 {
 //  mIsUpload = aIsUpload;
 //
@@ -449,12 +469,14 @@ CXParamUi::loadFiles(bool aIsUpload, const QStringList& files, const char *membe
 //  QSize size = QApplication::desktop()->availableGeometry().size();
 //  mProgressBar->resize(size.width() * 0.7, size.height() * 0.05);
 
-  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip", "192.168.233.125");
+  QString host = CXSettingsXML::getValue("settings.xml", "kernel_ip",
+      "192.168.233.125");
   QString pswrd = CXSettingsXML::getValue("settings.xml", "ftp", "ftp");
 
   mFtp = new CXFtp(this);
   mFtp->setConnectData(host, 21, "ftp", pswrd);
-  mFtp->setLoadFilesData(/*QApplication::applicationDirPath() + */"jini", CXFtp::remoteCatalog);
+  mFtp->setLoadFilesData(/*QApplication::applicationDirPath() + */"jini",
+      CXFtp::remoteCatalog);
 //  connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
 //  connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
 //  connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
@@ -470,45 +492,52 @@ CXParamUi::loadFiles(bool aIsUpload, const QStringList& files, const char *membe
 }
 
 int
-CXParamUi::executeDB (const QString& _values)
+CXParamUi::executeDB(const QString& _values)
 {
-	//выполнить
-	int res =  CXProcess::execute("db.sh", QStringList() << _values);
-	if (res == 0)
-	{
-		//и закачать на УЧПУ
-		loadFiles (true,
-				 QStringList () << "params.ini" << "params" + mType + ".ini",
-				 SLOT(onReiniCompleted(bool)));
-	}
-	else
-	{
-		mUdpManager->sendCommand (Commands::MSG_SECTION_GC,
-															Commands::MSG_CMD_GC_ERROR, "error");
-	}
-	return res;
+  //выполнить
+  int res = CXProcess::execute("db.sh", QStringList() << _values);
+  if (res == 0)
+  {
+    //и закачать на УЧПУ
+    loadFiles(true, QStringList() << "params.ini" << "params" + mType + ".ini",
+        SLOT(onReiniCompleted(bool)));
+  }
+  else
+  {
+    mUdpManager->sendCommand(Commands::MSG_SECTION_GC,
+        Commands::MSG_CMD_GC_ERROR, "error");
+  }
+  return res;
 }
 
 //
-void CXParamUi::onCommandReceive(const QString& _sect, const QString& _cmd, const QString& _values){
+void
+CXParamUi::onCommandReceive(const QString& _sect, const QString& _cmd,
+    const QString& _values)
+{
 
-  if (_sect ==  (Commands::MSG_SECTION_GC))
-  do{
-    if (_cmd ==  (Commands::MSG_STATE_RELOAD_PARAMS))
-    {//выполнить
-				int res = executeDB (_values);
+  if (_sect == (Commands::MSG_SECTION_GC))
+    do
+    {
+      if (_cmd == (Commands::MSG_STATE_RELOAD_PARAMS))
+      { //выполнить
+        int res = executeDB(_values);
+      }
     }
-  }while(0);
+    while (0);
 }
 
 //
-void CXParamUi::onReiniCompleted(bool aIsUpload){
+void
+CXParamUi::onReiniCompleted(bool aIsUpload)
+{
   closeFtp();
-  mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS, Commands::MSG_CMD_RELOAD_PARAMS, "0");
+  mUdpManager->sendCommand(Commands::MSG_SECTION_PARAMS,
+      Commands::MSG_CMD_RELOAD_PARAMS, "0");
   QString response = SendToPlasmaSource(mType);
-  mUdpManager->sendCommand(Commands::MSG_SECTION_GC, Commands::MSG_CMD_GC_RELOAD, response);
+  mUdpManager->sendCommand(Commands::MSG_SECTION_GC,
+      Commands::MSG_CMD_GC_RELOAD, response);
 }
-
 
 void
 CXParamUi::onClose(bool aIsUpload)
@@ -521,7 +550,8 @@ CXParamUi::onClose(bool aIsUpload)
 void
 CXParamUi::closeFtp()
 {
-  if(mFtp){
+  if (mFtp)
+  {
     QObject::disconnect(mFtp, 0, 0, 0);
     mFtp->close();
     mFtp->deleteLater();
