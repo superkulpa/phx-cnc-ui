@@ -277,13 +277,8 @@ CXParamUi::readValues()
 
       labelValue = new QLabel(this);
       labelValue->setAlignment(Qt::AlignCenter);
-<<<<<<< HEAD
       VLOG(DET1) << LOGS << "image:" << QApplication::applicationDirPath() + "/db/" + values.value("image") << LOGN;
       QPixmap p(QApplication::applicationDirPath() + "/db/" + values.value("image"));
-=======
-      QPixmap p(
-          QApplication::applicationDirPath() + "/db/" + values.value("image"));
->>>>>>> multiThickness
       imgSize.setWidth(qMax(imgSize.width(), p.width()));
       imgSize.setHeight(qMax(imgSize.height(), p.height()));
       labelValue->setPixmap(p);
@@ -391,7 +386,7 @@ SendToPlasmaSource(const QString& mType)
 }
 
 void
-launchGC()
+CXParamUi::launchGC()
 {
   //выполнить
   if (mProcess != NULL)
