@@ -385,7 +385,7 @@ SendToPlasmaSource(const QString& mType)
 }
 
 void
-CXParamUi::launchGC()
+launchGC()
 {
   //выполнить
   if (mProcess != NULL)
