@@ -52,6 +52,9 @@ public slots:
   void
   makeTabs(bool aIsSystem);
 
+  void
+  SetValueOfProgressBar(int pos);
+
   //! Слот установки текста в прогресс загрузки.
   void
   setProgressText(const QString& aText);

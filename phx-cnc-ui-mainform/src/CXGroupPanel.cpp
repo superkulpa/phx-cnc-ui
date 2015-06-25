@@ -118,7 +118,7 @@ CXGroupPanel::onExit()
     mUdpManager->sendCommand(Commands::MSG_SECTION_START, Commands::MSG_CMD_SHUTDOWN, "0");
     CXProcess::execute("shutdown.sh", QStringList());
     QApplication::processEvents();
-		QApplication::exit(res);//quit();
+//		QApplication::exit(res);//quit();
 
     break;
   }

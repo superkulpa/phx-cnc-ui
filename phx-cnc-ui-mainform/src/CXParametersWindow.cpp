@@ -21,6 +21,7 @@
 #include "utils/CXSettingsXML.h"
 
 #include "CXIniFileEditor.h"
+#include "debug.h"
 
 CXParametersWindow::CXParametersWindow(bool aIsSystem) :
     AXBaseWindow()
@@ -274,6 +275,17 @@ CXParametersWindow::makeTabs(bool aIsSystem)
   //setTabEnabled(curTab, true);
 }
 
+
+void CXParametersWindow::SetValueOfProgressBar(int pos)
+{
+  VLOG(D1) << LOGS << LOGP(pos) << LOGN;
+	if(mProgressBar){
+		mProgressBar->setValue(pos);
+//		VLOG(D1) << LOGS << LOGP(mProgressBar->value()) << LOGN;
+//		if(mProgressBar->maximum() == mProgressBar->value()) mProgressBar->close();
+	}
+}
+
 void
 CXParametersWindow::setProgressText(const QString& aText)
 {
@@ -284,14 +296,25 @@ CXParametersWindow::setProgressText(const QString& aText)
     mProgressBar->setFormat(trUtf8("Загружается ") + aText + " (%p%)");
 }
 
+static QMutex mutex_ProgressBar;
+
 void
 CXParametersWindow::closeFtp()
 {
-  if (mProgressBar){
-    mProgressBar->close();
-    delete mProgressBar;
-    mProgressBar = NULL;
-  }
+  VLOG(D1) << LOGS << ",closeFTP" << LOGN;
+  do{
+  	if (NULL == mProgressBar) break;
+		QMutexLocker lock(&mutex_ProgressBar);
+		if (mProgressBar){
+	//  	mProgressBar->hide();
+			mProgressBar->close();
+			mProgressBar->deleteLater();
+			mProgressBar = NULL;
+	//    delete mProgressBar;
+			VLOG(D1) << LOGS << ",close theProrgessBar" << LOGN;
+			QEventLoop loop; QTimer::singleShot(1000, &loop, SLOT(quit())); loop.exec();
+		}
+  }while(0);
   if(mFtp){
     QObject::disconnect(mFtp, 0, 0, 0);
     mFtp->close();
@@ -380,6 +403,15 @@ CXParametersWindow::loadFiles(bool aIsUpload, const QStringList& files)
 {
   mIsUpload = aIsUpload;
 
+  {
+	QMutexLocker locker(&mutex_ProgressBar);
+  if(mProgressBar) {
+  	auto temp_prog = mProgressBar;
+  	temp_prog->deleteLater();
+  	mProgressBar = NULL;
+  }
+  }
+  VLOG(D1) << LOGS << ",create mProgressBar" << LOGN;
   mProgressBar = new QProgressBar;
   mProgressBar->setWindowFlags(Qt::FramelessWindowHint);
   mProgressBar->setAlignment(Qt::AlignCenter);
@@ -396,7 +428,8 @@ CXParametersWindow::loadFiles(bool aIsUpload, const QStringList& files)
   mFtp->setLoadFilesData(/*QApplication::applicationDirPath() +*/ "jini", CXFtp::remoteCatalog);
 
   connect(mFtp, SIGNAL(progressMaximumChanged(int)), mProgressBar, SLOT(setMaximum(int)));
-  connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
+//  connect(mFtp, SIGNAL(progressValueChanged(int)), mProgressBar, SLOT(setValue(int)));
+  connect(mFtp, SIGNAL(progressValueChanged(int)), this, SLOT(SetValueOfProgressBar(int)));
   connect(mFtp, SIGNAL(progressTextChanged(const QString&)), this, SLOT(setProgressText(const QString&)));
   connect(mFtp, SIGNAL(allFilesIsLoaded(bool)), this, SLOT(onFtpSuccess(bool)));
   connect(mFtp, SIGNAL(errorReceived()), this, SLOT(onFtpError()));

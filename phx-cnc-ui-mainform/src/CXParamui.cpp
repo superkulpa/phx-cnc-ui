@@ -9,6 +9,7 @@
 #include <qdebug.h>
 #include <QProcess>
 
+#include "debug.h"
 #include "utils/CXSettingsXML.h"
 #include "utils/CXParamData.h"
 #include "CXUdpManager.h"
@@ -272,6 +273,7 @@ CXParamUi::readValues()
 
       labelValue = new QLabel(this);
       labelValue->setAlignment(Qt::AlignCenter);
+      VLOG(DET1) << LOGS << "image:" << QApplication::applicationDirPath() + "/db/" + values.value("image") << LOGN;
       QPixmap p(QApplication::applicationDirPath() + "/db/" + values.value("image"));
       imgSize.setWidth(qMax(imgSize.width(), p.width()));
       imgSize.setHeight(qMax(imgSize.height(), p.height()));
