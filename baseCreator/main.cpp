@@ -115,7 +115,7 @@ main(int argc, char *argv[])
       if (sourceData.count() >= 36)
       {
         query.prepare(queryText);
-
+        if(sourceData.at(1) == "English") continue;
         temp = sourceData.at(35);
         if (!consAngles.contains(temp))
           consAngles.insert(temp, consAngles.count() + 1);
@@ -164,7 +164,7 @@ main(int argc, char *argv[])
         for (int i = 26; i <= 32; i++)
         {
           temp = sourceData.at(i);
-
+          //qDebug() << temp;
           if (temp.isEmpty())
             continue;
 
@@ -178,6 +178,8 @@ main(int argc, char *argv[])
 
         if (!imagesGroups.contains(temp2))
           imagesGroups.insert(temp2, imagesGroups.count() + 1);
+        qDebug() << temp2;
+        qDebug() << imagesGroups.value(temp2);
         query.bindValue(":out_parts_group", imagesGroups.value(temp2));
 
         query.bindValue(":out_gases_mix1", sourceData.at(13).toDouble());
@@ -263,6 +265,7 @@ main(int argc, char *argv[])
         "INSERT INTO tbl_torch_parts VALUES(:id, :type, :number, :image, :manufacturer, :description);";
     QFile tempFile;
     QDir imagesDir(path + "/images/");
+
     QStringList files;
     int imageType = -1;
 
@@ -272,10 +275,10 @@ main(int argc, char *argv[])
       query.prepare(queryText);
 
       query.bindValue(":id", mapIter.value());
-
+      //qDebug() << mapIter.value();
       temp = mapIter.key();
       query.bindValue(":number", temp);
-
+      //qDebug() << mapIter.key();
       files = imagesDir.entryList(QStringList() << temp + "*.bmp");
 
       if (!files.isEmpty())
@@ -321,7 +324,6 @@ main(int argc, char *argv[])
     for (mapIter = imagesTypes.begin(); mapIter != imagesTypes.end(); mapIter++)
     {
       query.prepare(queryText);
-
       query.bindValue(":id", mapIter.value());
       query.bindValue(":name", mapIter.key());
       query.bindValue(":position", "");
@@ -348,8 +350,10 @@ main(int argc, char *argv[])
       {
         if (i - 1 >= sourceData.count())
           query.bindValue(QString(":part_%1").arg(i), "");
-        else
+        else{
+          qDebug() << sourceData.at(i - 1);
           query.bindValue(QString(":part_%1").arg(i), sourceData.at(i - 1));
+        };
       }
 
       query.exec();
