@@ -36,7 +36,7 @@ public:
     case 502:
       return 0;
     case 503:
-      if(! parseV500) return 1;
+      if(! parseV500) return 0;
       _paramSect = _type + "/Keys";
       _paramName = "MetallType";
       if(iParamV == 1) _paramValue = "Mild Steel";
@@ -49,12 +49,12 @@ public:
       //elseif (dParam = 1) _paramValue = "Mild steel";
       return 1;
     case 504:
-      if(! parseV500) return 1;
+      if(! parseV500) return 0;
       _paramSect = _type + "/Keys";
       _paramName = "Power";
       return 1;
     case 505:
-      if(! parseV500) return 1;
+      if(! parseV500) return 0;
       _paramSect = _type + "/Keys";
       _paramName = "GasTypes";
       if(iParamV == 1) _paramValue = "Air/Air";
@@ -89,7 +89,7 @@ public:
     case 506:
       return 0;
     case 507:
-      if(! parseV500) return 1;
+      if(! parseV500) return 0;
       _paramSect = _type + "/Keys";
       _paramName = "Thickness";
       if(iParamV == 1) _paramValue = "None";
@@ -198,12 +198,12 @@ public:
       else return -1;
       return 1;
     case 600:
-      if(! parseV600) return 1;
+      if(! parseV600) return 0;
       _paramSect = _type + "/Common";
       _paramName = "SVRVoltage";
       return 1;
     case 601:
-      if(! parseV600) return 1;
+      if(! parseV600) return 0;
       _paramSect = _type + "/Common";
       _paramName = "BurningTime";
       return 1;
@@ -213,7 +213,7 @@ public:
 //      _paramName = "BurningZDistance";
       return 0;
     case 603:
-      if(! parseV600) return 1;
+      if(! parseV600) return 0;
       _paramSect = _type + "/Common";
       _paramName = "CuttingZDistance";
       return 1;
